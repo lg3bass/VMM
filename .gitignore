@@ -11,5 +11,10 @@ Thumbs.db
 # OF #
 ######################
 /bin/*.app
+/OF/VMM_recieveOSC_TEST/.DS_Store
+/OF/VMM_recieveOSC_TEST/bin/.DS_Store
 /OF/VMM_recieveOSC_TEST/bin/*.app
+
+/OF/VMM_sendOSC_TEST/.DS_Store
+/OF/VMM_sendOSC_TEST/bin/.DS_Store
 /OF/VMM_sendOSC_TEST/bin/*.app
