@@ -1,0 +1,38 @@
+{
+	"index" : 0,
+	"objSeq-basefilename" : "22_celticknot3_OBJ_Seq",
+	"objSeq-type" : "sequence",
+	"objSeq-playRandom" : false,
+	"objSeq-noteEvents" : "noteOn",
+	"objSeq-cues" : [ 30,60,90,120,150,180 ],
+	"objSeq-segmentLengths" : [ 30,30,30,30,30,30 ],
+	"objSeq-midpoint-cues" : [ 15,45,75,105,135,165 ],
+	"objSeq-durations" : [ 500,500,500,500,500,500 ],
+	"objSeq-files" : 180,
+	"objSeq-segLen" : 30,
+	"objSeq-numOfSeg" : 6,
+	"objSeq-still" : 90,
+	"matCap-img" : "red_bob.jpg",
+	"matCap-shader" : "sem",
+	"scene" : {
+		"global" : {
+			"g-copies" : 1,
+			"g-scale" : [ 1.0, 1.0, 1.0],
+			"g-rotate" : [0.0, 0.0, 0.0],
+			"g-trans" : [0.0, 0.0, 0.0]
+		},
+		"local" : {
+			"l-copies" : 1,
+			"l-scale" : [ 1.0, 1.0, 1.0],
+			"l-rotate" : [0.0, 0.0, 0.0],
+			"l-trans" : [0.0, 0.0, 0.0]
+		},
+		"animation" : {
+			"spin" : [0.0, 0.0, 0.0],
+			"spin-rate" : 10.0,
+			"fft" : false
+		}
+	},
+	"obj-export-scale" : 1,
+	"obj-export-filename" : "knot_3.mb"
+}
