@@ -1,0 +1,421 @@
+// FROM SETUP()
+//++++++++++++++++++++++++++++++++
+
+    //below here is OLD CODE.
+    //=========================================
+    //2. load obj files to separate vbomeshes
+    /*
+    track1.setupVboMesh(appFileLoader.externalObjFiles[BANDTUBE]);
+    track2.setupVboMesh(appFileLoader.externalObjFiles[BASSSTAR]);
+    track3.setupVboMesh(appFileLoader.externalObjFiles[BLOCKSTAR]);
+    track4.setupVboMesh(appFileLoader.externalObjFiles[BOXSTAR]);
+    track5.setupVboMesh(appFileLoader.externalObjFiles[UNBLOCKERBASS]);
+    track6.setupVboMesh(appFileLoader.externalObjFiles[TRACERS]);
+    track7.setupVboMesh(appFileLoader.externalObjFiles[STARBURST]);
+    track8.setupVboMesh(appFileLoader.externalObjFiles[WIERDARMS3]);
+    track9.setupVboMesh(appFileLoader.externalObjFiles[WIERDARMS2]);
+    track10.setupVboMesh(appFileLoader.externalObjFiles[WIERDARMS1]);
+    track11.setupVboMesh(appFileLoader.externalObjFiles[LIGHTNING10]);
+    track12.setupVboMesh(appFileLoader.externalObjFiles[LIGHTNING9]);
+    track13.setupVboMesh(appFileLoader.externalObjFiles[LIGHTNING8]);
+    track14.setupVboMesh(appFileLoader.externalObjFiles[LIGHTNING7]);
+    track15.setupVboMesh(appFileLoader.externalObjFiles[LIGHTNING6]);
+    track16.setupVboMesh(appFileLoader.externalObjFiles[EXTRUDETRI]);
+    track17.setupVboMesh(appFileLoader.externalObjFiles[EXTRUDESTAR]);
+    track18.setupVboMesh(appFileLoader.externalObjFiles[EXTRUDEBALL]);
+    track19.setupVboMesh(appFileLoader.externalObjFiles[DIAMONDLAYERS]);
+    */
+     
+    /*
+    track1.setMatCap("generator8.jpg");
+    track1.setShader("sem");
+    */
+
+//    matCap.loadImage("matCap/generator8.jpg");
+//    matCap2.loadImage("matCap/silver.jpg");
+//    matCap3.loadImage("matCap/test_gold.jpg");
+//    shader.load("shaders/sem");
+//    myshader.load("shaders/sem");
+//    myshader.setMillisBetweenFileCheck(100);
+
+
+// FROM DRAW()
+//++++++++++++++++++++++++++++++++
+
+//    shader.begin();
+//    
+//    
+//    
+//    // ========================================= //
+//    //TRACK 1 global positioning
+//    glPushMatrix();
+//    glScalef(1.0, 1.0, 1.0);//scale of this layer
+//    /*
+//    glTranslatef(0.0,0.0,0.0);
+//    */
+//    for(int t1=0;t1<4;t1++){
+//        glPushMatrix();
+//            glRotatef(t1*90.0,0.0,0.0,1.0);
+//            glTranslatef(0.0, 100.0, 0.0);
+//            shader.setUniformTexture("tMatCap", matCap, 1);
+//            track1.vboMesh1[track1.frame].draw();
+//        glPopMatrix();
+//    }
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//
+//    // ========================================= //
+//    //TRACK 2 global positioning
+//    glPushMatrix();
+//    glScalef(1.0, 1.0, 1.0);//scale of this layer
+//    /*
+//     glTranslatef(0.0,0.0,0.0);
+//     */
+//    for(int t2=0;t2<8;t2++){
+//        glPushMatrix();
+//        
+//        glRotatef(t2*45.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 200.0, 0.0);
+//        shader.setUniformTexture("tMatCap", matCap2, 1);
+//        track2.vboMesh1[track2.frame].draw();
+//        glPopMatrix();
+//    }
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 3 global positioning
+//    glPushMatrix();
+//    glScalef(20.0, 20.0, 20.0);//scale of this layer
+//    /*
+//     glTranslatef(0.0,0.0,0.0);
+//     */
+//    for(int t3=0;t3<8;t3++){
+//        glPushMatrix();
+//        
+//        glRotatef(t3*45.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 0.0, 0.0);
+//        track3.vboMesh1[track3.frame].draw();
+//        glPopMatrix();
+//    }
+//    glPopMatrix();//END TRACK3
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//
+//    // ========================================= //
+//    //TRACK 4 global positioning
+//    glPushMatrix();
+//    glScalef(8.0, 8.0, 8.0);//scale of this layer
+//    /*
+//     glTranslatef(0.0,0.0,0.0);
+//     */
+//    for(int t4=0;t4<4;t4++){
+//        glPushMatrix();
+//        glRotatef(t4*90.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 10.0, 0.0);
+//        track4.vboMesh1[track4.frame].draw();
+//        glPopMatrix();
+//        
+//        
+//    }
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//
+//    // ========================================= //
+//    //TRACK 5 global positioning
+//    glPushMatrix();
+//    glScalef(0.8, 0.8, 0.8);//scale of this layer
+//    glTranslatef(0.0,0.0,-100.0);
+//    
+//    for(int t5=0;t5<12;t5++){
+//        glPushMatrix();
+//        glRotatef(t5*30.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 10.0, 0.0);
+//        shader.setUniformTexture("tMatCap", matCap3, 1);
+//        track5.vboMesh1[track5.frame].draw();
+//        glPopMatrix();
+//        
+//        
+//    }
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 6 global positioning
+//    glPushMatrix();
+//    glScalef(1.0, 1.0, 1.0);//scale of this layer
+//    
+//    //glTranslatef(0.0,0.0,-100.0);
+//    
+//    for(int t6=0;t6<2;t6++){
+//        glPushMatrix();
+//        glRotatef(t6*180.0,0.0,1.0,0.0);
+//        //glTranslatef(0.0, 10.0, 0.0);
+//        track6.vboMesh1[track6.frame].draw();
+//        glPopMatrix();
+//        
+//        
+//    }
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 7 global positioning
+//    glPushMatrix();
+//    glScalef(32.0, 32.0, 32.0);//scale of this layer
+//    
+//    //glTranslatef(0.0,0.0,-100.0);
+//    
+//    for(int t7=0;t7<4;t7++){
+//        glPushMatrix();
+//        glRotatef(t7*90.0,0.0,0.0,1.0);
+//        //glTranslatef(0.0, 0.0, 0.0);
+//        track7.vboMesh1[track7.frame].draw();
+//        glPopMatrix();
+//    }
+//    glPushMatrix();
+//        glRotatef(90.0, 1.0, 0.0, 0.0);
+//        shader.setUniformTexture("tMatCap", matCap2, 1);
+//        track7.vboMesh1[track7.frame].draw();
+//        glRotatef(-180.0, 1.0, 0.0, 0.0);
+//        track7.vboMesh1[track7.frame].draw();
+//    glPopMatrix();
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//
+//    // ========================================= //
+//    //TRACK 8 global positioning
+//    glPushMatrix();
+//    glScalef(32.0, 32.0, 32.0);//scale of this layer
+//    
+//    glTranslatef(0.0,0.0,-7.0);
+//    
+//    for(int t8=0;t8<4;t8++){
+//        glPushMatrix();
+//        glRotatef(t8*90.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 4.0, 0.0);
+//        track8.vboMesh1[track8.frame].draw();
+//        glPopMatrix();
+//    }
+//
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 9 global positioning
+//    glPushMatrix();
+//    glScalef(32.0, 32.0, 32.0);//scale of this layer
+//    
+//    glTranslatef(0.0,0.0,-7.0);
+//    
+//    for(int t9=0;t9<4;t9++){
+//        glPushMatrix();
+//        glRotatef(t9*90.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 4.0, 0.0);
+//        track9.vboMesh1[track9.frame].draw();
+//        glPopMatrix();
+//    }
+//    
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 10 global positioning
+//    glPushMatrix();
+//    glScalef(32.0, 32.0, 32.0);//scale of this layer
+//    
+//    glTranslatef(0.0,0.0,-7.0);
+//    
+//    for(int t10=0;t10<4;t10++){
+//        glPushMatrix();
+//        glRotatef(t10*90.0+45.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 4.0, 0.0);
+//        shader.setUniformTexture("tMatCap", matCap, 1);
+//        track10.vboMesh1[track10.frame].draw();
+//        glPopMatrix();
+//    }
+//    
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 11 global positioning
+//    glPushMatrix();
+//    glScalef(35.0, 35.0, 35.0);//scale of this layer
+//    
+//    glTranslatef(0.0,0.0,3.0);
+//    
+//    for(int t11=0;t11<4;t11++){
+//        glPushMatrix();
+//        glRotatef(t11*90.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 5.0, 0.0);
+//        track11.vboMesh1[track11.frame].draw();
+//        glPopMatrix();
+//    }
+//    
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 12 global positioning
+//    glPushMatrix();
+//    glScalef(35.0, 35.0, 35.0);//scale of this layer
+//    
+//    glTranslatef(0.0,0.0,3.0);
+//    
+//    for(int t12=0;t12<4;t12++){
+//        glPushMatrix();
+//        glRotatef(t12*90.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 5.0, 0.0);
+//        shader.setUniformTexture("tMatCap", matCap3, 1);
+//        track12.vboMesh1[track12.frame].draw();
+//        glPopMatrix();
+//    }
+//    
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 13 global positioning
+//    glPushMatrix();
+//    glScalef(35.0, 35.0, 35.0);//scale of this layer
+//    
+//    glTranslatef(0.0,0.0,3.0);
+//    
+//    for(int t13=0;t13<4;t13++){
+//        glPushMatrix();
+//        glRotatef(t13*90.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 5.0, 0.0);
+//        track13.vboMesh1[track13.frame].draw();
+//        glPopMatrix();
+//    }
+//    
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 14 global positioning
+//    glPushMatrix();
+//    glScalef(35.0, 35.0, 35.0);//scale of this layer
+//    
+//    glTranslatef(0.0,0.0,3.0);
+//    
+//    for(int t14=0;t14<4;t14++){
+//        glPushMatrix();
+//        glRotatef(t14*90.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 5.0, 0.0);
+//        shader.setUniformTexture("tMatCap", matCap, 1);
+//        track14.vboMesh1[track14.frame].draw();
+//        glPopMatrix();
+//    }
+//    
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 15 global positioning
+//    glPushMatrix();
+//    glScalef(35.0, 35.0, 35.0);//scale of this layer
+//    
+//    glTranslatef(0.0,0.0,3.0);
+//    
+//    for(int t15=0;t15<4;t15++){
+//        glPushMatrix();
+//        glRotatef(t15*90.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 5.0, 0.0);
+//        shader.setUniformTexture("tMatCap", matCap2, 1);
+//        track15.vboMesh1[track15.frame].draw();
+//        glPopMatrix();
+//    }
+//    
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 16 global positioning
+//    glPushMatrix();
+//    glScalef(15.0, 15.0, 15.0);//scale of this layer
+//    
+//    //glTranslatef(0.0,0.0,5.0);
+//    
+//    for(int t16=0;t16<8;t16++){
+//        glPushMatrix();
+//        glRotatef(t16*45.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 7.0, 0.0);
+//        track16.vboMesh1[track16.frame].draw();
+//        glPopMatrix();
+//    }
+//    
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 17 global positioning
+//    glPushMatrix();
+//    glScalef(15.0, 15.0, 15.0);//scale of this layer
+//    
+//    //glTranslatef(0.0,0.0,5.0);
+//    
+//    for(int t17=0;t17<8;t17++){
+//        glPushMatrix();
+//        glRotatef(t17*45.0+22.5,0.0,0.0,1.0);
+//        glTranslatef(0.0, 12.0, 0.0);
+//        shader.setUniformTexture("tMatCap", matCap3, 1);
+//        track17.vboMesh1[track17.frame].draw();
+//        glPopMatrix();
+//    }
+//    
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 18 global positioning
+//    glPushMatrix();
+//    glScalef(12.0, 12.0, 12.0);//scale of this layer
+//    
+//    //glTranslatef(0.0,0.0,5.0);
+//    
+//    for(int t18=0;t18<4;t18++){
+//        glPushMatrix();
+//        glRotatef(t18*90.0+45.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 13.0, 0.0);
+//        shader.setUniformTexture("tMatCap", matCap, 1);
+//        track18.vboMesh1[track18.frame].draw();
+//        glPopMatrix();
+//    }
+//    
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    // ========================================= //
+//    //TRACK 19 global positioning
+//    glPushMatrix();
+//    glScalef(1.0, 1.0, 1.0);//scale of this layer
+//    
+//    //glTranslatef(0.0,0.0,5.0);
+//    
+//    for(int t19=0;t19<4;t19++){
+//        glPushMatrix();
+//        glRotatef(t19*90.0,0.0,0.0,1.0);
+//        glTranslatef(0.0, 500.0, 0.0);
+//        track19.vboMesh1[track19.frame].draw();
+//        glPopMatrix();
+//    }
+//    
+//    
+//    glPopMatrix();//END TRACK1
+//    //glTranslatef(0, 0, -200);//translate the draw back
+//    
+//    
+//    shader.end();

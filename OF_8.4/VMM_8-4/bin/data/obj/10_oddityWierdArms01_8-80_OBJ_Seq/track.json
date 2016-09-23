@@ -1,0 +1,38 @@
+{
+	"index" : 10,
+	"objSeq-basefilename" : "10_oddityWierdArms01_8-80_OBJ_Seq",
+	"objSeq-type" : "sequence",
+	"objSeq-playRandom" : false,
+	"objSeq-noteEvents" : "noteOn",
+	"objSeq-cues" : [ 10, 20, 30, 40, 50, 60, 70, 80 ],
+	"objSeq-segmentLengths" : [10, 10, 10, 10, 10, 10, 10, 10, 10],
+	"objSeq-midpoint-cues" : [ 10, 20, 30, 40, 50, 60, 70, 80 ],
+	"objSeq-durations" : [600, 250, 250, 250, 250, 250, 250, 250 ],
+	"objSeq-files" : 80,
+	"objSeq-segLen" : 10,
+	"objSeq-numOfSeg" : 8,
+	"objSeq-still" : 70,
+	"matCap-img" : "normals.jpg",
+	"matCap-shader" : "sem",
+	"scene" : {
+		"global" : {
+			"g-copies" : 1,
+			"g-scale" : [ 1.0, 1.0, 1.0],
+			"g-rotate" : [0.0, 0.0, 0.0],
+			"g-trans" : [0.0, 0.0, 0.0]
+		},
+		"local" : {
+			"l-copies" : 6,
+			"l-scale" : [ 1.0, 1.0, 1.0],
+			"l-rotate" : [0.0, 0.0, -60.0],
+			"l-trans" : [0.0, 0.0, 0.0]
+		},
+		"animation" : {
+			"spin" : [0.0, 0.0, 0.0],
+			"spin-rate" : 10.0,
+			"fft" : false
+		}
+	},
+	"obj-export-scale" : 0,
+	"obj-export-filename" : "filename.ma"
+}

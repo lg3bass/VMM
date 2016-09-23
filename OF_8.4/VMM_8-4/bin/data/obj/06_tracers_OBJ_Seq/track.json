@@ -1,0 +1,38 @@
+{
+	"index" : 6,
+	"objSeq-basefilename" : "06_tracers_OBJ_Seq",
+	"objSeq-type" : "sequence",
+	"objSeq-playRandom" : false,
+	"objSeq-noteEvents" : "noteOn",
+	"objSeq-cues" : [30,60,90,120,150,180,210,240,270,300,330],
+	"objSeq-segmentLengths" : [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+	"objSeq-midpoint-cues" : [15,45,75,105,135,165,195,225,255,285,315],
+	"objSeq-durations" : [500, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 ],
+	"objSeq-files" : 330,
+	"objSeq-segLen" : 30,
+	"objSeq-numOfSeg" : 11,
+	"objSeq-still" : 30,
+	"matCap-img" : "JGSpecial_01.png",
+	"matCap-shader" : "sem",
+	"scene" : {
+		"global" : {
+			"g-copies" : 1,
+			"g-scale" : [ 1.0, 1.0, 1.0],
+			"g-rotate" : [0.0, 0.0, 0.0],
+			"g-trans" : [0.0, 0.0, 0.0]
+		},
+		"local" : {
+			"l-copies" : 4,
+			"l-scale" : [ 1.0, 1.0, 1.0],
+			"l-rotate" : [0.0, 0.0, -90.0],
+			"l-trans" : [0.0, 0.0, 0.0]
+		},
+		"animation" : {
+			"spin" : [0.0, 0.0, 0.0],
+			"spin-rate" : 10.0,
+			"fft" : false
+		}
+	},
+	"obj-export-scale" : 25,
+	"obj-export-filename" : "tracer03_sn2_11-330.c4d"
+}

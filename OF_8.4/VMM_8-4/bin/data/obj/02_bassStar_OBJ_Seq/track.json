@@ -1,0 +1,38 @@
+{
+	"index" : 2,
+	"objSeq-basefilename" : "02_bassStar_OBJ_Seq",
+	"objSeq-type" : "sequence",
+	"objSeq-playRandom" : false,
+	"objSeq-noteEvents" : "noteOn",
+	"objSeq-cues" : [ 20,40,60,80,100,120,140 ],
+	"objSeq-segmentLengths" : [ 20,20,20,20,20,20,20 ],
+	"objSeq-midpoint-cues" : [ 10,30,50,70,90,110,130 ],
+	"objSeq-durations" : [ 600,200,200,200,200,200,200 ],
+	"objSeq-files" : 140,
+	"objSeq-segLen" : 20,
+	"objSeq-numOfSeg" : 7,
+	"objSeq-still" : 120,
+	"matCap-img" : "generator8.jpg",
+	"matCap-shader" : "sem",
+	"scene" : {
+		"global" : {
+			"g-copies" : 1,
+			"g-scale" : [ 1.0, 1.0, 1.0],
+			"g-rotate" : [0.0, 0.0, 0.0],
+			"g-trans" : [0.0, 0.0, 0.0]
+		},
+		"local" : {
+			"l-copies" : 1,
+			"l-scale" : [ 1.0, 1.0, 1.0],
+			"l-rotate" : [0.0, 0.0, 0.0],
+			"l-trans" : [0.0, 0.0, 0.0]
+		},
+		"animation" : {
+			"spin" : [0.0, 0.0, 0.0],
+			"spin-rate" : 10.0,
+			"fft" : false
+		}
+	},
+	"obj-export-scale" : 5,
+	"obj-export-filename" : "unblockerBassStar3_sn0_7-140.c4d"
+}

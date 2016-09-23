@@ -1,0 +1,722 @@
+{
+	"track1" : {
+		"index" : 1,
+		"objSeq-basefilename" : "01_bandTube01_OBJ_Seq",
+		"objSeq-type" : "one-shot",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "both",
+		"objSeq-cues" : [ 30 ],
+		"objSeq-segmentLengths" : [ 30 ],
+		"objSeq-midpoint-cues" : [ 15 ],
+		"objSeq-durations" : [ 600 ],
+		"objSeq-files" : 30,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 1,
+		"objSeq-still" : 20,
+		"matCap-img" : "red_bob.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 1,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, 0.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track2" : {
+		"index" : 2,
+		"objSeq-basefilename" : "02_bassStar_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "both",
+		"objSeq-cues" : [ 20,40,60,80,100,120,140 ],
+		"objSeq-segmentLengths" : [ 20,20,20,20,20,20,20 ],
+		"objSeq-midpoint-cues" : [ 10,30,50,70,90,110,130 ],
+		"objSeq-durations" : [ 600,200,200,200,200,200,200 ],
+		"objSeq-files" : 140,
+		"objSeq-segLen" : 20,
+		"objSeq-numOfSeg" : 7,
+		"objSeq-still" : 120,
+		"matCap-img" : "generator8.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 1,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, 0.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track3" : {
+		"index" : 3,
+		"objSeq-basefilename" : "03_blockStar00_sn2_1-30_OBJ_Seq",
+		"objSeq-type" : "one-shot",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "both",
+		"objSeq-cues" : [ 30 ],
+		"objSeq-segmentLengths" : [ 30 ],
+		"objSeq-midpoint-cues" : [ 15 ],
+		"objSeq-durations" : [ 500 ],
+		"objSeq-files" : 30,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 1,
+		"objSeq-still" : 15,
+		"matCap-img" : "silver.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 1,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, 0.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track4" : {
+		"index" : 4,
+		"objSeq-basefilename" : "04_boxStar3-90__OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [20,40,60],
+		"objSeq-segmentLengths" : [20, 20, 20],
+		"objSeq-midpoint-cues" : [10,30,50],
+		"objSeq-durations" : [250, 250, 250],
+		"objSeq-files" : 60,
+		"objSeq-segLen" : 20,
+		"objSeq-numOfSeg" : 3,
+		"objSeq-still" : 60,
+		"matCap-img" : "silver.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track5" : {
+		"index" : 5,
+		"objSeq-basefilename" : "05_unblockerBass_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "both",
+		"objSeq-cues" : [ 20,40,60,80],
+		"objSeq-segmentLengths" : [ 20,20,20,20],
+		"objSeq-midpoint-cues" : [ 10,30,50,70 ],
+		"objSeq-durations" : [ 600,200,200,200 ],
+		"objSeq-files" : 80,
+		"objSeq-segLen" : 20,
+		"objSeq-numOfSeg" : 4,
+		"objSeq-still" : 60,
+		"matCap-img" : "test_gold.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 1,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, 0.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track6" : {
+		"index" : 6,
+		"objSeq-basefilename" : "06_tracers_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [30,60,90,120,150,180,210,240,270,300,330],
+		"objSeq-segmentLengths" : [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+		"objSeq-midpoint-cues" : [15,45,75,105,135,165,195,225,255,285,315],
+		"objSeq-durations" : [500, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 ],
+		"objSeq-files" : 330,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 11,
+		"objSeq-still" : 30,
+		"matCap-img" : "JGSpecial_01.png",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track7" : {
+		"index" : 7,
+		"objSeq-basefilename" : "07_starBurstObj_OBJ_Seq",
+		"objSeq-type" : "one-shot",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "both",
+		"objSeq-cues" : [ 30 ],
+		"objSeq-segmentLengths" : [ 30 ],
+		"objSeq-midpoint-cues" : [ 15 ],
+		"objSeq-durations" : [ 600 ],
+		"objSeq-files" : 30,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 1,
+		"objSeq-still" : 20,
+		"matCap-img" : "JG_Red.png",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 1,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, 0.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track8" : {
+		"index" : 8,
+		"objSeq-basefilename" : "08_oddityWierdArms03_11-110_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [ 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110 ],
+		"objSeq-segmentLengths" : [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 ],
+		"objSeq-midpoint-cues" : [10],
+		"objSeq-durations" : [600, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250 ],
+		"objSeq-files" : 110,
+		"objSeq-segLen" : 10,
+		"objSeq-numOfSeg" : 11,
+		"objSeq-still" : 100,
+		"matCap-img" : "JG_Gold.png",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track9" : {
+		"index" : 9,
+		"objSeq-basefilename" : "09_oddityWierdArms02_6-60_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [ 10, 20, 30, 40, 50, 60 ],
+		"objSeq-segmentLengths" : [10,10,10,10,10,10],
+		"objSeq-midpoint-cues" : [ 10, 20, 30, 40, 50, 60 ],
+		"objSeq-durations" : [600, 250, 250, 250, 250, 250 ],
+		"objSeq-files" : 60,
+		"objSeq-segLen" : 10,
+		"objSeq-numOfSeg" : 6,
+		"objSeq-still" : 50,
+		"matCap-img" : "JG_Drink01.png",
+		"matCap-shader" : "sem",		
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track10" : {
+		"index" : 10,
+		"objSeq-basefilename" : "10_oddityWierdArms01_8-80_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [ 10, 20, 30, 40, 50, 60, 70, 80 ],
+		"objSeq-segmentLengths" : [10, 10, 10, 10, 10, 10, 10, 10, 10],
+		"objSeq-midpoint-cues" : [ 10, 20, 30, 40, 50, 60, 70, 80 ],
+		"objSeq-durations" : [600, 250, 250, 250, 250, 250, 250, 250 ],
+		"objSeq-files" : 80,
+		"objSeq-segLen" : 10,
+		"objSeq-numOfSeg" : 8,
+		"objSeq-still" : 70,
+		"matCap-img" : "normals.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 6,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -60.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track11" : {
+		"index" : 11,
+		"objSeq-basefilename" : "11_loftedSurface10_sn1_6-180_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [30,60,90,120,150,180],
+		"objSeq-segmentLengths" : [30, 30, 30, 30, 30, 30],
+		"objSeq-midpoint-cues" : [15,45,75,105,135,165],
+		"objSeq-durations" : [500, 250, 250, 250, 250, 250],
+		"objSeq-files" : 180,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 6,
+		"objSeq-still" : 150,
+		"matCap-img" : "thuglee-03.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track12" : {
+		"index" : 12,
+		"objSeq-basefilename" : "12_loftedSurface9_sn1_10-300_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [30,60,90,120,150,180,210,240,270,300],
+		"objSeq-segmentLengths" : [30, 30, 30, 30, 30, 30, 30, 30, 30, 30 ],
+		"objSeq-midpoint-cues" : [15,45,75,105,135,165,195,225,255,285],
+		"objSeq-durations" : [500, 250, 250, 250, 250, 250, 250, 250, 250, 250 ],
+		"objSeq-files" : 300,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 10,
+		"objSeq-still" : 270,
+		"matCap-img" : "thuglee-backlight-01.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track13" : {
+		"index" : 13,
+		"objSeq-basefilename" : "13_loftedSurface8_sn1_10-300_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [30,60,90,120,150,180,210,240,270,300],
+		"objSeq-segmentLengths" : [30, 30, 30, 30, 30, 30, 30, 30, 30, 30 ],
+		"objSeq-midpoint-cues" : [15,45,75,105,135,165,195,225,255,285],
+		"objSeq-durations" : [500, 250, 250, 250, 250, 250, 250, 250, 250, 250 ],
+		"objSeq-files" : 300,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 10,
+		"objSeq-still" : 270,
+		"matCap-img" : "normals.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track14" : {
+		"index" : 14,
+		"objSeq-basefilename" : "14_loftedSurface7_sn1_4-120_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [30,60,90,120],
+		"objSeq-segmentLengths" : [30, 30, 30, 30 ],
+		"objSeq-midpoint-cues" : [15,45,75,105],
+		"objSeq-durations" : [500, 250, 250, 250],
+		"objSeq-files" : 120,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 4,
+		"objSeq-still" : 90,
+		"matCap-img" : "mshade3.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track15" : {
+		"index" : 15,
+		"objSeq-basefilename" : "15_loftedSurface6_sn1_6-180_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [30,60,90,120,150,180],
+		"objSeq-segmentLengths" : [30, 30, 30, 30, 30, 30 ],
+		"objSeq-midpoint-cues" : [15,45,75,105,135,165],
+		"objSeq-durations" : [500, 250, 250, 250, 250, 250],
+		"objSeq-files" : 180,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 6,
+		"objSeq-still" : 150,
+		"matCap-img" : "mshade4.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track16" : {
+		"index" : 16,
+		"objSeq-basefilename" : "16_extrudeTri01_sn0_5-150_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [30,60,90,120,150],
+		"objSeq-segmentLengths" : [30, 30, 30, 30, 30 ],
+		"objSeq-midpoint-cues" : [15,45,75,105,135],
+		"objSeq-durations" : [500, 250, 250, 250, 250],
+		"objSeq-files" : 150,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 5,
+		"objSeq-still" : 120,
+		"matCap-img" : "material4.png",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track17" : {
+		"index" : 17,
+		"objSeq-basefilename" : "17_extrudeStar01_sn2_4-140_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [30,60,90,120],
+		"objSeq-segmentLengths" : [30, 30, 30, 30],
+		"objSeq-midpoint-cues" : [15,45,75,105],
+		"objSeq-durations" : [500, 250, 250, 250],
+		"objSeq-files" : 120,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 4,
+		"objSeq-still" : 90,
+		"matCap-img" : "material3.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track18" : {
+		"index" : 18,
+		"objSeq-basefilename" : "18_extrudeBall00_sn0_5-150_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [30,60,90,120,150],
+		"objSeq-segmentLengths" : [30, 30, 30, 30, 30],
+		"objSeq-midpoint-cues" : [15,45,75,105,135],
+		"objSeq-durations" : [500, 250, 250, 250, 250],
+		"objSeq-files" : 150,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 5,
+		"objSeq-still" : 120,
+		"matCap-img" : "mashrim2.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track19" : {
+		"index" : 19,
+		"objSeq-basefilename" : "19_diamondLayers_OBJ_Seq",
+		"objSeq-type" : "sequence",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOn",
+		"objSeq-cues" : [30,60,90,120],
+		"objSeq-segmentLengths" : [30, 30, 30, 30],
+		"objSeq-midpoint-cues" : [15,45,75,105],
+		"objSeq-durations" : [500, 250, 250, 250],
+		"objSeq-files" : 120,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 4,
+		"objSeq-still" : 90,
+		"matCap-img" : "mashrim.png",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 4,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, -90.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
+	"track20" : {
+		"index" : 20,
+		"objSeq-basefilename" : "20_moSpline_riptide_test_1_OBJ_Seq",
+		"objSeq-type" : "one-shot",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "noteOff",
+		"objSeq-cues" : [ 30 ],
+		"objSeq-segmentLengths" : [ 30 ],
+		"objSeq-midpoint-cues" : [ 15 ],
+		"objSeq-durations" : [500],
+		"objSeq-files" : 30,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 1,
+		"objSeq-still" : 15,
+		"matCap-img" : "mashrim.png",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 1,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, 0.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	}	
+}

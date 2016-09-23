@@ -5,31 +5,31 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>76051A49-E64C-4DC7-BD81-5172858D4ED4</string>
+	<string>C215AC9E-C2D4-4610-A01F-7D0A6DE849CD</string>
 	<key>IDESourceControlProjectName</key>
 	<string>VMM_recieveOSC_TEST</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>07C8C77D-95E3-4E2A-8545-2BADBD77A457</key>
-		<string>https://github.com/lg3bass/VMM_8.4.git</string>
+		<key>178B1197-1FA5-44BE-A753-2F2AA592A427</key>
+		<string>https://github.com/lg3bass/VMM.git</string>
 		<key>58221A81-02E8-4032-965F-1B4DEF5CF434</key>
 		<string>https://github.com/arturoc/ofxTween.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>OF/VMM_recieveOSC_TEST/VMM_recieveOSC_TEST.xcodeproj/project.xcworkspace</string>
+	<string>OF_8.4/VMM_recieveOSC_TEST/VMM_recieveOSC_TEST.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>07C8C77D-95E3-4E2A-8545-2BADBD77A457</key>
+		<key>178B1197-1FA5-44BE-A753-2F2AA592A427</key>
 		<string>../../../..</string>
 		<key>58221A81-02E8-4032-965F-1B4DEF5CF434</key>
 		<string>../../../../../addons/ofxTween</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/lg3bass/VMM_8.4.git</string>
+	<string>https://github.com/lg3bass/VMM.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>07C8C77D-95E3-4E2A-8545-2BADBD77A457</string>
+	<string>178B1197-1FA5-44BE-A753-2F2AA592A427</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -44,9 +44,9 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>07C8C77D-95E3-4E2A-8545-2BADBD77A457</string>
+			<string>178B1197-1FA5-44BE-A753-2F2AA592A427</string>
 			<key>IDESourceControlWCCName</key>
-			<string>VMM_8.4</string>
+			<string>VMM</string>
 		</dict>
 	</array>
 </dict>

@@ -1,0 +1,6 @@
+ofxGui
+ofxOsc
+ofxXmlSettings
+ofxAutoReloadedShader
+ofxMidi
+ofxObjLoader

@@ -1,0 +1,715 @@
+<Widget>
+    <Kind>42</Kind>
+    <Name>FRAME</Name>
+    <Value>100</Value>
+</Widget>
+<Widget>
+    <Kind>22</Kind>
+    <Name>MATCAP</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>00ZBrush_RedWax.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>BazC_SkinMat.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>JGSpecial_01.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>JG_Drink01.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>JG_Gold.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>JG_Red.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>close_to_50.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>darker.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>droplet_01.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>generator1.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>generator3.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>generator5.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>generator6.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>generator7.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>generator8.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>generator9.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>ghost.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>green_gel.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>grey_reflective.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>mashrim.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>mashrim2.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>matcap.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>material2.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>material3.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>material4.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>mshade3.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>mshade4.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>mshade5.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>normals.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>red_bob.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>red_clay.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>right_light.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>scary-light.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>silver.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>skintone.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>softunderlight.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>strong rim.png</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>test_gold.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>test_steel.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>thuglee-03.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>thuglee-backlight-01.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>thuglee-chrome-02b.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>untitled.6.jpg</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>22</Kind>
+    <Name>SEQUENCES</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>00_blank</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>01_bandTube01_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>02_bassStar_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>03_blockStar00_sn2_1-30_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>04_boxStar3-90__OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>05_unblockerBass_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>06_tracers_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>07_starBurstObj_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>08_oddityWierdArms03_11-110_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>09_oddityWierdArms02_6-60_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>10_oddityWierdArms01_8-80_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>11_loftedSurface10_sn1_6-180_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>12_loftedSurface9_sn1_10-300_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>13_loftedSurface8_sn1_10-300_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>14_loftedSurface7_sn1_4-120_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>15_loftedSurface6_sn1_6-180_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>16_extrudeTri01_sn0_5-150_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>17_extrudeStar01_sn2_4-140_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>18_extrudeBall00_sn0_5-150_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>19_diamondLayers_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>20_moSpline_riptide_test_1_OBJ_Seq</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>8</Kind>
+    <Name>SEQUENCE</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>SPEED</Name>
+    <Value>500</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>LOADED</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>STILL</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>OSC</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>MIRROR</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>mirror x</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>mirror y</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>mirror z</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>playNoteOff</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>playAll</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>finalize</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MIRROR</Name>
+    <Value>10.000001907</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>(G)COPIES 8</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)SCALE</Name>
+    <Value>10.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-scale-bs</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gScaleMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)ROTATE-X</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-rot-x</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gRotXMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)ROTATE-Y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-rot-y</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gRotYMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)ROTATE-Z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-rot-z</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gRotZMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)TRANS-X</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-trans-x</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gTransXMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)TRANS-Y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-trans-y</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gTransYMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)TRANS-Z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-trans-z</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gTransZMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>(L)COPIES 8</Name>
+    <Value>12</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>slices 8</Name>
+    <Value>2</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)SCALE</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-scale-bs</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lScaleMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)ROTATE-X</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-rot-x</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lRotXMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)ROTATE-Y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-rot-y</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lRotYMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)ROTATE-Z</Name>
+    <Value>29.999992371</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-rot-z</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lRotZMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)TRANS-X</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-trans-x</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lTransXMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)TRANS-Y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-trans-y</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lTransYMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)TRANS-Z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-trans-z</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lTransZMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(O)ROTATE-X</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>o-rot-x</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>oRotXMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(O)ROTATE-Y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>o-rot-y</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>oRotYMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(O)ROTATE-Z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>o-rot-z</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>oRotZMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>spinX</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Spin X</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Spin Range X</Name>
+    <Value>5.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>spinY</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Spin Y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Spin Range Y</Name>
+    <Value>5.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>spinZ</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Spin Z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Spin Range Z</Name>
+    <Value>5.000000000</Value>
+</Widget>
