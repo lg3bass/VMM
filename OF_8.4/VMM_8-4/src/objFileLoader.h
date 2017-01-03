@@ -8,6 +8,8 @@ class objFileLoader {
     
     public:
 
+    int numberOfSequences;
+    
     //meshes and objects
     struct extObjFile {
         ofxJSONElement jsonData;

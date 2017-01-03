@@ -18,7 +18,7 @@
 
 //default 21
 #define NUM_TRACKS 11
-#define PORT 7000
+#define PORT 7005
 
 class ofApp : public ofBaseApp{
 
@@ -71,7 +71,8 @@ class ofApp : public ofBaseApp{
 
         //1. get paths to the obj files.
         objFileLoader appFileLoader;
-        
+        int registeredObjSequences;
+    
         //2. load obj files to separate vbomeshes. FOR NOW :)
         vector<vboMeshObj> tracks;
         int selectedTrack;

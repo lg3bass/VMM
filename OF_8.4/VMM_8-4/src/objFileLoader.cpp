@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 objFileLoader::objFileLoader(){
     
-    
+    numberOfSequences = 0;
 }
 
 
@@ -25,8 +25,10 @@ void objFileLoader::loadObjFiles(string _path){
     ofDirectory dir(path);
     dir.listDir();
     
+    numberOfSequences = dir.numFiles();
+    
     //run through the dir to collect all the files.
-    for(int j=0;j<dir.numFiles();j++){
+    for(int j=0;j<numberOfSequences;j++){
         
         int fileCounter = 0;
         

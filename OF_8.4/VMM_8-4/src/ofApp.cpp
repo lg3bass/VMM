@@ -7,8 +7,8 @@ void ofApp::setup(){
     
     //LOGGING
     //http://openframeworks.cc/documentation/utils/ofLog.html
-    ofSetLogLevel("jsonData", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("OSC",OF_LOG_SILENT);//DEFAULT: OF_LOG_VERBOSE
+    ofSetLogLevel("jsonData", OF_LOG_SILENT);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("OSC",OF_LOG_VERBOSE);//DEFAULT: OF_LOG_VERBOSE
     ofSetLogLevel("matcap",OF_LOG_SILENT);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("ofxUI",OF_LOG_SILENT);//DEFAULT: OF_LOG_SILENT
     ofSetLogLevel("objloader", OF_LOG_SILENT);//DEFAULT: OF_LOG_NOTICE
@@ -42,6 +42,7 @@ void ofApp::setup(){
     
     //1. Find out how many obj sequences there are in the data/obj folder
     appFileLoader.setup();
+    router.numberOfSequences = appFileLoader.numberOfSequences;
     
     //2. Setup empty tracks
     tracks.reserve(50);//TIP: http://arturocastro.net/blog/2011/10/28/stl::vector/

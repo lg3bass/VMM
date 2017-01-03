@@ -1131,6 +1131,8 @@ void vboMeshObj::advanceInstance(){
 void vboMeshObj::advanceSegment(int _buffer){
     //What Segment or Cue we are on.
     
+    cout << "vboMeshObj::advanceSegment() -- current Segment:" << ofToString(instances[_buffer].currentSegment) << endl;
+    
     if(instances[_buffer].currentSegment < params.cuePoints.size()-1){
         instances[_buffer].currentSegment++;
     } else {

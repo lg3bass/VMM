@@ -15,6 +15,12 @@ oscRouter::oscRouter(){
 }
 
 //--------------------------------------------------------------
+void oscRouter::setup(){
+    //numberOfSequences = sequences;
+    
+}
+
+//--------------------------------------------------------------
 void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, int num_tracks){
     
     //what channel/track
@@ -29,7 +35,9 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(2)) + ofToString(m.getArgAsInt32(4)));
         //ofLogNotice("OSC") << "VMMnoteID(ON)------------------------------: " << VMMnoteID;
         
-        ofLogVerbose("OSC") << "-------->" << m.getAddress() <<
+        //m.getNumArgs();
+        
+        ofLogVerbose("OSC") << "VMMnotID[" << ofToString(VMMnoteID) << "]-------->" << m.getAddress() <<
         " [track:" << m.getArgAsInt32(0) <<
         ", buffer:" << m.getArgAsInt32(1) <<
         ", string:" << m.getArgAsInt32(2) <<
@@ -97,9 +105,14 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         tracks[idx].setMatCap(m.getArgAsInt32(1));
         
     } else if (m.getAddress() == "/OSCsetTrack"){
-        ofLogVerbose("OSC") << m.getAddress() << endl << "/OSCsetTrack " << m.getArgAsInt32(0);
-        tracks[idx].objSeqIndex = m.getArgAsInt32(1);
-        tracks[idx].setTrack(m.getArgAsInt32(1));
+        
+        if(m.getArgAsInt32(1) < numberOfSequences){
+            tracks[idx].objSeqIndex = m.getArgAsInt32(1);
+            tracks[idx].setTrack(m.getArgAsInt32(1));
+            ofLogVerbose("OSC") << m.getAddress() << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1);
+        } else {
+            ofLogNotice("OSC") << m.getAddress() << m.getArgAsInt32(0) << m.getArgAsInt32(1) << " doesn't exist";
+        }
         
     } else if (m.getAddress() == "/butter"){
         tracks[idx].trackParameters.setOSCtoggle(tracks[idx].params, m.getAddress(), m.getArgAsInt32(1));

@@ -23,7 +23,10 @@ public:
     float amplitude;
     int noteLength;
     
+    int numberOfSequences;
+    
     oscRouter();
+    void setup();
     void processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, int num_tracks);
     
 private:
