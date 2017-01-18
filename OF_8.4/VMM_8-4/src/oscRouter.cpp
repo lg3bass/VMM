@@ -154,8 +154,13 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         // GLOBAL ROTATE --------------------------------------
     } else if (m.getAddress() == "/randGlobalRotX" || m.getAddress() == "/tweenGlobalRotX"){
         
-        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << float(m.getArgAsInt32(1));
-        tracks[idx].trackParameters.setOSCtween(tracks[idx].params, tracks[idx].posRandomGlobalRotX, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), 1000.0);
+        ofLogVerbose("OSC") << m.getAddress() << " "
+                            << m.getArgAsInt32(0) << " "
+                            << float(m.getArgAsInt32(1)) << " "
+                            << float(m.getArgAsInt32(2)) << " "
+                            << m.getArgAsInt32(3) << " "
+                            << m.getArgAsInt32(4);
+        tracks[idx].trackParameters.setOSCtween(tracks[idx].params, tracks[idx].posRandomGlobalRotX, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), float(m.getArgAsInt32(2)));
         
     } else if (m.getAddress() == "/randGlobalRotY" || m.getAddress() == "/tweenGlobalRotY"){
         
