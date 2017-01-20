@@ -29,6 +29,8 @@ public:
     void setup();
     void processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, int num_tracks);
     
+    void transformTrack();
+    
 private:
     
 

@@ -154,14 +154,9 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         // GLOBAL ROTATE --------------------------------------
     } else if (m.getAddress() == "/randGlobalRotX" || m.getAddress() == "/tweenGlobalRotX"){
         
-        ofLogVerbose("OSC") << m.getAddress() << " "
-                            << m.getArgAsInt32(0) << " "
-                            << float(m.getArgAsInt32(1)) << " "
-                            << float(m.getArgAsInt32(2)) << " "
-                            << m.getArgAsInt32(3) << " "
-                            << m.getArgAsInt32(4);
-        tracks[idx].trackParameters.setOSCtween(tracks[idx].params, tracks[idx].posRandomGlobalRotX, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), float(m.getArgAsInt32(2)));
-        
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << float(m.getArgAsInt32(1));
+        tracks[idx].trackParameters.setOSCtween(tracks[idx].params, tracks[idx].posRandomGlobalRotX, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), 1000.0);
+    
     } else if (m.getAddress() == "/randGlobalRotY" || m.getAddress() == "/tweenGlobalRotY"){
         
         ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << float(m.getArgAsInt32(1));
@@ -171,6 +166,21 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
         ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << float(m.getArgAsInt32(1));
         tracks[idx].trackParameters.setOSCtween(tracks[idx].params, tracks[idx].posRandomGlobalRotZ, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), 1000.0);
+        
+    } else if (m.getAddress() == "/tweenGRotX"){//NEW
+        
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << float(m.getArgAsInt32(1)) << " " << float(m.getArgAsInt32(2)) << " " << m.getArgAsInt32(3) << " " << m.getArgAsInt32(4) << " ";
+        tracks[idx].trackParameters.setOSCtween2(tracks[idx].params, tracks[idx].posRandomGlobalRotX, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), float(m.getArgAsInt32(2)),m.getArgAsInt32(3),m.getArgAsInt32(4));
+        
+    } else if (m.getAddress() == "/tweenGRotY"){//NEW
+        
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << float(m.getArgAsInt32(1)) << " " << float(m.getArgAsInt32(2)) << " " << m.getArgAsInt32(3) << " " << m.getArgAsInt32(4) << " ";
+        tracks[idx].trackParameters.setOSCtween2(tracks[idx].params, tracks[idx].posRandomGlobalRotY, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), float(m.getArgAsInt32(2)),m.getArgAsInt32(3),m.getArgAsInt32(4));
+        
+    } else if (m.getAddress() == "/tweenGRotZ"){//NEW
+        
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << float(m.getArgAsInt32(1)) << " " << float(m.getArgAsInt32(2)) << " " << m.getArgAsInt32(3) << " " << m.getArgAsInt32(4) << " ";
+        tracks[idx].trackParameters.setOSCtween2(tracks[idx].params, tracks[idx].posRandomGlobalRotZ, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), float(m.getArgAsInt32(2)),m.getArgAsInt32(3),m.getArgAsInt32(4));
         
     } else if (m.getAddress() == "/setGlobalRotX" || m.getAddress() == "/setGlobalRotY" || m.getAddress() == "/setGlobalRotZ"){
         
@@ -194,6 +204,21 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
         ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << float(m.getArgAsInt32(1));
         tracks[idx].trackParameters.setOSCtween(tracks[idx].params, tracks[idx].posRandomGlobalZ, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), 1000.0);
+        
+    } else if (m.getAddress() == "/tweenGTransX"){//NEW
+        
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << float(m.getArgAsInt32(1)) << " " << float(m.getArgAsInt32(2)) << " " << m.getArgAsInt32(3) << " " << m.getArgAsInt32(4) << " ";
+        tracks[idx].trackParameters.setOSCtween2(tracks[idx].params, tracks[idx].posRandomGlobalX, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), float(m.getArgAsInt32(2)),m.getArgAsInt32(3),m.getArgAsInt32(4));
+        
+    } else if (m.getAddress() == "/tweenGTransY"){//NEW
+        
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << float(m.getArgAsInt32(1)) << " " << float(m.getArgAsInt32(2)) << " " << m.getArgAsInt32(3) << " " << m.getArgAsInt32(4) << " ";
+        tracks[idx].trackParameters.setOSCtween2(tracks[idx].params, tracks[idx].posRandomGlobalY, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), float(m.getArgAsInt32(2)),m.getArgAsInt32(3),m.getArgAsInt32(4));
+        
+    } else if (m.getAddress() == "/tweenGTransZ"){//NEW
+        
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << float(m.getArgAsInt32(1)) << " " << float(m.getArgAsInt32(2)) << " " << m.getArgAsInt32(3) << " " << m.getArgAsInt32(4) << " ";
+        tracks[idx].trackParameters.setOSCtween2(tracks[idx].params, tracks[idx].posRandomGlobalZ, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), float(m.getArgAsInt32(2)),m.getArgAsInt32(3),m.getArgAsInt32(4));
         
     } else if (m.getAddress() == "/setGlobalTransX" || m.getAddress() == "/setGlobalTransY" || m.getAddress() == "/setGlobalTransZ"){
         

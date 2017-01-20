@@ -166,7 +166,9 @@ public:
     
     void setOSCtoggle(guiParams &params, string paramName, bool isActive);
     
-    void setOSCtween(guiParams &params, ofxTween &tween, string paramName, ofxEasing &easingCurve, float _rotX, float _duration);
+    void setOSCtween(guiParams &params, ofxTween &tween, string paramName, ofxEasing &easingCurve, float _rotX, float _duration = 1000.0);
+    
+    void setOSCtween2(guiParams &params, ofxTween &tween, string paramName, ofxEasing &easingCurve, float _rotX, float _duration, int _easingType = 2, int _easingCurveSelector = 4);
     
     void setOSCdial(guiParams &params, string paramName, float _value);
     

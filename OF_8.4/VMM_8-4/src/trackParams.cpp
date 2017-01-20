@@ -222,17 +222,21 @@ void trackParams::setOSCtoggle(guiParams &params, string paramName, bool isActiv
 }
 
 
-
+//ORIGINAL VERSION OF FUNCTION
 //--------------------------------------------------------------
 void trackParams::setOSCtween(guiParams &params, ofxTween &tween, string paramName, ofxEasing &easingCurve, float _ammount, float _duration){
+    
+
     
     if(paramName == "/start"){
 
     // GLOBAL ROTATE --------------------------------------
     } else if (paramName == "/randGlobalRotX" || paramName == "/tweenGlobalRotX"){
+        
         params.lastGlobalRot.x = params.g_rotate.x;    //store the last position
         tween.setParameters(easingCurve, ofxTween::easeOut,params.lastGlobalRot.x,_ammount, _duration,0);
         params.randGlobalRotBoolX = true; //start the animation
+
     } else if (paramName == "/randGlobalRotY" || paramName == "/tweenGlobalRotY"){
         params.lastGlobalRot.y = params.g_rotate.y;    //store the last position
         tween.setParameters(easingCurve, ofxTween::easeOut,params.lastGlobalRot.y,_ammount, _duration,0);
@@ -299,7 +303,140 @@ void trackParams::setOSCtween(guiParams &params, ofxTween &tween, string paramNa
         params.randObjRotBoolZ = true; //start the animation
     }
     
+
+    
 }
+
+
+//--------------------------------------------------------------
+//20170118 - add easing
+
+void trackParams::setOSCtween2(guiParams &params, ofxTween &tween, string paramName, ofxEasing &easingCurve, float _ammount, float _duration,int _easingType, int _easingCurveSelector){
+    
+    
+    ofxEasing * myEasingCurve;//pointer to my easing curves.  Once out of scope this is deleted.
+    float _from; //value at start
+    
+    
+    switch (_easingCurveSelector){
+        case 0:
+            myEasingCurve = &easingbounce;
+            break;
+        case 1:
+            myEasingCurve = &easingcirc;
+            break;
+        case 2:
+            myEasingCurve = &easingcubic;
+            break;
+        case 3:
+            myEasingCurve = &easingexpo;
+            break;
+        case 4:
+            myEasingCurve = &easinglinear;
+            break;
+        case 5:
+            myEasingCurve = &easingquad;
+            break;
+        case 6:
+            myEasingCurve = &easingquart;
+            break;
+        case 7:
+            myEasingCurve = &easingquint;
+            break;
+        case 8:
+            myEasingCurve = &easingsine;
+            break;
+        case 9:
+            myEasingCurve = &easinglinear;//supposed to be step
+            break;
+        default:
+            myEasingCurve = &easinglinear;
+            break;
+            
+    }
+     
+    
+    if(paramName == "/start"){
+        
+        // GLOBAL ROTATE --------------------------------------
+    } else if (paramName == "/randGlobalRotX" || paramName == "/tweenGlobalRotX" || paramName == "/tweenGRotX"){
+        
+        params.lastGlobalRot.x = params.g_rotate.x;    //store the last position
+        _from = params.lastGlobalRot.x;
+        params.randGlobalRotBoolX = true; //start the animation
+        
+    } else if (paramName == "/randGlobalRotY" || paramName == "/tweenGlobalRotY" || paramName == "/tweenGRotY"){
+        params.lastGlobalRot.y = params.g_rotate.y;    //store the last position
+        _from = params.lastGlobalRot.y;
+        params.randGlobalRotBoolY = true; //start the animation
+    } else if (paramName == "/randGlobalRotZ" || paramName == "/tweenGlobalRotZ" || paramName == "/tweenGRotZ"){
+        params.lastGlobalRot.z = params.g_rotate.z;    //store the last position
+        _from = params.lastGlobalRot.z;
+        params.randGlobalRotBoolZ = true; //start the animation
+        
+        // GLOBAL TRANSLATE --------------------------------------
+    } else if (paramName == "/randGlobalTransX" || paramName == "/tweenGlobalTransX" || paramName == "/tweenGTransX"){
+        params.lastGlobalTrans.x = params.g_trans.x;    //store the last position
+        _from = params.lastGlobalTrans.x;
+        params.randGlobalPosBoolX = true; //start the animation
+    } else if (paramName == "/randGlobalTransY" || paramName == "/tweenGlobalTransY" || paramName == "/tweenGTransY"){
+        params.lastGlobalTrans.y = params.g_trans.y;    //store the last position
+        _from = params.lastGlobalTrans.y;
+        params.randGlobalPosBoolY = true; //start the animation
+    } else if (paramName == "/randGlobalTransZ" || paramName == "/tweenGlobalTransZ" || paramName == "/tweenGTransZ"){
+        params.lastGlobalTrans.z = params.g_trans.z;    //store the last position
+        _from = params.lastGlobalTrans.z;
+        params.randGlobalPosBoolZ = true; //start the animation
+        
+        // LOCAL ROTATE --------------------------------------
+    } else if (paramName == "/randLocalRotX" || paramName == "/tweenLocalRotX"){
+        params.lastLocRot.x = params.l_rotate.x;    //store the last position
+        _from = params.lastLocRot.x;
+        params.randLocalRotBoolX = true; //start the animation
+    } else if (paramName == "/randLocalRotY" || paramName == "/tweenLocalRotY"){
+        params.lastLocRot.y = params.l_rotate.y;    //store the last position
+        _from = params.lastLocRot.y;
+        params.randLocalRotBoolY = true; //start the animation
+    } else if (paramName == "/randLocalRotZ" || paramName == "/tweenLocalRotZ"){
+        params.lastLocRot.z = params.l_rotate.z;    //store the last position
+        _from = params.lastLocRot.z;
+        params.randLocalRotBoolZ = true; //start the animation
+        
+        // LOCAL TRANSLATE --------------------------------------
+    } else if (paramName == "/randLocalTransX" || paramName == "/tweenLocalTransX"){
+        params.lastLocTrans.x = params.l_trans.x;    //store the last position
+        _from = params.lastLocTrans.x;
+        params.randLocalPosBoolX = true; //start the animation
+    } else if (paramName == "/randLocalTransY" || paramName == "/tweenLocalTransY"){
+        params.lastLocTrans.y = params.l_trans.y;    //store the last position
+        _from = params.lastLocTrans.y;
+        params.randLocalPosBoolY = true; //start the animation
+    } else if (paramName == "/randLocalTransZ" || paramName == "/tweenLocalTransZ"){
+        params.lastLocTrans.z = params.l_trans.z;    //store the last position
+        _from = params.lastLocTrans.z;
+        params.randLocalPosBoolZ = true; //start the animation
+        
+        // OBJECT ROTATE --------------------------------------
+    } else if (paramName == "/randObjRotX" || paramName == "/tweenObjRotX"){
+        params.lastObjRot.x = params.o_rotate.x;    //store the last position
+        _from = params.lastObjRot.x;
+        params.randObjRotBoolX = true; //start the animation
+    } else if (paramName == "/randObjRotY" || paramName == "/tweenObjRotY"){
+        params.lastObjRot.y = params.o_rotate.y;    //store the last position
+        _from = params.lastObjRot.y;
+        params.randObjRotBoolY = true; //start the animation
+    } else if (paramName == "/randObjRotZ" || paramName == "/tweenObjRotZ"){
+        params.lastObjRot.z = params.o_rotate.z;    //store the last position
+        _from = params.lastObjRot.z;
+        params.randObjRotBoolZ = true; //start the animation
+    }
+    
+    //set up the tween
+    tween.setParameters(*myEasingCurve, static_cast<ofxTween::ofxEasingType>(_easingType) ,_from,_ammount, _duration,0);
+    
+}
+
+
 
 
 //--------------------------------------------------------------
