@@ -10,57 +10,57 @@
 	<string>VMM_8-4</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>178B1197-1FA5-44BE-A753-2F2AA592A427</key>
-		<string>https://github.com/lg3bass/VMM.git</string>
-		<key>4CA7548D-A7A5-41A2-A854-FF9F079E1E9D</key>
-		<string>https://github.com/danomatika/ofxMidi.git</string>
-		<key>58221A81-02E8-4032-965F-1B4DEF5CF434</key>
-		<string>https://github.com/arturoc/ofxTween.git</string>
-		<key>71DF6C99-5FEC-4FF1-B22D-D643220C83B8</key>
-		<string>https://github.com/astellato/ofxSyphon.git</string>
-		<key>77271CBB-EE72-433D-88BD-557717CBF3A9</key>
-		<string>https://github.com/rezaali/ofxUI.git</string>
-		<key>7E6D9C94-09A9-4E7A-897E-37AA9AF3A6AA</key>
-		<string>https://github.com/andreasmuller/ofxAutoReloadedShader.git</string>
-		<key>9468FE4C-69A2-46AF-8A1D-9DE56E79B188</key>
-		<string>https://github.com/satoruhiga/ofxObjLoader.git</string>
-		<key>9A5D0B25-89C0-4142-85D4-EB269E6D4CD3</key>
+		<key>5DB7C332A3A89035E93556A2A38BF414005BA671</key>
 		<string>https://github.com/jefftimesten/ofxJSON.git</string>
+		<key>6B5D1DE462D521A98972DF70F1147E20268C546A</key>
+		<string>https://github.com/arturoc/ofxTween.git</string>
+		<key>7E804D925461714118DB355C65BC964B41D94376</key>
+		<string>https://github.com/rezaali/ofxUI.git</string>
+		<key>8B732DA6471F61653FC2B35F66CE49E00BD50686</key>
+		<string>https://github.com/satoruhiga/ofxObjLoader.git</string>
+		<key>90E2F969A762FB62C413A0C44D1F334E6EC3F531</key>
+		<string>https://github.com/danomatika/ofxMidi.git</string>
+		<key>999015EE524680C74335938659F70512196F22AD</key>
+		<string>https://github.com/andreasmuller/ofxAutoReloadedShader.git</string>
+		<key>B572116093354E2B6AAA0671960E2267B817A85E</key>
+		<string>https://github.com/lg3bass/VMM.git</string>
+		<key>F4CCB893AFADB97238A965FD2F28717F1CAAE613</key>
+		<string>https://github.com/astellato/ofxSyphon.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>OF_8.4/VMM_8-4/VMM_8-4.xcodeproj/project.xcworkspace</string>
+	<string>OF_8.4/VMM_8-4/VMM_8-4.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>178B1197-1FA5-44BE-A753-2F2AA592A427</key>
-		<string>../../../..</string>
-		<key>4CA7548D-A7A5-41A2-A854-FF9F079E1E9D</key>
-		<string>../../../../../addons/ofxMidi</string>
-		<key>58221A81-02E8-4032-965F-1B4DEF5CF434</key>
-		<string>../../../../../addons/ofxTween</string>
-		<key>71DF6C99-5FEC-4FF1-B22D-D643220C83B8</key>
-		<string>../../../../../addons/ofxSyphon</string>
-		<key>77271CBB-EE72-433D-88BD-557717CBF3A9</key>
-		<string>../../../../../addons/ofxUI</string>
-		<key>7E6D9C94-09A9-4E7A-897E-37AA9AF3A6AA</key>
-		<string>../../../../../addons/ofxAutoReloadedShader</string>
-		<key>9468FE4C-69A2-46AF-8A1D-9DE56E79B188</key>
-		<string>../../../../../addons/ofxObjLoader</string>
-		<key>9A5D0B25-89C0-4142-85D4-EB269E6D4CD3</key>
+		<key>5DB7C332A3A89035E93556A2A38BF414005BA671</key>
 		<string>../../../../../addons/ofxJSON</string>
+		<key>6B5D1DE462D521A98972DF70F1147E20268C546A</key>
+		<string>../../../../../addons/ofxTween</string>
+		<key>7E804D925461714118DB355C65BC964B41D94376</key>
+		<string>../../../../../addons/ofxUI</string>
+		<key>8B732DA6471F61653FC2B35F66CE49E00BD50686</key>
+		<string>../../../../../addons/ofxObjLoader</string>
+		<key>90E2F969A762FB62C413A0C44D1F334E6EC3F531</key>
+		<string>../../../../../addons/ofxMidi</string>
+		<key>999015EE524680C74335938659F70512196F22AD</key>
+		<string>../../../../../addons/ofxAutoReloadedShader</string>
+		<key>B572116093354E2B6AAA0671960E2267B817A85E</key>
+		<string>../../../..</string>
+		<key>F4CCB893AFADB97238A965FD2F28717F1CAAE613</key>
+		<string>../../../../../addons/ofxSyphon</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/lg3bass/VMM.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>178B1197-1FA5-44BE-A753-2F2AA592A427</string>
+	<string>B572116093354E2B6AAA0671960E2267B817A85E</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>7E6D9C94-09A9-4E7A-897E-37AA9AF3A6AA</string>
+			<string>999015EE524680C74335938659F70512196F22AD</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxAutoReloadedShader</string>
 		</dict>
@@ -68,7 +68,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>9A5D0B25-89C0-4142-85D4-EB269E6D4CD3</string>
+			<string>5DB7C332A3A89035E93556A2A38BF414005BA671</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxJSON</string>
 		</dict>
@@ -76,7 +76,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>4CA7548D-A7A5-41A2-A854-FF9F079E1E9D</string>
+			<string>90E2F969A762FB62C413A0C44D1F334E6EC3F531</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxMidi</string>
 		</dict>
@@ -84,7 +84,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>9468FE4C-69A2-46AF-8A1D-9DE56E79B188</string>
+			<string>8B732DA6471F61653FC2B35F66CE49E00BD50686</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxObjLoader</string>
 		</dict>
@@ -92,7 +92,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>71DF6C99-5FEC-4FF1-B22D-D643220C83B8</string>
+			<string>F4CCB893AFADB97238A965FD2F28717F1CAAE613</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxSyphon</string>
 		</dict>
@@ -100,7 +100,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>58221A81-02E8-4032-965F-1B4DEF5CF434</string>
+			<string>6B5D1DE462D521A98972DF70F1147E20268C546A</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxTween</string>
 		</dict>
@@ -108,7 +108,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>77271CBB-EE72-433D-88BD-557717CBF3A9</string>
+			<string>7E804D925461714118DB355C65BC964B41D94376</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxUI</string>
 		</dict>
@@ -116,7 +116,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>178B1197-1FA5-44BE-A753-2F2AA592A427</string>
+			<string>B572116093354E2B6AAA0671960E2267B817A85E</string>
 			<key>IDESourceControlWCCName</key>
 			<string>VMM</string>
 		</dict>

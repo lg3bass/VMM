@@ -360,11 +360,9 @@ void trackParams::setOSCtween2(guiParams &params, ofxTween &tween, string paramN
         
         // GLOBAL ROTATE --------------------------------------
     } else if (paramName == "/randGlobalRotX" || paramName == "/tweenGlobalRotX" || paramName == "/tweenGRotX"){
-        
         params.lastGlobalRot.x = params.g_rotate.x;    //store the last position
         _from = params.lastGlobalRot.x;
-        params.randGlobalRotBoolX = true; //start the animation
-        
+        params.randGlobalRotBoolX = true; //start the animation        
     } else if (paramName == "/randGlobalRotY" || paramName == "/tweenGlobalRotY" || paramName == "/tweenGRotY"){
         params.lastGlobalRot.y = params.g_rotate.y;    //store the last position
         _from = params.lastGlobalRot.y;
@@ -389,43 +387,43 @@ void trackParams::setOSCtween2(guiParams &params, ofxTween &tween, string paramN
         params.randGlobalPosBoolZ = true; //start the animation
         
         // LOCAL ROTATE --------------------------------------
-    } else if (paramName == "/randLocalRotX" || paramName == "/tweenLocalRotX"){
+    } else if (paramName == "/randLocalRotX" || paramName == "/tweenLocalRotX" || paramName == "/tweenLRotX"){
         params.lastLocRot.x = params.l_rotate.x;    //store the last position
         _from = params.lastLocRot.x;
         params.randLocalRotBoolX = true; //start the animation
-    } else if (paramName == "/randLocalRotY" || paramName == "/tweenLocalRotY"){
+    } else if (paramName == "/randLocalRotY" || paramName == "/tweenLocalRotY" || paramName == "/tweenLRotY"){
         params.lastLocRot.y = params.l_rotate.y;    //store the last position
         _from = params.lastLocRot.y;
         params.randLocalRotBoolY = true; //start the animation
-    } else if (paramName == "/randLocalRotZ" || paramName == "/tweenLocalRotZ"){
+    } else if (paramName == "/randLocalRotZ" || paramName == "/tweenLocalRotZ" || paramName == "/tweenLRotZ"){
         params.lastLocRot.z = params.l_rotate.z;    //store the last position
         _from = params.lastLocRot.z;
         params.randLocalRotBoolZ = true; //start the animation
         
         // LOCAL TRANSLATE --------------------------------------
-    } else if (paramName == "/randLocalTransX" || paramName == "/tweenLocalTransX"){
+    } else if (paramName == "/randLocalTransX" || paramName == "/tweenLocalTransX" || paramName == "/tweenLTransX"){
         params.lastLocTrans.x = params.l_trans.x;    //store the last position
         _from = params.lastLocTrans.x;
         params.randLocalPosBoolX = true; //start the animation
-    } else if (paramName == "/randLocalTransY" || paramName == "/tweenLocalTransY"){
+    } else if (paramName == "/randLocalTransY" || paramName == "/tweenLocalTransY" || paramName == "/tweenLTransY"){
         params.lastLocTrans.y = params.l_trans.y;    //store the last position
         _from = params.lastLocTrans.y;
         params.randLocalPosBoolY = true; //start the animation
-    } else if (paramName == "/randLocalTransZ" || paramName == "/tweenLocalTransZ"){
+    } else if (paramName == "/randLocalTransZ" || paramName == "/tweenLocalTransZ" || paramName == "/tweenLTransZ"){
         params.lastLocTrans.z = params.l_trans.z;    //store the last position
         _from = params.lastLocTrans.z;
         params.randLocalPosBoolZ = true; //start the animation
         
         // OBJECT ROTATE --------------------------------------
-    } else if (paramName == "/randObjRotX" || paramName == "/tweenObjRotX"){
+    } else if (paramName == "/randObjRotX" || paramName == "/tweenObjRotX" || paramName == "/tweenORotX"){
         params.lastObjRot.x = params.o_rotate.x;    //store the last position
         _from = params.lastObjRot.x;
         params.randObjRotBoolX = true; //start the animation
-    } else if (paramName == "/randObjRotY" || paramName == "/tweenObjRotY"){
+    } else if (paramName == "/randObjRotY" || paramName == "/tweenObjRotY" || paramName == "/tweenORotY"){
         params.lastObjRot.y = params.o_rotate.y;    //store the last position
         _from = params.lastObjRot.y;
         params.randObjRotBoolY = true; //start the animation
-    } else if (paramName == "/randObjRotZ" || paramName == "/tweenObjRotZ"){
+    } else if (paramName == "/randObjRotZ" || paramName == "/tweenObjRotZ" || paramName == "/tweenORotZ"){
         params.lastObjRot.z = params.o_rotate.z;    //store the last position
         _from = params.lastObjRot.z;
         params.randObjRotBoolZ = true; //start the animation
@@ -455,6 +453,8 @@ void trackParams::setOSCdial(guiParams &params, string paramName, float _value){
         params.mirror_distance = _value;
     } else if(paramName == "/localScale"){
         params.l_scale = float(_value);
+    } else if(paramName == "/stillFrame"){
+        params.stillFrame == int(_value);
     } else if(paramName == "/setGlobalRotX"){
         params.g_rotate.x = _value;
     } else if(paramName == "/setGlobalRotY"){
