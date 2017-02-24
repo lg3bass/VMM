@@ -32,7 +32,11 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         //the message sets the buffer, and general data on the notes.
         
         //VMMnoteID = <string>+<midiNote>;
-        VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(2)) + ofToString(m.getArgAsInt32(4)));
+        //VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(2)) + ofToString(m.getArgAsInt32(4)));
+        
+        //VMMnoteID = <track>+<string>+<midiNote>+<noteid>;
+        VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(0)) + ofToString(m.getArgAsInt32(2)) + ofToString(m.getArgAsInt32(4)) + ofToString(m.getArgAsInt32(3)));
+        
         //ofLogNotice("OSC") << "VMMnoteID(ON)------------------------------: " << VMMnoteID;
         
         //m.getNumArgs();
@@ -54,7 +58,10 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
     } else if (m.getAddress() == "/play"){
         
-        VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(2)) + ofToString(m.getArgAsInt32(4)));
+        //VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(2)) + ofToString(m.getArgAsInt32(4)));
+        
+        //VMMnoteID = <track>+<string>+<midiNote>+<noteid>;
+        VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(0)) + ofToString(m.getArgAsInt32(2)) + ofToString(m.getArgAsInt32(4)) + ofToString(m.getArgAsInt32(3)));
         
         //This message launches the animation clip and adds
         //the segment to play(coming soon), durration, and tweentype.
@@ -85,18 +92,57 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         ", note On|Off:" << m.getArgAsInt32(7) <<
         "]";
         
-        VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(1)) + ofToString(m.getArgAsInt32(3)));
+        //VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(1)) + ofToString(m.getArgAsInt32(3)));
+        
+        //VMMnoteID = <track>+<string>+<midiNote>+<noteid>;
+        VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(0)) + ofToString(m.getArgAsInt32(2)) + ofToString(m.getArgAsInt32(4)) + ofToString(m.getArgAsInt32(3)));
+        
+        
         //ofLogNotice("OSC") << "------------------------------VMMnoteID(OFF): " << VMMnoteID;
         
         //----------noteOff(VMMnoteId| _durration)
         tracks[idx].noteOff(VMMnoteID, m.getArgAsInt32(5));
+    
+    } else if (m.getAddress() == "/noteOnAndPlay"){
+        
+        ofLogVerbose("OSC") << "-------->" << m.getAddress() <<
+        " [track:" << m.getArgAsInt32(0) <<
+        ", VMMnoteID:" << m.getArgAsInt32(1) <<
+        ", buffer:" << m.getArgAsInt32(2) <<
+        ", real-duration:" << m.getArgAsInt32(3) <<
+        "]";
+        
+        
+        //----------noteOn(_buffer           |VMMnoteID         |_midiNote  |_velocity |_delta )
+        tracks[idx].noteOn(m.getArgAsInt32(2)-1,m.getArgAsInt32(1),60         ,100       ,500);
+        
+        //----------play(_buffer           | VMMnoteID        | _duration         | _tweenType)
+        tracks[idx].play(m.getArgAsInt32(2)-1,m.getArgAsInt32(1), m.getArgAsInt32(3), 11);
         
     } else if (m.getAddress() == "/clear"){
         
-        ofLogVerbose("OSC") << m.getAddress() << endl << "track:" << m.getArgAsInt32(0);
+        ofLogVerbose("OSC") << m.getAddress() << " track:" << m.getArgAsInt32(0) << " clip:" << m.getArgAsInt32(1) << "-" << (m.getArgAsInt32(1) ? "START" : "END");
         
-        //int idx = m.getArgAsInt32(0);
+        /*
+        if(m.getArgAsInt32(1)>0){
+            ofLogVerbose("OSC") << "CLEAR ON START";
+        } else {
+            ofLogVerbose("OSC") << "CLEAR ON END";
+        }
+        */
+        
+        
         tracks[idx].clear();
+        
+        if(m.getArgAsInt32(1) == 0) {
+            
+            //tracks[idx].params.randGlobalPosBoolZ = false;
+            
+            //tracks[idx].trackParameters.setOSCdial(tracks[idx].params, "/setGlobalTransZ", 0.0);
+            //tracks[idx].params.g_trans = ofVec3f(0.0,0.0,0.0);
+        }
+        
+        
     
     } else if (m.getAddress() == "/OSCsetMatCap"){
     

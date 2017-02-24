@@ -905,10 +905,10 @@ void vboMeshObj::resetBufferInstance(int _buffer, string _mode){
             params.playAll = false;
         }
     
-        ofLogVerbose("OSC") << "resetBufferInstance > one-shot";
+        //ofLogVerbose("OSC") << "resetBufferInstance > one-shot";
     }
     
-    ofLogVerbose("OSC") << "resetBufferInstance - " << _buffer << " has stopped and reset!";
+    //ofLogVerbose("OSC") << "resetBufferInstance - " << _buffer << " has stopped and reset!";
 }
 
 //--------------------------------------------------------------
@@ -922,6 +922,8 @@ void vboMeshObj::clear(){
     for(int t=0; t<params.l_copies;t++){
         resetBufferInstance(t,"one-shot");
     }
+    
+    
     
 }
 
@@ -1335,7 +1337,7 @@ void vboMeshObj::tweenPlayInstance(int _buffer, int _tweenType, int _start, int 
                 }
                 
             } else {
-                
+                ofLogNotice("OSC") << "still tweening buffer no: " << _buffer;
             }
             break;
         default:
