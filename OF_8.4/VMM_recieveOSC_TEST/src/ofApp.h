@@ -6,7 +6,7 @@
 
 // listen on port 12345
 // port 7000 is for my VMM project
-#define PORT 7000
+#define PORT 7005
 #define NUM_MSG_STRINGS 20
 
 class ofApp : public ofBaseApp{
