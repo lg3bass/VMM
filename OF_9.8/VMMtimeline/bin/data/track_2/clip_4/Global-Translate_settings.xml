@@ -1,0 +1,20 @@
+<PANEL>
+    <TRACKS>
+        <TRACKS-NUM>3</TRACKS-NUM>
+        <TRACK-0>
+            <NAME>G Translate X</NAME>
+            <TYPE>Curves</TYPE>
+        </TRACK-0>
+        <TRACK-1>
+            <NAME>G Translate Y</NAME>
+            <TYPE>Curves</TYPE>
+        </TRACK-1>
+        <TRACK-2>
+            <NAME>G Translate Z</NAME>
+            <TYPE>Curves</TYPE>
+        </TRACK-2>
+    </TRACKS>
+    <MARKERS>
+        <MARKERS-NUM>0</MARKERS-NUM>
+    </MARKERS>
+</PANEL>

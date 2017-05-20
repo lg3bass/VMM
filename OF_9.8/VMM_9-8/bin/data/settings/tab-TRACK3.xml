@@ -1,0 +1,380 @@
+<Widget>
+    <Kind>42</Kind>
+    <Name>FRAME</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>LOADED</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>STILL</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>SPEED</Name>
+    <Value>500</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>OSC</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>MIRROR</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>mirror x</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>mirror y</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>mirror z</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>playNoteOff</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>playAll</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>finalize</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MIRROR</Name>
+    <Value>10.000001907</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>(G)COPIES 3</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)SCALE</Name>
+    <Value>10.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-scale-bs</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gScaleMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)ROTATE-X</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-rot-x</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gRotXMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)ROTATE-Y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-rot-y</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gRotYMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)ROTATE-Z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-rot-z</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gRotZMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)TRANS-X</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-trans-x</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gTransXMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)TRANS-Y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-trans-y</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gTransYMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(G)TRANS-Z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>g-trans-z</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>gTransZMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>(L)COPIES 3</Name>
+    <Value>12</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>slices 3</Name>
+    <Value>2</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)SCALE</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-scale-bs</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lScaleMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)ROTATE-X</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-rot-x</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lRotXMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)ROTATE-Y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-rot-y</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lRotYMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)ROTATE-Z</Name>
+    <Value>29.999992371</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-rot-z</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lRotZMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)TRANS-X</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-trans-x</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lTransXMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)TRANS-Y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-trans-y</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lTransYMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(L)TRANS-Z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>l-trans-z</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>lTransZMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(O)ROTATE-X</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>o-rot-x</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>oRotXMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(O)ROTATE-Y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>o-rot-y</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>oRotYMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>(O)ROTATE-Z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>31</Kind>
+    <Name>o-rot-z</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>oRotZMod</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>spinX</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Spin X</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Spin Range X</Name>
+    <Value>5.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>spinY</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Spin Y</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Spin Range Y</Name>
+    <Value>5.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>spinZ</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Spin Z</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Spin Range Z</Name>
+    <Value>5.000000000</Value>
+</Widget>
