@@ -35,6 +35,9 @@ void TimelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
     //SETUP THE TRACKS
     for(int i=0; i<NUMBER_OF_TRACKS; i++){
         ofxTimeline* t = new ofxTimeline();
+        
+        t->setupFont("gui_assets/fonts/verdana.ttf", 12);
+        
         t->removeCocoaMenusFromGlut("02_timlineLink_testDebug");
         t->setup();
         
@@ -54,12 +57,14 @@ void TimelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
         t->setFrameBased(true);
         t->setInPointAtFrame(0);
         t->setOutPointAtFrame(duration);
+        
+        
        
         //test track
         t->setPageName("Global-Rotate");
-        t->addCurves("G Rotate X", ofRange(0, 360));
-        t->addCurves("G Rotate Y", ofRange(0, 360));
-        t->addCurves("G Rotate Z", ofRange(0, 360));
+        t->addCurves("G Rotate X", ofRange(0, 100));
+        t->addCurves("G Rotate Y", ofRange(0, 100));
+        t->addCurves("G Rotate Z", ofRange(0, 100));
         
         t->addPage("Local-Rotate");
         t->addCurves("L Rotate X", ofRange(0, 360));
@@ -153,7 +158,8 @@ void TimelinePanel::draw(){
     sendOSCfromTimeline();
     
     //draw a bounding box around the panel just to show.
-    ofSetColor(_bckgColor);
+    ofSetColor(ofColor(100));
+    ofSetLineWidth(2.0);
     ofNoFill();
     ofDrawRectangle(_x, _y, _w, _h);
 
@@ -318,12 +324,19 @@ void TimelinePanel::keyPressed(int key){
                 play(0,1);
                 break;
             case 'g':
-                timelines[0]->toggleSnapToBPM();
-
-                if(timelines[0]->getSnapToBPM()){
-                    ofLogNotice("TRACK") << "snap to BPM: -- ON";
-                } else {
-                    ofLogNotice("TRACK") << "snap to BPM: -- OFF";
+                for(int i=0; i<NUMBER_OF_TRACKS; i++){
+                   timelines[i]->toggleSnapToBPM();
+                    if(timelines[i]->getSnapToBPM()){
+                        ofLogNotice("TRACK") << ofToString(i) << ": snap to BPM: -- ON";
+                    } else {
+                        ofLogNotice("TRACK") << ofToString(i) << ": snap to BPM: -- OFF";
+                    }
+                }
+                break;
+            case 'd':
+                for(int i=0; i<NUMBER_OF_TRACKS; i++){
+                    tMainApp->myAppData.tracks[i].directDrive = !tMainApp->myAppData.tracks[i].directDrive;
+                    cout << "directDrive: " << tMainApp->myAppData.tracks[i].directDrive << endl;
                 }
                 break;
             case 'i':
@@ -552,13 +565,11 @@ void TimelinePanel::runAbletonLink(ofxAbletonLink &linkObj){
 //--------------------------------------------------------------
 void TimelinePanel::sendOSCfromTimeline(){
     
-    //encapsulate.
-    
     for(int i=0; i< NUMBER_OF_TRACKS; i++){
         
-        if(timelines[i]->getIsPlaying()){
-            
-            
+        if(tMainApp->myAppData.tracks[i].directDrive){
+        
+            //if(timelines[i]->getIsPlaying()){
             
             tMainApp->OSCsendToVMM(i+1,"/setGlobalRotX",timelines[i]->getValue("G Rotate X"));
             tMainApp->OSCsendToVMM(i+1,"/setGlobalRotY",timelines[i]->getValue("G Rotate Y"));
@@ -582,19 +593,39 @@ void TimelinePanel::sendOSCfromTimeline(){
         }
         
     }
-    
 
 }
 
 //--------------------------------------------------------------
 void TimelinePanel::alterTimeline(int _val){
     
-    cout << timelines[0]->getTrack("L Rotate Z")->getName() << endl;
+    cout << timelines[0]->getTrack("G Rotate X")->getName() << endl;
+    
+    //This is how I can add a keyframe
+    ofxTLKeyframes* mytrack = (ofxTLKeyframes*)timelines[0]->getTrack("G Rotate X");
+    mytrack->addKeyframeAtMillis(50.0, 2000.0);
+    
+    //ofxTLKeyframes::addKeyframeAtMillis(50.0, 2000.0);
+    
+    
     
     
 }
 
+//--------------------------------------------------------------
+void TimelinePanel::addKeyFrameToCurrentTrack(float _val, float _timeInMiliseconds){
+    
 
+    
+    ofxTLKeyframes* selTrack = (ofxTLKeyframes*)timelines[0]->getTrack("G Rotate X");
+    selTrack->addKeyframeAtMillis(_val,_timeInMiliseconds);
+}
+
+//--------------------------------------------------------------
+void TimelinePanel::setRange(ofRange newrange) {
+    ofxTLKeyframes* selTrack = (ofxTLKeyframes*)timelines[0]->getTrack("G Rotate X");
+    selTrack->setValueRange(newrange, 0.0);
+}
 
 
 //--------------------------------------------------------------

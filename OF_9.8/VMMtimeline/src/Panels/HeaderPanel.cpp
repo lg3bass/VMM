@@ -20,7 +20,7 @@ void HeaderPanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr){
     hMainApp = dynamic_cast<ofApp*>(appPtr);
     
     //colors
-    _bckgColor = ofColor(ofColor::aqua);
+    _bckgColor = ofColor(ofColor::grey);
     setBackgroundColor(_bckgColor);
     bordCol = ofColor::grey;
     bordWidth = 1;
@@ -29,7 +29,7 @@ void HeaderPanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr){
     setupGui();
     
     //fonts for text display
-    ofTrueTypeFont::setGlobalDpi(72);
+    ofTrueTypeFont::setGlobalDpi(96);//72
     verdana.load("gui_assets/fonts/verdana.ttf", 12, true, true);
     verdana.setLineHeight(13.0f);
     verdana.setLetterSpacing(1.037);
@@ -50,9 +50,13 @@ void HeaderPanel::draw(){
     for(int i=0; i<components.size(); i++) components[i]->draw();
     
     //Draw a rect around the panel .  dont really need this.
-    ofSetColor(_bckgColor);
+    
+    ofSetColor(bordCol);
     //ofNoFill();
-    ofDrawRectangle(_x, _y, _w, _h);
+    ofPushStyle();
+        ofSetLineWidth(2.0);
+        ofDrawRectangle(_x, _y, _w, _h);
+    ofPopStyle();
     
 }
 
@@ -140,7 +144,7 @@ void HeaderPanel::setupGui(){
     components.push_back(component);
 
     //set range test
-    range1 = new ofxDatGuiButton("range1");
+    range1 = new ofxDatGuiButton("ADD1");
     component = range1;
     component->onButtonEvent(this, &HeaderPanel::onButtonEvent);
     component->setLabelAlignment(ofxDatGuiAlignment::CENTER);
@@ -149,7 +153,7 @@ void HeaderPanel::setupGui(){
     component->setStripeVisible(false);
     components.push_back(component);
     
-    range2 = new ofxDatGuiButton("range2");
+    range2 = new ofxDatGuiButton("ADD2");
     component = range2;
     component->onButtonEvent(this, &HeaderPanel::onButtonEvent);
     component->setLabelAlignment(ofxDatGuiAlignment::CENTER);
@@ -236,21 +240,21 @@ void HeaderPanel::adjustGui(int w, int h){
     component->setWidth(guiCompWidth*0.5, 0.22);
     component->setHeight(guiCompHeight);
     
-    //RANGE BUTTONS FOR TESTING
-    //range1
+    //BUTTONS FOR TESTING
+    //ADD1
     component = components[8];
     component->setPosition(_x + guiCompWidth, _y + guiCompHeight * 2);
     component->setWidth(guiCompWidth*0.5, 0.22);
     component->setHeight(guiCompHeight);
     
     
-    //SAVE
+    //ADD2
     component = components[9];
     component->setPosition(_x + guiCompWidth + guiCompWidth*0.5, _y + guiCompHeight * 2);
     component->setWidth(guiCompWidth*0.5, 0.22);
     component->setHeight(guiCompHeight);
     
-    //SAVE
+    //range3
     component = components[10];
     component->setPosition(_x + guiCompWidth + guiCompWidth*1.0, _y + guiCompHeight * 2);
     component->setWidth(guiCompWidth*0.5, 0.22);
@@ -294,16 +298,32 @@ void HeaderPanel::onButtonEvent(ofxDatGuiButtonEvent e)
         }
         
         component->getChildAt(0)->setSelected(true);
-    } else if(e.target->getLabel()=="RANGE1"){
+    } else if(e.target->getLabel()=="ADD1"){
         
         hMainApp->timePanel.alterTimeline(1);
         
         
         cout << "range 1" << endl;
-    } else if(e.target->getLabel()=="RANGE2"){
+    } else if(e.target->getLabel()=="ADD2"){
+        
+        hMainApp->timePanel.addKeyFrameToCurrentTrack(25.0,3000.0);
         
         cout << "range 2" << endl;
     } else if(e.target->getLabel()=="RANGE3"){
+        
+        //set the range to an arbitrary number
+        hMainApp->timePanel.setRange(ofRange(-45,45));                                              //resets range but keeps frames where they are
+        
+        //set the track height somehow??????????
+        //TODO:  I think I need to get the page name then set the height
+        //hMainApp->timePanel.timelines[0]->getPage("Global-Rotate")->setHeaderHeight(90.0);          //not working. this sets the header height.
+        
+        //hMainApp->timePanel.timelines[0]->getPage("Global-Rotate")->setExpandToHeight(100.0);         //not sure what this is actually doing.
+        
+        //hMainApp->timePanel.timelines[0]->getPage("Global-Rotate")->evenlyDistributeTrackHeights();   //this is distribute the tracks evenly.
+        
+        hMainApp->timePanel.timelines[0]->getPage("Global-Rotate")->setTrackHeight(90.0);
+        
         
         cout << "range 3" << endl;
     }

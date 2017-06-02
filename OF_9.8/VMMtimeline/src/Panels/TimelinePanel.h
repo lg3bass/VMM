@@ -42,9 +42,11 @@ public:
     
     void sendOSCfromTimeline();
     
-    void alterTimeline(int _val);
+    //EXPERIMENTS:  targeting timeline
+    void alterTimeline(int _val);                                               //add keys
+    void addKeyFrameToCurrentTrack(float _val, float _timeInMiliseconds);       //add keys at a specific time
+    void setRange(ofRange newrange);
     
-
     vector<ofxTimeline*> timelines;
     
 

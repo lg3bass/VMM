@@ -32,6 +32,7 @@ void ofApp::setup(){
         t.measures = 8;
         t.current_page = 0;
         t.cuedToPlay = false;
+        t.directDrive = false;
         myAppData.tracks.push_back(t);
         
 
@@ -181,6 +182,16 @@ void ofApp::play(int _track, int _clip){
     timePanel.play(_track, _clip);                              //load the xml then cue to play on next ofApp::update()
     
     setClipAndPageButtons(_track);
+    
+    myAppData.tracks[_track].directDrive = true;                //turn on sending the OSC messages out
+}
+
+//--------------------------------------------------------------
+void ofApp::stop(int _track){
+    
+    timePanel.stop(_track);                                     //stops all the clips for now. _track really doesn't do anything.
+    
+    myAppData.tracks[_track].directDrive = false;               //turn off sending out the OSC.
 }
 
 //--------------------------------------------------------------

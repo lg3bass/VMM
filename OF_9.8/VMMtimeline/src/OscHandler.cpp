@@ -105,24 +105,33 @@ void OscHandler::processOSCmessage(ofxOscMessage &m){
         if(isAbletonClipPlaying) {
             
             if(waitForClipPlaying) {
-                ofLogNotice("OSC_PLAY") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1) << " --CLIP PLAY ON (waitForClipPlaying)";
+                ofLogNotice("OSC_PLAY") << m.getAddress() << " "
+                                        << m.getArgAsInt32(0) << " "
+                                        << m.getArgAsInt32(1)
+                                        << " --CLIP PLAY ON (waitForClipPlaying)";
                 
                 oscMainApp->play(m.getArgAsInt32(0), m.getArgAsInt32(1));
                 
             } else {
                 //play the clip
-                ofLogNotice("OSC_PLAY") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1) << " --CLIP PLAY ON (start timeline)";
+                ofLogNotice("OSC_PLAY") << m.getAddress() << " "
+                                        << m.getArgAsInt32(0) << " "
+                                        << m.getArgAsInt32(1)
+                                        << " --CLIP PLAY ON (start timeline)";
                 
                 oscMainApp->play(m.getArgAsInt32(0), m.getArgAsInt32(1));
-                
                 
             }
             
         } else {
             
-            ofLogNotice("OSC_IN") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1) << " --CLIP STOP (stop timeline)";
+            ofLogNotice("OSC_IN")   << m.getAddress() << " "
+                                    << m.getArgAsInt32(0) << " "
+                                    << m.getArgAsInt32(1)
+                                    << " --CLIP STOP (stop timeline)";
             
-            oscMainApp->timePanel.stop(m.getArgAsInt(1));
+            oscMainApp->stop(m.getArgAsInt(0));
+
             waitForClipPlaying = false;
         }
         

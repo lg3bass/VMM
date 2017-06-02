@@ -42,6 +42,7 @@ struct trackData {
     int measures;
     int current_page;
     bool cuedToPlay;
+    bool directDrive;                   //flag to turn on sending all OSC out.
     
 };
 
@@ -91,6 +92,7 @@ public:
     void setGlobalTempo(float _t);
     
     void play(int _track, int _clip);
+    void stop(int _track);
     
     void resetAllTrackAndClips();
     

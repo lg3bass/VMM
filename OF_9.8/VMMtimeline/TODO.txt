@@ -1,0 +1,17 @@
+//20170530
+-- thinner applictaion
+-- move left buttons to top.
+-- buttons to set range
+-- in stopped direct drive mode.  only osc out changed tracks.
+-- add keys
+-- research key units
+-- save measures, tempo
+-- load measures and tempo on "loadAll"
+-- new timeline tracks (matcap, buffers, slices, mirror)
+-- move measures, tempo to top bar.
+-- redesign header. 
+-- thicker lines
+-- better application contrast.
+-- move link to separate class. 
+
+
