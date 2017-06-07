@@ -1,6 +1,7 @@
 //20170530
 -- thinner applictaion
 -- move left buttons to top.
+	- clip, page,
 -- buttons to set range
 -- in stopped direct drive mode.  only osc out changed tracks.
 -- add keys
@@ -13,5 +14,61 @@
 -- thicker lines
 -- better application contrast.
 -- move link to separate class. 
+
+Application
+-- move frame rate to application bar.
+-- name application
+
+headerPanel
+================================
+-- matrix - tracks				//matrix of 10 tracks
+
+-- button - "LOAD"				//load current track
+-- button - "SAVE"				//save current track	
+-- button - "LOAD ALL"			//load all tracks (loads project data)
+-- button - "SAVE ALL"			//save all tracks
+
+-- input "bar"					//current bar - read/set
+-- input "beat"					//current beat - read/set
+-- input "frame" 				//current frame - read/set		
+-- input "loop"					//loop frame - read
+
+
+buttonPanel
+================================
+
+-- input field - "MEASURES"		//timeline measures - click sets formula
+-- input field - "BPM"			//timleine BPM - click sets formula
+-- button "IN"
+---button "OUT"
+
+
+timePanel (TOP)
+================================
+-- type 
+-- add
+
+
+timePanel
+================================
+
+//SETTINGS
+-- matcap
+-- slices
+-- buffers
+-- mirror
+-- mirror distance
+
+//SCALE
+-- Global Scale
+-- Local Scale
+
+
+-- KEYFRAME BOX
+	- current frame.
+	- current key
+	- button - "set key frame"
+	
+	
 
 
