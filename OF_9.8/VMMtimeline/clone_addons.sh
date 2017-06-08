@@ -1,7 +1,7 @@
 #!/bin/bash
-#20170602
+#20170606
 #Dependencies of VMM_timeline
-#loosly based on https://github.com/leozimmerman/Sonoscopio
+#based on https://github.com/leozimmerman/Sonoscopio
 
 if [ -z $1 ]; then
 PREFIX="git clone https://github.com/"
@@ -82,6 +82,7 @@ cd ofxTween
 git checkout 120757d613b497a7045ee64c1e548abf31ace38e
 cd ../
 
-
+#ofxXmlSettings------------------
+#REQUIRED.  Included in OF release. /of_v0.9.8_osx_release/addons/ofxXmlSettings
 
 

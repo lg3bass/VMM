@@ -1,0 +1,2 @@
+- command line to update/create Xcode project. Run from /Users/your-home-directory
+`./Documents/OF/of_v0.9.8_osx_release/projectGenerator-osx/projectGenerator.app/Contents/Resources/app/app/projectGenerator -v -o"/Users/lg3/Documents/OF/of_v0.9.8_osx_release" -a"ofxAbletonLink,ofxAudioDecoder,ofxDatGui,ofxMSATimer,ofxOsc,ofxRange,ofxTextInputField,ofxTimecode,ofxTimeline,ofxTween,ofxXmlSettings" -p"osx" "/Users/lg3/Documents/OF/of_v0.9.8_osx_release/VMM/OF_9.8/VMMtimeline"`
