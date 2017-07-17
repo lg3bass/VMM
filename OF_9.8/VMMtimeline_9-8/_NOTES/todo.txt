@@ -1,0 +1,11 @@
+1. set host
+2. set port
+3. osc toggle
+4. drive toggle
+5. empty function > quantize
+6. snap toggle
+7. measures/bpm function
+8. empty function > fps
+9. empty function > loop
+10. empty function > meter
+11. empty function > bar|beat|frame
