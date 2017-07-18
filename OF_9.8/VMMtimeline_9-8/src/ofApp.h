@@ -62,18 +62,14 @@ public:
     void selectChannel(int _index);
     
     void passTextValue(string _name, string _val);
-    
+    void setLinkSlider(int _beat);
     
 private:
-    
-    
     
     //panels
     HeaderPanel headerPanel;
     timelinePanel timePanel;
     FooterPanel footerPanel;
     
-    ofTrueTypeFont	verdana30;
-    
-    
+
 };

@@ -9,7 +9,13 @@
 #include "abletonlink.h"
 #include "ofApp.h"
 
-ofApp* linkMainApp;
+ofApp* linkMainApp;         //reference to ofApp()
+
+//-------------------------------------------------
+abletonLinkEngine::abletonLinkEngine(){
+    lbeat = -1;
+    nbeat = -1;
+}
 
 //-------------------------------------------------
 void abletonLinkEngine::setup(ofBaseApp* appPtr){
@@ -27,6 +33,19 @@ void abletonLinkEngine::draw(){
     
     runAbletonLink(link);
     
+    
+    
+}
+
+//-------------------------------------------------
+int abletonLinkEngine::beat(){
+    //link
+    ofxAbletonLink::Status status = link.update();
+    
+    cout << "status.phase: " << ofToString(floor(status.phase)) << endl;
+    
+    
+    return nbeat;
 }
 
 //-------------------------------------------------
@@ -37,6 +56,8 @@ void abletonLinkEngine::runAbletonLink(ofxAbletonLink &linkObj){
     
     // visualize the current status
     int quantum = (int)ceil(link.quantum());
+    
+    beat();
     
     //what beat is playing in link?
     float dw;
@@ -50,7 +71,7 @@ void abletonLinkEngine::runAbletonLink(ofxAbletonLink &linkObj){
     
     
     //BELOW is all for the bars at the bottom. ableton link.
-    
+    //this is not needed cause the UI has a field for this.
     int top = (int)(ofGetHeight() * 0.95);
     int bottom = (int)(ofGetHeight() * 1);
     int h = bottom - top + 1;
@@ -66,6 +87,9 @@ void abletonLinkEngine::runAbletonLink(ofxAbletonLink &linkObj){
         ofDrawRectangle(i * dw, top, dw, h);
         ofPopStyle();
     }
+    
+    //test sent to headerUI
+    
     
     
 }

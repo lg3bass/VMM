@@ -18,9 +18,7 @@ void ofApp::setup(){
     myAppData.txt_color = ofColor::brown;
     
     
-    verdana30.load("verdana.ttf", 30, true, true);
-    verdana30.setLineHeight(34.0f);
-    verdana30.setLetterSpacing(1.035);
+
     
 }
 
@@ -38,22 +36,14 @@ void ofApp::update(){
 void ofApp::draw(){
     ofSetWindowTitle("fps: "+ofToString(ofGetFrameRate())+" - "+ofToString(ofGetWidth())+","+ofToString(ofGetHeight()));
     
-    AL.draw();
+    AL.draw();                                                  //ableton link runner
+    
     
     
     //panels
     headerPanel.draw();
     timePanel.draw();
     footerPanel.draw();
-    
-    string msg = "SELECTED PANEL:" + myAppData.selected_panel_name;
-    
-    ofRectangle bounds = verdana30.getStringBoundingBox(msg, 0, 0);
-    
-    ofPushStyle();
-    ofSetColor(myAppData.txt_color);
-    //verdana30.drawString(msg, ofGetWidth()/2-bounds.width/2, ofGetHeight()/2-bounds.height/2);
-    ofPopStyle();
     
     setBreadcrumb();
 }

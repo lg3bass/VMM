@@ -38,6 +38,8 @@ public:
     void setTrack(int _track);
     void setClip(int _clip);
     void setPage(int _page);
+    
+    void setBeat(int _beat);
 
 private:
     

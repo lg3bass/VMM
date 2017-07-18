@@ -141,3 +141,9 @@ void ofApp::passTextValue(string _field, string _val){
     }
     
 }
+
+
+void ofApp::setLinkSlider(int _beat){
+    
+    headerPanel.setBeat(_beat);
+}

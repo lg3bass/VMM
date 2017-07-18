@@ -9,7 +9,7 @@
 #include "timelinePanel.h"
 #include "ofApp.h"
 
-ofApp* bMainApp;
+ofApp* bMainApp;        //reference to ofApp()
 
 //-------------------------------------------------
 void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr){

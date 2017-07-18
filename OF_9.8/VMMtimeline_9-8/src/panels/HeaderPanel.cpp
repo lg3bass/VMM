@@ -9,7 +9,7 @@
 #include "HeaderPanel.h"
 #include "ofApp.h"
 
-ofApp* hMainApp;
+ofApp* hMainApp;        //reference to ofApp()
 
 //-------------------------------------------------
 void HeaderPanel::setup(int x, int y, int width, int height, ofBaseApp *appPtr){
@@ -97,5 +97,10 @@ void HeaderPanel::setPage(int _page){
     vector<int> pass2page;
     pass2page.push_back(_page);
     mainUI.pages->setSelected(pass2page);
+}
+
+//--------------------------------------------------------------
+void HeaderPanel::setBeat(int _beat){
+    mainUI.linkSlider->setValue(_beat);
 }
 

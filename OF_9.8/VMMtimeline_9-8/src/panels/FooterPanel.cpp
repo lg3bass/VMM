@@ -9,7 +9,7 @@
 #include "FooterPanel.h"
 #include "ofApp.h"
 
-ofApp* fMainApp;
+ofApp* fMainApp;    //reference to ofApp()
 
 //-------------------------------------------------
 void FooterPanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr){

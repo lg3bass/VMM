@@ -9,7 +9,7 @@
 #include "headerUI.h"
 #include "ofApp.h"
 
-ofApp* uiMainApp;
+ofApp* uiMainApp;       //reference to ofApp()
 
 //--------------------------------------------------------------
 void headerUI::setup(ofBaseApp* appPtr){

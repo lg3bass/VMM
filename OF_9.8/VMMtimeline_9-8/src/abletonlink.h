@@ -19,14 +19,16 @@
 class abletonLinkEngine {
     
 public:
+    abletonLinkEngine();
+    void setup(ofBaseApp* appPtr);
+    void draw();
+    int beat();
     
+    ofxAbletonLink link;
     int lbeat;//last beat
     int nbeat;//current beat
     
-    void setup(ofBaseApp* appPtr);
-    void draw();
+private:
     void runAbletonLink(ofxAbletonLink &linkObj);
-    
-    ofxAbletonLink link;
     
 };
