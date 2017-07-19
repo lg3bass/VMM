@@ -15,6 +15,8 @@ ofApp* linkMainApp;         //reference to ofApp()
 abletonLinkEngine::abletonLinkEngine(){
     lbeat = -1;
     nbeat = -1;
+    
+
 }
 
 //-------------------------------------------------
@@ -25,6 +27,7 @@ void abletonLinkEngine::setup(ofBaseApp* appPtr){
     //cout << "linkModule->setup()" << endl;
     
     link.setup(120.0);
+
     
 }
 
@@ -42,11 +45,17 @@ int abletonLinkEngine::beat(){
     //link
     ofxAbletonLink::Status status = link.update();
     
-    cout << "status.phase: " << ofToString(floor(status.phase)) << endl;
-    
-    
-    return nbeat;
+    b = (int)floor(status.phase);
+    return b;
 }
+
+//-------------------------------------------------
+void abletonLinkEngine::setMeter(int _quantum){
+    
+    link.setQuantum(_quantum);
+}
+
+
 
 //-------------------------------------------------
 void abletonLinkEngine::runAbletonLink(ofxAbletonLink &linkObj){
@@ -57,17 +66,19 @@ void abletonLinkEngine::runAbletonLink(ofxAbletonLink &linkObj){
     // visualize the current status
     int quantum = (int)ceil(link.quantum());
     
-    beat();
+    
+    nbeat = beat();
     
     //what beat is playing in link?
     float dw;
     if(quantum < 1){
         dw = (float)ofGetWidth();
-        nbeat = 0;
+        //nbeat = 0;
     }else{
         dw = (float)ofGetWidth() / (float)quantum;
-        nbeat = (int)floor(status.beat) % quantum;
+        //nbeat = (int)floor(status.beat) % quantum;
     }
+    
     
     
     //BELOW is all for the bars at the bottom. ableton link.
@@ -88,8 +99,7 @@ void abletonLinkEngine::runAbletonLink(ofxAbletonLink &linkObj){
         ofPopStyle();
     }
     
-    //test sent to headerUI
-    
+    //cout << "BEAT: " << ofToString(nbeat) << endl;
     
     
 }

@@ -23,12 +23,17 @@ public:
     void setup(ofBaseApp* appPtr);
     void draw();
     int beat();
+    void setMeter(int _quantum);
     
     ofxAbletonLink link;
     int lbeat;//last beat
     int nbeat;//current beat
     
+
+    
 private:
     void runAbletonLink(ofxAbletonLink &linkObj);
+    
+    int b;
     
 };

@@ -67,6 +67,7 @@
 		BF5110F31F1AC4410087AD7E /* timelineData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF5110EB1F1AC4410087AD7E /* timelineData.cpp */; };
 		BF5110F41F1AC4410087AD7E /* timelinePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF5110ED1F1AC4410087AD7E /* timelinePanel.cpp */; };
 		BF5111011F1B1B540087AD7E /* abletonlink.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF5110FF1F1B1B540087AD7E /* abletonlink.cpp */; };
+		BFD3F45E1F1F048B00557B28 /* timelineTrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFD3F45C1F1F048B00557B28 /* timelineTrack.cpp */; };
 		C3BC382653A57CE71D4513F1 /* ofxTLFlags.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB375BBFEB77C75D4A4C3040 /* ofxTLFlags.cpp */; };
 		C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC8881B3C8C0A1C45F042E7A /* OscPrintReceivedElements.cpp */; };
 		C7D250488914920C32F18F34 /* ofxTLPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16BEC8B1201859A26E3FFBC0 /* ofxTLPage.cpp */; };
@@ -284,6 +285,8 @@
 		BF5110F51F1AC44C0087AD7E /* ofxDatGuiThemesVMM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDatGuiThemesVMM.h; path = themes/ofxDatGuiThemesVMM.h; sourceTree = "<group>"; };
 		BF5110FF1F1B1B540087AD7E /* abletonlink.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = abletonlink.cpp; sourceTree = "<group>"; };
 		BF5111001F1B1B540087AD7E /* abletonlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = abletonlink.h; sourceTree = "<group>"; };
+		BFD3F45C1F1F048B00557B28 /* timelineTrack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = timelineTrack.cpp; path = panels/timelineTrack.cpp; sourceTree = "<group>"; };
+		BFD3F45D1F1F048B00557B28 /* timelineTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timelineTrack.h; path = panels/timelineTrack.h; sourceTree = "<group>"; };
 		BFEE9391F78307B42AA09C9A /* kiss_fftr.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = kiss_fftr.h; path = ../../../addons/ofxTimeline/libs/kiss/include/kiss_fftr.h; sourceTree = SOURCE_ROOT; };
 		C085A33340AB0C1DB647AC2F /* ofxDatGuiTextInput.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTextInput.h; path = ../../../addons/ofxDatGui/src/components/ofxDatGuiTextInput.h; sourceTree = SOURCE_ROOT; };
 		C2FAC65C491D4231379F3298 /* ofxOscReceiver.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscReceiver.cpp; path = ../../../addons/ofxOsc/src/ofxOscReceiver.cpp; sourceTree = SOURCE_ROOT; };
@@ -863,6 +866,8 @@
 				BF5110EC1F1AC4410087AD7E /* timelineData.h */,
 				BF5110ED1F1AC4410087AD7E /* timelinePanel.cpp */,
 				BF5110EE1F1AC4410087AD7E /* timelinePanel.h */,
+				BFD3F45C1F1F048B00557B28 /* timelineTrack.cpp */,
+				BFD3F45D1F1F048B00557B28 /* timelineTrack.h */,
 			);
 			name = panels;
 			sourceTree = "<group>";
@@ -1198,6 +1203,7 @@
 				933A2227713C720CEFF80FD9 /* tinyxml.cpp in Sources */,
 				9D44DC88EF9E7991B4A09951 /* tinyxmlerror.cpp in Sources */,
 				5A4349E9754D6FA14C0F2A3A /* tinyxmlparser.cpp in Sources */,
+				BFD3F45E1F1F048B00557B28 /* timelineTrack.cpp in Sources */,
 				BF5110F11F1AC4410087AD7E /* headerUI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
