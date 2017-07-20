@@ -13,7 +13,7 @@
 #include "ofMain.h"
 #include "Panel.h"
 #include "timelineData.h"
-//#include "linkModule.h"
+#include "timelineTrack.h"
 
 #endif /* timelinePanel_h */
 
@@ -37,7 +37,7 @@ public:
     void drawPageData(int _mt);
     
     timelineData data;
-    //linkModule link;
+    timelineTrack tracks;
     
 private:
     

@@ -19,10 +19,16 @@ class timelineTrack {
 public:
     
     timelineTrack();
-    void setup();
+    void init(int _x, int _y, int _w, int _h);
+    void draw();
     
-    
-    
+    int duration;
+    int _x;
+    int _y;
+    int _w;
+    int _h;
+    int _bpm;
+    int _frameRate;
     
     
 private:

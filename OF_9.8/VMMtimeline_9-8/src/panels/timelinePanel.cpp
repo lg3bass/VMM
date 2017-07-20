@@ -21,15 +21,17 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
     _w = width;
     _h = height;
     
+    tracks.init(x,y,width,height);
+    
+    
     //colors
     setBackgroundColor(ofColor::darkGray);
     setBorderColor(ofColor::mediumOrchid);
     setBorderWidth(2);
     
-    
     verdana9.load("verdana.ttf", 7, true, true);
 
-    //link.setup(appPtr);
+
 }
 
 //-------------------------------------------------
@@ -42,7 +44,7 @@ void timelinePanel::update(){
 //-------------------------------------------------
 void timelinePanel::draw(){
     
-    //link.draw();
+    tracks.draw();
     
     drawPanel();
     
