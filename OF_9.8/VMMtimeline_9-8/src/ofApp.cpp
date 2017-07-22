@@ -41,8 +41,9 @@ void ofApp::draw(){
     
     
     //panels
-    headerPanel.draw();
+    
     timePanel.draw();
+    headerPanel.draw();    
     footerPanel.draw();
     
     setBreadcrumb();

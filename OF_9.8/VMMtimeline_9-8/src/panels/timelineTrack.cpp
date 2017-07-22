@@ -17,7 +17,7 @@ timelineTrack::timelineTrack(){
     //setup the timelines
     timelines.reserve(NUMBER_OF_TRACKS);
     
-    
+    showHideFlag = true;
     
     
     
@@ -42,7 +42,7 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         
         t->setupFont("verdana.ttf", 10);
         
-        t->removeCocoaMenusFromGlut("02_timlineLink_testDebug");
+        //t->removeCocoaMenusFromGlut("02_timlineLink_testDebug");
         t->setup();
         
         //sets the directory where the default xml
@@ -63,38 +63,36 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         t->setOutPointAtFrame(duration);
         
         
-        
-        //test track
-        t->setPageName("Global-Rotate");
-        t->addCurves("G Rotate X", ofRange(0, 100));
-        t->addCurves("G Rotate Y", ofRange(0, 100));
-        t->addCurves("G Rotate Z", ofRange(0, 100));
-        
-        t->addPage("Local-Rotate");
-        t->addCurves("L Rotate X", ofRange(0, 360));
-        t->addCurves("L Rotate Y", ofRange(0, 360));
-        t->addCurves("L Rotate Z", ofRange(0, 360));
-        
-        t->addPage("Object-Rotate");
-        t->addCurves("O Rotate X", ofRange(0, 360));
-        t->addCurves("O Rotate Y", ofRange(0, 360));
-        t->addCurves("O Rotate Z", ofRange(0, 360));
-        
-        
-        t->addPage("Global-Translate");
-        t->addCurves("G Translate X", ofRange(-150,150));
-        t->addCurves("G Translate Y", ofRange(-150,150));
-        t->addCurves("G Translate Z", ofRange(-150,150));
-        
-        t->addPage("Local-Translate");
-        t->addCurves("L Translate X", ofRange(-150,150));
-        t->addCurves("L Translate Y", ofRange(-150,150));
-        t->addCurves("L Translate Z", ofRange(-150,150));
-        
-        
-        t->getTrack("L Rotate Z")->disable();//This track is controlled by the slices
-        
-        t->setCurrentPage(0);
+
+//        t->setPageName("Global-Rotate");
+//        t->addCurves("G Rotate X", ofRange(0, 100));
+//        t->addCurves("G Rotate Y", ofRange(0, 100));
+//        t->addCurves("G Rotate Z", ofRange(0, 100));
+//        
+//        t->addPage("Local-Rotate");
+//        t->addCurves("L Rotate X", ofRange(0, 360));
+//        t->addCurves("L Rotate Y", ofRange(0, 360));
+//        t->addCurves("L Rotate Z", ofRange(0, 360));
+//        
+//        t->addPage("Object-Rotate");
+//        t->addCurves("O Rotate X", ofRange(0, 360));
+//        t->addCurves("O Rotate Y", ofRange(0, 360));
+//        t->addCurves("O Rotate Z", ofRange(0, 360));
+//        
+//        
+//        t->addPage("Global-Translate");
+//        t->addCurves("G Translate X", ofRange(-150,150));
+//        t->addCurves("G Translate Y", ofRange(-150,150));
+//        t->addCurves("G Translate Z", ofRange(-150,150));
+//        
+//        t->addPage("Local-Translate");
+//        t->addCurves("L Translate X", ofRange(-150,150));
+//        t->addCurves("L Translate Y", ofRange(-150,150));
+//        t->addCurves("L Translate Z", ofRange(-150,150));
+//
+//        t->getTrack("L Rotate Z")->disable();//This track is controlled by the slices
+//        
+//        t->setCurrentPage(0);
         
         //move all my tracks up here.
         
@@ -109,5 +107,37 @@ void timelineTrack::draw(){
     //loop through and draw all the timelines
     for(int i = 0; i < timelines.size(); i++){
         timelines[i]->draw();
+     
     }
+
+    
+    
+}
+
+//-------------------------------------------------
+void timelineTrack::displayTimelines(bool _showTimeline){
+    
+    showHideFlag = _showTimeline;
+    for(int i = 0; i < timelines.size(); i++){
+        
+        if(showHideFlag){
+            timelines[i]->show();
+        } else {
+            timelines[i]->hide();
+        }
+    }
+}
+
+//-------------------------------------------------
+void timelineTrack::enableTimelines(bool _enable){
+    //turns off mouse events while a dropdown is active.
+    for(int i = 0; i < timelines.size(); i++){
+        if(_enable){
+            timelines[i]->enableEvents();
+        }
+        if(!_enable){
+            timelines[i]->disableEvents();
+        }
+    }
+    
 }

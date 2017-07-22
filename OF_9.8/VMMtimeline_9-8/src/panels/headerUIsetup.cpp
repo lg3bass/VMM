@@ -143,6 +143,7 @@ void headerUI::setupGUI() {
     saveDropdown->setLabelAlignment(ofxDatGuiAlignment::LEFT);
     saveDropdown->setBorderVisible(TRUE);
     saveDropdown->setBorder(ofColor::darkGrey, 1);
+    saveDropdown->onDropdownEvent(this, &headerUI::onDDInputEvent);
     
     loadDropdown = new ofxDatGuiDropdown("LOAD",loadOptions);
     loadDropdown->setTheme(new ofxDatGuiThemeVMM);
@@ -152,6 +153,7 @@ void headerUI::setupGUI() {
     loadDropdown->setLabelAlignment(ofxDatGuiAlignment::LEFT);
     loadDropdown->setBorderVisible(TRUE);
     loadDropdown->setBorder(ofColor::darkGrey, 1);
+    loadDropdown->onDropdownEvent(this, &headerUI::onDDInputEvent);
     
     //section S3 - width 300 (450-750)
     

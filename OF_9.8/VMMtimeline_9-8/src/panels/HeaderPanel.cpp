@@ -54,22 +54,41 @@ void HeaderPanel::keyPressed(int key){
 
 //-------------------------------------------------
 void HeaderPanel::mousePressed(int x, int y, int button){
-    if(y < _h){
+    
+   
+    
+    //bool ddState = mainUI.trackDropdown->getIsExpanded();
+    
+    //cout << "trackDropdown focused: " << mainUI.trackDropdown->getFocused() << endl;
+    
 
-        
-        hMainApp->myAppData.selected_panel_name = "HEADER";
-        hMainApp->myAppData.txt_color = ofColor::purple;
-    }
-
+    
 }
 
 //-------------------------------------------------
 void HeaderPanel::mouseReleased(int x, int y, int button){
     
+    //cout << "getMouseDown(): " << mainUI.trackDropdown->getMouseDown() << endl;
     
+    if(mainUI.trackDropdown->getMouseDown() || mainUI.saveDropdown->getMouseDown() || mainUI.loadDropdown->getMouseDown()){
+        
+        if(mainUI.trackDropdown->getIsExpanded() || mainUI.saveDropdown->getIsExpanded() || mainUI.loadDropdown->getIsExpanded()){
+            
+            cout << "dropdown is CLOSED" << endl;
+            
+            hMainApp->setTimePanelEnabled(true);
+            
+        } else {
+            
+            cout << "dropdown is OPEN" << endl;
+            
+            hMainApp->setTimePanelEnabled(false);
+        }
+        
+        
+        
+    }
     
-    //ofLog() << "header released";
-    //setBackgroundColor(ofColor::darkGray);
 
     
 }

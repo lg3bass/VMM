@@ -57,6 +57,12 @@ void ofApp::setKeyVal(int _val){
 }
 
 //--------------------------------------------------------------
+void ofApp::setTimePanelEnabled(bool _val){
+    //timePanel.timePanelEnabled = _val;
+    timePanel.tracks.enableTimelines(_val);
+}
+
+//--------------------------------------------------------------
 //headerPanel functions
 //--------------------------------------------------------------
 void ofApp::setBreadcrumb(){

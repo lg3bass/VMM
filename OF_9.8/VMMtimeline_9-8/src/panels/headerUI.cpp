@@ -59,8 +59,24 @@ void headerUI::onClipMatrixInputEvent(ofxDatGuiMatrixEvent e){
 //--------------------------------------------------------------
 void headerUI::onDDInputEvent(ofxDatGuiDropdownEvent e){
     
-    cout << "DD index selected: " << e.child << endl;
-    add_type = e.child;
+    if(e.target->getName() == "TIMELINE"){
+        add_type = e.child;
+        cout << "TIMELINE dropdown index: " << e.child << endl;
+    }
+    
+    if(e.target->getName() == "SAVE"){
+        
+        cout << "SAVE dropdown index: " << e.child << endl;
+    }
+    
+    if(e.target->getName() == "LOAD"){
+        
+        cout << "LOAD dropdown index: " << e.child << endl;
+    }
+    
+    
+    //allow the timeline to recieve mouse input.
+    uiMainApp->setTimePanelEnabled(true);
     
 }
 

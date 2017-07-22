@@ -56,6 +56,8 @@ public:
     void prevKey();
     void setKeyVal(int _val);
     
+    void setTimePanelEnabled(bool _val);
+    
     //headerPanel functions
     void setBreadcrumb();
     void displayKeyValue(int _val);
@@ -64,12 +66,14 @@ public:
     void passTextValue(string _name, string _val);
     void setLinkSlider(int _beat);
     
-private:
-    
     //panels
     HeaderPanel headerPanel;
     timelinePanel timePanel;
     FooterPanel footerPanel;
+
+private:
+    
+
     
 
 };

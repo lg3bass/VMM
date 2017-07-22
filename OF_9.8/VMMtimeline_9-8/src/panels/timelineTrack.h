@@ -21,6 +21,8 @@ public:
     timelineTrack();
     void init(int _x, int _y, int _w, int _h);
     void draw();
+    void displayTimelines(bool _showTimeline);    
+    void enableTimelines(bool _enable);
     
     int duration;
     int _x;
@@ -30,11 +32,13 @@ public:
     int _bpm;
     int _frameRate;
     
+    vector<ofxTimeline*> timelines;
+    
+    bool showHideFlag;
     
 private:
     
-    vector<ofxTimeline*> timelines;
-    
+
     
     
     

@@ -30,7 +30,8 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
     setBorderWidth(2);
     
     verdana9.load("verdana.ttf", 7, true, true);
-
+    
+    showTrackData = false;
 
 }
 
@@ -48,12 +49,22 @@ void timelinePanel::draw(){
     
     drawPanel();
     
-    drawTrackData();
+    if(showTrackData){
+        drawTrackData();
+    }
+    
     
 }
 
 //-------------------------------------------------
 void timelinePanel::keyPressed(int key){
+    
+    cout << "KEY: " << ofToString(key) << endl;
+    
+    if(key == 60 || key == 100){                               // D Key
+        showTrackData = !showTrackData;
+        tracks.displayTimelines(!showTrackData);
+    }
     
     if(key & OF_KEY_MODIFIER){
         if(key >= OF_KEY_F1 && key <= OF_KEY_F12){
@@ -117,6 +128,8 @@ void timelinePanel::keyPressed(int key){
                 case OF_KEY_LEFT_SUPER:
                     cout << "Left Apple Pressed" << endl;
                     
+
+                    
                     break;
                 case OF_KEY_RIGHT_SUPER:
                     cout << "Right Apple Pressed" << endl;
@@ -171,7 +184,9 @@ void timelinePanel::keyReleased(int key){
             switch(key){
                 case OF_KEY_LEFT_SUPER:
                     cout << "Left Apple Released" << endl;
-                    
+//                    if(key == 60 || key == 100){                               //D key
+//                        showTrackData = false;
+//                    }
                     break;
                 case OF_KEY_RIGHT_SUPER:
                     cout << "Right Apple Released" << endl;

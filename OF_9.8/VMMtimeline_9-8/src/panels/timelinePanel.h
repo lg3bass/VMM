@@ -35,11 +35,16 @@ public:
     
     void drawTrackData();
     void drawPageData(int _mt);
+    bool showTrackData;
     
     timelineData data;
     timelineTrack tracks;
     
+
+    
 private:
+    
+    
     
     ofTrueTypeFont	verdana9;
     
