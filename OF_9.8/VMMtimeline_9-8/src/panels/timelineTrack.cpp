@@ -19,8 +19,6 @@ timelineTrack::timelineTrack(){
     
     showHideFlag = true;
     
-    
-    
 }
 
 //-------------------------------------------------
@@ -32,9 +30,6 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
     _h = _h;
     int _bpm = 120;
     int _frameRate = 30;
-    
-    
-    
     
     //SETUP THE TRACKS
     for(int i=0; i<NUMBER_OF_TRACKS; i++){
@@ -63,7 +58,7 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         t->setOutPointAtFrame(duration);
         
         
-
+//SWITCH TO MECHANISM TO ADD DYNAMICALLY
 //        t->setPageName("Global-Rotate");
 //        t->addCurves("G Rotate X", ofRange(0, 100));
 //        t->addCurves("G Rotate Y", ofRange(0, 100));
@@ -94,8 +89,6 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
 //        
 //        t->setCurrentPage(0);
         
-        //move all my tracks up here.
-        
         timelines.push_back(t);
         
     }
@@ -109,8 +102,6 @@ void timelineTrack::draw(){
         timelines[i]->draw();
      
     }
-
-    
     
 }
 

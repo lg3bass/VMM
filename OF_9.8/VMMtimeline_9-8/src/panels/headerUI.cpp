@@ -147,7 +147,6 @@ void headerUI::resetTrackDropdown(){
     trackDropdown->select(add_type);
     trackName->setText(add_name);
     
-    
 }
 
 
