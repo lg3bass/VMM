@@ -24,6 +24,8 @@ public:
     void displayTimelines(bool _showTimeline);    
     void enableTimelines(bool _enable);
     
+    void addTLTrack(int _type);
+    
     int duration;
     int _x;
     int _y;

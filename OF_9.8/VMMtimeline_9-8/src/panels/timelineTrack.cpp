@@ -132,3 +132,9 @@ void timelineTrack::enableTimelines(bool _enable){
     }
     
 }
+
+//-------------------------------------------------
+void timelineTrack::addTLTrack(int _type){
+    
+    cout << "adding a track of type: " << ofToString(_type) << endl;
+}

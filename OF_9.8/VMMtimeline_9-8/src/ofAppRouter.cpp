@@ -25,8 +25,9 @@ void ofApp::setControllerData(string name, int data){
 void ofApp::addTLTrack(string name, int type){
     
     timePanel.data.addtlTrack(name, type);
+    timePanel.tracks.addTLTrack(type);
     
-}
+};
 
 //--------------------------------------------------------------
 void ofApp::remTLTrack(){
