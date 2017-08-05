@@ -70,6 +70,8 @@ public:
     HeaderPanel headerPanel;
     timelinePanel timePanel;
     FooterPanel footerPanel;
+    
+
 
 private:
     

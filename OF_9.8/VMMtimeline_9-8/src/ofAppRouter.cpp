@@ -24,8 +24,12 @@ void ofApp::setControllerData(string name, int data){
 //--------------------------------------------------------------
 void ofApp::addTLTrack(string name, int type){
     
-    timePanel.data.addtlTrack(name, type);
-    timePanel.tracks.addTLTrack(type);
+    timePanel.data.addtlTrack(name, type);                      //adds the track in the data
+    cout << "ofAppRouter::addTLTrack::getTrack - " << timePanel.data.getTrack() << endl;
+    cout << "ofAppRouter::addTLTrack::getPage - " << timePanel.data.getPage() << endl;
+    cout << "ofAppRouter::addTLTrack - " << timePanel.data.getSelectedChannelName(0) << endl;
+    
+    timePanel.tracks.addTLTrack(name, type);                          //add the track on the timeline
     
 };
 
@@ -34,8 +38,12 @@ void ofApp::remTLTrack(){
     
     if(timePanel.data.getNumOfChannelsOnPage()> 0){
         
-        timePanel.data.remtlTrack();
+        //timePanel.data.remtlTrack();
+        //timePanel.tracks.remTLTrack();
+        timePanel.tracks.getCurrentSelectedTimeline(0);
         
+    } else {
+        cout << "not enough tracks to do remove" << endl;
     }
 }
 

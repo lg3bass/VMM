@@ -59,7 +59,7 @@ void timelinePanel::draw(){
 //-------------------------------------------------
 void timelinePanel::keyPressed(int key){
     
-    cout << "KEY: " << ofToString(key) << endl;
+    //cout << "KEY: " << ofToString(key) << endl;
     
     if(key == 60 || key == 100){                               // D Key
         showTrackData = !showTrackData;
@@ -223,7 +223,7 @@ void timelinePanel::mousePressed(int x, int y, int button){
         bMainApp->myAppData.txt_color = ofColor::darkKhaki;
     }
     
-    
+    tracks.mousePressed(x, y, button);
 }
 
 //-------------------------------------------------

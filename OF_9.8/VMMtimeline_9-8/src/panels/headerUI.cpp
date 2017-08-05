@@ -113,6 +113,8 @@ void headerUI::onButtonEvent(ofxDatGuiButtonEvent e){
             if(add_name == "<<ENTER NAME>>") {
                 cout << "you must enter a name." << endl;
             } else {
+                
+                
                 uiMainApp->addTLTrack(add_name, add_type);
                 resetTrackDropdown();
             }

@@ -1,4 +1,6 @@
 #include "ofApp.h"
+//#include "ofxTLEvents.h"
+//#include "ofxTimeline.h"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -18,7 +20,10 @@ void ofApp::setup(){
     myAppData.txt_color = ofColor::brown;
     
     
-
+    //ofAddListener(trackGainedFocus, this, &ofApp::actOnFocus);
+    
+    
+    //ofAddListener(ofxTLEvents::trackGainedFocus, this, &ofApp::actOnFocus);
     
 }
 
