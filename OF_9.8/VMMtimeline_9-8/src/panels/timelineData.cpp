@@ -21,7 +21,7 @@ timelineData::timelineData(){
             
             page myPage;                                //add pages
             myPage.name = "PAGE_"+ofToString(p);
-            myPage.selected_channel = 0;
+            myPage.selected_channel = -1;
             
             mytrack.tlPages.push_back(myPage);            
             
@@ -160,6 +160,7 @@ void timelineData::addtlTrack(string _name, int _type){
     newTrack.type = channelType(_type);
     newTrack.selected_key = -1;
     
+    //add dummy keys to the new track
     for(int k=0;k<3;k++){
         
         key ky;
@@ -172,16 +173,31 @@ void timelineData::addtlTrack(string _name, int _type){
     
     TL.tracks[getTrack()].tlPages[getPage()].tlChannels.push_back(newTrack);
     
+    
 }
 
 //-------------------------------------------------
-void timelineData::remtlTrack(){
-    //note: currently this removes the current selected timeline and then selects index 0.
-    int currentTrackOnPage = TL.tracks[getTrack()].tlPages[getPage()].selected_channel;
+void timelineData::remtlTrack(string _data){
     
+    //determine the index of the TRACK
+    for(int i=0; i<getNumOfChannelsOnPage();i++){
+        
+        string trackName = getChannelName(i);
+        if(_data == trackName){
+            
+            cout << "timelineData::remtlTrack(" << _data << ")" << endl;
+            TL.tracks[getTrack()].tlPages[getPage()].tlChannels.erase(TL.tracks[getTrack()].tlPages[getPage()].tlChannels.begin()+i);
+            
+            
+        }
+    }
+    
+    
+    //NOT WORKING
     //erase at index. (source: //stackoverflow.com/questions/875103/how-do-i-erase-an-element-from-stdvector-by-index)
-    TL.tracks[getTrack()].tlPages[getPage()].tlChannels.erase(TL.tracks[getTrack()].tlPages[getPage()].tlChannels.begin()+currentTrackOnPage);
-    TL.tracks[getTrack()].tlPages[getPage()].selected_channel = 0;  //set selected to 0;
+    //TL.tracks[getTrack()].tlPages[getPage()].tlChannels.erase(TL.tracks[getTrack()].tlPages[getPage()].tlChannels.begin()+getSelectedChannel());
+
+    
 }
 
 
@@ -191,28 +207,53 @@ int timelineData::getSelectedChannel(){
 }
 
 //-------------------------------------------------
-void timelineData::setSelectedChannel(int _page){
-    TL.tracks[getTrack()].tlPages[getPage()].selected_channel = _page;
-    
-    setSelectedKeyIndex(-1);
-    
-    
-    ofLog() << "Selected - Page " << ofToString(getPage()) << " Timeline " << getSelectedChannelName(_page);
+void timelineData::setSelectedChannel(int _channel){
+    TL.tracks[getTrack()].tlPages[getPage()].selected_channel = _channel;
+    setSelectedKeyIndex(-1);                                                        //reset all the keys
+    ofLog() << "Selected - Page " << ofToString(getPage()) << " Channel " << getChannelName(_channel);
     
 }
 
 //-------------------------------------------------
-string timelineData::getSelectedChannelName(int _pageIndex){
-    return TL.tracks[getTrack()].tlPages[getPage()].tlChannels[_pageIndex].name;
+void timelineData::setSelectedChannel(string _channel){
+    int channels_on_page = getNumOfChannelsOnPage();
+    
+    for (int i=0; i< channels_on_page; i++){
+        if(_channel == getChannelName(i)){
+            TL.tracks[getTrack()].tlPages[getPage()].selected_channel = i;
+            ofLog() << "Selected - Page " << ofToString(getPage()) << " Channel " << getChannelName(i);
+        }
+    }
+    setSelectedKeyIndex(-1);                                                        //reset all the keys
+
 }
 
+//-------------------------------------------------
+string timelineData::getSelectedChannelName(){
+    
+    string channelName = "";
+    
+    if(getSelectedChannel() == -1) {
+        channelName = "NULL";
+    } else {
+        //returns the name of a selected channel on a page.
+        channelName = TL.tracks[getTrack()].tlPages[getPage()].tlChannels[getSelectedChannel()].name;
+    }
+    
+    return channelName;
+}
+
+//-------------------------------------------------
+string timelineData::getChannelName(int _channel){
+    
+    return TL.tracks[getTrack()].tlPages[getPage()].tlChannels[_channel].name;      //returns the name of a selected channel on a page.
+}
 
 //-------------------------------------------------
 int timelineData::getNumOfChannelsOnPage(){
     
     int num_tracks_on_page = TL.tracks[getTrack()].tlPages[getPage()].tlChannels.size();
-        
-    return num_tracks_on_page;
+    return num_tracks_on_page;                                                      //returns how many channels are on a page.
     
 }
 
@@ -224,11 +265,15 @@ int timelineData::getNumOfKeysInChannel(){
 
 //-------------------------------------------------
 ofVec2f timelineData::getSelectedKeyValue(int _selKey){
+    ofVec2f key;
     
-    int kf = TL.tracks[getTrack()].tlPages[getPage()].tlChannels[getSelectedChannel()].keyframes.keys[_selKey].frm;
-    float kv = TL.tracks[getTrack()].tlPages[getPage()].tlChannels[getSelectedChannel()].keyframes.keys[_selKey].val;
-    
-    ofVec2f key = ofVec2f(kf,kv);
+    if(getSelectedChannel() > 0){
+        int kf = TL.tracks[getTrack()].tlPages[getPage()].tlChannels[getSelectedChannel()].keyframes.keys[_selKey].frm;
+        float kv = TL.tracks[getTrack()].tlPages[getPage()].tlChannels[getSelectedChannel()].keyframes.keys[_selKey].val;
+        ofVec2f key = ofVec2f(kf,kv);
+    } else {
+        ofVec2f key = ofVec2f(0,0);
+    }
     
     return key;
 }

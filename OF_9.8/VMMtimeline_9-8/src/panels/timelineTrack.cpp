@@ -48,7 +48,7 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         t->setLockWidthToWindow(false);
         t->setDurationInFrames(duration);
         t->setOffset(ofVec2f((float)_x, (float)_y));
-        t->setMinimalHeaders(true);
+        //t->setMinimalHeaders(true);
         t->setWidth((float)_w);
         t->setBPM(_bpm);
         t->setFrameRate(_frameRate);
@@ -57,6 +57,8 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         t->setFrameBased(true);
         t->setInPointAtFrame(0);
         t->setOutPointAtFrame(duration);
+        t->setShowZoomer(false);
+        t->setShowInoutControl(false);
         
         
 //SWITCH TO MECHANISM TO ADD DYNAMICALLY
@@ -91,15 +93,11 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
 //        t->setCurrentPage(0);
         
         
-        
         timelines.push_back(t);
         
-        //add listener to "ofxTLEvents::trackGainedFocus"
-        ofAddListener(timelines[i]->events().trackGainedFocus, this, &timelineTrack::actOnFocus);
 
         
     }
-    //trackGainedFocus
     
 }
 
@@ -116,18 +114,6 @@ void timelineTrack::draw(){
 
 //-------------------------------------------------
 void timelineTrack::mousePressed(int x, int y, int button){
-    
-    //cout << "is T1 there? - " << timelines[0]->hasTrack("T1") << endl;
-    
-//    if(timelines[0]->hasTrack("T1")){
-//        if(timelines[0]->getFocusedTrack() != NULL){
-//            
-//            cout << "What is focused - " << timelines[0]->getFocusedTrack()->getName() << endl;
-//        }
-//        
-//    }
-    
-    
     
 }
 
@@ -162,7 +148,7 @@ void timelineTrack::enableTimelines(bool _enable){
 //-------------------------------------------------
 void timelineTrack::addTLTrack(string _name, int _type){
     
-    cout << "adding a track of type: " << ofToString(_type) << endl;
+    cout << "timelineTrack::addTLTrack(" << _name << "," << ofToString(_type) << ")" << endl;
     
     //timelines[0]->setPageName("Global-Rotate");
     timelines[0]->addCurves(_name, ofRange(0, 100));
@@ -171,30 +157,12 @@ void timelineTrack::addTLTrack(string _name, int _type){
 }
 
 //-------------------------------------------------
-void timelineTrack::remTLTrack(){
+void timelineTrack::remTLTrack(string _name){
     
     cout << "remove track" << endl;
-    
-    timelines[0]->removeTrack("G Rotate X");
-    
-}
-
-
-string timelineTrack::getCurrentSelectedTimeline(int _trackno){
-    
-    ofxTLTrack* whatIsFocused;
-    
-    whatIsFocused = timelines[_trackno]->getFocusedTrack();
-    
-    cout << "name of the focused track" << whatIsFocused->getName() << endl;
-    
-    return whatIsFocused->getName();
+    // use the data from "event-a-rific"
+    timelines[0]->removeTrack(_name);
     
 }
 
 
-void timelineTrack::actOnFocus(ofxTLTrackEventArgs & args){
-
-    
-    cout << "event-a-rific: " << args.name << endl;
-}

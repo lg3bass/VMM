@@ -15,7 +15,6 @@ class timelineData{
     
 public:
     
-    
     enum channelType {tlCurves,tlKeyframes,tlMarkers};
 
     struct key {
@@ -47,8 +46,6 @@ public:
         int selected_page = 0;
         bool cuedToPlay;
     };
-
-
     
     struct tlData {
         int selected_track = 0;
@@ -72,7 +69,7 @@ public:
     //constuctor
     timelineData();
     
-    // GLOBAL DATA
+    //GLOBAL DATA
     void setMeasures(string _measures);
     void setBPM(string _bpm);
     void setFPS(string _fps);
@@ -80,8 +77,7 @@ public:
     void setMeter(string _meter);
     void setBarsBeatsFrames(string _value);
     
-    
-    // TRACK SPECIFIC DATA
+    //TRACK SPECIFIC DATA
     int getTrack();                                 //return the current selected track
     void setTrack(int _track);                      //set current track
     
@@ -99,11 +95,13 @@ public:
     
     //ADD AND REMOVE TIMELINES TO A PAGE
     void addtlTrack(string _name, int _type);       //add a timeline track to a page
-    void remtlTrack();                              //remove a timeline from the current page.
+    void remtlTrack(string _name);                  //remove a timeline from the current page.
     
     int getSelectedChannel();                       //returns the index to the selected timeline on a page.
-    void setSelectedChannel(int _page);             //set the current selected timeline(channel) on a page.
-    string getSelectedChannelName(int _pageIndex);  //return the name of the selected timeline/channel on a page.
+    void setSelectedChannel(int _channel);          //set the current selected timeline(channel) on a page (by index)
+    void setSelectedChannel(string _channel);       //set the current selected timeline(channel) on a page (by index)
+    string getSelectedChannelName();                //return the name of the selected timeline(channel) on a page.
+    string getChannelName(int _channel);
     int getNumOfChannelsOnPage();                   //return the number of channels on a page.
     
     int getNumOfKeysInChannel();                    

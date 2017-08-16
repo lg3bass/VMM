@@ -22,8 +22,7 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
     _h = height;
     
     tracks.init(x,y,width,height);
-    
-    
+
     //colors
     setBackgroundColor(ofColor::darkGray);
     setBorderColor(ofColor::mediumOrchid);
@@ -32,13 +31,17 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
     verdana9.load("verdana.ttf", 7, true, true);
     
     showTrackData = false;
+    
+    //add listener to "ofxTLEvents::trackGainedFocus"
+    for(int i=0; i<NUMBER_OF_TRACKS; i++){
+        ofAddListener(tracks.timelines[i]->events().trackGainedFocus, this, &timelinePanel::actOnFocus);
+        ofAddListener(tracks.timelines[i]->events().trackLostFocus, this, &timelinePanel::actOnLossFocus);
+    }
 
 }
 
 //-------------------------------------------------
 void timelinePanel::update(){
-    
-    
     
 }
 
@@ -53,7 +56,6 @@ void timelinePanel::draw(){
         drawTrackData();
     }
     
-    
 }
 
 //-------------------------------------------------
@@ -61,12 +63,12 @@ void timelinePanel::keyPressed(int key){
     
     //cout << "KEY: " << ofToString(key) << endl;
     
-    if(key == 60 || key == 100){                               // D Key
+    if(key == 60 || key == 100){                                // D Key
         showTrackData = !showTrackData;
         tracks.displayTimelines(!showTrackData);
     }
     
-    if(key & OF_KEY_MODIFIER){
+    if(key & OF_KEY_MODIFIER){                                  //F modifier keys
         if(key >= OF_KEY_F1 && key <= OF_KEY_F12){
 
             switch(key){
@@ -118,17 +120,25 @@ void timelinePanel::keyPressed(int key){
                 case 259:
                     
                     cout << "F3 pressed" << endl;
+                    
                     break;
-            
+                case 260:
+                    
+                    cout << "F4 pressed" << endl;
+                    
+                    break;
+                case 261:
+                    
+                    cout << "F5 pressed" << endl;
+                    
+                    break;
             }//end switch
-            
         }else{
             
             switch(key){
                 case OF_KEY_LEFT_SUPER:
-                    cout << "Left Apple Pressed" << endl;
                     
-
+                    cout << "Left Apple Pressed" << endl;
                     
                     break;
                 case OF_KEY_RIGHT_SUPER:
@@ -274,8 +284,11 @@ void timelinePanel::drawTrackData(){
         
     }
 
-
-    drawPageData(_y+mt+v_unit*3);
+    //only draw if a channel is selected
+    if(data.getSelectedChannel() > -1 ){
+        drawPageData(_y+mt+v_unit*3);                   //show the page tracks and keys
+    }
+    
     
 }
 
@@ -313,10 +326,8 @@ void timelinePanel::drawPageData(int _mt){
     int kf;
     float kv;
     
-    
-    
     if (data.getNumOfChannelsOnPage() > 0){
-        
+
         int keysInChannel = data.getNumOfKeysInChannel();
         int selectedKeyIndex = data.getSelectedKeyIndex();
         
@@ -339,6 +350,22 @@ void timelinePanel::drawPageData(int _mt){
     }
     verdana9.drawString(keyframeTxt, _x+ml, _y+mt+v_unit*1);
     verdana9.drawString(selKeyTxt, _x+ml, _y+mt+v_unit*2);
+    
+}
+
+//-------------------------------------------------
+void timelinePanel::actOnFocus(ofxTLTrackEventArgs & args){
+    
+    cout << "timelinePanel::Gained Focus: " << args.name << endl;
+    data.setSelectedChannel(args.name);
+    
+}
+
+//-------------------------------------------------
+void timelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
+    
+    cout << "timelinePanel::Loss Focus: " << args.name << endl;
+    //data.setSelectedChannel(-1);
     
 }
 

@@ -20,7 +20,6 @@
 class timelinePanel : public Panel{
 
 public:
-
     
     void setup(int x, int y, int width, int height, ofBaseApp* appPtr);
     void update();
@@ -36,6 +35,10 @@ public:
     void drawPageData(int _mt);
     bool showTrackData;
     
+    //intercept event from the timeline
+    void actOnFocus(ofxTLTrackEventArgs & args);
+    void actOnLossFocus(ofxTLTrackEventArgs & args);
+    
     timelineData data;
     timelineTrack tracks;
     
@@ -43,13 +46,8 @@ public:
     
 private:
     
-    
-    
     ofTrueTypeFont	verdana9;
-    
-    
     ofColor bordCol;
     int bordWidth;
-
 
 };

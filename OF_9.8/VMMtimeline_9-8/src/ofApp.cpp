@@ -42,11 +42,7 @@ void ofApp::draw(){
     ofSetWindowTitle("fps: "+ofToString(ofGetFrameRate())+" - "+ofToString(ofGetWidth())+","+ofToString(ofGetHeight()));
     
     AL.draw();                                                  //ableton link runner
-    
-    
-    
-    //panels
-    
+       
     timePanel.draw();
     headerPanel.draw();    
     footerPanel.draw();

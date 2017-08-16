@@ -127,6 +127,7 @@ void headerUI::onButtonEvent(ofxDatGuiButtonEvent e){
         cout << "remove track pressed" << endl;
         
         uiMainApp->remTLTrack();
+    
         
     } else if (e.target->getName() == ">"){
         cout << "increment key" << endl;

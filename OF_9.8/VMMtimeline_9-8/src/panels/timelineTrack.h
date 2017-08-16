@@ -32,9 +32,7 @@ public:
     void enableTimelines(bool _enable);
     
     void addTLTrack(string _name, int _type);
-    void remTLTrack();
-    
-    string getCurrentSelectedTimeline(int _trackno);
+    void remTLTrack(string _name);
     
     
     int duration;
@@ -49,9 +47,7 @@ public:
     
     bool showHideFlag;
     
-    //intercept event from the timeline
-    void actOnFocus(ofxTLTrackEventArgs & args);
-    
+
 private:
     
 

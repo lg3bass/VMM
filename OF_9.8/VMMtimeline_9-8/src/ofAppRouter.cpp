@@ -24,23 +24,22 @@ void ofApp::setControllerData(string name, int data){
 //--------------------------------------------------------------
 void ofApp::addTLTrack(string name, int type){
     
-    timePanel.data.addtlTrack(name, type);                      //adds the track in the data
-    cout << "ofAppRouter::addTLTrack::getTrack - " << timePanel.data.getTrack() << endl;
-    cout << "ofAppRouter::addTLTrack::getPage - " << timePanel.data.getPage() << endl;
-    cout << "ofAppRouter::addTLTrack - " << timePanel.data.getSelectedChannelName(0) << endl;
+    timePanel.data.addtlTrack(name, type);                              //adds the track in the data
+    timePanel.tracks.addTLTrack(name, type);                            //add the track on the timeline
     
-    timePanel.tracks.addTLTrack(name, type);                          //add the track on the timeline
-    
-};
+}
 
 //--------------------------------------------------------------
 void ofApp::remTLTrack(){
     
-    if(timePanel.data.getNumOfChannelsOnPage()> 0){
+    if(timePanel.data.getNumOfChannelsOnPage() > 0){
+        cout << "trying to remove: " << timePanel.data.getSelectedChannelName() << endl;
         
-        //timePanel.data.remtlTrack();
-        //timePanel.tracks.remTLTrack();
-        timePanel.tracks.getCurrentSelectedTimeline(0);
+        string track2remove = timePanel.data.getSelectedChannelName();
+        timePanel.data.remtlTrack(track2remove);
+        timePanel.tracks.remTLTrack(track2remove);
+        
+        timePanel.data.setSelectedChannel(-1);
         
     } else {
         cout << "not enough tracks to do remove" << endl;
@@ -78,17 +77,24 @@ void ofApp::setBreadcrumb(){
     
     string selTrackOnPage = "";
     
-    if(timePanel.data.getNumOfChannelsOnPage() > 0) {
         
-        selTrackOnPage = timePanel.data.getSelectedChannelName(timePanel.data.getSelectedChannel());
-        
-    } else {
-        
-        selTrackOnPage = "NULL";
-    }
+        if(timePanel.data.getNumOfChannelsOnPage() > 0) {
+            
+            if(timePanel.data.getSelectedChannel() > -1){
+                selTrackOnPage = timePanel.data.getSelectedChannelName();
+                
+            }
+            
+        } else {
+            
+            selTrackOnPage = "NULL";
+        }
     
-    string breadcrumbMsg = "CLIP " + ofToString(timePanel.data.getClip()+1) + " > PAGE " + ofToString(timePanel.data.getPage()+1) + " > " + ofToString(selTrackOnPage);
+
     
+    string breadcrumbMsg = "CLIP " + ofToString(timePanel.data.getClip()+1) + " > PAGE " + ofToString(timePanel.data.getPage()+1) + " > " + timePanel.data.getSelectedChannelName();
+    
+    //set the breadcrumb ui element
     headerPanel.mainUI.breadcrumb->setLabel(breadcrumbMsg);
     
 }
