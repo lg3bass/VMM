@@ -31,9 +31,13 @@ public:
     void displayTimelines(bool _showTimeline);    
     void enableTimelines(bool _enable);
     
-    void addTLTrack(string _name, int _type);
-    void remTLTrack(string _name);
+    void showSelectedTimelineTrack(int _track);
     
+    void addTLTrack(int _track, int _page, string _name, int _type);
+    void remTLTrack(int _track, int _page, string _name);
+    
+    void setPage(int _track, int _page);
+    void highlightFocuedTrack(int _track, string _name);
     
     int duration;
     int _x;

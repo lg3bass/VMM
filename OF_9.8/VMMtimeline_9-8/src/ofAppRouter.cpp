@@ -11,9 +11,15 @@ void ofApp::setControllerData(string name, int data){
         timePanel.data.setTrack(data);
         headerPanel.setClip(timePanel.data.getClip(data));
         headerPanel.setPage(timePanel.data.getPage(data));
+        timePanel.tracks.showSelectedTimelineTrack(data);
         
     } else if(name == "PAGES") {
         timePanel.data.setPage(data);
+        timePanel.tracks.setPage(timePanel.data.getTrack(), data);
+        if(timePanel.data.getSelectedChannel() > -1){
+            timePanel.tracks.highlightFocuedTrack(timePanel.data.getTrack(), timePanel.data.getSelectedChannelName());
+        }
+        
     } else if(name == "CLIP"){
         timePanel.data.setClip(data);
     }
@@ -25,7 +31,7 @@ void ofApp::setControllerData(string name, int data){
 void ofApp::addTLTrack(string name, int type){
     
     timePanel.data.addtlTrack(name, type);                              //adds the track in the data
-    timePanel.tracks.addTLTrack(name, type);                            //add the track on the timeline
+    timePanel.tracks.addTLTrack(timePanel.data.getTrack(),timePanel.data.getPage(),name, type);                            //add the track on the timeline
     
 }
 
@@ -37,7 +43,7 @@ void ofApp::remTLTrack(){
         
         string track2remove = timePanel.data.getSelectedChannelName();
         timePanel.data.remtlTrack(track2remove);
-        timePanel.tracks.remTLTrack(track2remove);
+        timePanel.tracks.remTLTrack(timePanel.data.getTrack(),timePanel.data.getPage(),track2remove);
         
         timePanel.data.setSelectedChannel(-1);
         

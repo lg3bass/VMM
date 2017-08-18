@@ -60,37 +60,13 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         t->setShowZoomer(false);
         t->setShowInoutControl(false);
         
+        //set the initial page name
+        t->setPageName("P1", 0);
         
-//SWITCH TO MECHANISM TO ADD DYNAMICALLY
-//        t->setPageName("Global-Rotate");
-//        t->addCurves("G Rotate X", ofRange(0, 100));
-//        t->addCurves("G Rotate Y", ofRange(0, 100));
-//        t->addCurves("G Rotate Z", ofRange(0, 100));
-//        
-//        t->addPage("Local-Rotate");
-//        t->addCurves("L Rotate X", ofRange(0, 360));
-//        t->addCurves("L Rotate Y", ofRange(0, 360));
-//        t->addCurves("L Rotate Z", ofRange(0, 360));
-//        
-//        t->addPage("Object-Rotate");
-//        t->addCurves("O Rotate X", ofRange(0, 360));
-//        t->addCurves("O Rotate Y", ofRange(0, 360));
-//        t->addCurves("O Rotate Z", ofRange(0, 360));
-//        
-//        
-//        t->addPage("Global-Translate");
-//        t->addCurves("G Translate X", ofRange(-150,150));
-//        t->addCurves("G Translate Y", ofRange(-150,150));
-//        t->addCurves("G Translate Z", ofRange(-150,150));
-//        
-//        t->addPage("Local-Translate");
-//        t->addCurves("L Translate X", ofRange(-150,150));
-//        t->addCurves("L Translate Y", ofRange(-150,150));
-//        t->addCurves("L Translate Z", ofRange(-150,150));
-//
-//        t->getTrack("L Rotate Z")->disable();//This track is controlled by the slices
-//        
-//        t->setCurrentPage(0);
+        for(int j=2;j<10;j++){
+            t->addPage("P"+ofToString(j));
+        }
+
         
         
         timelines.push_back(t);
@@ -129,6 +105,7 @@ void timelineTrack::displayTimelines(bool _showTimeline){
             timelines[i]->hide();
         }
     }
+    
 }
 
 //-------------------------------------------------
@@ -145,24 +122,53 @@ void timelineTrack::enableTimelines(bool _enable){
     
 }
 
+//--------------------------------------------------------------
+void timelineTrack::showSelectedTimelineTrack(int _track){
+    
+    for(int i=0; i<timelines.size();i++){
+        if(i == _track){
+            timelines[i]->show();
+        } else {
+            timelines[i]->hide();
+        }
+    }
+    
+}
+
 //-------------------------------------------------
-void timelineTrack::addTLTrack(string _name, int _type){
+void timelineTrack::addTLTrack(int _track, int _page, string _name, int _type){
     
     cout << "timelineTrack::addTLTrack(" << _name << "," << ofToString(_type) << ")" << endl;
     
     //timelines[0]->setPageName("Global-Rotate");
-    timelines[0]->addCurves(_name, ofRange(0, 100));
     
-
+    timelines[_track]->setCurrentPage(_page);
+    timelines[_track]->addCurves(_name, ofRange(0, 100));
+    
 }
 
 //-------------------------------------------------
-void timelineTrack::remTLTrack(string _name){
+void timelineTrack::remTLTrack(int _track, int _page, string _name){
     
     cout << "remove track" << endl;
     // use the data from "event-a-rific"
-    timelines[0]->removeTrack(_name);
+    timelines[_track]->setCurrentPage(_page);
+    timelines[_track]->removeTrack(_name);
     
 }
 
+//-------------------------------------------------
+void timelineTrack::setPage(int _track, int _page){
+    
+    timelines[_track]->setCurrentPage(_page);
+    
+}
 
+//-------------------------------------------------
+void timelineTrack::highlightFocuedTrack(int _track, string _name){
+
+    ofxTLTrack* newFocus = NULL;
+    newFocus = timelines[_track]->getTrack(_name);
+    timelines[_track]->setFocusedTrack(newFocus);
+    
+}
