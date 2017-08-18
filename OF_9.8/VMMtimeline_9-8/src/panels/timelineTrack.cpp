@@ -67,7 +67,7 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
             t->addPage("P"+ofToString(j));
         }
 
-        
+        t->setShowPageTabs(false);
         
         timelines.push_back(t);
         
