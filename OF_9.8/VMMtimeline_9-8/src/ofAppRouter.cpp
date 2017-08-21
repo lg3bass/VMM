@@ -29,27 +29,44 @@ void ofApp::setControllerData(string name, int data){
 
 //--------------------------------------------------------------
 void ofApp::addTLTrack(string name, int type){
-    
-    timePanel.data.addtlTrack(name, type);                              //adds the track in the data
-    timePanel.tracks.addTLTrack(timePanel.data.getTrack(),timePanel.data.getPage(),name, type);                            //add the track on the timeline
-    
+    //add a track on the current selected page
+    timePanel.addTLChannel(name, type);
 }
 
 //--------------------------------------------------------------
 void ofApp::remTLTrack(){
-    
-    if(timePanel.data.getNumOfChannelsOnPage() > 0){
-        cout << "trying to remove: " << timePanel.data.getSelectedChannelName() << endl;
-        
-        string track2remove = timePanel.data.getSelectedChannelName();
-        timePanel.data.remtlTrack(track2remove);
-        timePanel.tracks.remTLTrack(timePanel.data.getTrack(),timePanel.data.getPage(),track2remove);
-        
-        timePanel.data.setSelectedChannel(-1);
-        
-    } else {
-        cout << "not enough tracks to do remove" << endl;
-    }
+    //remove a track on the current selected page
+    timePanel.remTLChannel();
+}
+
+//--------------------------------------------------------------
+void ofApp::saveTLPage(){
+    timePanel.saveTLPage();
+}
+
+//--------------------------------------------------------------
+void ofApp::saveTLTrackPages(){
+    cout << "ofApp::saveTLTrackPages()" << endl;
+}
+
+//--------------------------------------------------------------
+void ofApp::saveTLAllTracks(){
+    cout << "ofApp::saveTLAllTracks()" << endl;
+}
+
+//--------------------------------------------------------------
+void ofApp::loadTLPage(){
+    timePanel.loadTLPage();
+}
+
+//--------------------------------------------------------------
+void ofApp::loadTLTrackPages(){
+    cout << "ofApp::loadTLTrackPages()" << endl;
+}
+
+//--------------------------------------------------------------
+void ofApp::loadTLAllTracks(){
+    cout << "ofApp::loadTLAllTracks()" << endl;
 }
 
 //--------------------------------------------------------------
@@ -82,49 +99,33 @@ void ofApp::setTimePanelEnabled(bool _val){
 void ofApp::setBreadcrumb(){
     
     string selTrackOnPage = "";
-    
-        
         if(timePanel.data.getNumOfChannelsOnPage() > 0) {
-            
             if(timePanel.data.getSelectedChannel() > -1){
                 selTrackOnPage = timePanel.data.getSelectedChannelName();
-                
             }
-            
         } else {
-            
             selTrackOnPage = "NULL";
         }
-    
-
     
     string breadcrumbMsg = "CLIP " + ofToString(timePanel.data.getClip()+1) + " > PAGE " + ofToString(timePanel.data.getPage()+1) + " > " + timePanel.data.getSelectedChannelName();
     
     //set the breadcrumb ui element
     headerPanel.mainUI.breadcrumb->setLabel(breadcrumbMsg);
-    
 }
 
 //--------------------------------------------------------------
 void ofApp::displayKeyValue(int _val){
     
     if(_val == -1){
-        
         headerPanel.mainUI.keyVal->setText("---");
-        
     } else {
-        
         if(timePanel.data.getNumOfChannelsOnPage()>0){
             ofVec2f key = timePanel.data.getSelectedKeyValue(timePanel.data.getSelectedKeyIndex());
-            
             headerPanel.mainUI.keyVal->setText(ofToString(key.y));
-            
         } else {
-            
             headerPanel.mainUI.keyVal->setText("NULL");
         }
     }
-    
 }
 
 
@@ -169,7 +170,7 @@ void ofApp::passTextValue(string _field, string _val){
     
 }
 
-
+//--------------------------------------------------------------
 void ofApp::setLinkSlider(int _beat){
     
     headerPanel.setBeat(_beat);

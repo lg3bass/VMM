@@ -13,20 +13,22 @@ ofApp* uiMainApp;       //reference to ofApp()
 
 //--------------------------------------------------------------
 void headerUI::setup(ofBaseApp* appPtr){
+
     uiMainApp = dynamic_cast<ofApp*>(appPtr);
-    
     setupGUI();
 
 }
 
 //--------------------------------------------------------------
 void headerUI::update(){
+
     updateGUI();
     
 }
 
 //--------------------------------------------------------------
 void headerUI::draw(){
+
     drawGUI();
     
 }
@@ -39,7 +41,6 @@ void headerUI::onTrackMatrixInputEvent(ofxDatGuiMatrixEvent e){
     uiMainApp->setControllerData(e.target->getName(), e.child);
     resetTrackDropdown();
     
-
 }
 
 //--------------------------------------------------------------
@@ -59,21 +60,50 @@ void headerUI::onClipMatrixInputEvent(ofxDatGuiMatrixEvent e){
 //--------------------------------------------------------------
 void headerUI::onDDInputEvent(ofxDatGuiDropdownEvent e){
     
+    cout << "headerUI::onDDInputEvent " << e.target->getName() << endl;
+    
     if(e.target->getName() == "TIMELINE"){
-        add_type = e.child;
+        newTrack.type = e.child;
         cout << "TIMELINE dropdown index: " << e.child << endl;
     }
     
     if(e.target->getName() == "SAVE"){
-        
-        cout << "SAVE dropdown index: " << e.child << endl;
+        switch (e.child) {
+            case 0:
+                //SAVE PAGE
+                uiMainApp->saveTLPage();
+                break;
+            case 1:
+                //SAVE TRACK
+                uiMainApp->saveTLTrackPages();
+                break;
+            case 2:
+                //SAVE ALL
+                uiMainApp->saveTLAllTracks();
+                break;
+            default:
+                break;
+        }
     }
     
-    if(e.target->getName() == "LOAD"){
-        
-        cout << "LOAD dropdown index: " << e.child << endl;
+    if(e.target->getName() == "LOAD") {
+        switch (e.child) {
+            case 0:
+                //LOAD PAGE
+                uiMainApp->loadTLPage();
+                break;
+            case 1:
+                //LOAD TRACK
+                uiMainApp->loadTLTrackPages();
+                break;
+            case 2:
+                //LOAD ALL
+                uiMainApp->loadTLAllTracks();
+                break;
+            default:
+                break;
+        }
     }
-    
     
     //allow the timeline to recieve mouse input.
     uiMainApp->setTimePanelEnabled(true);
@@ -83,25 +113,17 @@ void headerUI::onDDInputEvent(ofxDatGuiDropdownEvent e){
 //--------------------------------------------------------------
 void headerUI::onTextInputEvent(ofxDatGuiTextInputEvent e){
     
-    //cout << e.target->getName() << " text: " << e.text << endl;
-    
     if(e.target->getName()== "NAME"){
-
-        add_name = e.text;
+        newTrack.name = e.text;
         
     } else if (e.target->getName() == "KEY"){
-        
         //cout << "set the value of the key!" << endl;
         uiMainApp->setKeyVal(ofToInt(e.text));
         
     } else if (e.target->getName() == "MEASURES" || e.target->getName() == "BPM" || e.target->getName() == "FPS" || e.target->getName() == "BPM" || e.target->getName() == "LOOP" || e.target->getName() == "METER" || e.target->getName() == "BAR|BEAT|FRAME"){
-        
         uiMainApp->passTextValue(e.target->getName(),e.text);       //pass up to ofApp
         
     } 
-    
-    
-    
     
 }
 
@@ -109,26 +131,21 @@ void headerUI::onTextInputEvent(ofxDatGuiTextInputEvent e){
 void headerUI::onButtonEvent(ofxDatGuiButtonEvent e){
     
     if(e.target->getName() == "+"){
-        if(add_type > 0){
-            if(add_name == "<<ENTER NAME>>") {
+        if(newTrack.type > 0){
+            if(newTrack.name == "<<ENTER NAME>>") {
                 cout << "you must enter a name." << endl;
             } else {
-                
-                
-                uiMainApp->addTLTrack(add_name, add_type);
+                uiMainApp->addTLTrack(newTrack.name, newTrack.type);
                 resetTrackDropdown();
             }
-
         } else {
             cout << "you must select a track type." << endl;
-            
         }
+        
     } else if (e.target->getName() == "-"){
         cout << "remove track pressed" << endl;
-        
         uiMainApp->remTLTrack();
     
-        
     } else if (e.target->getName() == ">"){
         cout << "increment key" << endl;
         uiMainApp->nextKey();
@@ -144,11 +161,10 @@ void headerUI::onButtonEvent(ofxDatGuiButtonEvent e){
 //--------------------------------------------------------------
 void headerUI::resetTrackDropdown(){
     
-    add_name = "<<ENTER NAME>>";
-    add_type = 0;
-    
-    trackDropdown->select(add_type);
-    trackName->setText(add_name);
+    newTrack.name = "<<ENTER NAME>>";
+    newTrack.type = 0;
+    trackDropdown->select(newTrack.type);
+    trackName->setText(newTrack.name);
     
 }
 

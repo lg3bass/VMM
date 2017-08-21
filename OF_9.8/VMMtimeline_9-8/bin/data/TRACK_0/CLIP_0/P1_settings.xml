@@ -1,0 +1,14 @@
+<page>
+    <name>P1</name>
+    <tlChannels>
+        <tlChannels-num>2</tlChannels-num>
+        <channel-0>
+            <name>GLOBAL ROTATE X</name>
+            <type>Curves</type>
+        </channel-0>
+        <channel-1>
+            <name>GLOBAL ROTATE Y</name>
+            <type>Curves</type>
+        </channel-1>
+    </tlChannels>
+</page>

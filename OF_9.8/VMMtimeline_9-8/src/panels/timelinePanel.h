@@ -39,10 +39,24 @@ public:
     void actOnFocus(ofxTLTrackEventArgs & args);
     void actOnLossFocus(ofxTLTrackEventArgs & args);
     
+    //add and remove tracks
+    void addTLChannel(string _name, int _type);
+    void remTLChannel();
+    
+    //save and load functions
+    void saveTLPage();
+    void saveTLTrackPages();
+    void saveTLAllTracks();
+    
+    void loadTLPage();
+    void loadTLTrackPages();
+    void loadTLAllTracks();
+
+    //setup the 2 large sections
     timelineData data;
     timelineTrack tracks;
     
-
+    void testFunction(int _track, string _channelName);
     
 private:
     

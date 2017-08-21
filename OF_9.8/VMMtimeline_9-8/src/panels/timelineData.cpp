@@ -17,10 +17,10 @@ timelineData::timelineData(){
         mytrack.cuedToPlay = false;
         
         //add blank pages
-        for(int p = 0;p<10;p++){
+        for(int p = 0;p<NUMBER_OF_TRACKS;p++){
             
             page myPage;                                //add pages
-            myPage.name = "PAGE_"+ofToString(p);
+            myPage.name = "P"+ofToString(p+1);
             myPage.selected_channel = -1;
             
             mytrack.tlPages.push_back(myPage);            
@@ -138,6 +138,11 @@ int timelineData::getPage(){
 }
 
 //-------------------------------------------------
+string timelineData::getPageName(){
+    return TL.tracks[getTrack()].tlPages[getPage()].name;
+}
+
+//-------------------------------------------------
 void timelineData::setPage(int _page){
     TL.tracks[getTrack()].selected_page = _page;
 }
@@ -175,6 +180,8 @@ void timelineData::addtlTrack(string _name, int _type){
     
     
 }
+
+
 
 //-------------------------------------------------
 void timelineData::remtlTrack(string _data){
@@ -332,6 +339,5 @@ void timelineData::setSelectedKeyValue(int _val){
     cout << "setSelectedKeyValue" << endl;
     
     TL.tracks[getTrack()].tlPages[getPage()].tlChannels[getSelectedChannel()].keyframes.keys[getSelectedKeyIndex()].val = _val;
-    
     
 }

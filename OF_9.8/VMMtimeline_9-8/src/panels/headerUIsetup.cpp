@@ -126,13 +126,12 @@ void headerUI::setupGUI() {
     
     
     //ROW 3
-    saveOptions.push_back("SAVE");
+    saveOptions.push_back("SAVE PAGE");
+    saveOptions.push_back("SAVE TRACK");
     saveOptions.push_back("SAVE ALL");
-    saveOptions.push_back("SAVE AS");
-    saveOptions.push_back("SAVE PRESET");
-    loadOptions.push_back("LOAD");
+    loadOptions.push_back("LOAD PAGE");
+    loadOptions.push_back("LOAD TRACK");
     loadOptions.push_back("LOAD ALL");
-    loadOptions.push_back("LOAD PRESET");
     
     //save/load dropdowns
     saveDropdown = new ofxDatGuiDropdown("SAVE",saveOptions);

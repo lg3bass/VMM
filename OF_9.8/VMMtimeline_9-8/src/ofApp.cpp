@@ -5,6 +5,9 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    //ofSetLogLevel(OF_LOG_VERBOSE);//DEFAULT: OF_LOG_ERROR
+    
+    //ableton link setup
     AL.setup(ofGetAppPtr());
     
     //panels setup
@@ -18,12 +21,6 @@ void ofApp::setup(){
     
     myAppData.selected_panel_name = "NONE";
     myAppData.txt_color = ofColor::brown;
-    
-    
-    //ofAddListener(trackGainedFocus, this, &ofApp::actOnFocus);
-    
-    
-    //ofAddListener(ofxTLEvents::trackGainedFocus, this, &ofApp::actOnFocus);
     
 }
 
@@ -39,6 +36,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+
     ofSetWindowTitle("fps: "+ofToString(ofGetFrameRate())+" - "+ofToString(ofGetWidth())+","+ofToString(ofGetHeight()));
     
     AL.draw();                                                  //ableton link runner
@@ -80,7 +78,6 @@ void ofApp::mousePressed(int x, int y, int button){
     headerPanel.mousePressed(x, y, button);
     timePanel.mousePressed(x, y, button);
     footerPanel.mousePressed(x, y, button);
-    
     
 }
 

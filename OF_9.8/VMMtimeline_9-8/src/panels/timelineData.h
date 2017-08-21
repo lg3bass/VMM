@@ -87,6 +87,9 @@ public:
     
     int getPage(int _track);                        //return the current selected page for a specific track
     int getPage();                                  //return the current selected page on current track
+    string getPageName();                           //return the current selected page name
+    
+    
     void setPage(int _page);                        //set the current page on current track
     
     bool getCuedToPlay(int _track);                 //return the flag if to play ALL the timelines on a page for a specific track

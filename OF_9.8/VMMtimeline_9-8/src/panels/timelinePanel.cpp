@@ -9,6 +9,9 @@
 #include "timelinePanel.h"
 #include "ofApp.h"
 
+#define TRACK_DIR "TRACK"
+#define CLIP_DIR "CLIP"
+
 ofApp* bMainApp;        //reference to ofApp()
 
 //-------------------------------------------------
@@ -120,6 +123,9 @@ void timelinePanel::keyPressed(int key){
                 case 259:
                     
                     cout << "F3 pressed" << endl;
+                    testFunction(data.getTrack(), data.getSelectedChannelName());
+                    
+
                     
                     break;
                 case 260:
@@ -369,3 +375,159 @@ void timelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
     
 }
 
+//-------------------------------------------------
+void timelinePanel::addTLChannel(string _name, int _type){
+    //adds the track in the data
+    data.addtlTrack(_name, _type);
+    
+    //add the track on the timeline
+    tracks.addTLTrack(data.getTrack(),data.getPage(),_name, _type);
+
+}
+
+//-------------------------------------------------
+void timelinePanel::remTLChannel(){
+    if(data.getNumOfChannelsOnPage() > 0){
+        cout << "trying to remove: " << data.getSelectedChannelName() << endl;
+        
+        string track2remove = data.getSelectedChannelName();
+        data.remtlTrack(track2remove);
+        tracks.remTLTrack(data.getTrack(),data.getPage(),track2remove);
+        
+        //clear the selection when you remove a track
+        data.setSelectedChannel(-1);
+        
+    } else {
+        cout << "not enough tracks to do remove" << endl;
+    }
+}
+
+//-------------------------------------------------
+void timelinePanel::saveTLPage(){
+    //save the keyframe data from each track
+    //NOTE: In order to specifically target a single page
+    //      You will need to add an additional function
+    //      e.g. ofxTimeline::savePageTracksToFolder(int page, string folderPath)
+    
+    string filePath = TRACK_DIR "_" + ofToString(data.getTrack()) + "/" CLIP_DIR "_" + ofToString(data.getClip()) + "/";
+    tracks.timelines[data.getTrack()]->saveTracksToFolder(filePath);
+    
+    //save the page settings.
+    string pageName = data.getPageName();
+    
+    auto tracksPage = tracks.timelines[data.getTrack()]->getPage(pageName);
+    
+    string filenamePanel = filePath + pageName + "_settings.xml";
+    ofxXmlSettings savedSettings;
+    
+    int tracksNum = tracksPage->getTracks().size();
+    
+    savedSettings.addTag("page");
+    savedSettings.pushTag("page");
+    savedSettings.addValue("name",pageName);
+    savedSettings.addTag("tlChannels");
+    savedSettings.pushTag("tlChannels");
+    savedSettings.addValue("tlChannels-num", tracksNum);
+    
+    for (int i=0; i<tracksNum; i++){
+        savedSettings.addTag("channel-"+ofToString(i));
+        savedSettings.pushTag("channel-"+ofToString(i));
+        savedSettings.addValue("name", tracksPage->getTracks()[i]->getName());
+        savedSettings.addValue("type", tracksPage->getTracks()[i]->getTrackType());
+        savedSettings.popTag();
+    }
+    savedSettings.popTag();
+    
+    savedSettings.saveFile(filenamePanel);
+
+}
+
+//-------------------------------------------------
+void timelinePanel::saveTLTrackPages(){
+    
+}
+
+//-------------------------------------------------
+void timelinePanel::saveTLAllTracks(){
+    
+}
+
+//-------------------------------------------------
+void timelinePanel::loadTLPage(){
+
+    //----------------------------------
+    //-:Load Xml file
+    string filePath = TRACK_DIR "_" + ofToString(data.getTrack()) + "/" CLIP_DIR "_" + ofToString(data.getClip()) + "/";
+    
+    string pageName = data.getPageName();
+    
+    string filenamePanel = filePath + pageName + "_settings.xml";
+    ofxXmlSettings xml;
+    
+    if( xml.loadFile(filenamePanel) ){
+        ofLogVerbose()<<"TimePanel: "<< filenamePanel <<" loaded.";
+    }else{
+        ofLogError()<< "TimePanel: unable to load " << filenamePanel ;
+        return;
+    }
+    
+    
+    //----------------------------------
+    //-:Create tracks from loaded settings.
+    int tracksNum = xml.getValue("page:tlChannels:tlChannels-num", 0);
+    string pageNameFromXML = xml.getValue("page:name","");
+    for (int i=0; i<tracksNum; i++){
+        string trackName = xml.getValue("page:tlChannels:channel-" + ofToString(i) +":name", "");
+        string trackType = xml.getValue("page:tlChannels:channel-" + ofToString(i) +":type", "");
+        
+        auto tracksPage = tracks.timelines[data.getTrack()]->getPage(pageName);
+        
+        
+        //If track doesnt exist and its not default -> create it.
+        if(trackName != "DEFAULT" &&
+           tracksPage->getTrack(trackName)==NULL){
+            
+            if(trackType=="Curves"){
+                //add the track
+                tracks.addTLTrack(data.getTrack(), pageName, trackName, 1);
+                //update the data node
+                data.addtlTrack(trackName, 1);
+                
+            }else if(trackType=="Bangs"){
+                //addTrack(trackName, BANGS);
+            }else if(trackType=="Switches"){
+                //addTrack(trackName, SWITCHES);
+            }
+        }
+    }
+    
+    //load the tracks into the created tracks
+    tracks.timelines[data.getTrack()]->loadTracksFromFolder(filePath);
+    
+
+}
+
+//-------------------------------------------------
+void timelinePanel::loadTLTrackPages(){
+    
+}
+
+//-------------------------------------------------
+void timelinePanel::loadTLAllTracks(){
+    
+}
+
+
+
+void timelinePanel::testFunction(int _track, string _channelName){
+    
+    //auto mytrack = tracks.timelines[data.getTrack()]->getTrack("GLOBAL ROTATE X");
+    ofxTLKeyframes* mytrack = (ofxTLKeyframes*)tracks.timelines[_track]->getTrack(_channelName);
+    
+    cout << "How many keys are selected: " << mytrack->getSelectedItemCount() << endl;
+    
+    cout << "The value of the second keyframe is: " << ofToString(mytrack->getKeyframes()[1]->value) << endl;
+    
+    mytrack->getKeyframes()[0]->value = 0.5;
+    
+}

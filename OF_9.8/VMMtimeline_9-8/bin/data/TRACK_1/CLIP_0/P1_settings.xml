@@ -1,0 +1,14 @@
+<page>
+    <name>P1</name>
+    <tlChannels>
+        <tlChannels-num>2</tlChannels-num>
+        <channel-0>
+            <name>LOCAL TRANS X</name>
+            <type>Curves</type>
+        </channel-0>
+        <channel-1>
+            <name>LOCAL TRANS Z</name>
+            <type>Curves</type>
+        </channel-1>
+    </tlChannels>
+</page>

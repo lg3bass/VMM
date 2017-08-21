@@ -9,7 +9,8 @@
 #include "timelineTrack.h"
 
 #define NUMBER_OF_TRACKS 10
-#define TRACK_DIR "track"
+#define TRACK_DIR "TRACK"
+#define CLIP_DIR "CLIP"
 
 //-------------------------------------------------
 timelineTrack::timelineTrack(){
@@ -63,7 +64,7 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         //set the initial page name
         t->setPageName("P1", 0);
         
-        for(int j=2;j<10;j++){
+        for(int j=2;j<11;j++){
             t->addPage("P"+ofToString(j));
         }
 
@@ -94,6 +95,97 @@ void timelineTrack::mousePressed(int x, int y, int button){
 }
 
 //-------------------------------------------------
+void timelineTrack::saveTLChannel(int _track, string _page, string _filePath){
+    
+    //save the keyframe data from each track
+    //NOTE: In order to specifically target a single page
+    //      You will need to add an additional function
+    //      e.g. ofxTimeline::savePageTracksToFolder(int page, string folderPath)
+    
+    //timelines[_track]->savePageTracksToFolder(1,_filePath);
+    timelines[_track]->saveTracksToFolder(_filePath);
+    
+    //save the page settings.
+    string pageName = _page;
+    
+    auto tracksPage = timelines[_track]->getPage(pageName);
+    
+    string filenamePanel = _filePath + pageName + "_settings.xml";
+    ofxXmlSettings savedSettings;
+    
+    int tracksNum = tracksPage->getTracks().size();
+    
+    savedSettings.addTag("page");
+    savedSettings.pushTag("page");
+    savedSettings.addValue("name",pageName);
+    savedSettings.addTag("tlChannels");
+    savedSettings.pushTag("tlChannels");
+    savedSettings.addValue("tlChannels-num", tracksNum);
+    
+    for (int i=0; i<tracksNum; i++){
+        savedSettings.addTag("channel-"+ofToString(i));
+        savedSettings.pushTag("channel-"+ofToString(i));
+        savedSettings.addValue("name", tracksPage->getTracks()[i]->getName());
+        savedSettings.addValue("type", tracksPage->getTracks()[i]->getTrackType());
+        savedSettings.popTag();
+    }
+    savedSettings.popTag();
+    
+    savedSettings.saveFile(filenamePanel);
+
+}
+
+//-------------------------------------------------
+void timelineTrack::loadTLChannel(int _track, string _page, string _filePath){
+    
+    //----------------------------------
+    //-:Load Xml file
+    
+    string pageName = _page;
+    
+    string filenamePanel = _filePath + pageName + "_settings.xml";
+    ofxXmlSettings xml;
+    
+    if( xml.loadFile(filenamePanel) ){
+        ofLogVerbose()<<"TimePanel: "<< filenamePanel <<" loaded.";
+    }else{
+        ofLogError()<< "TimePanel: unable to load " << filenamePanel ;
+        return;
+    }
+    
+    
+    //----------------------------------
+    //-:Create tracks from loaded settings.
+    int tracksNum = xml.getValue("page:tlChannels:tlChannels-num", 0);
+    string pageNameFromXML = xml.getValue("page:name","");
+    for (int i=0; i<tracksNum; i++){
+        string trackName = xml.getValue("page:tlChannels:channel-" + ofToString(i) +":name", "");
+        string trackType = xml.getValue("page:tlChannels:channel-" + ofToString(i) +":type", "");
+        
+        auto tracksPage = timelines[_track]->getPage(pageName);
+        
+        
+        //If track doesnt exist and its not default -> create it.
+        if(trackName != "DEFAULT" &&
+           tracksPage->getTrack(trackName)==NULL){
+            
+            if(trackType=="Curves"){
+                addTLTrack(_track, pageName, trackName, 1);
+                //addTrack(trackName, CURVES);
+            }else if(trackType=="Bangs"){
+                //addTrack(trackName, BANGS);
+            }else if(trackType=="Switches"){
+                //addTrack(trackName, SWITCHES);
+            }
+        }
+    }
+    
+    //load the tracks into the created tracks
+    timelines[_track]->loadTracksFromFolder(_filePath);
+    
+}
+
+//-------------------------------------------------
 void timelineTrack::displayTimelines(bool _showTimeline){
     
     showHideFlag = _showTimeline;
@@ -110,6 +202,7 @@ void timelineTrack::displayTimelines(bool _showTimeline){
 
 //-------------------------------------------------
 void timelineTrack::enableTimelines(bool _enable){
+
     //turns off mouse events while a dropdown is active.
     for(int i = 0; i < timelines.size(); i++){
         if(_enable){
@@ -137,15 +230,20 @@ void timelineTrack::showSelectedTimelineTrack(int _track){
 
 //-------------------------------------------------
 void timelineTrack::addTLTrack(int _track, int _page, string _name, int _type){
-    
-    cout << "timelineTrack::addTLTrack(" << _name << "," << ofToString(_type) << ")" << endl;
-    
-    //timelines[0]->setPageName("Global-Rotate");
-    
+
     timelines[_track]->setCurrentPage(_page);
     timelines[_track]->addCurves(_name, ofRange(0, 100));
     
 }
+
+//-------------------------------------------------
+void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type){
+
+    timelines[_track]->setCurrentPage(_page);
+    timelines[_track]->addCurves(_name, ofRange(0, 100));
+    
+}
+
 
 //-------------------------------------------------
 void timelineTrack::remTLTrack(int _track, int _page, string _name){

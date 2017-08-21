@@ -26,10 +26,10 @@ public:
     void update();
     void draw();
     
-
-    
-    int add_type;
-    string add_name;
+    struct newTrackParams {
+        int type;
+        string name;
+    } newTrack;
     
     //S1
     ofTrueTypeFont font;

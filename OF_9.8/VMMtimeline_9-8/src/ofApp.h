@@ -17,8 +17,6 @@ struct appData {
     ofColor txt_color;
 };
 
-
-
 class ofApp : public ofBaseApp{
     
 public:
@@ -44,13 +42,22 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    
     //ofAppRouter.cpp
     //timePanel functions
     
     void setControllerData(string name, int data);
+    
     void addTLTrack(string name, int type);
     void remTLTrack();
+    
+    //new save/load functions
+    void saveTLPage();
+    void saveTLTrackPages();
+    void saveTLAllTracks();
+    
+    void loadTLPage();
+    void loadTLTrackPages();
+    void loadTLAllTracks();
     
     void nextKey();
     void prevKey();
@@ -70,8 +77,6 @@ public:
     HeaderPanel headerPanel;
     timelinePanel timePanel;
     FooterPanel footerPanel;
-    
-
 
 private:
     
