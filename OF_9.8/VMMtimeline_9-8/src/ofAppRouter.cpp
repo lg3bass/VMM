@@ -41,12 +41,14 @@ void ofApp::remTLTrack(){
 
 //--------------------------------------------------------------
 void ofApp::saveTLPage(){
-    timePanel.saveTLPage();
+    //saves the current selected page
+    timePanel.saveTLPage(timePanel.data.getTrack(), timePanel.data.getPage(), timePanel.data.getClip());
 }
 
 //--------------------------------------------------------------
 void ofApp::saveTLTrackPages(){
     cout << "ofApp::saveTLTrackPages()" << endl;
+    timePanel.saveTLTrackPages();
 }
 
 //--------------------------------------------------------------
@@ -56,7 +58,7 @@ void ofApp::saveTLAllTracks(){
 
 //--------------------------------------------------------------
 void ofApp::loadTLPage(){
-    timePanel.loadTLPage();
+    timePanel.loadTLPage(timePanel.data.getTrack(), timePanel.data.getPage(), timePanel.data.getClip());
 }
 
 //--------------------------------------------------------------

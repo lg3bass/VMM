@@ -1,14 +1,18 @@
 <page>
     <name>P1</name>
     <tlChannels>
-        <tlChannels-num>2</tlChannels-num>
+        <tlChannels-num>3</tlChannels-num>
         <channel-0>
-            <name>LOCAL TRANS X</name>
+            <name>DAD</name>
             <type>Curves</type>
         </channel-0>
         <channel-1>
-            <name>LOCAL TRANS Z</name>
+            <name>MOM</name>
             <type>Curves</type>
         </channel-1>
+        <channel-2>
+            <name>MARILYN</name>
+            <type>Curves</type>
+        </channel-2>
     </tlChannels>
 </page>

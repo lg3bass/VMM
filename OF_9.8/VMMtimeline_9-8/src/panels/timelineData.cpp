@@ -138,6 +138,11 @@ int timelineData::getPage(){
 }
 
 //-------------------------------------------------
+string timelineData::getPageName(int _page){
+    return TL.tracks[getTrack()].tlPages[_page].name;
+}
+
+//-------------------------------------------------
 string timelineData::getPageName(){
     return TL.tracks[getTrack()].tlPages[getPage()].name;
 }
@@ -260,6 +265,14 @@ string timelineData::getChannelName(int _channel){
 int timelineData::getNumOfChannelsOnPage(){
     
     int num_tracks_on_page = TL.tracks[getTrack()].tlPages[getPage()].tlChannels.size();
+    return num_tracks_on_page;                                                      //returns how many channels are on a page.
+    
+}
+
+//-------------------------------------------------
+int timelineData::getNumOfChannelsOnPage(int _page){
+    
+    int num_tracks_on_page = TL.tracks[getTrack()].tlPages[_page].tlChannels.size();
     return num_tracks_on_page;                                                      //returns how many channels are on a page.
     
 }

@@ -87,6 +87,7 @@ public:
     
     int getPage(int _track);                        //return the current selected page for a specific track
     int getPage();                                  //return the current selected page on current track
+    string getPageName(int _page);                  //return the current page name for a specific page
     string getPageName();                           //return the current selected page name
     
     
@@ -106,6 +107,7 @@ public:
     string getSelectedChannelName();                //return the name of the selected timeline(channel) on a page.
     string getChannelName(int _channel);
     int getNumOfChannelsOnPage();                   //return the number of channels on a page.
+    int getNumOfChannelsOnPage(int _page);          //return the number of channels on a page (by index).
     
     int getNumOfKeysInChannel();                    
     ofVec2f getSelectedKeyValue(int _selKey);       //return the selected keyframe in vec2f format

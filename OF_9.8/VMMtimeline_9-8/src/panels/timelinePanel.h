@@ -33,6 +33,7 @@ public:
     
     void drawTrackData();
     void drawPageData(int _mt);
+    void toggleDrawTrackData();
     bool showTrackData;
     
     //intercept event from the timeline
@@ -44,11 +45,11 @@ public:
     void remTLChannel();
     
     //save and load functions
-    void saveTLPage();
+    void saveTLPage(int _track, int _page, int _clip);
     void saveTLTrackPages();
     void saveTLAllTracks();
     
-    void loadTLPage();
+    void loadTLPage(int _track, int _page, int _clip);
     void loadTLTrackPages();
     void loadTLAllTracks();
 

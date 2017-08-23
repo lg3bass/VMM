@@ -1,0 +1,10 @@
+<page>
+    <name>P2</name>
+    <tlChannels>
+        <tlChannels-num>1</tlChannels-num>
+        <channel-0>
+            <name>B1</name>
+            <type>Curves</type>
+        </channel-0>
+    </tlChannels>
+</page>

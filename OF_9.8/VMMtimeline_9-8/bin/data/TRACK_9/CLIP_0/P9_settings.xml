@@ -1,9 +1,9 @@
 <page>
-    <name>P2</name>
+    <name>P9</name>
     <tlChannels>
         <tlChannels-num>1</tlChannels-num>
         <channel-0>
-            <name>OBJ ROT Z</name>
+            <name>I1</name>
             <type>Curves</type>
         </channel-0>
     </tlChannels>

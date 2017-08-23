@@ -27,11 +27,7 @@ public:
     void keyReleased(int key);
     void mousePressed(int x, int y, int button);
     void mouseReleased(int x, int y, int button);
-        
-    void saveTLChannel(int _track, string _page, string _filePath);
-    void loadTLChannel(int _track, string _page, string _filePath);
-
-    
+            
     //display functions
     void displayTimelines(bool _showTimeline);    
     void enableTimelines(bool _enable);
