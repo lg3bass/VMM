@@ -1,13 +1,19 @@
 <positions>
-    <element name="MATCAP">
+    <element name="LOCAL TRANS X">
         <x>0.000000000</x>
         <y>99.000000000</y>
         <width>1080.000000000</width>
         <height>40.000000000</height>
     </element>
-    <element name="SLICES">
+    <element name="LOCAL TRANS Y">
         <x>0.000000000</x>
         <y>171.000000000</y>
+        <width>1080.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="LOCAL TRANS Z">
+        <x>0.000000000</x>
+        <y>243.000000000</y>
         <width>1080.000000000</width>
         <height>40.000000000</height>
     </element>

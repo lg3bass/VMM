@@ -396,7 +396,7 @@ void timelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
 //-------------------------------------------------
 void timelinePanel::addTLChannel(string _name, int _type){
     //adds the track in the data
-    data.addtlTrack(_name, _type);
+    data.addtlTrack(data.getTrack(),data.getPage(), _name, _type);
     
     //add the track on the timeline
     tracks.addTLTrack(data.getTrack(),data.getPage(),_name, _type);
@@ -499,9 +499,9 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
     ofxXmlSettings xml;
     
     if( xml.loadFile(filenamePanel) ){
-        ofLogVerbose()<<"TimePanel: "<< filenamePanel <<" loaded.";
+        ofLogVerbose()<<"timelinePanel::loadTLPage - "<< filenamePanel <<" loaded.";
     }else{
-        ofLogError()<< "TimePanel: unable to load " << filenamePanel ;
+        ofLogError()<<  "timelinePanel::loadTLPage - unable to load " << filenamePanel ;
         return;
     }
     
@@ -525,7 +525,7 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
                 //add the track
                 tracks.addTLTrack(_track, pageName, trackName, 1);
                 //update the data node
-                data.addtlTrack(trackName, 1);
+                data.addtlTrack(_track, pageName, trackName, 1);
                 
             }else if(trackType=="Bangs"){
                 //addTrack(trackName, BANGS);
@@ -543,7 +543,11 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
 
 //-------------------------------------------------
 void timelinePanel::loadTLTrackPages(){
-    
+    for(int i=0; i< NUMBER_OF_TRACKS; i++){
+        //load all the tracks
+        loadTLPage(data.getTrack(), i, data.getPage());
+        
+    }
 }
 
 //-------------------------------------------------

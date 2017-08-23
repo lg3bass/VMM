@@ -3,11 +3,11 @@
     <tlChannels>
         <tlChannels-num>2</tlChannels-num>
         <channel-0>
-            <name>GLOBAL ROTATE X</name>
+            <name>GLOBAL ROT X</name>
             <type>Curves</type>
         </channel-0>
         <channel-1>
-            <name>GLOBAL ROTATE Y</name>
+            <name>GLOBAL ROT Y</name>
             <type>Curves</type>
         </channel-1>
     </tlChannels>

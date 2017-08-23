@@ -163,7 +163,7 @@ bool timelineData::getCuedToPlay(){
 }
 
 //-------------------------------------------------
-void timelineData::addtlTrack(string _name, int _type){
+void timelineData::addtlTrack(int _track, int _page, string _name, int _type){
     
     channel newTrack;
     newTrack.name = _name;

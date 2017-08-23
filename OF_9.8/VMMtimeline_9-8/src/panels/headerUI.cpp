@@ -135,6 +135,7 @@ void headerUI::onButtonEvent(ofxDatGuiButtonEvent e){
             if(newTrack.name == "<<ENTER NAME>>") {
                 cout << "you must enter a name." << endl;
             } else {
+                //add a channel to the current selected track.
                 uiMainApp->addTLTrack(newTrack.name, newTrack.type);
                 resetTrackDropdown();
             }
