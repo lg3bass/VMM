@@ -163,6 +163,11 @@ bool timelineData::getCuedToPlay(){
 }
 
 //-------------------------------------------------
+void timelineData::setCuedToPlay(int _track, bool _status){
+    TL.tracks[_track].cuedToPlay = _status;
+}
+
+//-------------------------------------------------
 void timelineData::addtlTrack(int _track, int _page, string _name, int _type){
     
     channel newTrack;
@@ -181,7 +186,7 @@ void timelineData::addtlTrack(int _track, int _page, string _name, int _type){
         
     }
     
-    TL.tracks[getTrack()].tlPages[getPage()].tlChannels.push_back(newTrack);
+    TL.tracks[_track].tlPages[_page].tlChannels.push_back(newTrack);
     
     
 }

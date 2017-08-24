@@ -22,6 +22,7 @@ public:
     timelineTrack();
     void init(int _x, int _y, int _w, int _h);
     void draw();
+    void update();
     
     void keyPressed(int key);
     void keyReleased(int key);
@@ -39,6 +40,7 @@ public:
     
     void setPage(int _track, int _page);
     void highlightFocuedTrack(int _track, string _name);
+
     
     int duration;
     int _x;

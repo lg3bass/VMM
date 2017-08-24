@@ -1,8 +1,16 @@
-1. save/load functionality
+-F save/load (selected page, selected track)
 	-- save page will save only current selected page.  zoomer and in-out will NOT be saved
 	-- save all  will save all the tracks and the in-out and zoomer overwriting everything.
-2. deselect track sets selection to null
-3. add tracks other than curves
-4. mouse down on timeline shouldn't affect drop down menus
-5. indicate blank/used matrix buttons
-6. setup clips
+-F save EVERYTHING
+
+-F clip functionality to load xml
+
+-E deselect track sets selection to null
+
+-F add tracks other than curves
+
+-E mouse down on timeline shouldn't affect drop down menus
+
+-E indicate blank/used matrix buttons
+
+-F Launch clips

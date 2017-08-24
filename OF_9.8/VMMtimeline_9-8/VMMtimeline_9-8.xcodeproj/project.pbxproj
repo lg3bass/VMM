@@ -59,6 +59,7 @@
 		ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADD194746185E2DA11468377 /* IpEndpointName.cpp */; };
 		B3BAA90667D4B61631BA5962 /* ofxTLKeyframes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7379C3090A35247057D77FD /* ofxTLKeyframes.cpp */; };
 		BCFDFC3681CF3552BCDB819E /* ofxTLPageTabs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 740ABFC3DD8B605BB9C55D80 /* ofxTLPageTabs.cpp */; };
+		BF2153051F4F6CCF00D0D66E /* oscHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF2153031F4F6CCF00D0D66E /* oscHandler.cpp */; };
 		BF5110E21F1AC4320087AD7E /* ofAppRouter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF5110E11F1AC4320087AD7E /* ofAppRouter.cpp */; };
 		BF5110EF1F1AC4410087AD7E /* FooterPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF5110E31F1AC4410087AD7E /* FooterPanel.cpp */; };
 		BF5110F01F1AC4410087AD7E /* HeaderPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF5110E51F1AC4410087AD7E /* HeaderPanel.cpp */; };
@@ -269,6 +270,8 @@
 		BCB6A6D9093FF11EE0D7D470 /* ofxTextInputField.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTextInputField.cpp; path = ../../../addons/ofxTextInputField/src/ofxTextInputField.cpp; sourceTree = SOURCE_ROOT; };
 		BCC84C6EB3417706F4F762F0 /* ofxDatGuiComponent.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiComponent.h; path = ../../../addons/ofxDatGui/src/core/ofxDatGuiComponent.h; sourceTree = SOURCE_ROOT; };
 		BD11C27681799D252C8ED413 /* efx-presets.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = "efx-presets.h"; path = "../../../addons/ofxTimeline/libs/openal/include/AL/efx-presets.h"; sourceTree = SOURCE_ROOT; };
+		BF2153031F4F6CCF00D0D66E /* oscHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = oscHandler.cpp; sourceTree = "<group>"; };
+		BF2153041F4F6CCF00D0D66E /* oscHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oscHandler.h; sourceTree = "<group>"; };
 		BF5110E11F1AC4320087AD7E /* ofAppRouter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofAppRouter.cpp; sourceTree = "<group>"; };
 		BF5110E31F1AC4410087AD7E /* FooterPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FooterPanel.cpp; path = panels/FooterPanel.cpp; sourceTree = "<group>"; };
 		BF5110E41F1AC4410087AD7E /* FooterPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FooterPanel.h; path = panels/FooterPanel.h; sourceTree = "<group>"; };
@@ -948,6 +951,8 @@
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				BF5110FF1F1B1B540087AD7E /* abletonlink.cpp */,
 				BF5111001F1B1B540087AD7E /* abletonlink.h */,
+				BF2153031F4F6CCF00D0D66E /* oscHandler.cpp */,
+				BF2153041F4F6CCF00D0D66E /* oscHandler.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1189,6 +1194,7 @@
 				9266028E1AECBB027ABF64D8 /* ofxEasing.cpp in Sources */,
 				5E0DBDE5736DEB3A5886B3F1 /* ofxEasingBack.cpp in Sources */,
 				EAD3CE0789481F975F351F39 /* ofxEasingBounce.cpp in Sources */,
+				BF2153051F4F6CCF00D0D66E /* oscHandler.cpp in Sources */,
 				27765D1BFF26BD9A6186915F /* ofxEasingCirc.cpp in Sources */,
 				E816D7D242D315FB53E23F54 /* ofxEasingCubic.cpp in Sources */,
 				6E062274743F6716A9AD4395 /* ofxEasingElastic.cpp in Sources */,

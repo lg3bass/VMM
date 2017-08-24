@@ -45,19 +45,24 @@ public:
     void remTLChannel();
     
     //save and load functions
+    string getFilePath(int _track, int _page, int _clip);
+    
     void saveTLPage(int _track, int _page, int _clip);
     void saveTLTrackPages();
     void saveTLAllTracks();
-    
+        
     void loadTLPage(int _track, int _page, int _clip);
     void loadTLTrackPages();
     void loadTLAllTracks();
+    
+    void playTLclip(int _track, int _clip);
+    void stopTLclip(int _clip);
 
     //setup the 2 large sections
     timelineData data;
     timelineTrack tracks;
     
-    void testFunction(int _track, string _channelName);
+    void testKeyframeFunction(int _track, string _channelName);
     
 private:
     

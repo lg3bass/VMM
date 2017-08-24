@@ -2,15 +2,23 @@
 
 #include "ofMain.h"
 #include "abletonlink.h"
+#include "oscHandler.h"
 
 //panels
 #include "HeaderPanel.h"
 #include "timelinePanel.h"
 #include "FooterPanel.h"
 
+
+
 #define HEADER_PANEL_HEIGHT 0.16
 #define BODY_PANEL_HEIGHT 0.74
 #define FOOTER_PANEL_HEIGHT 0.1
+
+#define HOST "localhost"
+#define rPORT 7006 //recieve from AbletonLive
+#define sPORT 7005 //send to VMM.
+
 
 struct appData {
     string selected_panel_name;
@@ -73,10 +81,22 @@ public:
     void passTextValue(string _name, string _val);
     void setLinkSlider(int _beat);
     
+    void playTLclip(int _track, int _clip);
+    void stopTLclip(int _clip);
+    
     //panels
     HeaderPanel headerPanel;
     timelinePanel timePanel;
     FooterPanel footerPanel;
+    
+    //OSC
+    ofxOscReceiver receiver_timeline;
+    ofxOscSender sender;
+    oscHandler router;
+    
+    void OscReciever();
+    void OSCsendToVMM(int _track, string _address, float _value);
+    
 
 private:
     

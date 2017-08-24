@@ -45,7 +45,7 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
 
 //-------------------------------------------------
 void timelinePanel::update(){
-    
+    tracks.update();
 }
 
 //-------------------------------------------------
@@ -124,7 +124,11 @@ void timelinePanel::keyPressed(int key){
                 case 259:
                     
                     cout << "F3 pressed" << endl;
-                    testFunction(data.getTrack(), data.getSelectedChannelName());
+                    
+                    
+                    tracks.timelines[0]->play();
+                    
+                    //testKeyframeFunction(data.getTrack(), data.getSelectedChannelName());
                     
 
                     
@@ -132,7 +136,7 @@ void timelinePanel::keyPressed(int key){
                 case 260:
                     
                     cout << "F4 pressed" << endl;
-                    
+                    tracks.timelines[0]->stop();
                     break;
                 case 261:
                     
@@ -258,7 +262,7 @@ void timelinePanel::drawTrackData(){
     float ml = 60;
     float mt = 10;
 
-    float h_unit = 80;
+    float h_unit = 100;
     float v_unit = 15;
 
     
@@ -291,6 +295,10 @@ void timelinePanel::drawTrackData(){
         
     }
 
+    
+    
+    
+    
     //only draw if a channel is selected
     if(data.getSelectedChannel() > -1 ){
         drawPageData(_y+mt+v_unit*3);                   //show the page tracks and keys
@@ -421,6 +429,11 @@ void timelinePanel::remTLChannel(){
 }
 
 //-------------------------------------------------
+string timelinePanel::getFilePath(int _track, int _page, int _clip){
+    return TRACK_DIR "_" + ofToString(_track) + "/" CLIP_DIR "_" + ofToString(_clip) + "/";
+}
+
+//-------------------------------------------------
 void timelinePanel::saveTLPage(int _track, int _page, int _clip){
     //save the keyframe data from each track
     //NOTE: In order to specifically target a single page
@@ -430,7 +443,7 @@ void timelinePanel::saveTLPage(int _track, int _page, int _clip){
     if(data.getNumOfChannelsOnPage(_page)>0){
         cout << "Saving channel on page " << ofToString(_page) << endl;
         
-        string filePath = TRACK_DIR "_" + ofToString(_track) + "/" CLIP_DIR "_" + ofToString(_clip) + "/";
+        string filePath = getFilePath(_track,_page,_clip);
         tracks.timelines[_track]->saveTracksToFolder(filePath);
         
         //save the page settings.
@@ -485,12 +498,15 @@ void timelinePanel::saveTLAllTracks(){
     
 }
 
+
+
+
 //-------------------------------------------------
 void timelinePanel::loadTLPage(int _track, int _page, int _clip){
 
     //----------------------------------
     //-:Load Xml file
-    string filePath = TRACK_DIR "_" + ofToString(_track) + "/" CLIP_DIR "_" + ofToString(_clip) + "/";
+    string filePath = getFilePath(_track,_page,_clip);
     
     //string pageName = data.getPageName();
     string pageName = data.getPageName(_page);
@@ -505,7 +521,6 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
         return;
     }
     
-    
     //----------------------------------
     //-:Create tracks from loaded settings.
     int tracksNum = xml.getValue("page:tlChannels:tlChannels-num", 0);
@@ -516,16 +531,19 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
         
         auto tracksPage = tracks.timelines[_track]->getPage(pageName);
         
-        
         //If track doesnt exist and its not default -> create it.
         if(trackName != "DEFAULT" &&
            tracksPage->getTrack(trackName)==NULL){
             
+            //auto t = tracksPage->getTracks();
+            
+            
+            
             if(trackType=="Curves"){
                 //add the track
-                tracks.addTLTrack(_track, pageName, trackName, 1);
+                tracks.addTLTrack(_track, _page, trackName, 1);
                 //update the data node
-                data.addtlTrack(_track, pageName, trackName, 1);
+                data.addtlTrack(_track, _page, trackName, 1);
                 
             }else if(trackType=="Bangs"){
                 //addTrack(trackName, BANGS);
@@ -537,7 +555,6 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
     
     //load the tracks into the created tracks
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
-    
 
 }
 
@@ -545,8 +562,7 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
 void timelinePanel::loadTLTrackPages(){
     for(int i=0; i< NUMBER_OF_TRACKS; i++){
         //load all the tracks
-        loadTLPage(data.getTrack(), i, data.getPage());
-        
+        loadTLPage(data.getTrack(), i, data.getPage());        
     }
 }
 
@@ -555,9 +571,40 @@ void timelinePanel::loadTLAllTracks(){
     
 }
 
+//-------------------------------------------------
+void timelinePanel::playTLclip(int _track, int _clip){
+
+    data.setCuedToPlay(_track, true);
+    
+    //load the right clip
+    string filePath = getFilePath(_track, 0, _clip);
+    tracks.timelines[_track]->loadTracksFromFolder(filePath);
+    
+    tracks.timelines[_track]->play();
+    
+}
+
+//-------------------------------------------------
+void timelinePanel::stopTLclip(int _clip){
+    
+    for(int i=0; i<NUMBER_OF_TRACKS; i++){
+        if(tracks.timelines[i]->getIsPlaying()){
+            tracks.timelines[i]->stop();
+            //cuedToPlay = false;
+            data.setCuedToPlay(i, false);
+        }
+        
+    }
+    
+}
 
 
-void timelinePanel::testFunction(int _track, string _channelName){
+//-------------------------------------------------
+//TESTS
+//=================================================
+void timelinePanel::testKeyframeFunction(int _track, string _channelName){
+    //test on how to get at keyframe data in a track
+    
     
     //auto mytrack = tracks.timelines[data.getTrack()]->getTrack("GLOBAL ROTATE X");
     ofxTLKeyframes* mytrack = (ofxTLKeyframes*)tracks.timelines[_track]->getTrack(_channelName);

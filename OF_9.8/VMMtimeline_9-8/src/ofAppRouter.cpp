@@ -22,6 +22,9 @@ void ofApp::setControllerData(string name, int data){
         
     } else if(name == "CLIP"){
         timePanel.data.setClip(data);
+        string filePath = timePanel.getFilePath(timePanel.data.getTrack(), timePanel.data.getPage(), timePanel.data.getClip());
+        timePanel.tracks.timelines[timePanel.data.getTrack()]->loadTracksFromFolder(filePath);
+        
     }
     
 }
@@ -177,4 +180,18 @@ void ofApp::passTextValue(string _field, string _val){
 void ofApp::setLinkSlider(int _beat){
     
     headerPanel.setBeat(_beat);
+}
+
+//--------------------------------------------------------------
+void ofApp::playTLclip(int _track, int _clip){
+    
+    timePanel.playTLclip(_track, _clip);
+    
+}
+
+//--------------------------------------------------------------
+void ofApp::stopTLclip(int _clip){
+    
+    timePanel.stopTLclip(_clip);
+    
 }

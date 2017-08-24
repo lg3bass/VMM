@@ -1,11 +1,17 @@
 #include "ofApp.h"
-//#include "ofxTLEvents.h"
-//#include "ofxTimeline.h"
+
 
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    //ofSetLogLevel(OF_LOG_VERBOSE);//DEFAULT: OF_LOG_ERROR
+    ofSetFrameRate(30);
+    
+    ofSetLogLevel("LINK", OF_LOG_SILENT);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("OSC", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("OSC_TRANSPORT", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("OSC_TRIGGERED", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("OSC_PLAY", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("OSC_OUT", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     
     //ableton link setup
     AL.setup(ofGetAppPtr());
@@ -22,6 +28,12 @@ void ofApp::setup(){
     myAppData.selected_panel_name = "NONE";
     myAppData.txt_color = ofColor::brown;
     
+    //ofxOSC
+    receiver_timeline.setup(rPORT);
+    sender.setup(HOST, sPORT);
+    
+    router.setup(ofGetAppPtr());
+    
 }
 
 //--------------------------------------------------------------
@@ -32,6 +44,8 @@ void ofApp::update(){
     timePanel.update();
     footerPanel.update();
     
+    //listen for OSC
+    OscReciever(); 
 }
 
 //--------------------------------------------------------------
@@ -115,6 +129,28 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
     
 }
 
+//--------------------------------------------------------------
+void ofApp::OscReciever(){
+    while(receiver_timeline.hasWaitingMessages()){
+        // get the next message
+        ofxOscMessage m;
+        receiver_timeline.getNextMessage(&m);
+        
+        router.processOSCmessage(m);
+        
+    }//end while
+}
+
+
+//--------------------------------------------------------------
+void ofApp::OSCsendToVMM(int _track, string _address, float _value){
+    ofxOscMessage m;
+    m.setAddress(_address);
+    m.addInt32Arg(_track);
+    m.addFloatArg(_value);
+    
+    sender.sendMessage(m);
+}
 
 
 

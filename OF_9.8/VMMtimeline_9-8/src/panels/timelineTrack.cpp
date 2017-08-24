@@ -84,10 +84,16 @@ void timelineTrack::draw(){
     //loop through and draw all the timelines
     for(int i = 0; i < timelines.size(); i++){
         timelines[i]->draw();
-     
+
     }
+}
+
+//-------------------------------------------------
+void timelineTrack::update(){
+    
     
 }
+
 
 //-------------------------------------------------
 void timelineTrack::mousePressed(int x, int y, int button){
