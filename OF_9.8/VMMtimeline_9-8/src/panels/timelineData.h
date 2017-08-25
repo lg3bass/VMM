@@ -50,7 +50,8 @@ public:
     struct tlData {
         int selected_track = 0;
         vector<vmmTrack> tracks;
-        int measures = 4;
+        int measures = 8;
+        int measureCount = 0;
         int bpm = 120;
         int fps = 30;
         int loop = 300;

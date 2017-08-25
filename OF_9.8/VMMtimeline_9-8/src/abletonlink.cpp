@@ -33,11 +33,13 @@ void abletonLinkEngine::setup(ofBaseApp* appPtr){
 
 //-------------------------------------------------
 void abletonLinkEngine::draw(){
-    
     runAbletonLink(link);
-    
-    
-    
+}
+
+//-------------------------------------------------
+void abletonLinkEngine::update(){
+    //draw the blinking bar.
+    blinkingBottomBar(0.95, 1.0);
 }
 
 //-------------------------------------------------
@@ -63,28 +65,27 @@ void abletonLinkEngine::runAbletonLink(ofxAbletonLink &linkObj){
     //link
     ofxAbletonLink::Status status = link.update();
     
-    // visualize the current status
-    int quantum = (int)ceil(link.quantum());
-    
-    
+    //timing info from ofxAbletonLink
+    quantum = (int)ceil(link.quantum());
     nbeat = beat();
     
-    //what beat is playing in link?
+    
+}
+
+//-------------------------------------------------
+void abletonLinkEngine::blinkingBottomBar(float _top, float _bottom){
+    //BELOW is all for the bars at the bottom. ableton link.
+    //Get the width (dw) evenly spaced by the quantum val
     float dw;
     if(quantum < 1){
         dw = (float)ofGetWidth();
-        //nbeat = 0;
     }else{
         dw = (float)ofGetWidth() / (float)quantum;
-        //nbeat = (int)floor(status.beat) % quantum;
     }
     
-    
-    
-    //BELOW is all for the bars at the bottom. ableton link.
-    //this is not needed cause the UI has a field for this.
-    int top = (int)(ofGetHeight() * 0.95);
-    int bottom = (int)(ofGetHeight() * 1);
+    //set the location vertically of the blinkng bar
+    int top = (int)(ofGetHeight() * _top);
+    int bottom = (int)(ofGetHeight() * _bottom);
     int h = bottom - top + 1;
     
     //draw the blinking beats
@@ -98,8 +99,5 @@ void abletonLinkEngine::runAbletonLink(ofxAbletonLink &linkObj){
         ofDrawRectangle(i * dw, top, dw, h);
         ofPopStyle();
     }
-    
-    //cout << "BEAT: " << ofToString(nbeat) << endl;
-    
     
 }

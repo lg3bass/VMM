@@ -24,7 +24,7 @@ timelineTrack::timelineTrack(){
 
 //-------------------------------------------------
 void timelineTrack::init(int _x, int _y, int _w, int _h){
-    duration = 120;
+    duration = 1000;
     _x = _x;
     _y = _y;
     _w = _w;

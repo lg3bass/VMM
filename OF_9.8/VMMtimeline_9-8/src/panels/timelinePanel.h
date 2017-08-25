@@ -57,6 +57,9 @@ public:
     
     void playTLclip(int _track, int _clip);
     void stopTLclip(int _clip);
+    
+    void runTimelines();
+    void setMeasureLoop();
 
     //setup the 2 large sections
     timelineData data;

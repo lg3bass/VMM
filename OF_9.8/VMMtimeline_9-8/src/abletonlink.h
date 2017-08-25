@@ -22,12 +22,16 @@ public:
     abletonLinkEngine();
     void setup(ofBaseApp* appPtr);
     void draw();
+    void update();
     int beat();
     void setMeter(int _quantum);
+    
+    void blinkingBottomBar(float _top, float _bottom);
     
     ofxAbletonLink link;
     int lbeat;//last beat
     int nbeat;//current beat
+    int quantum;
     
 
     

@@ -6,7 +6,7 @@ void ofApp::setup(){
     
     ofSetFrameRate(30);
     
-    ofSetLogLevel("LINK", OF_LOG_SILENT);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("LINK", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_TRANSPORT", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_TRIGGERED", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
@@ -38,6 +38,8 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    AL.update();
     
     //panels
     headerPanel.update();

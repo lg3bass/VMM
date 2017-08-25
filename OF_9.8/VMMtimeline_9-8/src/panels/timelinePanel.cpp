@@ -25,6 +25,7 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
     _h = height;
     
     tracks.init(x,y,width,height);
+    setMeasureLoop();
 
     //colors
     setBackgroundColor(ofColor::darkGray);
@@ -46,6 +47,7 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
 //-------------------------------------------------
 void timelinePanel::update(){
     tracks.update();
+    runTimelines();
 }
 
 //-------------------------------------------------
@@ -574,6 +576,8 @@ void timelinePanel::loadTLAllTracks(){
 //-------------------------------------------------
 void timelinePanel::playTLclip(int _track, int _clip){
 
+    setMeasureLoop();
+    
     data.setCuedToPlay(_track, true);
     
     //load the right clip
@@ -597,6 +601,59 @@ void timelinePanel::stopTLclip(int _clip){
     }
     
 }
+
+
+void timelinePanel::runTimelines(){
+    
+    for(int i=0; i<NUMBER_OF_TRACKS; i++){
+        if(tracks.timelines[i]->getIsPlaying()){
+            //slim data to just beats
+            if(bMainApp->AL.nbeat != bMainApp->AL.lbeat){
+                
+                //resets the measure counter
+                if(bMainApp->AL.nbeat == 0){
+                    if(data.TL.measureCount == data.TL.measures){
+                        //tracks.timelines[i]->setCurrentFrame(0);
+                        tracks.timelines[i]->setPercentComplete(0);
+                        data.TL.measureCount = 1;
+                        ofLogNotice("LINK") << "tick - " << bMainApp->AL.lbeat << "|" << bMainApp->AL.nbeat << " >>>>  measureCount(FLIP): " << data.TL.measureCount << "(" << tracks.timelines[i]->getCurrentFrame() << ")";
+                    } else {
+                        
+                        data.TL.measureCount++;
+                        ofLogNotice("LINK") << "tick - " << bMainApp->AL.lbeat << "|" << bMainApp->AL.nbeat << " >>>>  measureCount: " << data.TL.measureCount << "(" << tracks.timelines[i]->getCurrentFrame() << ")";
+                    }
+                } else {
+                    ofLogNotice("LINK") << "tick - " << bMainApp->AL.lbeat << "|" << bMainApp->AL.nbeat << "(" << tracks.timelines[i]->getCurrentFrame() << ")";
+                }
+                bMainApp->AL.lbeat = bMainApp->AL.nbeat;
+                
+                
+            } else {
+                ofLogNotice("LINK") << "tock - " << ofToString(bMainApp->AL.nbeat);
+            }
+        }
+        
+    }
+    
+    
+}
+
+//--------------------------------------------------------------
+void timelinePanel::setMeasureLoop(){
+    
+    bMainApp->AL.nbeat = -1;
+    bMainApp->AL.lbeat = -2;
+    data.TL.measureCount = 0;
+    data.TL.measures = 8;
+    
+    for (int i=0;i<NUMBER_OF_TRACKS;i++){
+        tracks.timelines[i]->setCurrentFrame(0);
+    }
+    
+    
+}
+
+
 
 
 //-------------------------------------------------
