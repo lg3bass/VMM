@@ -33,11 +33,8 @@ public:
     int nbeat;//current beat
     int quantum;
     
-
-    
 private:
     void runAbletonLink(ofxAbletonLink &linkObj);
-    
-    int b;
+    int b;                                          //b = beat.
     
 };

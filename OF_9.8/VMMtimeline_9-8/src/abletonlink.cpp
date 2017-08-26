@@ -34,12 +34,14 @@ void abletonLinkEngine::setup(ofBaseApp* appPtr){
 //-------------------------------------------------
 void abletonLinkEngine::draw(){
     runAbletonLink(link);
+    
+    //draw the blinking bar.
+    blinkingBottomBar(0.95, 1.0);
 }
 
 //-------------------------------------------------
 void abletonLinkEngine::update(){
-    //draw the blinking bar.
-    blinkingBottomBar(0.95, 1.0);
+
 }
 
 //-------------------------------------------------

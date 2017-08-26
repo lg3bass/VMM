@@ -46,7 +46,18 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
 
 //-------------------------------------------------
 void timelinePanel::update(){
-    tracks.update();
+    //tracks.update();
+    
+    for(int i=0;i<NUMBER_OF_TRACKS;i++){
+        if(data.getCuedToPlay(i)){
+            if(bMainApp->AL.nbeat == 0){
+                tracks.timelines[i]->togglePlay();
+                ofLogNotice("LINK") << "update() >> measureCount:" << data.TL.measureCount;
+                data.setCuedToPlay(i, false);
+            }
+        }
+    }
+    
     runTimelines();
 }
 
@@ -127,18 +138,19 @@ void timelinePanel::keyPressed(int key){
                     
                     cout << "F3 pressed" << endl;
                     
+                    data.setCuedToPlay(0, true);
                     
-                    tracks.timelines[0]->play();
+                    //tracks.timelines[0]->play();
                     
                     //testKeyframeFunction(data.getTrack(), data.getSelectedChannelName());
-                    
-
                     
                     break;
                 case 260:
                     
                     cout << "F4 pressed" << endl;
                     tracks.timelines[0]->stop();
+                    setMeasureLoop();
+                    
                     break;
                 case 261:
                     
@@ -644,10 +656,10 @@ void timelinePanel::setMeasureLoop(){
     bMainApp->AL.nbeat = -1;
     bMainApp->AL.lbeat = -2;
     data.TL.measureCount = 0;
-    data.TL.measures = 8;
+    data.TL.measures = 4;
     
     for (int i=0;i<NUMBER_OF_TRACKS;i++){
-        tracks.timelines[i]->setCurrentFrame(0);
+        tracks.timelines[i]->setPercentComplete(0);
     }
     
     
