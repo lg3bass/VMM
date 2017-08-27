@@ -49,10 +49,18 @@ void timelinePanel::update(){
     //tracks.update();
     
     for(int i=0;i<NUMBER_OF_TRACKS;i++){
+        
+        data.setNBeat(i, bMainApp->AL.nbeat);
+        
         if(data.getCuedToPlay(i)){
-            //bMainApp->AL.nbeat == 0
             
-            if(bMainApp->AL.isDownbeat()){
+            //copy over nbeat to tracks so each track has it own.
+            //data.TL.tracks[i].nbeat = bMainApp->AL.nbeat;
+            //data.setNBeat(i, bMainApp->AL.nbeat);
+            
+            
+            //OLD bMainApp->AL.isDownbeat()  -- moving checks to individual tracks
+            if(data.isDownbeat(i)){
                 tracks.timelines[i]->play();
                 ofLogNotice("LINK") << "update() >> track " << i << " measureCount:" << data.TL.tracks[i].measureCount;
                 data.setCuedToPlay(i, false);
@@ -88,33 +96,50 @@ void timelinePanel::runTimelines(int _track){
     
     if(tracks.timelines[_track]->getIsPlaying()){//TRUE OR FALSE
         //ofLogNotice("LINKFLIP") << "getIsPlaying()" << " - track " << _track;
-        //slim data to just beats
-        if(bMainApp->AL.nbeat != bMainApp->AL.lbeat){//<----- THIS IS WHERE THE PROBLEM IS
-            ofLogNotice("LINKFLIP") << "New Measure" << " - track " << _track;
+        
+        
+        //OLD
+        //if(bMainApp->AL.nbeat != bMainApp->AL.lbeat){//<----- THIS IS WHERE THE PROBLEM IS
+        
+        int currentBeat = data.getNBeat(_track);
+        int lastBeat = data.getLBeat(_track);
+        
+        if(currentBeat != lastBeat){
+            ofLogVerbose("LINK") << "New Measure" << " - track " << _track;
+            
             //resets the measure counter
-            if(bMainApp->AL.isDownbeat()){
-                ofLogNotice("LINKFLIP") << "isDownbeat()" << " - track " << _track;
+            //if(bMainApp->AL.isDownbeat()){//OLD
+            if(data.isDownbeat(_track)){
+                ofLogVerbose("LINK") << "isDownbeat()" << " - track " << _track;
                 if(data.TL.tracks[_track].measureCount == data.TL.tracks[_track].measureLength){
                     
-                    //tracks.timelines[i]->setCurrentFrame(0);
                     tracks.timelines[_track]->setPercentComplete(0);
                     data.TL.tracks[_track].measureCount = 1;
-                    ofLogNotice("LINKFLIP") << "tick - " << bMainApp->AL.lbeat << "|" << bMainApp->AL.nbeat << " >>>>  measureCount(FLIP): " << data.TL.tracks[_track].measureCount << "(" << tracks.timelines[_track]->getCurrentFrame() << ")" << " - track " << _track;
+                    
+                    ofLogNotice("LINKFLIP") << "tick - " << lastBeat << "|" << currentBeat
+                                            << " >>>>  measureCount(FLIP): " << data.TL.tracks[_track].measureCount
+                                            << "(" << tracks.timelines[_track]->getCurrentFrame() << ")" << " - track " << _track;
                 } else {
                     
                     data.TL.tracks[_track].measureCount++;
-                    ofLogNotice("LINK") << "tick - " << bMainApp->AL.lbeat << "|" << bMainApp->AL.nbeat << " >>>>  measureCount: " << data.TL.tracks[_track].measureCount << "(" << tracks.timelines[_track]->getCurrentFrame() << ")";
+                    
+                    ofLogNotice("LINK")     << "tick - " << lastBeat << "|" << currentBeat
+                                            << " >>>>  measureCount: " << data.TL.tracks[_track].measureCount
+                                            << "(" << tracks.timelines[_track]->getCurrentFrame() << ")";
                 }
             } else {
-                ofLogNotice("LINK") << "tick - " << bMainApp->AL.lbeat << "|" << bMainApp->AL.nbeat << "(" << tracks.timelines[_track]->getCurrentFrame() << ")";
+                ofLogNotice("LINK") << "tick - " << lastBeat << "|" << currentBeat << "(" << tracks.timelines[_track]->getCurrentFrame() << ")";
             }
-            bMainApp->AL.lbeat = bMainApp->AL.nbeat;
+            
+            
+            //bMainApp->AL.lbeat = bMainApp->AL.nbeat;//OLD
+            data.setLBeat(_track, currentBeat);
             
             
         } else {
-            ofLogNotice("LINK") << "tock - " << ofToString(bMainApp->AL.nbeat);
+            ofLogNotice("LINK") << "tock - " << currentBeat;
         }
-    }
+    } // END if getIsPlaying()
     
 }
 
@@ -636,7 +661,7 @@ void timelinePanel::loadTLAllTracks(){
 void timelinePanel::playTLclip(int _track, int _clip){
     ofLogNotice("TRACK")    << "timePanel.play("
     << _track << "," << _clip
-    << ") -- nbeat:" << bMainApp->AL.nbeat;
+    << ") -- nbeat:" << data.getNBeat(_track);
     
     setMeasureLoop();
     
@@ -676,13 +701,19 @@ void timelinePanel::stopTLclip(int _clip){
 //--------------------------------------------------------------
 void timelinePanel::setMeasureLoop(){
     
+    //TBD
     bMainApp->AL.nbeat = -1;
     bMainApp->AL.lbeat = -2;
     data.TL.measureCount = 0; // not used
     data.TL.measures = 4;
     
     for (int i=0;i<NUMBER_OF_TRACKS;i++){
+        
         tracks.timelines[i]->setPercentComplete(0);
+        
+        data.setNBeat(i, -1);
+        data.setLBeat(i, -2);
+        
         data.TL.tracks[i].measureCount = 0;
         data.TL.tracks[i].measureLength = 4;
     }

@@ -50,6 +50,8 @@ public:
         int beatLength = 16;
         bool cuedToPlay = false;
         bool enableOscOut = false;
+        int lbeat = -1;//last beat
+        int nbeat = -1;//current beat
     };
     
     struct tlData {
@@ -128,5 +130,13 @@ public:
     void setNextKey();
     void setPrevKey();
     void setSelectedKeyValue(int _value);
+    
+#pragma mark - LINK
+    void setNBeat(int _track, int _beat);
+    void setLBeat(int _track, int _beat);
+    int getNBeat(int _track);
+    int getLBeat(int _track);
+    
+    bool isDownbeat(int _track);
     
 };

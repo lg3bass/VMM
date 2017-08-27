@@ -293,6 +293,8 @@ int timelineData::getNumOfChannelsOnPage(int _page){
     
 }
 
+#pragma mark - KEYFRAMES
+
 //-------------------------------------------------
 int timelineData::getNumOfKeysInChannel(){
     return TL.tracks[getTrack()].tlPages[getPage()].tlChannels[getSelectedChannel()].keyframes.keys.size();
@@ -370,3 +372,32 @@ void timelineData::setSelectedKeyValue(int _val){
     TL.tracks[getTrack()].tlPages[getPage()].tlChannels[getSelectedChannel()].keyframes.keys[getSelectedKeyIndex()].val = _val;
     
 }
+
+
+#pragma mark - LINK
+//-------------------------------------------------
+void timelineData::setNBeat(int _track, int _beat){
+    TL.tracks[_track].nbeat = _beat;
+}
+
+//-------------------------------------------------
+void timelineData::setLBeat(int _track, int _beat){
+    TL.tracks[_track].lbeat = _beat;
+}
+
+//-------------------------------------------------
+int timelineData::getNBeat(int _track){
+    return TL.tracks[_track].nbeat;
+}
+
+//-------------------------------------------------
+int timelineData::getLBeat(int _track){
+    return TL.tracks[_track].lbeat;
+}
+
+
+//-------------------------------------------------
+bool timelineData::isDownbeat(int _track){
+    return TL.tracks[_track].nbeat == 0 ? true : false;
+}
+
