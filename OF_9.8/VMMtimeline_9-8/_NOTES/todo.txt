@@ -1,9 +1,9 @@
 -F save/load (selected page, selected track)
 	-- save page will save only current selected page.  zoomer and in-out will NOT be saved
 	-- save all  will save all the tracks and the in-out and zoomer overwriting everything.
+	-- when load track is done it doesn't show the current selected track.
+	-- sometimes after loading the timelines need to be refreshed to show the data.
 -F save EVERYTHING
-
--F clip functionality to load xml
 
 -E deselect track sets selection to null
 
@@ -14,3 +14,21 @@
 -E indicate blank/used matrix buttons
 
 -F Launch clips
+	-- Launch not playing track 2 if both tracks have data.
+	-- clip ui is not switching when different clips are triggered.
+	-- launch from ableton invokes togglePlay.  this should be start/stop instead.
+	-- stop clip doesn't reliably turn off direct drive.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

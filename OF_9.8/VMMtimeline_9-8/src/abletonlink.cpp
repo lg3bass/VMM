@@ -54,6 +54,11 @@ int abletonLinkEngine::beat(){
 }
 
 //-------------------------------------------------
+bool abletonLinkEngine::isDownbeat(){
+    return nbeat == 0 ? true : false;
+}
+
+//-------------------------------------------------
 void abletonLinkEngine::setMeter(int _quantum){
     
     link.setQuantum(_quantum);

@@ -15,6 +15,7 @@ timelineData::timelineData(){
         //add a track
         vmmTrack mytrack;
         mytrack.cuedToPlay = false;
+        mytrack.enableOscOut = false;
         
         //add blank pages
         for(int p = 0;p<NUMBER_OF_TRACKS;p++){
@@ -30,6 +31,19 @@ timelineData::timelineData(){
         TL.tracks.push_back(mytrack);
         
     }
+}
+
+#pragma mark - TRACK
+
+//-------------------------------------------------
+int timelineData::getTrack(){
+    return TL.selected_track;
+}
+
+//-------------------------------------------------
+void timelineData::setTrack(int _track){
+    TL.selected_track = _track;
+    
 }
 
 //-------------------------------------------------
@@ -100,17 +114,7 @@ void timelineData::setBarsBeatsFrames(string _value){
     
 }
 
-
-//-------------------------------------------------
-int timelineData::getTrack(){
-    return TL.selected_track;
-}
-
-//-------------------------------------------------
-void timelineData::setTrack(int _track){
-    TL.selected_track = _track;
-    
-}
+#pragma mark - vmmTrack
 
 //-------------------------------------------------
 int timelineData::getClip(int _track){
@@ -136,6 +140,9 @@ int timelineData::getPage(int _track){
 int timelineData::getPage(){
     return TL.tracks[getTrack()].selected_page;
 }
+
+
+
 
 //-------------------------------------------------
 string timelineData::getPageName(int _page){
@@ -166,6 +173,10 @@ bool timelineData::getCuedToPlay(){
 void timelineData::setCuedToPlay(int _track, bool _status){
     TL.tracks[_track].cuedToPlay = _status;
 }
+
+
+
+
 
 //-------------------------------------------------
 void timelineData::addtlTrack(int _track, int _page, string _name, int _type){

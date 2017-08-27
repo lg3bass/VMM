@@ -24,6 +24,7 @@ public:
     void draw();
     void update();
     int beat();
+    bool isDownbeat();
     void setMeter(int _quantum);
     
     void blinkingBottomBar(float _top, float _bottom);

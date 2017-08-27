@@ -24,6 +24,7 @@ public:
     void setup(int x, int y, int width, int height, ofBaseApp* appPtr);
     void update();
     void draw();
+    void runTimelines(int _track);
     void exit(){};
     
     void keyPressed(int key);
@@ -55,16 +56,20 @@ public:
     void loadTLTrackPages();
     void loadTLAllTracks();
     
+    #pragma mark - PLAY FUNCTIONS
     void playTLclip(int _track, int _clip);
     void stopTLclip(int _clip);
     
-    void runTimelines();
     void setMeasureLoop();
+    
+    #pragma mark - OSC
+    void sendOSCfromTimeline(string _param);
 
     //setup the 2 large sections
     timelineData data;
     timelineTrack tracks;
     
+    #pragma mark - TESTS
     void testKeyframeFunction(int _track, string _channelName);
     
 private:

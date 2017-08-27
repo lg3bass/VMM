@@ -44,14 +44,19 @@ public:
         vector<page> tlPages;
         int selected_clip = 0;
         int selected_page = 0;
-        bool cuedToPlay;
+        int measureCount = 0;
+        int measureLength = 4;
+        int beatCount = 0;
+        int beatLength = 16;
+        bool cuedToPlay = false;
+        bool enableOscOut = false;
     };
     
     struct tlData {
         int selected_track = 0;
         vector<vmmTrack> tracks;
-        int measures = 8;
-        int measureCount = 0;
+        int measures = 8;                   //not used anymore
+        int measureCount = 0;               //not used anymore
         int bpm = 120;
         int fps = 30;
         int loop = 300;
@@ -71,17 +76,21 @@ public:
     timelineData();
     
     //GLOBAL DATA
+#pragma mark - tlData
+    int getTrack();                                 //return the current selected track
+    void setTrack(int _track);                      //set current track
+
     void setMeasures(string _measures);
     void setBPM(string _bpm);
     void setFPS(string _fps);
     void setLoop(string _loop);
     void setMeter(string _meter);
     void setBarsBeatsFrames(string _value);
+
     
     //TRACK SPECIFIC DATA
-    int getTrack();                                 //return the current selected track
-    void setTrack(int _track);                      //set current track
-    
+#pragma mark - vmmTrack
+
     int getClip(int _track);                        //return the current selected clip for a specific track
     int getClip();                                  //return the current selected clip on current track
     void setClip(int _clip);                        //set current clip on current track
@@ -90,8 +99,7 @@ public:
     int getPage();                                  //return the current selected page on current track
     string getPageName(int _page);                  //return the current page name for a specific page
     string getPageName();                           //return the current selected page name
-    
-    
+        
     void setPage(int _page);                        //set the current page on current track
     
     bool getCuedToPlay(int _track);                 //return the flag if to play ALL the timelines on a page for a specific track
@@ -111,7 +119,9 @@ public:
     int getNumOfChannelsOnPage();                   //return the number of channels on a page.
     int getNumOfChannelsOnPage(int _page);          //return the number of channels on a page (by index).
     
-    int getNumOfKeysInChannel();                    
+    
+#pragma mark - KEYFRAMES
+    int getNumOfKeysInChannel();
     ofVec2f getSelectedKeyValue(int _selKey);       //return the selected keyframe in vec2f format
     int getSelectedKeyIndex();
     void setSelectedKeyIndex(int _index);

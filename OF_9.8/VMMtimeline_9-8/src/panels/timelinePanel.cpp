@@ -50,15 +50,20 @@ void timelinePanel::update(){
     
     for(int i=0;i<NUMBER_OF_TRACKS;i++){
         if(data.getCuedToPlay(i)){
-            if(bMainApp->AL.nbeat == 0){
-                tracks.timelines[i]->togglePlay();
-                ofLogNotice("LINK") << "update() >> measureCount:" << data.TL.measureCount;
+            //bMainApp->AL.nbeat == 0
+            
+            if(bMainApp->AL.isDownbeat()){
+                tracks.timelines[i]->play();
+                ofLogNotice("LINK") << "update() >> track " << i << " measureCount:" << data.TL.tracks[i].measureCount;
                 data.setCuedToPlay(i, false);
             }
         }
+    
+        runTimelines(i);
+    
     }
     
-    runTimelines();
+    
 }
 
 //-------------------------------------------------
@@ -66,10 +71,49 @@ void timelinePanel::draw(){
     
     tracks.draw();
     
+    //send out all the OSC
+    sendOSCfromTimeline("setGlobalRotX");
+    
+    //draws a border around the panel.
     drawPanel();
     
     if(showTrackData){
         drawTrackData();
+    }
+    
+}
+
+//-------------------------------------------------
+void timelinePanel::runTimelines(int _track){
+    
+    if(tracks.timelines[_track]->getIsPlaying()){//TRUE OR FALSE
+        //ofLogNotice("LINKFLIP") << "getIsPlaying()" << " - track " << _track;
+        //slim data to just beats
+        if(bMainApp->AL.nbeat != bMainApp->AL.lbeat){//<----- THIS IS WHERE THE PROBLEM IS
+            ofLogNotice("LINKFLIP") << "New Measure" << " - track " << _track;
+            //resets the measure counter
+            if(bMainApp->AL.isDownbeat()){
+                ofLogNotice("LINKFLIP") << "isDownbeat()" << " - track " << _track;
+                if(data.TL.tracks[_track].measureCount == data.TL.tracks[_track].measureLength){
+                    
+                    //tracks.timelines[i]->setCurrentFrame(0);
+                    tracks.timelines[_track]->setPercentComplete(0);
+                    data.TL.tracks[_track].measureCount = 1;
+                    ofLogNotice("LINKFLIP") << "tick - " << bMainApp->AL.lbeat << "|" << bMainApp->AL.nbeat << " >>>>  measureCount(FLIP): " << data.TL.tracks[_track].measureCount << "(" << tracks.timelines[_track]->getCurrentFrame() << ")" << " - track " << _track;
+                } else {
+                    
+                    data.TL.tracks[_track].measureCount++;
+                    ofLogNotice("LINK") << "tick - " << bMainApp->AL.lbeat << "|" << bMainApp->AL.nbeat << " >>>>  measureCount: " << data.TL.tracks[_track].measureCount << "(" << tracks.timelines[_track]->getCurrentFrame() << ")";
+                }
+            } else {
+                ofLogNotice("LINK") << "tick - " << bMainApp->AL.lbeat << "|" << bMainApp->AL.nbeat << "(" << tracks.timelines[_track]->getCurrentFrame() << ")";
+            }
+            bMainApp->AL.lbeat = bMainApp->AL.nbeat;
+            
+            
+        } else {
+            ofLogNotice("LINK") << "tock - " << ofToString(bMainApp->AL.nbeat);
+        }
     }
     
 }
@@ -551,8 +595,6 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
             
             //auto t = tracksPage->getTracks();
             
-            
-            
             if(trackType=="Curves"){
                 //add the track
                 tracks.addTLTrack(_track, _page, trackName, 1);
@@ -585,18 +627,26 @@ void timelinePanel::loadTLAllTracks(){
     
 }
 
+
+
+
+
+#pragma mark - PLAY FUNCTIONS
 //-------------------------------------------------
 void timelinePanel::playTLclip(int _track, int _clip){
-
-    setMeasureLoop();
+    ofLogNotice("TRACK")    << "timePanel.play("
+    << _track << "," << _clip
+    << ") -- nbeat:" << bMainApp->AL.nbeat;
     
-    data.setCuedToPlay(_track, true);
+    setMeasureLoop();
     
     //load the right clip
     string filePath = getFilePath(_track, 0, _clip);
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
     
-    tracks.timelines[_track]->play();
+    data.setCuedToPlay(_track, true);
+    
+    //data.TL.tracks[_track].enableOscOut = true;
     
 }
 
@@ -606,74 +656,78 @@ void timelinePanel::stopTLclip(int _clip){
     for(int i=0; i<NUMBER_OF_TRACKS; i++){
         if(tracks.timelines[i]->getIsPlaying()){
             tracks.timelines[i]->stop();
-            //cuedToPlay = false;
+
             data.setCuedToPlay(i, false);
+            
+            //turn off sending OSC to
+            //data.TL.tracks[i].enableOscOut = false;
         }
         
     }
     
+    setMeasureLoop();
+    
+    ofLogNotice("OSC_OUT") << "DRIVE OFF";
+    
 }
 
 
-void timelinePanel::runTimelines(){
-    
-    for(int i=0; i<NUMBER_OF_TRACKS; i++){
-        if(tracks.timelines[i]->getIsPlaying()){
-            //slim data to just beats
-            if(bMainApp->AL.nbeat != bMainApp->AL.lbeat){
-                
-                //resets the measure counter
-                if(bMainApp->AL.nbeat == 0){
-                    if(data.TL.measureCount == data.TL.measures){
-                        //tracks.timelines[i]->setCurrentFrame(0);
-                        tracks.timelines[i]->setPercentComplete(0);
-                        data.TL.measureCount = 1;
-                        ofLogNotice("LINK") << "tick - " << bMainApp->AL.lbeat << "|" << bMainApp->AL.nbeat << " >>>>  measureCount(FLIP): " << data.TL.measureCount << "(" << tracks.timelines[i]->getCurrentFrame() << ")";
-                    } else {
-                        
-                        data.TL.measureCount++;
-                        ofLogNotice("LINK") << "tick - " << bMainApp->AL.lbeat << "|" << bMainApp->AL.nbeat << " >>>>  measureCount: " << data.TL.measureCount << "(" << tracks.timelines[i]->getCurrentFrame() << ")";
-                    }
-                } else {
-                    ofLogNotice("LINK") << "tick - " << bMainApp->AL.lbeat << "|" << bMainApp->AL.nbeat << "(" << tracks.timelines[i]->getCurrentFrame() << ")";
-                }
-                bMainApp->AL.lbeat = bMainApp->AL.nbeat;
-                
-                
-            } else {
-                ofLogNotice("LINK") << "tock - " << ofToString(bMainApp->AL.nbeat);
-            }
-        }
-        
-    }
-    
-    
-}
 
 //--------------------------------------------------------------
 void timelinePanel::setMeasureLoop(){
     
     bMainApp->AL.nbeat = -1;
     bMainApp->AL.lbeat = -2;
-    data.TL.measureCount = 0;
+    data.TL.measureCount = 0; // not used
     data.TL.measures = 4;
     
     for (int i=0;i<NUMBER_OF_TRACKS;i++){
         tracks.timelines[i]->setPercentComplete(0);
+        data.TL.tracks[i].measureCount = 0;
+        data.TL.tracks[i].measureLength = 4;
     }
-    
     
 }
 
-
-
+#pragma mark - OSC
+//--------------------------------------------------------------
+void timelinePanel::sendOSCfromTimeline(string _param){
+    
+    for(int i=0; i< NUMBER_OF_TRACKS; i++){
+        
+        if(data.TL.tracks[i].enableOscOut){
+            
+            bMainApp->OSCsendToVMM(i+1,"/setGlobalRotX",tracks.timelines[i]->getValue("GLOBAL ROTATE X"));
+            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransX",tracks.timelines[i]->getValue("GLOBAL TRANSLATE X"));
+            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransY",tracks.timelines[i]->getValue("GLOBAL TRANSLATE Y"));
+            
+            //            bMainApp->OSCsendToVMM(i+1,"/setLocalRotX",tracks.timelines[i]->getValue("L Rotate X"));
+            //            bMainApp->OSCsendToVMM(i+1,"/setLocalRotY",tracks.timelines[i]->getValue("L Rotate Y"));
+            //            //bMainApp->OSCsendToVMM(i,"/setLocalRotZ",tracks.timelines[i]->getValue("L Rotate Z"));
+            //
+            //            bMainApp->OSCsendToVMM(i+1,"/setObjRotX",tracks.timelines[i]->getValue("O Rotate X"));
+            //            bMainApp->OSCsendToVMM(i+1,"/setObjRotY",tracks.timelines[i]->getValue("O Rotate Y"));
+            //            bMainApp->OSCsendToVMM(i+1,"/setObjlRotZ",tracks.timelines[i]->getValue("O Rotate Z"));
+            //
+            //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransX",tracks.timelines[i]->getValue("G Translate X"));
+            //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransY",tracks.timelines[i]->getValue("G Translate Y"));
+            //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransZ",tracks.timelines[i]->getValue("G Translate Z"));
+            //
+            //            bMainApp->OSCsendToVMM(i+1,"/setLocalTransX",tracks.timelines[i]->getValue("L Translate X"));
+            //            bMainApp->OSCsendToVMM(i+1,"/setLocalTransY",tracks.timelines[i]->getValue("L Translate Y"));
+            //            bMainApp->OSCsendToVMM(i+1,"/setLocalTransZ",tracks.timelines[i]->getValue("L Translate Z"));
+        }
+        
+    }
+    
+}
 
 //-------------------------------------------------
 //TESTS
+#pragma mark - TESTS
 //=================================================
 void timelinePanel::testKeyframeFunction(int _track, string _channelName){
     //test on how to get at keyframe data in a track
-    
     
     //auto mytrack = tracks.timelines[data.getTrack()]->getTrack("GLOBAL ROTATE X");
     ofxTLKeyframes* mytrack = (ofxTLKeyframes*)tracks.timelines[_track]->getTrack(_channelName);

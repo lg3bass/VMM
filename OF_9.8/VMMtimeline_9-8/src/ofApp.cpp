@@ -6,7 +6,8 @@ void ofApp::setup(){
     
     ofSetFrameRate(30);
     
-    ofSetLogLevel("LINK", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("LINK", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("LINKFLIP", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_TRANSPORT", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_TRIGGERED", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
@@ -146,6 +147,8 @@ void ofApp::OscReciever(){
 
 //--------------------------------------------------------------
 void ofApp::OSCsendToVMM(int _track, string _address, float _value){
+    
+    ofLogNotice("OSC_OUT") << _address << " " << _value;
     ofxOscMessage m;
     m.setAddress(_address);
     m.addInt32Arg(_track);
