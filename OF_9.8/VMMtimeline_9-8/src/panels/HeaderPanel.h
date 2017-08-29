@@ -40,6 +40,7 @@ public:
     void setPage(int _page);
     
     void setBeat(int _beat);
+    void setUImeasures(int _measure);
 
 private:
     

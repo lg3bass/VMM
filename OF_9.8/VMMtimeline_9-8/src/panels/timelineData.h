@@ -52,14 +52,15 @@ public:
         bool enableOscOut = false;
         int lbeat = -1;//last beat
         int nbeat = -1;//current beat
+        int duration = 250;
     };
     
     struct tlData {
         int selected_track = 0;
         vector<vmmTrack> tracks;
-        int measures = 8;                   //not used anymore
-        int measureCount = 0;               //not used anymore
-        int bpm = 120;
+        //int measures = 8;                   //not used anymore
+        //int measureCount = 0;               //not used anymore
+        float bpm = 120.0;
         int fps = 30;
         int loop = 300;
         int mBeats = 4;
@@ -82,17 +83,21 @@ public:
     int getTrack();                                 //return the current selected track
     void setTrack(int _track);                      //set current track
 
-    void setMeasures(string _measures);
     void setBPM(string _bpm);
     void setFPS(string _fps);
     void setLoop(string _loop);
     void setMeter(string _meter);
     void setBarsBeatsFrames(string _value);
+    
+    int calculateFramesInMeasures(int m, float bpm, int fps);
 
     
     //TRACK SPECIFIC DATA
 #pragma mark - vmmTrack
-
+    void setTrackMeasures(int _track, int _measures);
+    int getTrackMeasures(int _track);
+    int getTrackDuration(int _track);
+    
     int getClip(int _track);                        //return the current selected clip for a specific track
     int getClip();                                  //return the current selected clip on current track
     void setClip(int _clip);                        //set current clip on current track

@@ -13,6 +13,10 @@ void ofApp::setControllerData(string name, int data){
         headerPanel.setPage(timePanel.data.getPage(data));
         timePanel.tracks.showSelectedTimelineTrack(data);
         
+        //set measures UI.
+        headerPanel.setUImeasures(timePanel.data.getTrackMeasures(data));
+        
+        
     } else if(name == "PAGES") {
         timePanel.data.setPage(data);
         timePanel.tracks.setPage(timePanel.data.getTrack(), data);
@@ -150,8 +154,7 @@ void ofApp::passTextValue(string _field, string _val){
     cout << "passTextValue: " << ofToString(_val) << endl;
     
     if(_field == "MEASURES"){
-        timePanel.data.setMeasures(_val);
-    
+        timePanel.setTrackMeasures(timePanel.data.getTrack(), _val);
         
     } else if (_field == "BPM") {
         timePanel.data.setBPM(_val);
@@ -192,6 +195,7 @@ void ofApp::playTLclip(int _track, int _clip){
 //--------------------------------------------------------------
 void ofApp::stopTLclip(int _clip){
     
+    //NOTE: _clip does NOTHING!!! 
     timePanel.stopTLclip(_clip);
     
 }

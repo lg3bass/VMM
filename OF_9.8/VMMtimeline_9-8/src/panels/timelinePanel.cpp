@@ -159,7 +159,7 @@ void timelinePanel::keyPressed(int key){
 
             switch(key){
                 case 257:
-                    
+                    //F1
                     //decrement
                     if(data.getNumOfChannelsOnPage() > 1){
                         
@@ -182,7 +182,7 @@ void timelinePanel::keyPressed(int key){
                     
                     break;
                 case 258:
-                    
+                    //F2
                     //increment
                     if(data.getNumOfChannelsOnPage() > 1){
                         
@@ -204,26 +204,43 @@ void timelinePanel::keyPressed(int key){
                     
                     break;
                 case 259:
-                    
-                    cout << "F3 pressed" << endl;
-                    
-                    data.setCuedToPlay(0, true);
-                    
-                    //tracks.timelines[0]->play();
-                    
-                    //testKeyframeFunction(data.getTrack(), data.getSelectedChannelName());
+                    //F3
+                    cout << "F3 - play track 1, clip 1" << endl;
+                    bMainApp->playTLclip(0, 0);
+
                     
                     break;
                 case 260:
-                    
-                    cout << "F4 pressed" << endl;
-                    tracks.timelines[0]->stop();
-                    setMeasureLoop();
+                    //F4
+                    cout << "F4 - play track 1, clip 2" << endl;
+                    bMainApp->playTLclip(0, 1);
                     
                     break;
                 case 261:
+                    //F5
+                    cout << "F5 - play track 2, clip 1" << endl;
+                    bMainApp->playTLclip(1, 0);
                     
-                    cout << "F5 pressed" << endl;
+                    break;
+                case 262:
+                    //F6
+                    cout << "F6 pressed" << endl;
+                    bMainApp->stopTLclip(0);//argument does nothing! stops all clips for now.
+                    
+                    break;
+                case 263:
+                    //F7
+                    cout << "F7 pressed" << endl;
+                    
+                    break;
+                case 264:
+                    //F8
+                    cout << "F8 pressed" << endl;
+                    
+                    break;
+                case 265:
+                    //F9
+                    cout << "F9 pressed" << endl;
                     
                     break;
             }//end switch
@@ -339,6 +356,7 @@ void timelinePanel::mouseReleased(int x, int y, int button){
     
 }
 
+#pragma mark - DEBUG/STATS
 //-------------------------------------------------
 void timelinePanel::drawTrackData(){
 
@@ -349,7 +367,7 @@ void timelinePanel::drawTrackData(){
     float v_unit = 15;
 
     
-    verdana9.drawString("MM: "+ofToString(data.TL.measures), h_unit*0+ml, _y+mt+v_unit*0);
+    //verdana9.drawString("MM: "+ofToString(data.TL.measures), h_unit*0+ml, _y+mt+v_unit*0);
     verdana9.drawString("BPM: "+ofToString(data.TL.bpm), h_unit*1+ml, _y+mt+v_unit*0);
     verdana9.drawString("FPS: "+ofToString(data.TL.fps), h_unit*2+ml, _y+mt+v_unit*0);
     verdana9.drawString("LOOP: "+ofToString(data.TL.loop), h_unit*3+ml, _y+mt+v_unit*0);
@@ -467,7 +485,7 @@ void timelinePanel::toggleDrawTrackData(){
     
 }
 
-
+#pragma mark - SELECT CHANNELS
 //-------------------------------------------------
 void timelinePanel::actOnFocus(ofxTLTrackEventArgs & args){
     
@@ -484,6 +502,7 @@ void timelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
     
 }
 
+#pragma mark - ADD/REMOVE
 //-------------------------------------------------
 void timelinePanel::addTLChannel(string _name, int _type){
     //adds the track in the data
@@ -511,6 +530,7 @@ void timelinePanel::remTLChannel(){
     }
 }
 
+#pragma mark - SAVE/LOAD
 //-------------------------------------------------
 string timelinePanel::getFilePath(int _track, int _page, int _clip){
     return TRACK_DIR "_" + ofToString(_track) + "/" CLIP_DIR "_" + ofToString(_clip) + "/";
@@ -581,9 +601,6 @@ void timelinePanel::saveTLAllTracks(){
     
 }
 
-
-
-
 //-------------------------------------------------
 void timelinePanel::loadTLPage(int _track, int _page, int _clip){
 
@@ -652,10 +669,6 @@ void timelinePanel::loadTLAllTracks(){
     
 }
 
-
-
-
-
 #pragma mark - PLAY FUNCTIONS
 //-------------------------------------------------
 void timelinePanel::playTLclip(int _track, int _clip){
@@ -671,6 +684,7 @@ void timelinePanel::playTLclip(int _track, int _clip){
     
     data.setCuedToPlay(_track, true);
     
+    //enable OSC OUT
     //data.TL.tracks[_track].enableOscOut = true;
     
 }
@@ -684,7 +698,7 @@ void timelinePanel::stopTLclip(int _clip){
 
             data.setCuedToPlay(i, false);
             
-            //turn off sending OSC to
+            //disable OSC OUT
             //data.TL.tracks[i].enableOscOut = false;
         }
         
@@ -701,12 +715,7 @@ void timelinePanel::stopTLclip(int _clip){
 //--------------------------------------------------------------
 void timelinePanel::setMeasureLoop(){
     
-    //TBD
-    bMainApp->AL.nbeat = -1;
-    bMainApp->AL.lbeat = -2;
-    data.TL.measureCount = 0; // not used
-    data.TL.measures = 4;
-    
+
     for (int i=0;i<NUMBER_OF_TRACKS;i++){
         
         tracks.timelines[i]->setPercentComplete(0);
@@ -715,10 +724,25 @@ void timelinePanel::setMeasureLoop(){
         data.setLBeat(i, -2);
         
         data.TL.tracks[i].measureCount = 0;
-        data.TL.tracks[i].measureLength = 4;
+        //data.TL.tracks[i].measureLength = 4;//now set from ui
     }
+}
+
+//--------------------------------------------------------------
+void timelinePanel::setTrackMeasures(int _track, string _measures){
+    
+    //check if measures is int-able
+    
+    //set the data portion
+    data.setTrackMeasures(_track, ofToInt(_measures));
+    
+    int d = data.getTrackDuration(_track);
+    tracks.timelines[_track]->setOutPointAtFrame(d);
+    tracks.timelines[_track]->setDurationInFrames(d);
+    
     
 }
+
 
 #pragma mark - OSC
 //--------------------------------------------------------------

@@ -14,6 +14,8 @@ void ofApp::setup(){
     ofSetLogLevel("OSC_PLAY", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_OUT", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     
+    ofSetLogLevel("timelineData", OF_LOG_NOTICE);
+    
     //ableton link setup
     AL.setup(ofGetAppPtr());
     

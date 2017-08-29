@@ -123,3 +123,11 @@ void HeaderPanel::setBeat(int _beat){
     mainUI.linkSlider->setValue(_beat);
 }
 
+//--------------------------------------------------------------
+void HeaderPanel::setUImeasures(int _measure){
+    
+    string measure = ofToString(_measure);
+    
+    mainUI.measures->setText(measure);
+}
+

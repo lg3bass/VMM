@@ -82,7 +82,7 @@ public:
     void setLinkSlider(int _beat);
     
     void playTLclip(int _track, int _clip);
-    void stopTLclip(int _clip);
+    void stopTLclip(int _clip);                     //_clip does NOTHING
     
     //panels
     HeaderPanel headerPanel;

@@ -32,18 +32,26 @@ public:
     void mousePressed(int x, int y, int button);
     void mouseReleased(int x, int y, int button);
     
+#pragma mark - DEBUG/STATS
+    
     void drawTrackData();
     void drawPageData(int _mt);
     void toggleDrawTrackData();
     bool showTrackData;
+
+#pragma mark - SELECT CHANNELS
     
     //intercept event from the timeline
     void actOnFocus(ofxTLTrackEventArgs & args);
     void actOnLossFocus(ofxTLTrackEventArgs & args);
+
+#pragma mark - ADD/REMOVE
     
     //add and remove tracks
     void addTLChannel(string _name, int _type);
     void remTLChannel();
+    
+#pragma mark - SAVE/LOAD
     
     //save and load functions
     string getFilePath(int _track, int _page, int _clip);
@@ -56,20 +64,22 @@ public:
     void loadTLTrackPages();
     void loadTLAllTracks();
     
-    #pragma mark - PLAY FUNCTIONS
+#pragma mark - PLAY FUNCTIONS
     void playTLclip(int _track, int _clip);
-    void stopTLclip(int _clip);
+    void stopTLclip(int _clip);                             //argument does NOTHING!
     
     void setMeasureLoop();
     
-    #pragma mark - OSC
+    void setTrackMeasures(int _track, string _measures);
+    
+#pragma mark - OSC
     void sendOSCfromTimeline(string _param);
 
     //setup the 2 large sections
     timelineData data;
     timelineTrack tracks;
     
-    #pragma mark - TESTS
+#pragma mark - TESTS
     void testKeyframeFunction(int _track, string _channelName);
     
 private:

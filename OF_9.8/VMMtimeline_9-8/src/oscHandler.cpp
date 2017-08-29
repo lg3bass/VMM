@@ -40,6 +40,7 @@ void oscHandler::processOSCmessage(ofxOscMessage &m){
             //close out,clean up function
             ofLogNotice("OSC_TRANSPORT") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1) << " --STOP TRANSPORT(stop timline)";
             
+            //NOTE: argument does NOTHING YET!!!!!
             oscMainApp->stopTLclip(m.getArgAsInt(1));
             
         }
@@ -130,6 +131,7 @@ void oscHandler::processOSCmessage(ofxOscMessage &m){
             << m.getArgAsInt32(1)
             << " --CLIP STOP (stop timeline)";
             
+            //NOTE: argument does NOTHING YET!!!!!
             oscMainApp->stopTLclip(m.getArgAsInt(0));
             
             waitForClipPlaying = false;

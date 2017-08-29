@@ -14,10 +14,13 @@
 -E indicate blank/used matrix buttons
 
 -F Launch clips
-	-- Launch not playing track 2 if both tracks have data.
-	-- clip ui is not switching when different clips are triggered.
-	-- launch from ableton invokes togglePlay.  this should be start/stop instead.
+	-- turn data renderer into screen to see which tracks are activate and playing currently
 	-- stop clip doesn't reliably turn off direct drive.
+	
+-F mesures and duration
+	-- update measures UI when you select a track
+	-- update LOOP UI when change the measures
+	
 	
 	
 	

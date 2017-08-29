@@ -47,12 +47,6 @@ void timelineData::setTrack(int _track){
 }
 
 //-------------------------------------------------
-void timelineData::setMeasures(string _measures){
-    TL.measures = ofToInt(_measures);
-    
-}
-
-//-------------------------------------------------
 void timelineData::setBPM(string _bpm){
     TL.bpm = ofToInt(_bpm);
     
@@ -114,7 +108,44 @@ void timelineData::setBarsBeatsFrames(string _value){
     
 }
 
+//--------------------------------------------------------------
+int timelineData::calculateFramesInMeasures(int m, float bpm, int fps){
+    
+    int frames;
+    
+    //calculate how many frames in a minute @ fps
+    float framesInMinute = fps * 60.0;
+    
+    //(4beats per measure) * (1800f in a second at 30fps).
+    float f = (m*4) * framesInMinute;
+    
+    //calulate how many frames in n measures and round up to the next frame.
+    frames = int(ceil(f/bpm));
+    
+    //raw output
+    ofLogNotice("timelineData") << m << " m @ " << fps << "fps = frames(float|int): " << ofToString(f/bpm) << "|" << frames;
+    
+    return frames;
+}
+
+
 #pragma mark - vmmTrack
+//-------------------------------------------------
+void timelineData::setTrackMeasures(int _track, int _measures){
+    TL.tracks[_track].measureLength = _measures;
+    TL.tracks[_track].duration = calculateFramesInMeasures(_measures, TL.bpm, TL.fps);
+}
+
+//-------------------------------------------------
+int timelineData::getTrackMeasures(int _track){
+    return TL.tracks[_track].measureLength;
+}
+
+//-------------------------------------------------
+int timelineData::getTrackDuration(int _track){
+    return TL.tracks[_track].duration;
+    
+}
 
 //-------------------------------------------------
 int timelineData::getClip(int _track){
