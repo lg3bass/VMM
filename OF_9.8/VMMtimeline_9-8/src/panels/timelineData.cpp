@@ -163,6 +163,11 @@ void timelineData::setClip(int _clip){
 }
 
 //-------------------------------------------------
+void timelineData::setClip(int _clip, int _track){
+    TL.tracks[_track].selected_clip = _clip;
+}
+
+//-------------------------------------------------
 int timelineData::getPage(int _track){
     return TL.tracks[_track].selected_page;
 }

@@ -25,9 +25,12 @@ void ofApp::setControllerData(string name, int data){
         }
         
     } else if(name == "CLIP"){
-        timePanel.data.setClip(data);
-        string filePath = timePanel.getFilePath(timePanel.data.getTrack(), timePanel.data.getPage(), timePanel.data.getClip());
-        timePanel.tracks.timelines[timePanel.data.getTrack()]->loadTracksFromFolder(filePath);
+//        timePanel.data.setClip(data);
+//        string filePath = timePanel.getFilePath(timePanel.data.getTrack(), timePanel.data.getClip());
+//        timePanel.tracks.timelines[timePanel.data.getTrack()]->loadTracksFromFolder(filePath);
+//        
+        timePanel.setClip(data);
+    
         
     }
     
@@ -190,6 +193,16 @@ void ofApp::playTLclip(int _track, int _clip){
     
     timePanel.playTLclip(_track, _clip);
     
+    //What Track,Clip is selected on this track
+    if(_track == timePanel.data.TL.selected_track){
+        
+        cout << "You are on the selected track!" << endl;
+        //only if you are on the selected track, page, clip.
+        headerPanel.setClip(_clip);
+        
+    }
+    
+
 }
 
 //--------------------------------------------------------------

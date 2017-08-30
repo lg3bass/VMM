@@ -25,7 +25,7 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
     _h = height;
     
     tracks.init(x,y,width,height);
-    setMeasureLoop();
+    
 
     //colors
     setBackgroundColor(ofColor::darkGray);
@@ -38,8 +38,14 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
     
     //add listener to "ofxTLEvents::trackGainedFocus"
     for(int i=0; i<NUMBER_OF_TRACKS; i++){
+        
+        //add listeners
         ofAddListener(tracks.timelines[i]->events().trackGainedFocus, this, &timelinePanel::actOnFocus);
         ofAddListener(tracks.timelines[i]->events().trackLostFocus, this, &timelinePanel::actOnLossFocus);
+        
+        setMeasureLoop(i);
+        
+        
     }
 
 }
@@ -532,7 +538,7 @@ void timelinePanel::remTLChannel(){
 
 #pragma mark - SAVE/LOAD
 //-------------------------------------------------
-string timelinePanel::getFilePath(int _track, int _page, int _clip){
+string timelinePanel::getFilePath(int _track, int _clip){
     return TRACK_DIR "_" + ofToString(_track) + "/" CLIP_DIR "_" + ofToString(_clip) + "/";
 }
 
@@ -546,7 +552,7 @@ void timelinePanel::saveTLPage(int _track, int _page, int _clip){
     if(data.getNumOfChannelsOnPage(_page)>0){
         cout << "Saving channel on page " << ofToString(_page) << endl;
         
-        string filePath = getFilePath(_track,_page,_clip);
+        string filePath = getFilePath(_track,_clip);
         tracks.timelines[_track]->saveTracksToFolder(filePath);
         
         //save the page settings.
@@ -606,7 +612,7 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
 
     //----------------------------------
     //-:Load Xml file
-    string filePath = getFilePath(_track,_page,_clip);
+    string filePath = getFilePath(_track,_clip);
     
     //string pageName = data.getPageName();
     string pageName = data.getPageName(_page);
@@ -670,18 +676,40 @@ void timelinePanel::loadTLAllTracks(){
 }
 
 #pragma mark - PLAY FUNCTIONS
+
+//-------------------------------------------------
+void timelinePanel::setClip(int _clip, int _track){
+    
+    //set Clip at a specific track
+    data.setClip(_clip, _track);
+    
+    string filePath = getFilePath(_track, _clip);
+    tracks.timelines[_track]->loadTracksFromFolder(filePath);
+    
+}
+
+//-------------------------------------------------
+void timelinePanel::setClip(int _clip){
+    
+    //set Clip at a specific track
+    data.setClip(_clip, data.getTrack());
+    
+    string filePath = getFilePath(data.getTrack(), _clip);
+    tracks.timelines[data.getTrack()]->loadTracksFromFolder(filePath);
+}
+
 //-------------------------------------------------
 void timelinePanel::playTLclip(int _track, int _clip){
     ofLogNotice("TRACK")    << "timePanel.play("
     << _track << "," << _clip
     << ") -- nbeat:" << data.getNBeat(_track);
     
-    setMeasureLoop();
+    setMeasureLoop(_track);
+
+    //set the data, load the file
+    setClip(_clip,_track);
     
-    //load the right clip
-    string filePath = getFilePath(_track, 0, _clip);
-    tracks.timelines[_track]->loadTracksFromFolder(filePath);
-    
+    //START IT UP
     data.setCuedToPlay(_track, true);
     
     //enable OSC OUT
@@ -701,10 +729,12 @@ void timelinePanel::stopTLclip(int _clip){
             //disable OSC OUT
             //data.TL.tracks[i].enableOscOut = false;
         }
+     
+    setMeasureLoop(i);//resets them all.
         
     }
     
-    setMeasureLoop();
+    
     
     ofLogNotice("OSC_OUT") << "DRIVE OFF";
     
@@ -713,19 +743,15 @@ void timelinePanel::stopTLclip(int _clip){
 
 
 //--------------------------------------------------------------
-void timelinePanel::setMeasureLoop(){
+void timelinePanel::setMeasureLoop(int _track){
     
+        tracks.timelines[_track]->setPercentComplete(0);
+        
+        data.setNBeat(_track, -1);
+        data.setLBeat(_track, -2);
+        
+        data.TL.tracks[_track].measureCount = 0;
 
-    for (int i=0;i<NUMBER_OF_TRACKS;i++){
-        
-        tracks.timelines[i]->setPercentComplete(0);
-        
-        data.setNBeat(i, -1);
-        data.setLBeat(i, -2);
-        
-        data.TL.tracks[i].measureCount = 0;
-        //data.TL.tracks[i].measureLength = 4;//now set from ui
-    }
 }
 
 //--------------------------------------------------------------

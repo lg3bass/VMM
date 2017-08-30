@@ -54,7 +54,7 @@ public:
 #pragma mark - SAVE/LOAD
     
     //save and load functions
-    string getFilePath(int _track, int _page, int _clip);
+    string getFilePath(int _track, int _clip);
     
     void saveTLPage(int _track, int _page, int _clip);
     void saveTLTrackPages();
@@ -65,10 +65,13 @@ public:
     void loadTLAllTracks();
     
 #pragma mark - PLAY FUNCTIONS
+    void setClip(int _clip, int _track);
+    void setClip(int _clip);
+        
     void playTLclip(int _track, int _clip);
     void stopTLclip(int _clip);                             //argument does NOTHING!
     
-    void setMeasureLoop();
+    void setMeasureLoop(int _track);
     
     void setTrackMeasures(int _track, string _measures);
     

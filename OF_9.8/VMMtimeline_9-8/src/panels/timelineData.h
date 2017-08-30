@@ -101,6 +101,7 @@ public:
     int getClip(int _track);                        //return the current selected clip for a specific track
     int getClip();                                  //return the current selected clip on current track
     void setClip(int _clip);                        //set current clip on current track
+    void setClip(int _clip, int _track);            //set current clip on a specific track
     
     int getPage(int _track);                        //return the current selected page for a specific track
     int getPage();                                  //return the current selected page on current track
