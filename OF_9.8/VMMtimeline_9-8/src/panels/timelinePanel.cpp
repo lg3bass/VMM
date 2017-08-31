@@ -43,11 +43,9 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
         ofAddListener(tracks.timelines[i]->events().trackGainedFocus, this, &timelinePanel::actOnFocus);
         ofAddListener(tracks.timelines[i]->events().trackLostFocus, this, &timelinePanel::actOnLossFocus);
         
+        //reset/setup track metadata.
         setMeasureLoop(i);
-        
-        
     }
-
 }
 
 //-------------------------------------------------
@@ -67,17 +65,19 @@ void timelinePanel::update(){
             
             //OLD bMainApp->AL.isDownbeat()  -- moving checks to individual tracks
             if(data.isDownbeat(i)){
+                tracks.timelines[i]->setPercentComplete(0);
                 tracks.timelines[i]->play();
                 ofLogNotice("LINK") << "update() >> track " << i << " measureCount:" << data.TL.tracks[i].measureCount;
                 data.setCuedToPlay(i, false);
             }
         }
-    
+        
+        //Do all the Ableton Link Syncing. Keep track of beats,measures,etc.
         runTimelines(i);
-    
+        
+        //send out all the OSC
+        sendOSCfromTimeline("setGlobalRotX");
     }
-    
-    
 }
 
 //-------------------------------------------------
@@ -85,16 +85,12 @@ void timelinePanel::draw(){
     
     tracks.draw();
     
-    //send out all the OSC
-    sendOSCfromTimeline("setGlobalRotX");
-    
     //draws a border around the panel.
     drawPanel();
     
     if(showTrackData){
         drawTrackData();
     }
-    
 }
 
 //-------------------------------------------------
@@ -103,18 +99,13 @@ void timelinePanel::runTimelines(int _track){
     if(tracks.timelines[_track]->getIsPlaying()){//TRUE OR FALSE
         //ofLogNotice("LINKFLIP") << "getIsPlaying()" << " - track " << _track;
         
-        
-        //OLD
-        //if(bMainApp->AL.nbeat != bMainApp->AL.lbeat){//<----- THIS IS WHERE THE PROBLEM IS
-        
         int currentBeat = data.getNBeat(_track);
         int lastBeat = data.getLBeat(_track);
         
         if(currentBeat != lastBeat){
-            ofLogVerbose("LINK") << "New Measure" << " - track " << _track;
+            //ofLogVerbose("LINK") << "New Measure" << " - track " << _track;
             
             //resets the measure counter
-            //if(bMainApp->AL.isDownbeat()){//OLD
             if(data.isDownbeat(_track)){
                 ofLogVerbose("LINK") << "isDownbeat()" << " - track " << _track;
                 if(data.TL.tracks[_track].measureCount == data.TL.tracks[_track].measureLength){
@@ -137,8 +128,7 @@ void timelinePanel::runTimelines(int _track){
                 ofLogNotice("LINK") << "tick - " << lastBeat << "|" << currentBeat << "(" << tracks.timelines[_track]->getCurrentFrame() << ")";
             }
             
-            
-            //bMainApp->AL.lbeat = bMainApp->AL.nbeat;//OLD
+            //copy the master beat over to the data.TL.tracks[x].nBeat
             data.setLBeat(_track, currentBeat);
             
             
@@ -146,7 +136,6 @@ void timelinePanel::runTimelines(int _track){
             ofLogNotice("LINK") << "tock - " << currentBeat;
         }
     } // END if getIsPlaying()
-    
 }
 
 //-------------------------------------------------
@@ -168,7 +157,6 @@ void timelinePanel::keyPressed(int key){
                     //F1
                     //decrement
                     if(data.getNumOfChannelsOnPage() > 1){
-                        
                         
                         int selected_page = data.getSelectedChannel();                  //calculates the selected_page if using keyboard
                         
@@ -293,18 +281,15 @@ void timelinePanel::keyReleased(int key){
                 case 257:
                     //cout << "F1 released" << endl;
                     
-                    
                     break;
                 case 258:
                     //cout << "F2 released" << endl;
-                    
                     
                     break;
                 case 259:
                     
                     //cout << "F3 released" << endl;
                     break;
-                    
             }//end switch
         }else{
             
@@ -358,8 +343,6 @@ void timelinePanel::mouseReleased(int x, int y, int button){
 
     //ofLog() << "body released";
     //setBackgroundColor(ofColor::darkGray);
-
-    
 }
 
 #pragma mark - DEBUG/STATS
@@ -392,7 +375,6 @@ void timelinePanel::drawTrackData(){
     verdana9.drawString("CUED:", 0, _y+mt+v_unit*6);
     verdana9.drawString("CHANNEL", 0, _y+mt+v_unit*7);
    
-
     for(int i=0; i<NUMBER_OF_TRACKS;i++){
 
         verdana9.drawString(ofToString(i+1), i*h_unit+ml, _y+mt+v_unit*3);
@@ -401,17 +383,11 @@ void timelinePanel::drawTrackData(){
         verdana9.drawString(data.getCuedToPlay(i) ? "true" : "false", i*h_unit+ml, _y+mt+v_unit*6);
         
     }
-
-    
-    
-    
     
     //only draw if a channel is selected
     if(data.getSelectedChannel() > -1 ){
         drawPageData(_y+mt+v_unit*3);                   //show the page tracks and keys
     }
-    
-    
 }
 
 //-------------------------------------------------
@@ -472,7 +448,6 @@ void timelinePanel::drawPageData(int _mt){
     }
     verdana9.drawString(keyframeTxt, _x+ml, _y+mt+v_unit*1);
     verdana9.drawString(selKeyTxt, _x+ml, _y+mt+v_unit*2);
-    
 }
 
 //-------------------------------------------------
@@ -488,7 +463,6 @@ void timelinePanel::toggleDrawTrackData(){
     } else {
         tracks.timelines[data.getTrack()]->show();
     }
-    
 }
 
 #pragma mark - SELECT CHANNELS
@@ -497,7 +471,6 @@ void timelinePanel::actOnFocus(ofxTLTrackEventArgs & args){
     
     cout << "timelinePanel::Gained Focus: " << args.name << endl;
     data.setSelectedChannel(args.name);
-    
 }
 
 //-------------------------------------------------
@@ -505,7 +478,6 @@ void timelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
     
     cout << "timelinePanel::Loss Focus: " << args.name << endl;
     //data.setSelectedChannel(-1);
-    
 }
 
 #pragma mark - ADD/REMOVE
@@ -745,7 +717,11 @@ void timelinePanel::stopTLclip(int _clip){
 //--------------------------------------------------------------
 void timelinePanel::setMeasureLoop(int _track){
     
-        tracks.timelines[_track]->setPercentComplete(0);
+    if(tracks.timelines[_track]->getIsPlaying()){
+        
+        
+    }
+        //tracks.timelines[_track]->setPercentComplete(0);
         
         data.setNBeat(_track, -1);
         data.setLBeat(_track, -2);

@@ -9,7 +9,7 @@
 
 -F add tracks other than curves
 
--E mouse down on timeline shouldn't affect drop down menus
+-E mouse down on timeline shouldn't affect drop down menus in other panels.
 
 -E indicate blank/used matrix buttons
 
@@ -18,8 +18,25 @@
 	-- stop clip doesn't reliably turn off direct drive.
 	
 -F mesures and duration
-	-- update measures UI when you select a track
 	-- update LOOP UI when change the measures
+	
+-E capture track metadata in xml. Perhaps create a project XML
+	-- Project Data (bpm, meter, fps, host, port, quant, snap)
+	-- Track Data (measures, loop, 
+	
+-F drag in waveform on background.
+	
+-F OSC OUT
+	-- get a list of all the channnels on all tracks
+		- add attr to tracks ".numOfChannels"
+		- add attr to channels ".enableOscOut"
+	-- wire up OSC button to turn on/off OSC
+	-- timelinePanel::sendOSCfromTimeline(int _track, string _param);
+	-- timelinePanel::draw()
+		- create function to loop through tracks with data.
+		- timelinePanel::
+		
+	
 	
 	
 	
