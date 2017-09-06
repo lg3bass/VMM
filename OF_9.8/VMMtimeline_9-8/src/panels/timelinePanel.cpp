@@ -75,8 +75,10 @@ void timelinePanel::update(){
         //Do all the Ableton Link Syncing. Keep track of beats,measures,etc.
         runTimelines(i);
         
+        
+        
         //send out all the OSC
-        sendOSCfromTimeline("setGlobalRotX");
+        sendOSCfromTimeline(i, "setGlobalRotX");
     }
 }
 
@@ -487,7 +489,8 @@ void timelinePanel::addTLChannel(string _name, int _type){
     data.addtlTrack(data.getTrack(),data.getPage(), _name, _type);
     
     //add the track on the timeline
-    tracks.addTLTrack(data.getTrack(),data.getPage(),_name, _type);
+    //tracks.addTLTrack(data.getTrack(),data.getPage(),_name, _type);
+    tracks.addTLTrack(data.getTrack(),data.getPageName(),_name, _type);
 
 }
 
@@ -685,7 +688,7 @@ void timelinePanel::playTLclip(int _track, int _clip){
     data.setCuedToPlay(_track, true);
     
     //enable OSC OUT
-    //data.TL.tracks[_track].enableOscOut = true;
+    data.TL.tracks[_track].enableOscOut = true;
     
 }
 
@@ -698,15 +701,17 @@ void timelinePanel::stopTLclip(int _clip){
 
             data.setCuedToPlay(i, false);
             
-            //disable OSC OUT
-            //data.TL.tracks[i].enableOscOut = false;
+
         }
-     
+
+    //disable OSC OUT
+    data.TL.tracks[i].enableOscOut = false;
+        
+    tracks.timelines[i]->setPercentComplete(0);
+        
     setMeasureLoop(i);//resets them all.
         
     }
-    
-    
     
     ofLogNotice("OSC_OUT") << "DRIVE OFF";
     
@@ -719,6 +724,7 @@ void timelinePanel::setMeasureLoop(int _track){
     
     if(tracks.timelines[_track]->getIsPlaying()){
         
+        cout << "setMeasureLoop(" << ofToString(_track) << ") -- isPlaying()" << endl;
         
     }
         //tracks.timelines[_track]->setPercentComplete(0);
@@ -748,34 +754,48 @@ void timelinePanel::setTrackMeasures(int _track, string _measures){
 
 #pragma mark - OSC
 //--------------------------------------------------------------
-void timelinePanel::sendOSCfromTimeline(string _param){
-    
-    for(int i=0; i< NUMBER_OF_TRACKS; i++){
-        
-        if(data.TL.tracks[i].enableOscOut){
-            
-            bMainApp->OSCsendToVMM(i+1,"/setGlobalRotX",tracks.timelines[i]->getValue("GLOBAL ROTATE X"));
-            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransX",tracks.timelines[i]->getValue("GLOBAL TRANSLATE X"));
-            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransY",tracks.timelines[i]->getValue("GLOBAL TRANSLATE Y"));
-            
-            //            bMainApp->OSCsendToVMM(i+1,"/setLocalRotX",tracks.timelines[i]->getValue("L Rotate X"));
-            //            bMainApp->OSCsendToVMM(i+1,"/setLocalRotY",tracks.timelines[i]->getValue("L Rotate Y"));
-            //            //bMainApp->OSCsendToVMM(i,"/setLocalRotZ",tracks.timelines[i]->getValue("L Rotate Z"));
-            //
-            //            bMainApp->OSCsendToVMM(i+1,"/setObjRotX",tracks.timelines[i]->getValue("O Rotate X"));
-            //            bMainApp->OSCsendToVMM(i+1,"/setObjRotY",tracks.timelines[i]->getValue("O Rotate Y"));
-            //            bMainApp->OSCsendToVMM(i+1,"/setObjlRotZ",tracks.timelines[i]->getValue("O Rotate Z"));
-            //
-            //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransX",tracks.timelines[i]->getValue("G Translate X"));
-            //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransY",tracks.timelines[i]->getValue("G Translate Y"));
-            //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransZ",tracks.timelines[i]->getValue("G Translate Z"));
-            //
-            //            bMainApp->OSCsendToVMM(i+1,"/setLocalTransX",tracks.timelines[i]->getValue("L Translate X"));
-            //            bMainApp->OSCsendToVMM(i+1,"/setLocalTransY",tracks.timelines[i]->getValue("L Translate Y"));
-            //            bMainApp->OSCsendToVMM(i+1,"/setLocalTransZ",tracks.timelines[i]->getValue("L Translate Z"));
+void timelinePanel::sendOSCfromTimeline(int _track, string _param){
+
+    if(data.TL.tracks[_track].enableOscOut){
+        //get all the channels on a track
+        //loop through all the pages.
+        for (int p=0;p<10;p++){
+            if(data.TL.tracks[_track].tlPages[p].tlChannels.size()>0){
+
+                for (int j=0;j<data.TL.tracks[_track].tlPages[p].tlChannels.size();j++){
+                    //cout << "CH: " << data.TL.tracks[_track].tlPages[p].tlChannels[j].name << endl;
+                    
+                    int outTrack = _track+1;
+                    string param = data.TL.tracks[_track].tlPages[p].tlChannels[j].name;
+                    string outParam = "/"+data.TL.tracks[_track].tlPages[p].tlChannels[j].name;
+                    
+                    bMainApp->OSCsendToVMM(outTrack,outParam,tracks.timelines[_track]->getValue(param));
+                }
+            }
         }
-        
     }
+    
+    
+    //VMM SPECIFIC DATA OUT
+    //            bMainApp->OSCsendToVMM(i+1,"/setGlobalRotX",tracks.timelines[i]->getValue("GLOBAL ROTATE X"));
+    //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransX",tracks.timelines[i]->getValue("GLOBAL TRANSLATE X"));
+    //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransY",tracks.timelines[i]->getValue("GLOBAL TRANSLATE Y"));
+    
+    //            bMainApp->OSCsendToVMM(i+1,"/setLocalRotX",tracks.timelines[i]->getValue("L Rotate X"));
+    //            bMainApp->OSCsendToVMM(i+1,"/setLocalRotY",tracks.timelines[i]->getValue("L Rotate Y"));
+    //            //bMainApp->OSCsendToVMM(i,"/setLocalRotZ",tracks.timelines[i]->getValue("L Rotate Z"));
+    //
+    //            bMainApp->OSCsendToVMM(i+1,"/setObjRotX",tracks.timelines[i]->getValue("O Rotate X"));
+    //            bMainApp->OSCsendToVMM(i+1,"/setObjRotY",tracks.timelines[i]->getValue("O Rotate Y"));
+    //            bMainApp->OSCsendToVMM(i+1,"/setObjlRotZ",tracks.timelines[i]->getValue("O Rotate Z"));
+    //
+    //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransX",tracks.timelines[i]->getValue("G Translate X"));
+    //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransY",tracks.timelines[i]->getValue("G Translate Y"));
+    //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransZ",tracks.timelines[i]->getValue("G Translate Z"));
+    //
+    //            bMainApp->OSCsendToVMM(i+1,"/setLocalTransX",tracks.timelines[i]->getValue("L Translate X"));
+    //            bMainApp->OSCsendToVMM(i+1,"/setLocalTransY",tracks.timelines[i]->getValue("L Translate Y"));
+    //            bMainApp->OSCsendToVMM(i+1,"/setLocalTransZ",tracks.timelines[i]->getValue("L Translate Z"));
     
 }
 

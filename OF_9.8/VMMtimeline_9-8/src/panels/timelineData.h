@@ -124,6 +124,7 @@ public:
     void setSelectedChannel(string _channel);       //set the current selected timeline(channel) on a page (by index)
     string getSelectedChannelName();                //return the name of the selected timeline(channel) on a page.
     string getChannelName(int _channel);
+    string getChannelNameOnPage(int _page, int _channel);
     int getNumOfChannelsOnPage();                   //return the number of channels on a page.
     int getNumOfChannelsOnPage(int _page);          //return the number of channels on a page (by index).
     

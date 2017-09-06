@@ -1,3 +1,7 @@
+VMM Timeline Production Notes
+//======================================================
+https://docs.google.com/document/d/1kHLtJ3yWMs0glJoA4j5C4YxmSt_KusxjogzfFTDWlv0/edit#heading=h.nrnw03t7conb
+
 -F save/load (selected page, selected track)
 	-- save page will save only current selected page.  zoomer and in-out will NOT be saved
 	-- save all  will save all the tracks and the in-out and zoomer overwriting everything.
@@ -14,7 +18,8 @@
 -E indicate blank/used matrix buttons
 
 -F Launch clips
-	-- turn data renderer into screen to see which tracks are activate and playing currently
+	-- turn "debug screen(drawTrackData())" data renderer into dashboard to see which tracks 
+		are actively playing.
 	-- stop clip doesn't reliably turn off direct drive.
 	
 -F mesures and duration

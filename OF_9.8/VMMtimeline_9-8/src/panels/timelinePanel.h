@@ -76,7 +76,7 @@ public:
     void setTrackMeasures(int _track, string _measures);
     
 #pragma mark - OSC
-    void sendOSCfromTimeline(string _param);
+    void sendOSCfromTimeline(int _track, string _param);
 
     //setup the 2 large sections
     timelineData data;

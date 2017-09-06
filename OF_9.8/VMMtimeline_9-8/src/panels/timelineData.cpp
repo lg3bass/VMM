@@ -310,7 +310,13 @@ string timelineData::getSelectedChannelName(){
 //-------------------------------------------------
 string timelineData::getChannelName(int _channel){
     
-    return TL.tracks[getTrack()].tlPages[getPage()].tlChannels[_channel].name;      //returns the name of a selected channel on a page.
+    return TL.tracks[getTrack()].tlPages[getPage()].tlChannels[_channel].name;      //returns the name of a selected channel on the selected page.
+}
+
+//-------------------------------------------------
+string timelineData::getChannelNameOnPage(int _page, int _channel){
+    
+    return TL.tracks[getTrack()].tlPages[_page].tlChannels[_channel].name;      //returns the name of a selected channel on the selected page.
 }
 
 //-------------------------------------------------
@@ -430,7 +436,6 @@ int timelineData::getNBeat(int _track){
 int timelineData::getLBeat(int _track){
     return TL.tracks[_track].lbeat;
 }
-
 
 //-------------------------------------------------
 bool timelineData::isDownbeat(int _track){

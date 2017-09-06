@@ -148,7 +148,12 @@ void timelineTrack::showSelectedTimelineTrack(int _track){
 void timelineTrack::addTLTrack(int _track, int _page, string _name, int _type){
 
     timelines[_track]->setCurrentPage(_page);
-    timelines[_track]->addCurves(_name, ofRange(0, 100));
+    //ofxTLPage* test = timelines[_track]->getPage(_page);
+    
+    timelines[_track]->addCurves(_name, ofRange(-50, 50));
+    //timelines[_track]->setHeight(100.0);
+    
+    
     
 }
 
@@ -156,7 +161,14 @@ void timelineTrack::addTLTrack(int _track, int _page, string _name, int _type){
 void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type){
 
     timelines[_track]->setCurrentPage(_page);
-    timelines[_track]->addCurves(_name, ofRange(0, 100));
+    ofxTLPage* test = timelines[_track]->getPage(_page);
+    test->setMinimalHeaders(true);
+    test->hideFooters(true);
+    
+    timelines[_track]->addCurves(_name, ofRange(-50, 50));
+    timelines[_track]->setHeight(121.0);
+    
+    test->setTrackHeight(100);
     
 }
 
