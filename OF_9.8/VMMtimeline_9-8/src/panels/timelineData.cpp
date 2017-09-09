@@ -215,12 +215,13 @@ void timelineData::setCuedToPlay(int _track, bool _status){
 
 
 //-------------------------------------------------
-void timelineData::addtlTrack(int _track, int _page, string _name, int _type){
+void timelineData::addtlTrack(int _track, int _page, string _name, int _type, float _low, float _high){
     
     channel newTrack;
     newTrack.name = _name;
     newTrack.type = channelType(_type);
     newTrack.selected_key = -1;
+    newTrack.channelRange = ofRange(_low,_high);
     
     //add dummy keys to the new track
     for(int k=0;k<3;k++){
@@ -289,7 +290,7 @@ void timelineData::setSelectedChannel(string _channel){
         }
     }
     setSelectedKeyIndex(-1);                                                        //reset all the keys
-
+    
 }
 
 //-------------------------------------------------

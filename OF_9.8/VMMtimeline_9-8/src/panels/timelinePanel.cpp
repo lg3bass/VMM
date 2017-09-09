@@ -471,8 +471,22 @@ void timelinePanel::toggleDrawTrackData(){
 //-------------------------------------------------
 void timelinePanel::actOnFocus(ofxTLTrackEventArgs & args){
     
-    cout << "timelinePanel::Gained Focus: " << args.name << endl;
+    cout << "timelinePanel::actOnFocus: " << args.name << endl;
     data.setSelectedChannel(args.name);
+    
+    
+    //test code to display track range.
+    ofxTLKeyframes* mytrack = (ofxTLKeyframes*)tracks.timelines[data.getTrack()]->getTrack(args.name);
+    ofRange r = mytrack->getValueRange();
+    
+    
+    cout << "timelinePanel::actOnFocus: range(" << ofToString(r.min) << "," << ofToString(r.max) << ")" << endl;
+    
+    bMainApp->headerPanel.mainUI.clampH->setText(ofToString(r.max));
+    bMainApp->headerPanel.mainUI.clampL->setText(ofToString(r.min));
+    
+    
+    
 }
 
 //-------------------------------------------------
@@ -480,6 +494,11 @@ void timelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
     
     cout << "timelinePanel::Loss Focus: " << args.name << endl;
     //data.setSelectedChannel(-1);
+    
+    //NO, keep the data persistent in the UI
+    bMainApp->headerPanel.mainUI.clampH->setText("---");
+    bMainApp->headerPanel.mainUI.clampL->setText("---");
+
 }
 
 #pragma mark - ADD/REMOVE
@@ -491,6 +510,8 @@ void timelinePanel::addTLChannel(string _name, int _type){
     //add the track on the timeline
     //tracks.addTLTrack(data.getTrack(),data.getPage(),_name, _type);
     tracks.addTLTrack(data.getTrack(),data.getPageName(),_name, _type);
+    
+    
 
 }
 
@@ -524,6 +545,8 @@ void timelinePanel::saveTLPage(int _track, int _page, int _clip){
     //      You will need to add an additional function
     //      e.g. ofxTimeline::savePageTracksToFolder(int page, string folderPath)
     
+    
+    
     if(data.getNumOfChannelsOnPage(_page)>0){
         cout << "Saving channel on page " << ofToString(_page) << endl;
         
@@ -552,7 +575,16 @@ void timelinePanel::saveTLPage(int _track, int _page, int _clip){
             savedSettings.pushTag("channel-"+ofToString(i));
             savedSettings.addValue("name", tracksPage->getTracks()[i]->getName());
             savedSettings.addValue("type", tracksPage->getTracks()[i]->getTrackType());
+            savedSettings.addValue("rangeH", data.TL.tracks[_track].tlPages[_page].tlChannels[i].channelRange.max);
+            savedSettings.addValue("rangeL", data.TL.tracks[_track].tlPages[_page].tlChannels[i].channelRange.min);
             savedSettings.popTag();
+            
+            //what is being saved
+            
+            ofLogNotice("SAVE") << "TR" << _track << ", " << pageName << ", " << tracksPage->getTracks()[i]->getName() << "["
+            << data.TL.tracks[_track].tlPages[_page].tlChannels[i].channelRange.min << ","
+            << data.TL.tracks[_track].tlPages[_page].tlChannels[i].channelRange.max << "]";
+            
         }
         savedSettings.popTag();
         
@@ -596,9 +628,9 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
     ofxXmlSettings xml;
     
     if( xml.loadFile(filenamePanel) ){
-        ofLogVerbose()<<"timelinePanel::loadTLPage - "<< filenamePanel <<" loaded.";
+        ofLogVerbose("LOAD") <<"timelinePanel::loadTLPage - "<< filenamePanel <<" loaded.";
     }else{
-        ofLogError()<<  "timelinePanel::loadTLPage - unable to load " << filenamePanel ;
+        ofLogError("LOAD") <<  "timelinePanel::loadTLPage - unable to load " << filenamePanel ;
         return;
     }
     
@@ -609,6 +641,8 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
     for (int i=0; i<tracksNum; i++){
         string trackName = xml.getValue("page:tlChannels:channel-" + ofToString(i) +":name", "");
         string trackType = xml.getValue("page:tlChannels:channel-" + ofToString(i) +":type", "");
+        string rangeH = xml.getValue("page:tlChannels:channel-" + ofToString(i) +":rangeH", "");
+        string rangeL = xml.getValue("page:tlChannels:channel-" + ofToString(i) +":rangeL", "");
         
         auto tracksPage = tracks.timelines[_track]->getPage(pageName);
         
@@ -620,9 +654,14 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
             
             if(trackType=="Curves"){
                 //add the track
-                tracks.addTLTrack(_track, _page, trackName, 1);
+                
+                //TODO - modiy this so it passes in range. for now hardcode to test.
+                //tracks.addTLTrack(_track, _page, trackName, 1);
+                tracks.timelines[_track]->setCurrentPage(_page);
+                tracks.timelines[_track]->addCurves(trackName, ofRange(ofToFloat(rangeL), ofToFloat(rangeH)));
+                
                 //update the data node
-                data.addtlTrack(_track, _page, trackName, 1);
+                data.addtlTrack(_track, _page, trackName, 1, ofToFloat(rangeL), ofToFloat(rangeH));
                 
             }else if(trackType=="Bangs"){
                 //addTrack(trackName, BANGS);
@@ -799,6 +838,28 @@ void timelinePanel::sendOSCfromTimeline(int _track, string _param){
     
 }
 
+#pragma mark - CHANNEL MODIFICATIONS
+//--------------------------------------------------------------
+void timelinePanel::setChannelRangeHigh(float _val){
+    //set the ofRange of the data track
+    data.TL.tracks[data.getTrack()].tlPages[data.getPage()].tlChannels[data.getSelectedChannel()].channelRange.setMax(_val);
+    
+    //now set the range in timeline track
+    auto selTrack = (ofxTLKeyframes*)tracks.timelines[data.getTrack()]->getTrack(data.getSelectedChannelName());
+    selTrack->setValueRangeMax(_val);
+}
+
+//--------------------------------------------------------------
+void timelinePanel::setChannelRangeLow(float _val){
+    //set the ofRange of the data track
+    data.TL.tracks[data.getTrack()].tlPages[data.getPage()].tlChannels[data.getSelectedChannel()].channelRange.setMin(_val);
+    
+    //now set the range in timeline track
+    auto selTrack = (ofxTLKeyframes*)tracks.timelines[data.getTrack()]->getTrack(data.getSelectedChannelName());
+    selTrack->setValueRangeMin(_val);
+}
+
+
 //-------------------------------------------------
 //TESTS
 #pragma mark - TESTS
@@ -810,6 +871,9 @@ void timelinePanel::testKeyframeFunction(int _track, string _channelName){
     ofxTLKeyframes* mytrack = (ofxTLKeyframes*)tracks.timelines[_track]->getTrack(_channelName);
     
     cout << "How many keys are selected: " << mytrack->getSelectedItemCount() << endl;
+    
+    //mytrack->setValueRangeMax(100);
+    //mytrack->quantizeKeys(10);
     
     cout << "The value of the second keyframe is: " << ofToString(mytrack->getKeyframes()[1]->value) << endl;
     

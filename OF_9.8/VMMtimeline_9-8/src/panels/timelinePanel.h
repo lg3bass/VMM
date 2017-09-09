@@ -82,6 +82,10 @@ public:
     timelineData data;
     timelineTrack tracks;
     
+#pragma mark - CHANNEL MODIFICATIONS
+    void setChannelRangeLow(float _val);
+    void setChannelRangeHigh(float _val);
+    
 #pragma mark - TESTS
     void testKeyframeFunction(int _track, string _channelName);
     

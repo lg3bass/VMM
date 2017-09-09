@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../addons/ofxTimeline/src/ofxTLKeyframes.cpp"
-            timestampString = "526357748.361243"
+            timestampString = "526663619.979304"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "547"
-            endingLineNumber = "547"
+            startingLineNumber = "548"
+            endingLineNumber = "548"
             landmarkName = "ofxTLKeyframes::mouseReleased(ofMouseEventArgs&amp; args, long millis)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../addons/ofxTimeline/src/ofxTLKeyframes.cpp"
-            timestampString = "526357854.903301"
+            timestampString = "526663598.828461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "488"
-            endingLineNumber = "488"
+            startingLineNumber = "489"
+            endingLineNumber = "489"
             landmarkName = "ofxTLKeyframes::mouseDragged(ofMouseEventArgs&amp; args, long millis)"
             landmarkType = "7">
          </BreakpointContent>
@@ -64,6 +64,38 @@
             startingLineNumber = "151"
             endingLineNumber = "151"
             landmarkName = "ofxTLKeyframes::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/panels/timelinePanel.cpp"
+            timestampString = "526445276.605286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "478"
+            endingLineNumber = "478"
+            landmarkName = "timelinePanel::actOnFocus(ofxTLTrackEventArgs &amp; args)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/panels/timelinePanel.cpp"
+            timestampString = "526664058.152682"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "584"
+            endingLineNumber = "584"
+            landmarkName = "timelinePanel::saveTLPage(int _track, int _page, int _clip)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

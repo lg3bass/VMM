@@ -151,7 +151,8 @@ void timelineTrack::addTLTrack(int _track, int _page, string _name, int _type){
     //ofxTLPage* test = timelines[_track]->getPage(_page);
     
     timelines[_track]->addCurves(_name, ofRange(-50, 50));
-    //timelines[_track]->setHeight(100.0);
+    
+    
     
     
     
@@ -165,7 +166,17 @@ void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type
     //test->setMinimalHeaders(true);
     //test->hideFooters(true);
     
-    timelines[_track]->addCurves(_name, ofRange(-50, 50));
+    
+    //Which type of track to add
+    
+    if(_type == 1){
+        
+        timelines[_track]->addCurves(_name, ofRange(-50, 50));
+    }
+    
+    
+    
+    
     //timelines[_track]->setHeight(121.0);
     
     //test->setTrackHeight(100);

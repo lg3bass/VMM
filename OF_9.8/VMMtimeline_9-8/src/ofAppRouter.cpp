@@ -178,7 +178,18 @@ void ofApp::passTextValue(string _field, string _val){
     } else if (_field == "BAR|BEAT|FRAME"){
         timePanel.data.setBarsBeatsFrames(_val);
         
+    } else if (_field == "LOW"){
+        
+        timePanel.setChannelRangeLow(ofToFloat(_val));
+        
+    } else if (_field == "HIGH"){
+        
+        timePanel.setChannelRangeHigh(ofToFloat(_val));
+        
+        
     }
+
+
     
 }
 

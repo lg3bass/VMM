@@ -10,6 +10,7 @@
 #define NUMBER_OF_TRACKS 10
 
 #include "ofMain.h"
+#include "ofRange.h"
 
 class timelineData{
     
@@ -26,6 +27,7 @@ public:
         string name;
         channelType type;
         int selected_key;
+        ofRange channelRange;
         struct keys{
             vector<key> keys;
             int selected_key;
@@ -115,7 +117,7 @@ public:
     void setCuedToPlay(int _track, bool _status);   //set flag to play ALL the timelines on a page for a specific track
     
     //ADD AND REMOVE TIMELINES TO A PAGE
-    void addtlTrack(int _track, int _page, string _name, int _type);       //add a timeline track to a page
+    void addtlTrack(int _track, int _page, string _name, int _type, float _low=-100.0, float _high=100.0);       //add a timeline track to a page
     //void addtlTrack(int _track, string _page, string _name, int _type);       //add a timeline track to a page
     void remtlTrack(string _name);                  //remove a timeline from the current page.
     

@@ -213,6 +213,7 @@ void headerUI::setupGUI() {
     clampL->setLabelAlignment(ofxDatGuiAlignment::CENTER);
     clampL->setBorderVisible(TRUE);
     clampL->setBorder(ofColor::darkGrey, 1);
+    clampL->onTextInputEvent(this, &headerUI::onTextInputEvent);
     
     clampH = new ofxDatGuiTextInput("HIGH", "120");
     clampH->setTheme(new ofxDatGuiThemeVMM);
@@ -223,6 +224,7 @@ void headerUI::setupGUI() {
     clampH->setLabelAlignment(ofxDatGuiAlignment::CENTER);
     clampH->setBorderVisible(TRUE);
     clampH->setBorder(ofColor::darkGrey, 1);
+    clampH->onTextInputEvent(this, &headerUI::onTextInputEvent);
     
     setIn = new ofxDatGuiTextInput("IN", "30");
     setIn->setTheme(new ofxDatGuiThemeVMM);

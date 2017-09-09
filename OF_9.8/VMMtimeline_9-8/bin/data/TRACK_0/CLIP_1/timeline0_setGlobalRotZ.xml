@@ -3,42 +3,48 @@
         <easefunc>0</easefunc>
         <easetype>0</easetype>
         <time>00:00:00:000</time>
-        <value>0.831325293</value>
+        <value>0.748201370</value>
     </key>
     <key>
         <easefunc>0</easefunc>
         <easetype>0</easetype>
-        <time>00:00:00:986</time>
-        <value>0.855421662</value>
+        <time>00:00:01:985</time>
+        <value>0.500000000</value>
     </key>
     <key>
         <easefunc>0</easefunc>
         <easetype>0</easetype>
-        <time>00:00:00:987</time>
-        <value>0.445783138</value>
+        <time>00:00:03:955</time>
+        <value>0.500000000</value>
     </key>
     <key>
         <easefunc>0</easefunc>
         <easetype>0</easetype>
-        <time>00:00:03:988</time>
-        <value>0.445783138</value>
+        <time>00:00:05:985</time>
+        <value>0.750000000</value>
     </key>
     <key>
         <easefunc>0</easefunc>
         <easetype>0</easetype>
-        <time>00:00:03:989</time>
-        <value>1.000000000</value>
+        <time>00:00:08:000</time>
+        <value>0.750000000</value>
     </key>
     <key>
         <easefunc>0</easefunc>
         <easetype>0</easetype>
-        <time>00:00:05:486</time>
-        <value>1.000000000</value>
+        <time>00:00:09:985</time>
+        <value>0.500000000</value>
     </key>
     <key>
         <easefunc>0</easefunc>
         <easetype>0</easetype>
-        <time>00:00:05:487</time>
-        <value>0.192771077</value>
+        <time>00:00:12:000</time>
+        <value>0.500000000</value>
+    </key>
+    <key>
+        <easefunc>0</easefunc>
+        <easetype>0</easetype>
+        <time>00:00:13:970</time>
+        <value>0.250000000</value>
     </key>
 </keyframes>
