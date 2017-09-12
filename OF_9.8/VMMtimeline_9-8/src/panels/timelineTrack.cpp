@@ -145,40 +145,35 @@ void timelineTrack::showSelectedTimelineTrack(int _track){
 }
 
 //-------------------------------------------------
-void timelineTrack::addTLTrack(int _track, int _page, string _name, int _type){
+//this function is NOT USED.
+void timelineTrack::addTLTrack2(int _track, int _page, string _name, int _type){
 
+    //pick a page to place the track.
     timelines[_track]->setCurrentPage(_page);
-    //ofxTLPage* test = timelines[_track]->getPage(_page);
     
-    timelines[_track]->addCurves(_name, ofRange(-50, 50));
-    
-    
-    
-    
+    //if the track type is curves
+    if(_type == 1){
+        timelines[_track]->addCurves(_name, ofRange(-50, 50));
+    }
     
 }
 
 //-------------------------------------------------
-void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type){
-
+//This is the used version.
+void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type, float _low, float _high){
+    
     timelines[_track]->setCurrentPage(_page);
-    ofxTLPage* test = timelines[_track]->getPage(_page);
-    //test->setMinimalHeaders(true);
-    //test->hideFooters(true);
     
-    
-    //Which type of track to add
-    
+    //if the track type is curves
     if(_type == 1){
-        
-        timelines[_track]->addCurves(_name, ofRange(-50, 50));
+        timelines[_track]->addCurves(_name, ofRange(_low, _high));
     }
     
-    
-    
-    
+    //SAMPLE CODE TO ACCESS PAGE PROPERTIES.
+    //ofxTLPage* test = timelines[_track]->getPage(_page);
+    //test->setMinimalHeaders(true);
+    //test->hideFooters(true);
     //timelines[_track]->setHeight(121.0);
-    
     //test->setTrackHeight(100);
     
 }

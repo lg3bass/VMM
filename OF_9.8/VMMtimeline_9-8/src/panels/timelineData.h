@@ -117,8 +117,8 @@ public:
     void setCuedToPlay(int _track, bool _status);   //set flag to play ALL the timelines on a page for a specific track
     
     //ADD AND REMOVE TIMELINES TO A PAGE
-    void addtlTrack(int _track, int _page, string _name, int _type, float _low=-100.0, float _high=100.0);       //add a timeline track to a page
-    //void addtlTrack(int _track, string _page, string _name, int _type);       //add a timeline track to a page
+    //add a timeline track to a page.  ofRange(_low, _high) are set by default.
+    void addtlTrack(int _track, int _page, string _name, int _type, float _low=-100.0, float _high=100.0);
     void remtlTrack(string _name);                  //remove a timeline from the current page.
     
     int getSelectedChannel();                       //returns the index to the selected timeline on a page.

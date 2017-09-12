@@ -34,8 +34,8 @@ public:
     void enableTimelines(bool _enable);
     void showSelectedTimelineTrack(int _track);
     
-    void addTLTrack(int _track, int _page, string _name, int _type);
-    void addTLTrack(int _track, string _page, string _name, int _type);
+    void addTLTrack2(int _track, int _page, string _name, int _type);
+    void addTLTrack(int _track, string _page, string _name, int _type, float _low = -50, float _high = 50);
     void remTLTrack(int _track, int _page, string _name);
     
     void setPage(int _track, int _page);

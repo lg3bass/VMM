@@ -508,8 +508,8 @@ void timelinePanel::addTLChannel(string _name, int _type){
     data.addtlTrack(data.getTrack(),data.getPage(), _name, _type);
     
     //add the track on the timeline
-    //tracks.addTLTrack(data.getTrack(),data.getPage(),_name, _type);
-    tracks.addTLTrack(data.getTrack(),data.getPageName(),_name, _type);
+    //tracks.addTLTrack(data.getTrack(),data.getPage(),_name, _type);       //page = int
+    tracks.addTLTrack(data.getTrack(),data.getPageName(),_name, _type);     //pate = string
     
     
 
@@ -659,6 +659,8 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
                 //tracks.addTLTrack(_track, _page, trackName, 1);
                 tracks.timelines[_track]->setCurrentPage(_page);
                 tracks.timelines[_track]->addCurves(trackName, ofRange(ofToFloat(rangeL), ofToFloat(rangeH)));
+                //tracks.addTLTrack(_track, _page, trackName, <#int _type#>)
+                
                 
                 //update the data node
                 data.addtlTrack(_track, _page, trackName, 1, ofToFloat(rangeL), ofToFloat(rangeH));

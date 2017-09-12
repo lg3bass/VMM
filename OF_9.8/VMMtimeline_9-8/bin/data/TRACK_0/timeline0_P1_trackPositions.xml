@@ -11,4 +11,10 @@
         <width>1080.000000000</width>
         <height>40.000000000</height>
     </element>
+    <element name="t1">
+        <x>0.000000000</x>
+        <y>99.000000000</y>
+        <width>1080.000000000</width>
+        <height>101.000000000</height>
+    </element>
 </positions>
