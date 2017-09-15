@@ -365,6 +365,7 @@ void headerUI::setupGUI() {
     drive->setLabelAlignment(ofxDatGuiAlignment::CENTER);
     drive->setBorderVisible(TRUE);
     drive->setBorder(ofColor::darkGrey, 1);
+    drive->onButtonEvent(this, &headerUI::onButtonEvent);
     
     //ROW3    
     host = new ofxDatGuiTextInput("HOST","127.0.0.1");

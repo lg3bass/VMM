@@ -1,0 +1,18 @@
+<page>
+    <name>P2</name>
+    <tlChannels>
+        <tlChannels-num>2</tlChannels-num>
+        <channel-0>
+            <name>setObjRotX</name>
+            <type>Curves</type>
+            <rangeH>20.000000000</rangeH>
+            <rangeL>-20.000000000</rangeL>
+        </channel-0>
+        <channel-1>
+            <name>setObjRotZ</name>
+            <type>Curves</type>
+            <rangeH>45.000000000</rangeH>
+            <rangeL>-45.000000000</rangeL>
+        </channel-1>
+    </tlChannels>
+</page>

@@ -140,7 +140,7 @@ void headerUI::onButtonEvent(ofxDatGuiButtonEvent e){
                 cout << "you must enter a name." << endl;
             } else {
                 //add a channel to the current selected track.
-                uiMainApp->addTLTrack(newTrack.name, newTrack.type);
+                uiMainApp->addChannel(newTrack.name, newTrack.type);
                 resetTrackDropdown();
             }
         } else {
@@ -149,7 +149,7 @@ void headerUI::onButtonEvent(ofxDatGuiButtonEvent e){
         
     } else if (e.target->getName() == "-"){
         cout << "remove track pressed" << endl;
-        uiMainApp->remTLTrack();
+        uiMainApp->remChannel();
     
     } else if (e.target->getName() == ">"){
         cout << "increment key" << endl;
@@ -159,6 +159,9 @@ void headerUI::onButtonEvent(ofxDatGuiButtonEvent e){
         cout << "decrement key" << endl;
         uiMainApp->prevKey();
         
+    } else if (e.target->getName() == "DRIVE"){
+        
+        uiMainApp->enableOscOut();
     }
     
 }
@@ -173,4 +176,19 @@ void headerUI::resetTrackDropdown(){
     
 }
 
+//--------------------------------------------------------------
+void headerUI::setButtonToggle(ofxDatGuiButton *_button){
+    
+    driveBtn = !driveBtn;
+    
+    if(driveBtn){
+        _button->setBackgroundColor(ofColor(255,0,0));
+        cout << "drive on" << endl;
+    } else {
+        _button->setBackgroundColor(ofColor(255,255,255));
+        cout << "drive off" << endl;
+        
+    }
+    
+}
 

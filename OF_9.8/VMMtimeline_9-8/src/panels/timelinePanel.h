@@ -48,7 +48,8 @@ public:
 #pragma mark - ADD/REMOVE
     
     //add and remove tracks
-    void addTLChannel(string _name, int _type);
+    void addTLChannelToSelected(string _name, int _type, float low = -50, float high = 50);
+    void addTLChannelToPage(int _track, int _page, string _name, int _type, float low = -50, float high =50);
     void remTLChannel();
     
 #pragma mark - SAVE/LOAD
@@ -65,7 +66,9 @@ public:
     void loadTLAllTracks();
     
 #pragma mark - PLAY FUNCTIONS
-    void setClip(int _clip, int _track);
+    void setPage(int _page);
+    
+    void setClip(int _track, int _clip);
     void setClip(int _clip);
         
     void playTLclip(int _track, int _clip);

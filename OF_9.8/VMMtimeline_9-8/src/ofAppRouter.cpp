@@ -4,6 +4,14 @@
 //--------------------------------------------------------------
 //timePanel functions
 //--------------------------------------------------------------
+void ofApp::enableOscOut(){
+    //cout << "ofApp::enableOscOut()" << endl;
+    headerPanel.toggleDrive();
+    timePanel.data.TL.tracks[timePanel.data.getTrack()].enableOscOut = !timePanel.data.TL.tracks[timePanel.data.getTrack()].enableOscOut;
+    
+}
+
+//--------------------------------------------------------------
 void ofApp::setControllerData(string name, int data){
     
     if (name == "TRACK") {
@@ -18,19 +26,18 @@ void ofApp::setControllerData(string name, int data){
         
         
     } else if(name == "PAGES") {
-        timePanel.data.setPage(data);
-        timePanel.tracks.setPage(timePanel.data.getTrack(), data);
-        if(timePanel.data.getSelectedChannel() > -1){
-            timePanel.tracks.highlightFocuedTrack(timePanel.data.getTrack(), timePanel.data.getSelectedChannelName());
-        }
+        
+//        timePanel.data.setPage(data);
+//        timePanel.tracks.setPage(timePanel.data.getTrack(), data);
+//        if(timePanel.data.getSelectedChannel() > -1){
+//            timePanel.tracks.highlightFocuedTrack(timePanel.data.getTrack(), timePanel.data.getSelectedChannelName());
+//        }
+        
+        timePanel.setPage(data);
         
     } else if(name == "CLIP"){
-//        timePanel.data.setClip(data);
-//        string filePath = timePanel.getFilePath(timePanel.data.getTrack(), timePanel.data.getClip());
-//        timePanel.tracks.timelines[timePanel.data.getTrack()]->loadTracksFromFolder(filePath);
-//        
+       
         timePanel.setClip(data);
-    
         
     }
     
@@ -38,13 +45,13 @@ void ofApp::setControllerData(string name, int data){
 
 
 //--------------------------------------------------------------
-void ofApp::addTLTrack(string name, int type){
+void ofApp::addChannel(string name, int type){
     //add a track on the current selected page
-    timePanel.addTLChannel(name, type);
+    timePanel.addTLChannelToSelected(name, type);
 }
 
 //--------------------------------------------------------------
-void ofApp::remTLTrack(){
+void ofApp::remChannel(){
     //remove a track on the current selected page
     timePanel.remTLChannel();
 }

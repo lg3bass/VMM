@@ -52,11 +52,13 @@ public:
     
     //ofAppRouter.cpp
     //timePanel functions
+
+    void enableOscOut();
     
     void setControllerData(string name, int data);
     
-    void addTLTrack(string name, int type);
-    void remTLTrack();
+    void addChannel(string name, int type);
+    void remChannel();
     
     //new save/load functions
     void saveTLPage();

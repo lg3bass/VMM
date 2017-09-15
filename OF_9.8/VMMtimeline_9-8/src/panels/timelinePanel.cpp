@@ -503,16 +503,22 @@ void timelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
 
 #pragma mark - ADD/REMOVE
 //-------------------------------------------------
-void timelinePanel::addTLChannel(string _name, int _type){
+void timelinePanel::addTLChannelToSelected(string _name, int _type, float low, float high){
     //adds the track in the data
     data.addtlTrack(data.getTrack(),data.getPage(), _name, _type);
-    
-    //add the track on the timeline
-    //tracks.addTLTrack(data.getTrack(),data.getPage(),_name, _type);       //page = int
-    tracks.addTLTrack(data.getTrack(),data.getPageName(),_name, _type);     //pate = string
-    
-    
+    //adds the track to timeline
+    tracks.addTLTrack(data.getTrack(),data.getPageName(),_name, _type, low, high);      //pate = string
 
+}
+
+//-------------------------------------------------
+void timelinePanel::addTLChannelToPage(int _track, int _page, string _name, int _type, float low, float high){
+    string pageName = data.getPageName(_page);
+    //adds the track in the data
+    data.addtlTrack(_track,_page, _name, _type, low, high);
+    //adds the track to timeline
+    tracks.addTLTrack(_track,pageName,_name, _type, low, high);
+    
 }
 
 //-------------------------------------------------
@@ -616,7 +622,8 @@ void timelinePanel::saveTLAllTracks(){
 
 //-------------------------------------------------
 void timelinePanel::loadTLPage(int _track, int _page, int _clip){
-
+    //Loop through all the pages(_page) and add channels.
+    
     //----------------------------------
     //-:Load Xml file
     string filePath = getFilePath(_track,_clip);
@@ -636,9 +643,11 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
     
     //----------------------------------
     //-:Create tracks from loaded settings.
-    int tracksNum = xml.getValue("page:tlChannels:tlChannels-num", 0);
-    string pageNameFromXML = xml.getValue("page:name","");
-    for (int i=0; i<tracksNum; i++){
+    int numOfChannels = xml.getValue("page:tlChannels:tlChannels-num", 0);
+    
+    //string pageNameFromXML = xml.getValue("page:name","");
+    
+    for (int i=0; i<numOfChannels; i++){
         string trackName = xml.getValue("page:tlChannels:channel-" + ofToString(i) +":name", "");
         string trackType = xml.getValue("page:tlChannels:channel-" + ofToString(i) +":type", "");
         string rangeH = xml.getValue("page:tlChannels:channel-" + ofToString(i) +":rangeH", "");
@@ -647,23 +656,18 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
         auto tracksPage = tracks.timelines[_track]->getPage(pageName);
         
         //If track doesnt exist and its not default -> create it.
-        if(trackName != "DEFAULT" &&
-           tracksPage->getTrack(trackName)==NULL){
-            
-            //auto t = tracksPage->getTracks();
+        if(trackName != "DEFAULT" && tracksPage->getTrack(trackName)==NULL){
             
             if(trackType=="Curves"){
                 //add the track
+                addTLChannelToPage(_track, _page, trackName, 1, ofToFloat(rangeL), ofToFloat(rangeH));
                 
                 //TODO - modiy this so it passes in range. for now hardcode to test.
-                //tracks.addTLTrack(_track, _page, trackName, 1);
-                tracks.timelines[_track]->setCurrentPage(_page);
-                tracks.timelines[_track]->addCurves(trackName, ofRange(ofToFloat(rangeL), ofToFloat(rangeH)));
-                //tracks.addTLTrack(_track, _page, trackName, <#int _type#>)
-                
+                //tracks.timelines[_track]->setCurrentPage(_page);
+                //tracks.timelines[_track]->addCurves(trackName, ofRange(ofToFloat(rangeL), ofToFloat(rangeH)));
                 
                 //update the data node
-                data.addtlTrack(_track, _page, trackName, 1, ofToFloat(rangeL), ofToFloat(rangeH));
+                //data.addtlTrack(_track, _page, trackName, 1, ofToFloat(rangeL), ofToFloat(rangeH));
                 
             }else if(trackType=="Bangs"){
                 //addTrack(trackName, BANGS);
@@ -675,6 +679,9 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
     
     //load the tracks into the created tracks
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
+    
+    //set the selected page back to the selected data.
+    //tracks.setPage(_track, data.getPage(_track));
 
 }
 
@@ -684,6 +691,7 @@ void timelinePanel::loadTLTrackPages(){
         //load all the tracks
         loadTLPage(data.getTrack(), i, data.getPage());        
     }
+    setPage(data.getPage());
 }
 
 //-------------------------------------------------
@@ -692,9 +700,19 @@ void timelinePanel::loadTLAllTracks(){
 }
 
 #pragma mark - PLAY FUNCTIONS
+//-------------------------------------------------
+void timelinePanel::setPage(int _page){
+    data.setPage(_page);
+    tracks.setPage(data.getTrack(), _page);
+    if(data.getSelectedChannel() > -1){
+        tracks.highlightFocuedTrack(data.getTrack(), data.getSelectedChannelName());
+    }
+    
+}
+
 
 //-------------------------------------------------
-void timelinePanel::setClip(int _clip, int _track){
+void timelinePanel::setClip(int _track, int _clip){
     
     //set Clip at a specific track
     data.setClip(_clip, _track);
@@ -707,8 +725,8 @@ void timelinePanel::setClip(int _clip, int _track){
 //-------------------------------------------------
 void timelinePanel::setClip(int _clip){
     
-    //set Clip at a specific track
-    data.setClip(_clip, data.getTrack());
+    //set Clip on the current selected track
+    data.setClip(data.getTrack(), _clip);
     
     string filePath = getFilePath(data.getTrack(), _clip);
     tracks.timelines[data.getTrack()]->loadTracksFromFolder(filePath);
@@ -723,7 +741,7 @@ void timelinePanel::playTLclip(int _track, int _clip){
     setMeasureLoop(_track);
 
     //set the data, load the file
-    setClip(_clip,_track);
+    setClip(_track, _clip);
     
     //START IT UP
     data.setCuedToPlay(_track, true);
@@ -739,10 +757,7 @@ void timelinePanel::stopTLclip(int _clip){
     for(int i=0; i<NUMBER_OF_TRACKS; i++){
         if(tracks.timelines[i]->getIsPlaying()){
             tracks.timelines[i]->stop();
-
             data.setCuedToPlay(i, false);
-            
-
         }
 
     //disable OSC OUT

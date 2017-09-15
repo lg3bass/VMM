@@ -154,7 +154,7 @@ void ofApp::OscReciever(){
 //--------------------------------------------------------------
 void ofApp::OSCsendToVMM(int _track, string _address, float _value){
     
-    ofLogNotice("OSC_OUT") << _address << " " << _value;
+    ofLogVerbose("OSC_OUT") << _address << " " << _value;
     ofxOscMessage m;
     m.setAddress(_address);
     m.addInt32Arg(_track);

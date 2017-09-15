@@ -42,6 +42,7 @@ public:
     void setBeat(int _beat);
     void setUImeasures(int _measure);
 
+    void toggleDrive();
 private:
     
     ofTrueTypeFont	verdana;

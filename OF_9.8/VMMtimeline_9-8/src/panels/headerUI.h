@@ -26,10 +26,14 @@ public:
     void update();
     void draw();
     
+    //data for adding a new channel.
     struct newTrackParams {
         int type;
         string name;
     } newTrack;
+    
+    //toggle states
+    bool driveBtn = false;
     
     //S1
     ofTrueTypeFont font;
@@ -108,6 +112,8 @@ public:
 
     void onSliderEvent(ofxDatGuiSliderEvent e);
     void resetTrackDropdown();
+    
+    void setButtonToggle(ofxDatGuiButton* _button);
     
     //headerUIsetup.cpp
     void setupGUI();

@@ -27,6 +27,11 @@ void HeaderPanel::setup(int x, int y, int width, int height, ofBaseApp *appPtr){
     setBorderWidth(2);
     
     mainUI.setup(appPtr);
+    
+    //initially select the buttons.
+    setTrack(0);
+    setPage(0);
+    setClip(0);
 }
 
 //-------------------------------------------------
@@ -131,3 +136,9 @@ void HeaderPanel::setUImeasures(int _measure){
     mainUI.measures->setText(measure);
 }
 
+//--------------------------------------------------------------
+void HeaderPanel::toggleDrive(){
+    
+    mainUI.setButtonToggle(mainUI.drive);
+    
+}
