@@ -45,7 +45,7 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         t->setWorkingFolder(TRACK_DIR "_" + ofToString(i) + "/");
         
         t->setAutosave(false);
-        t->setSpacebarTogglePlay(false);
+        t->setSpacebarTogglePlay(true);
         t->setLockWidthToWindow(false);
         t->setDurationInFrames(duration);
         t->setOffset(ofVec2f((float)_x, (float)_y));

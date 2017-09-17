@@ -376,6 +376,7 @@ void timelinePanel::drawTrackData(){
     verdana9.drawString("CLIP:", 0, _y+mt+v_unit*5);
     verdana9.drawString("CUED:", 0, _y+mt+v_unit*6);
     verdana9.drawString("CHANNEL", 0, _y+mt+v_unit*7);
+    verdana9.drawString("ENABLED", 0, _y+mt+v_unit*8);
    
     for(int i=0; i<NUMBER_OF_TRACKS;i++){
 
@@ -383,7 +384,7 @@ void timelinePanel::drawTrackData(){
         verdana9.drawString(ofToString(data.getPage(i)+1), i*h_unit+ml, _y+mt+v_unit*4);
         verdana9.drawString(ofToString(data.getClip(i)+1), i*h_unit+ml, _y+mt+v_unit*5);
         verdana9.drawString(data.getCuedToPlay(i) ? "true" : "false", i*h_unit+ml, _y+mt+v_unit*6);
-        
+        //verdana9.drawString(tracks[i]->, i*h_unit+ml, _y+mt+v_unit*6);
     }
     
     //only draw if a channel is selected
@@ -455,10 +456,8 @@ void timelinePanel::drawPageData(int _mt){
 //-------------------------------------------------
 void timelinePanel::toggleDrawTrackData(){
     
-    showTrackData = !showTrackData;
-    //tracks.displayTimelines(!showTrackData);
     
-    //showHideFlag = _showTimeline;
+    showTrackData = !showTrackData;
     
     if(showTrackData){
         tracks.timelines[data.getTrack()]->hide();
