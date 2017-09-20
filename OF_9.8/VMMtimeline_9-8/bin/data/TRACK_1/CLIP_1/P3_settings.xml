@@ -1,7 +1,7 @@
 <page>
     <name>P3</name>
     <tlChannels>
-        <tlChannels-num>3</tlChannels-num>
+        <tlChannels-num>2</tlChannels-num>
         <channel-0>
             <name>mirrorDistance</name>
             <type>Curves</type>
@@ -14,11 +14,5 @@
             <rangeH>12.000000000</rangeH>
             <rangeL>1.000000000</rangeL>
         </channel-1>
-        <channel-2>
-            <name>localCopies</name>
-            <type>Curves</type>
-            <rangeH>12.000000000</rangeH>
-            <rangeL>1.000000000</rangeL>
-        </channel-2>
     </tlChannels>
 </page>
