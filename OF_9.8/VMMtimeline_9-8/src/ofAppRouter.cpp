@@ -16,22 +16,18 @@ void ofApp::setControllerData(string name, int data){
     
     if (name == "TRACK") {
         
-        timePanel.data.setTrack(data);
+        timePanel.setTrack(data);
+    
+        //timePanel.data.setTrack(data);
+        //timePanel.tracks.showSelectedTimelineTrack(data);
+        
+        
         headerPanel.setClip(timePanel.data.getClip(data));
         headerPanel.setPage(timePanel.data.getPage(data));
-        timePanel.tracks.showSelectedTimelineTrack(data);
-        
-        //set measures UI.
         headerPanel.setUImeasures(timePanel.data.getTrackMeasures(data));
         
         
     } else if(name == "PAGES") {
-        
-//        timePanel.data.setPage(data);
-//        timePanel.tracks.setPage(timePanel.data.getTrack(), data);
-//        if(timePanel.data.getSelectedChannel() > -1){
-//            timePanel.tracks.highlightFocuedTrack(timePanel.data.getTrack(), timePanel.data.getSelectedChannelName());
-//        }
         
         timePanel.setPage(data);
         

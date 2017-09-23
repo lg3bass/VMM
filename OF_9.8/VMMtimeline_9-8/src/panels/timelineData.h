@@ -60,8 +60,6 @@ public:
     struct tlData {
         int selected_track = 0;
         vector<vmmTrack> tracks;
-        //int measures = 8;                   //not used anymore
-        //int measureCount = 0;               //not used anymore
         float bpm = 120.0;
         int fps = 30;
         int loop = 300;

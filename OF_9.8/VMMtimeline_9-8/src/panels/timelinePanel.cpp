@@ -375,21 +375,22 @@ void timelinePanel::drawTrackData(){
     verdana9.drawString("PAGE:", 0, _y+mt+v_unit*4);
     verdana9.drawString("CLIP:", 0, _y+mt+v_unit*5);
     verdana9.drawString("CUED:", 0, _y+mt+v_unit*6);
-    verdana9.drawString("CHANNEL", 0, _y+mt+v_unit*7);
-    verdana9.drawString("ENABLED", 0, _y+mt+v_unit*8);
+    verdana9.drawString("OSC", 0, _y+mt+v_unit*7);
+    
    
     for(int i=0; i<NUMBER_OF_TRACKS;i++){
 
-        verdana9.drawString(ofToString(i+1), i*h_unit+ml, _y+mt+v_unit*3);
-        verdana9.drawString(ofToString(data.getPage(i)+1), i*h_unit+ml, _y+mt+v_unit*4);
-        verdana9.drawString(ofToString(data.getClip(i)+1), i*h_unit+ml, _y+mt+v_unit*5);
-        verdana9.drawString(data.getCuedToPlay(i) ? "true" : "false", i*h_unit+ml, _y+mt+v_unit*6);
-        //verdana9.drawString(tracks[i]->, i*h_unit+ml, _y+mt+v_unit*6);
+        verdana9.drawString(ofToString(i+1), i*h_unit+ml, _y+mt+v_unit*3);//track
+        verdana9.drawString(ofToString(data.getPage(i)+1), i*h_unit+ml, _y+mt+v_unit*4);//page
+        verdana9.drawString(ofToString(data.getClip(i)+1), i*h_unit+ml, _y+mt+v_unit*5);//clip
+        verdana9.drawString(data.getCuedToPlay(i) ? "true" : "false", i*h_unit+ml, _y+mt+v_unit*6);//cued
+        
+        verdana9.drawString(data.TL.tracks[i].enableOscOut ? "enabled" : "disabled", i*h_unit+ml, _y+mt+v_unit*7);
     }
     
     //only draw if a channel is selected
     if(data.getSelectedChannel() > -1 ){
-        drawPageData(_y+mt+v_unit*3);                   //show the page tracks and keys
+        drawPageData(_y+mt+v_unit*5);                   //show the page tracks and keys
     }
 }
 
@@ -699,6 +700,14 @@ void timelinePanel::loadTLAllTracks(){
 }
 
 #pragma mark - PLAY FUNCTIONS
+//-------------------------------------------------
+void timelinePanel::setTrack(int _track){
+    
+    data.setTrack(_track);
+    tracks.showSelectedTimelineTrack(_track);
+    
+}
+
 //-------------------------------------------------
 void timelinePanel::setPage(int _page){
     data.setPage(_page);
