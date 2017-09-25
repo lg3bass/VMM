@@ -66,7 +66,7 @@ public:
     void loadTLAllTracks();
     
 #pragma mark - PLAY FUNCTIONS
-    void setTrack(int _track);
+    void setTLTrack(int _track);
     
     void setPage(int _page);
     

@@ -14,6 +14,9 @@
 
 ofApp* bMainApp;        //reference to ofApp()
 
+
+
+
 //-------------------------------------------------
 void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr){
     
@@ -701,7 +704,7 @@ void timelinePanel::loadTLAllTracks(){
 
 #pragma mark - PLAY FUNCTIONS
 //-------------------------------------------------
-void timelinePanel::setTrack(int _track){
+void timelinePanel::setTLTrack(int _track){
     
     data.setTrack(_track);
     tracks.showSelectedTimelineTrack(_track);

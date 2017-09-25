@@ -16,7 +16,7 @@ void ofApp::setControllerData(string name, int data){
     
     if (name == "TRACK") {
         
-        timePanel.setTrack(data);
+        timePanel.setTLTrack(data);
     
         //timePanel.data.setTrack(data);
         //timePanel.tracks.showSelectedTimelineTrack(data);
