@@ -17,7 +17,7 @@
 class Panel{
     
 public:
-    
+        
     virtual void setup(int x, int y, int width, int height, ofBaseApp* appPtr){};
     virtual void update() =0;
     virtual void draw() =0;
@@ -70,3 +70,4 @@ protected:
     
     
 };
+

@@ -1,6 +1,7 @@
 #include "ofApp.h"
 
 
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     
@@ -16,7 +17,7 @@ void ofApp::setup(){
     ofSetLogLevel("SAVE", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("LOAD", OF_LOG_NOTICE);// OF_LOG_ERROR
     ofSetLogLevel("KEYS", OF_LOG_ERROR);// OF_LOG_ERROR
-    
+    ofSetLogLevel("KEYBOARD", OF_LOG_NOTICE);// OF_LOG_ERROR
     
     ofSetLogLevel("timelineData", OF_LOG_NOTICE);
     
@@ -40,6 +41,8 @@ void ofApp::setup(){
     sender.setup(HOST, sPORT);
     
     router.setup(ofGetAppPtr());
+    
+    
     
 }
 

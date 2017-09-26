@@ -29,8 +29,9 @@ class ofApp : public ofBaseApp{
     
 public:
     
-    abletonLinkEngine AL;
+    bool ctrlKeyPressed = false;
     
+    abletonLinkEngine AL;
     appData myAppData;
     
     //ofApp.cpp

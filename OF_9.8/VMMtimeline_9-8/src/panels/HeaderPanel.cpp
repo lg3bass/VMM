@@ -60,12 +60,13 @@ void HeaderPanel::keyPressed(int key){
 //-------------------------------------------------
 void HeaderPanel::mousePressed(int x, int y, int button){
     
-   
-    
-    //bool ddState = mainUI.trackDropdown->getIsExpanded();
-    
-    //cout << "trackDropdown focused: " << mainUI.trackDropdown->getFocused() << endl;
-    
+    if(x < _w && x > _x){
+        if(y < _h && y > _y){
+            
+            cout << "within header" << endl;
+        }
+        
+    }
 
     
 }

@@ -49,6 +49,8 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
         //reset/setup track metadata.
         setMeasureLoop(i);
     }
+    
+
 }
 
 //-------------------------------------------------
@@ -148,15 +150,8 @@ void timelinePanel::keyPressed(int key){
     
     //cout << "KEY: " << ofToString(key) << endl;
     
-    if(key == 60 || key == 100){                                // D Key
-        
-        toggleDrawTrackData();
-        
-    }
-    
     if(key & OF_KEY_MODIFIER){                                  //F modifier keys
         if(key >= OF_KEY_F1 && key <= OF_KEY_F12){
-
             switch(key){
                 case 257:
                     //F1
@@ -247,8 +242,8 @@ void timelinePanel::keyPressed(int key){
             
             switch(key){
                 case OF_KEY_LEFT_SUPER:
-                    
-                    cout << "Left Apple Pressed" << endl;
+                    bMainApp->ctrlKeyPressed = true;
+                    ofLogNotice("KEYBOARD") << "ctrlKeyPressed = " << bMainApp->ctrlKeyPressed;
                     
                     break;
                 case OF_KEY_RIGHT_SUPER:
@@ -275,6 +270,16 @@ void timelinePanel::keyPressed(int key){
             }//switch
         }//if-else
     }//if
+    
+    
+    //ACT ON SELECT KEYS
+    if(key == 60 || key == 100){                                // 'd' or 'D' Key
+        ofLogNotice("KEYBOARD") << "D or d pressed";
+        if(bMainApp->ctrlKeyPressed){
+            toggleDrawTrackData();
+        }
+    }
+
 }//func
 
 //-------------------------------------------------
@@ -300,10 +305,8 @@ void timelinePanel::keyReleased(int key){
             
             switch(key){
                 case OF_KEY_LEFT_SUPER:
-                    cout << "Left Apple Released" << endl;
-//                    if(key == 60 || key == 100){                               //D key
-//                        showTrackData = false;
-//                    }
+                    bMainApp->ctrlKeyPressed = false;
+                    ofLogNotice("KEYBOARD") << "ctrlKeyPressed = " << bMainApp->ctrlKeyPressed;
                     break;
                 case OF_KEY_RIGHT_SUPER:
                     cout << "Right Apple Released" << endl;

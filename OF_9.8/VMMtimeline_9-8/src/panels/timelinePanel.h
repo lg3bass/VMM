@@ -21,6 +21,7 @@ class timelinePanel : public Panel{
 
 public:
     
+    
     void setup(int x, int y, int width, int height, ofBaseApp* appPtr);
     void update();
     void draw();
@@ -101,3 +102,5 @@ private:
     int bordWidth;
 
 };
+
+
