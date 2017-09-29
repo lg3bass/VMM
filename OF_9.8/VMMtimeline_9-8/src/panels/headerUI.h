@@ -20,10 +20,11 @@
 class headerUI {
     
 public:
+    bool acceptMouseEvents = true;
     
     //headerUI.cpp
     void setup(ofBaseApp* appPtr);
-    void update();
+    void update(bool enable);
     void draw();
     
     //data for adding a new channel.
@@ -115,9 +116,13 @@ public:
     
     void setButtonToggle(ofxDatGuiButton* _button);
     
+    void recieveMouseInput();
+    
     //headerUIsetup.cpp
     void setupGUI();
-    void updateGUI();
+    void updateGUI(bool acceptEvents);
     void drawGUI();
+    
+    
     
 };

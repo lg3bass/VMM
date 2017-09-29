@@ -14,10 +14,13 @@ void ofApp::setup(){
     ofSetLogLevel("OSC_TRIGGERED", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_PLAY", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_OUT", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("SAVE", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("LOAD", OF_LOG_NOTICE);// OF_LOG_ERROR
+    ofSetLogLevel("SAVE", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("LOAD", OF_LOG_ERROR);// OF_LOG_ERROR
     ofSetLogLevel("KEYS", OF_LOG_ERROR);// OF_LOG_ERROR
     ofSetLogLevel("KEYBOARD", OF_LOG_NOTICE);// OF_LOG_ERROR
+    ofSetLogLevel("HEADER", OF_LOG_NOTICE);
+    ofSetLogLevel("BODY", OF_LOG_NOTICE);
+    ofSetLogLevel("FOOTER", OF_LOG_NOTICE);
     
     ofSetLogLevel("timelineData", OF_LOG_NOTICE);
     
@@ -63,12 +66,12 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 
-    ofSetWindowTitle("fps: "+ofToString(ofGetFrameRate())+" - "+ofToString(ofGetWidth())+","+ofToString(ofGetHeight()));
+    ofSetWindowTitle("fps: "+ofToString(ofGetFrameRate())+" - "+ofToString(ofGetWidth())+","+ofToString(ofGetHeight()) + "<" + ofToString(ofGetMouseX()) + "," + ofToString(ofGetMouseY()) + ">");
     
     AL.draw();                                                  //ableton link runner
        
     timePanel.draw();
-    headerPanel.draw();    
+    headerPanel.draw();//intentionally second.
     footerPanel.draw();
     
     setBreadcrumb();
@@ -105,6 +108,8 @@ void ofApp::mousePressed(int x, int y, int button){
     timePanel.mousePressed(x, y, button);
     footerPanel.mousePressed(x, y, button);
     
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -114,16 +119,20 @@ void ofApp::mouseReleased(int x, int y, int button){
     timePanel.mouseReleased(x, y, button);
     footerPanel.mouseReleased(x, y, button);
     
+    if(headerPanel.getPanelFocus()){
+        
+        
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseEntered(int x, int y){
-    
+
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseExited(int x, int y){
-    
+
 }
 
 //--------------------------------------------------------------

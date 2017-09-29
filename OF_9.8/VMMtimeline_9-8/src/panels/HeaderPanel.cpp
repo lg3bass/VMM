@@ -21,9 +21,12 @@ void HeaderPanel::setup(int x, int y, int width, int height, ofBaseApp *appPtr){
     _w = width;
     _h = height;
 
+    //bounding box to check if mouse is within
+    bounds.set(x, y, width, height);
+    
     //colors
     setBackgroundColor(ofColor::darkGray);
-    setBorderColor(ofColor::red);
+    setBorderColor(ofColor::white);
     setBorderWidth(2);
     
     mainUI.setup(appPtr);
@@ -32,21 +35,42 @@ void HeaderPanel::setup(int x, int y, int width, int height, ofBaseApp *appPtr){
     setTrack(0);
     setPage(0);
     setClip(0);
+    
+    
 }
 
 //-------------------------------------------------
 void HeaderPanel::update(){
-   
-    mainUI.update();
+    
+    
+    mainUI.update(true);
     
 }
 
 //-------------------------------------------------
 void HeaderPanel::draw(){
     
+    mainUI.acceptMouseEvents = getEnableMouseInput();
+    
     drawPanel();
     
     mainUI.draw();
+    
+    ofDrawBitmapString("headerPanel - enableMouseInput: " + ofToString(getEnableMouseInput() ? "TRUE" : "FALSE"), 1090, _y+10);
+    
+    //check if mouse is within.  can move this to panel.
+    if(bounds.inside(ofGetMouseX(), ofGetMouseY())) {
+        ofDrawBitmapString("Inside HEADER", 1090, _y+20);
+    }
+    
+    
+    if(dropdownOpen){
+        ofDrawBitmapString("dropdown OPEN", 1090, _y+30);
+    } else {
+        ofDrawBitmapString("dropdown CLOSED", 1090, _y+30);
+    }
+    
+    
     
 }
 
@@ -60,43 +84,63 @@ void HeaderPanel::keyPressed(int key){
 //-------------------------------------------------
 void HeaderPanel::mousePressed(int x, int y, int button){
     
-    if(x < _w && x > _x){
-        if(y < _h && y > _y){
-            
-            cout << "within header" << endl;
-        }
+    //TODO - move to Panel.h as virtual
+    if(x > 0 && x < 1080 && y > 0 && y < 380 * HEADER_PANEL_HEIGHT ){
         
-    }
+        ofLogNotice("HEADER") << "mousePressed() - (" << x << "," << y << ")";
+        setBorderColor(ofColor::red);
+        setBorderWidth(4);
+        setPanelFocus(true);
 
+    }
     
 }
 
 //-------------------------------------------------
 void HeaderPanel::mouseReleased(int x, int y, int button){
     
-    //cout << "getMouseDown(): " << mainUI.trackDropdown->getMouseDown() << endl;
-    
+    //TODO - Move to functions
+    //dropdown exceptions
     if(mainUI.trackDropdown->getMouseDown() || mainUI.saveDropdown->getMouseDown() || mainUI.loadDropdown->getMouseDown()){
         
         if(mainUI.trackDropdown->getIsExpanded() || mainUI.saveDropdown->getIsExpanded() || mainUI.loadDropdown->getIsExpanded()){
-            
-            cout << "dropdown is CLOSED" << endl;
-            
+            ofLogNotice("HEADER") << "dropdown is CLOSED";
             hMainApp->setTimePanelEnabled(true);
+            dropdownOpen = false;
             
         } else {
-            
-            cout << "dropdown is OPEN" << endl;
-            
+            ofLogNotice("HEADER") << "dropdown is OPEN";
             hMainApp->setTimePanelEnabled(false);
+            dropdownOpen = true;
         }
-        
-        
-        
     }
     
-
+    //TODO - move to Panel.h as virtual
+    if(x > 0 && x < 1080 && y > 0 && y < 380*0.16){
+            if(hMainApp->timePanel.getPanelFocus()){
+                ofLogNotice("HEADER") << "mouseReleased() - STARTING FROM TIMEPANEL";
+                hMainApp->timePanel.setBorderColor(ofColor::white);
+                hMainApp->timePanel.setBorderWidth(2);
+                hMainApp->timePanel.setPanelFocus(false);
+                setEnableMouseInput(true);
+            } else {
+                ofLogNotice("HEADER") << "mouseReleased() - (" << x << "," << y << ")";
+                setBorderColor(ofColor::white);
+                setBorderWidth(2);
+                setPanelFocus(false);
+            }
+    }
     
+}
+
+//--------------------------------------------------------------
+bool HeaderPanel::getDropdownOpen(){
+    return dropdownOpen;
+}
+
+//--------------------------------------------------------------
+void HeaderPanel::setDropdownOpen(bool dd){
+    dropdownOpen = dd;
 }
 
 //--------------------------------------------------------------

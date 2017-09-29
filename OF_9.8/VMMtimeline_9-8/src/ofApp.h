@@ -11,8 +11,8 @@
 
 
 
-#define HEADER_PANEL_HEIGHT 0.16
-#define BODY_PANEL_HEIGHT 0.74
+#define HEADER_PANEL_HEIGHT 0.17
+#define BODY_PANEL_HEIGHT 0.73
 #define FOOTER_PANEL_HEIGHT 0.1
 
 #define HOST "localhost"

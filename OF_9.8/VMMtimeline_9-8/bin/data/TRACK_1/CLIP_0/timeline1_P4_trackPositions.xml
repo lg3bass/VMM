@@ -1,19 +1,19 @@
 <positions>
     <element name="mirror">
         <x>0.000000000</x>
-        <y>99.000000000</y>
+        <y>107.000000000</y>
         <width>1080.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="mirrorX">
         <x>0.000000000</x>
-        <y>171.000000000</y>
+        <y>179.000000000</y>
         <width>1080.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="mirrorZ">
         <x>0.000000000</x>
-        <y>243.000000000</y>
+        <y>251.000000000</y>
         <width>1080.000000000</width>
         <height>40.000000000</height>
     </element>

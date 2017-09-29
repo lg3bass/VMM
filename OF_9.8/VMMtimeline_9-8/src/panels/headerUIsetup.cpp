@@ -13,6 +13,8 @@
 //--------------------------------------------------------------
 void headerUI::setupGUI() {
     
+    
+    
     //section widths
     ofVec2f S1 = ofVec2f(0,0);
     ofVec2f S2 = ofVec2f(250,0);
@@ -143,6 +145,7 @@ void headerUI::setupGUI() {
     saveDropdown->setBorderVisible(TRUE);
     saveDropdown->setBorder(ofColor::darkGrey, 1);
     saveDropdown->onDropdownEvent(this, &headerUI::onDDInputEvent);
+
     
     loadDropdown = new ofxDatGuiDropdown("LOAD",loadOptions);
     loadDropdown->setTheme(new ofxDatGuiThemeVMM);
@@ -153,6 +156,7 @@ void headerUI::setupGUI() {
     loadDropdown->setBorderVisible(TRUE);
     loadDropdown->setBorder(ofColor::darkGrey, 1);
     loadDropdown->onDropdownEvent(this, &headerUI::onDDInputEvent);
+
     
     //section S3 - width 300 (450-750)
     
@@ -167,7 +171,7 @@ void headerUI::setupGUI() {
     measures->setBorderVisible(TRUE);
     measures->setBorder(ofColor::darkGrey, 1);
     measures->onTextInputEvent(this, &headerUI::onTextInputEvent);
-    
+
     
     bpm = new ofxDatGuiTextInput("BPM", "120");
     bpm->setTheme(new ofxDatGuiThemeVMM);
@@ -281,6 +285,7 @@ void headerUI::setupGUI() {
     trackDropdown->setBorderVisible(TRUE);
     trackDropdown->setBorder(ofColor::darkGrey, 1);
     trackDropdown->onDropdownEvent(this, &headerUI::onDDInputEvent);
+    
     
 
     
@@ -410,57 +415,57 @@ void headerUI::setupGUI() {
 
 
 //--------------------------------------------------------------
-void headerUI::updateGUI(){
+void headerUI::updateGUI(bool acceptEvents){
     
     //S1
-    tracks->update();
-    pages->update();
-    clips->update();
+    tracks->update(acceptEvents);
+    pages->update(acceptEvents);
+    clips->update(acceptEvents);
     
     
     
     //S2
-    breadcrumb->update();
-    selKey->update();
-    selPrev->update();
-    selNext->update();
-    keyVal->update();
-    clamp->update();
-    saveDropdown->update();
-    loadDropdown->update();
+    breadcrumb->update(acceptEvents);
+    selKey->update(acceptEvents);
+    selPrev->update(acceptEvents);
+    selNext->update(acceptEvents);
+    keyVal->update(acceptEvents);
+    clamp->update(acceptEvents);
+    saveDropdown->update(acceptEvents);
+    loadDropdown->update(acceptEvents);
     
     //S3
-    measures->update();
-    bpm->update();
-    fps->update();
-    loop->update();
-    clampH->update();
-    clampL->update();
-    setIn->update();
-    setOut->update();
-    addTr->update();
-    remTr->update();
-    trackDropdown->update();
-    trackName->update();
+    measures->update(acceptEvents);
+    bpm->update(acceptEvents);
+    fps->update(acceptEvents);
+    loop->update(acceptEvents);
+    clampH->update(acceptEvents);
+    clampL->update(acceptEvents);
+    setIn->update(acceptEvents);
+    setOut->update(acceptEvents);
+    addTr->update(acceptEvents);
+    remTr->update(acceptEvents);
+    trackDropdown->update(acceptEvents);
+    trackName->update(acceptEvents);
     
     
     
     //S4
-    meter->update();
-    barBeatFrame->update();
+    meter->update(acceptEvents);
+    barBeatFrame->update(acceptEvents);
     
-    quantize->update();
-    snap->update();
-    focus->update();
-    showAll->update();
-    drive->update();
+    quantize->update(acceptEvents);
+    snap->update(acceptEvents);
+    focus->update(acceptEvents);
+    showAll->update(acceptEvents);
+    drive->update(acceptEvents);
     
-    host->update();
-    port->update();
-    osc->update();
+    host->update(acceptEvents);
+    port->update(acceptEvents);
+    osc->update(acceptEvents);
     
     //S5
-    linkSlider->update();
+    linkSlider->update(acceptEvents);
     
     
     

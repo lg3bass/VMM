@@ -21,7 +21,6 @@ class timelinePanel : public Panel{
 
 public:
     
-    
     void setup(int x, int y, int width, int height, ofBaseApp* appPtr);
     void update();
     void draw();
@@ -82,7 +81,7 @@ public:
     void setTrackMeasures(int _track, string _measures);
     
 #pragma mark - OSC
-    void sendOSCfromTimeline(int _track, string _param);
+    void sendOSCfromTimeline(int _track);
 
     //setup the 2 large sections
     timelineData data;

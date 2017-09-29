@@ -78,6 +78,10 @@ void ofApp::loadTLPage(){
 void ofApp::loadTLTrackPages(){
     cout << "ofApp::loadTLTrackPages()" << endl;
     timePanel.loadTLTrackPages();
+    
+    //TODO - When the dropdown closes how do I set the dropdownOpen var.
+    //temp, find a better place for this
+    headerPanel.setDropdownOpen(false);
 }
 
 //--------------------------------------------------------------

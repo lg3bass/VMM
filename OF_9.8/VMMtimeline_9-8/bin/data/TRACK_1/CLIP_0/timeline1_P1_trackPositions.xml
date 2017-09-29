@@ -1,13 +1,13 @@
 <positions>
     <element name="setGlobalTransZ">
         <x>0.000000000</x>
-        <y>99.000000000</y>
+        <y>107.000000000</y>
         <width>1080.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="setLocalTransX">
         <x>0.000000000</x>
-        <y>171.000000000</y>
+        <y>179.000000000</y>
         <width>1080.000000000</width>
         <height>40.000000000</height>
     </element>

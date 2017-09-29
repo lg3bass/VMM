@@ -96,11 +96,6 @@ void timelineTrack::update(){
 
 
 //-------------------------------------------------
-void timelineTrack::mousePressed(int x, int y, int button){
-    
-}
-
-//-------------------------------------------------
 void timelineTrack::displayTimelines(bool _showTimeline){
     
     showHideFlag = _showTimeline;

@@ -32,8 +32,11 @@ public:
     
     void mousePressed(int x, int y, int button);
     void mouseReleased(int x, int y, int button);
+
     
     headerUI mainUI;
+    bool getDropdownOpen();
+    void setDropdownOpen(bool dd);
     
     void setTrack(int _track);
     void setClip(int _clip);
@@ -43,8 +46,13 @@ public:
     void setUImeasures(int _measure);
 
     void toggleDrive();
+    
+    
+    
 private:
     
+    bool dropdownOpen = false;
+    ofRectangle bounds;
     ofTrueTypeFont	verdana;
 
     

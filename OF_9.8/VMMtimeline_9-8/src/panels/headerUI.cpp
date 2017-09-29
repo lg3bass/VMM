@@ -20,15 +20,15 @@ void headerUI::setup(ofBaseApp* appPtr){
 }
 
 //--------------------------------------------------------------
-void headerUI::update(){
+void headerUI::update(bool enable){
 
-    updateGUI();
+    updateGUI(acceptMouseEvents);
     
 }
 
 //--------------------------------------------------------------
 void headerUI::draw(){
-
+    
     drawGUI();
     
 }
@@ -192,3 +192,9 @@ void headerUI::setButtonToggle(ofxDatGuiButton *_button){
     
 }
 
+
+void headerUI::recieveMouseInput(){
+    
+    
+    
+}

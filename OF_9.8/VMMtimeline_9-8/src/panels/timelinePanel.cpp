@@ -27,12 +27,11 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
     _w = width;
     _h = height;
     
-    tracks.init(x,y,width,height);
-    
+    tracks.init(x,y,_w,_h);
 
     //colors
     setBackgroundColor(ofColor::darkGray);
-    setBorderColor(ofColor::mediumOrchid);
+    setBorderColor(ofColor::white);
     setBorderWidth(2);
     
     verdana9.load("verdana.ttf", 7, true, true);
@@ -55,7 +54,7 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
 
 //-------------------------------------------------
 void timelinePanel::update(){
-    //tracks.update();
+
     
     for(int i=0;i<NUMBER_OF_TRACKS;i++){
         
@@ -63,12 +62,6 @@ void timelinePanel::update(){
         
         if(data.getCuedToPlay(i)){
             
-            //copy over nbeat to tracks so each track has it own.
-            //data.TL.tracks[i].nbeat = bMainApp->AL.nbeat;
-            //data.setNBeat(i, bMainApp->AL.nbeat);
-            
-            
-            //OLD bMainApp->AL.isDownbeat()  -- moving checks to individual tracks
             if(data.isDownbeat(i)){
                 tracks.timelines[i]->setPercentComplete(0);
                 tracks.timelines[i]->play();
@@ -79,11 +72,9 @@ void timelinePanel::update(){
         
         //Do all the Ableton Link Syncing. Keep track of beats,measures,etc.
         runTimelines(i);
-        
-        
-        
+         
         //send out all the OSC
-        sendOSCfromTimeline(i, "setGlobalRotX");
+        sendOSCfromTimeline(i);
     }
 }
 
@@ -98,6 +89,8 @@ void timelinePanel::draw(){
     if(showTrackData){
         drawTrackData();
     }
+    
+    ofDrawBitmapString("timePanel - enableMouseInput: " + ofToString(getEnableMouseInput() ? "TRUE" : "FALSE"), 1090, 380*0.16+10);
 }
 
 //-------------------------------------------------
@@ -336,21 +329,48 @@ void timelinePanel::keyReleased(int key){
 
 //-------------------------------------------------
 void timelinePanel::mousePressed(int x, int y, int button){
-    if(y > _y && y < _y+_h){
-
+    
+    //TODO - move to Panel.h as a virtual
+    if(x > 0 && x < 1080 && y > 380*0.16 && y < 380-(380 * FOOTER_PANEL_HEIGHT)){
+            ofLogNotice("BODY") << "mousePressed() - (" << x << "," << y << ")";
+            setBorderColor(ofColor::green);
+            setBorderWidth(4);
+            setPanelFocus(true);
         
-        bMainApp->myAppData.selected_panel_name = "BODY";
-        bMainApp->myAppData.txt_color = ofColor::darkKhaki;
+            //turn off mouse input everytime you click on the timeline Panel.
+            bMainApp->headerPanel.setEnableMouseInput(false);
+        
+        //exception only if the dropdown menu is open
+        if(bMainApp->headerPanel.getDropdownOpen()){
+            ofLogNotice("BODY") << "a drop down is open!";
+            bMainApp->headerPanel.setEnableMouseInput(true);
+        } else {
+            ofLogNotice("BODY") << "no dropdowns in sight!";
+            
+        }
+        
     }
     
-    tracks.mousePressed(x, y, button);
 }
 
 //-------------------------------------------------
 void timelinePanel::mouseReleased(int x, int y, int button){
-
-    //ofLog() << "body released";
-    //setBackgroundColor(ofColor::darkGray);
+    
+    //TODO - move to Panel.h as a virtual
+    if(x > 0 && x < 1080 && y > 380*0.16 && y < 380-(380*0.1)){
+        if(bMainApp->headerPanel.getPanelFocus()){
+            ofLogNotice("BODY") << "mouseReleased() - STARTING FROM HEADERPANEL";
+            bMainApp->headerPanel.setBorderColor(ofColor::white);
+            bMainApp->headerPanel.setBorderWidth(2);            
+            bMainApp->headerPanel.setPanelFocus(false);
+        } else {
+            ofLogNotice("BODY") << "mouseReleased() - (" << x << "," << y << ")";
+            setBorderColor(ofColor::white);
+            setBorderWidth(2);
+            setPanelFocus(false);
+            bMainApp->headerPanel.setEnableMouseInput(true);
+        }
+    }
 }
 
 #pragma mark - DEBUG/STATS
@@ -668,13 +688,6 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
                 //add the track
                 addTLChannelToPage(_track, _page, trackName, 1, ofToFloat(rangeL), ofToFloat(rangeH));
                 
-                //TODO - modiy this so it passes in range. for now hardcode to test.
-                //tracks.timelines[_track]->setCurrentPage(_page);
-                //tracks.timelines[_track]->addCurves(trackName, ofRange(ofToFloat(rangeL), ofToFloat(rangeH)));
-                
-                //update the data node
-                //data.addtlTrack(_track, _page, trackName, 1, ofToFloat(rangeL), ofToFloat(rangeH));
-                
             }else if(trackType=="Bangs"){
                 //addTrack(trackName, BANGS);
             }else if(trackType=="Switches"){
@@ -686,8 +699,6 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
     //load the tracks into the created tracks
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
     
-    //set the selected page back to the selected data.
-    //tracks.setPage(_track, data.getPage(_track));
 
 }
 
@@ -824,7 +835,7 @@ void timelinePanel::setTrackMeasures(int _track, string _measures){
 
 #pragma mark - OSC
 //--------------------------------------------------------------
-void timelinePanel::sendOSCfromTimeline(int _track, string _param){
+void timelinePanel::sendOSCfromTimeline(int _track){
 
     if(data.TL.tracks[_track].enableOscOut){
         //get all the channels on a track
@@ -844,29 +855,6 @@ void timelinePanel::sendOSCfromTimeline(int _track, string _param){
             }
         }
     }
-    
-    
-    //VMM SPECIFIC DATA OUT
-    //            bMainApp->OSCsendToVMM(i+1,"/setGlobalRotX",tracks.timelines[i]->getValue("GLOBAL ROTATE X"));
-    //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransX",tracks.timelines[i]->getValue("GLOBAL TRANSLATE X"));
-    //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransY",tracks.timelines[i]->getValue("GLOBAL TRANSLATE Y"));
-    
-    //            bMainApp->OSCsendToVMM(i+1,"/setLocalRotX",tracks.timelines[i]->getValue("L Rotate X"));
-    //            bMainApp->OSCsendToVMM(i+1,"/setLocalRotY",tracks.timelines[i]->getValue("L Rotate Y"));
-    //            //bMainApp->OSCsendToVMM(i,"/setLocalRotZ",tracks.timelines[i]->getValue("L Rotate Z"));
-    //
-    //            bMainApp->OSCsendToVMM(i+1,"/setObjRotX",tracks.timelines[i]->getValue("O Rotate X"));
-    //            bMainApp->OSCsendToVMM(i+1,"/setObjRotY",tracks.timelines[i]->getValue("O Rotate Y"));
-    //            bMainApp->OSCsendToVMM(i+1,"/setObjlRotZ",tracks.timelines[i]->getValue("O Rotate Z"));
-    //
-    //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransX",tracks.timelines[i]->getValue("G Translate X"));
-    //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransY",tracks.timelines[i]->getValue("G Translate Y"));
-    //            bMainApp->OSCsendToVMM(i+1,"/setGlobalTransZ",tracks.timelines[i]->getValue("G Translate Z"));
-    //
-    //            bMainApp->OSCsendToVMM(i+1,"/setLocalTransX",tracks.timelines[i]->getValue("L Translate X"));
-    //            bMainApp->OSCsendToVMM(i+1,"/setLocalTransY",tracks.timelines[i]->getValue("L Translate Y"));
-    //            bMainApp->OSCsendToVMM(i+1,"/setLocalTransZ",tracks.timelines[i]->getValue("L Translate Z"));
-    
 }
 
 #pragma mark - CHANNEL MODIFICATIONS

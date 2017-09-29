@@ -50,6 +50,8 @@ public:
     void setBackgroundColor(ofColor col){_bckgColor = col;}
     void setBorderColor(ofColor col){_borderColor = col;}
     void setBorderWidth(int w){_borderWidth = w;}
+    void setPanelFocus(bool focused) {panelFocused = focused;}
+    void setEnableMouseInput(bool mouse) {enableMouseInput = mouse;}
     
     //getters
     ofVec2f getPosition(){return ofVec2f(_x, _y);}
@@ -58,9 +60,13 @@ public:
     ofColor getBackgroundColor(){return _bckgColor;}
     ofColor getBorderColor(){return _borderColor;}
     int getBorderWidth(){return _borderWidth;}
+    bool getPanelFocus(){return panelFocused;}
+    bool getEnableMouseInput(){return enableMouseInput;}
     
     
 protected:
+    bool panelFocused;
+    bool enableMouseInput = true;
     
     int _x, _y;
     int _w, _h;
