@@ -17,7 +17,7 @@
 
 #endif /* timelinePanel_h */
 
-class timelinePanel : public Panel{
+class TimelinePanel : public Panel{
 
 public:
     

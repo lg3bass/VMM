@@ -174,6 +174,10 @@ void headerUI::resetTrackDropdown(){
     trackDropdown->select(newTrack.type);
     trackName->setText(newTrack.name);
     
+    //used 
+    uiMainApp->headerPanel.setDropdownOpen(false);
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -192,9 +196,3 @@ void headerUI::setButtonToggle(ofxDatGuiButton *_button){
     
 }
 
-
-void headerUI::recieveMouseInput(){
-    
-    
-    
-}

@@ -116,7 +116,7 @@ public:
     
     void setButtonToggle(ofxDatGuiButton* _button);
     
-    void recieveMouseInput();
+
     
     //headerUIsetup.cpp
     void setupGUI();

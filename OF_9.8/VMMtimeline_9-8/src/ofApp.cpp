@@ -32,8 +32,8 @@ void ofApp::setup(){
     int bodyH =     BODY_PANEL_HEIGHT * ofGetHeight();
     int footerH =   FOOTER_PANEL_HEIGHT * ofGetHeight();
     
-    headerPanel.setup(0, 0, ofGetWidth(), headerH, ofGetAppPtr());
-    timePanel.setup(0, headerH, ofGetWidth(), bodyH, ofGetAppPtr());
+    headerPanel.setup(0, 0, ofGetWidth(), headerH, ofGetAppPtr());              //0,    0,         1080,    380*0.17
+    timePanel.setup(0, headerH, ofGetWidth(), bodyH, ofGetAppPtr());            //0,    380*0.17,  1080,    380*0.73
     footerPanel.setup(0,headerH+bodyH,ofGetWidth(), footerH, ofGetAppPtr());
     
     myAppData.selected_panel_name = "NONE";
@@ -137,7 +137,7 @@ void ofApp::mouseExited(int x, int y){
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-    
+    cout << "(" << ofToString(ofGetWidth()) << "," << ofGetHeight() << ")" << endl;
 }
 
 //--------------------------------------------------------------

@@ -73,13 +73,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "src/panels/timelinePanel.cpp"
-            timestampString = "528175235.264544"
+            filePath = "src/panels/TimelinePanel.cpp"
+            timestampString = "529210943.833413"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "498"
-            endingLineNumber = "498"
-            landmarkName = "timelinePanel::actOnFocus(ofxTLTrackEventArgs &amp; args)"
+            startingLineNumber = "491"
+            endingLineNumber = "491"
+            landmarkName = "TimelinePanel::actOnFocus(ofxTLTrackEventArgs &amp; args)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -89,13 +89,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "src/panels/timelinePanel.cpp"
-            timestampString = "528175235.264622"
+            filePath = "src/panels/TimelinePanel.cpp"
+            timestampString = "529210943.833687"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "610"
-            endingLineNumber = "610"
-            landmarkName = "timelinePanel::saveTLPage(int _track, int _page, int _clip)"
+            startingLineNumber = "603"
+            endingLineNumber = "603"
+            landmarkName = "TimelinePanel::saveTLPage(int _track, int _page, int _clip)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

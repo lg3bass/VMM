@@ -1,0 +1,36 @@
+<page>
+    <name>P5</name>
+    <tlChannels>
+        <tlChannels-num>5</tlChannels-num>
+        <channel-0>
+            <name>mirrorDistance</name>
+            <type>Curves</type>
+            <rangeH>10.000000000</rangeH>
+            <rangeL>-10.000000000</rangeL>
+        </channel-0>
+        <channel-1>
+            <name>mirror</name>
+            <type>Curves</type>
+            <rangeH>1.000000000</rangeH>
+            <rangeL>0.000000000</rangeL>
+        </channel-1>
+        <channel-2>
+            <name>mirrorX</name>
+            <type>Curves</type>
+            <rangeH>1.000000000</rangeH>
+            <rangeL>0.000000000</rangeL>
+        </channel-2>
+        <channel-3>
+            <name>mirrorZ</name>
+            <type>Curves</type>
+            <rangeH>1.000000000</rangeH>
+            <rangeL>0.000000000</rangeL>
+        </channel-3>
+        <channel-4>
+            <name>mirrorY</name>
+            <type>Curves</type>
+            <rangeH>1.000000000</rangeH>
+            <rangeL>0.000000000</rangeL>
+        </channel-4>
+    </tlChannels>
+</page>

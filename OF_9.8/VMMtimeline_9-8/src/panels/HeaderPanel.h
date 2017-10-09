@@ -37,10 +37,11 @@ public:
     headerUI mainUI;
     bool getDropdownOpen();
     void setDropdownOpen(bool dd);
+    void checkDropdownOpen();
     
-    void setTrack(int _track);
-    void setClip(int _clip);
-    void setPage(int _page);
+    void setTrackUI(int _track);
+    void setClipUI(int _clip);
+    void setPageUI(int _page);
     
     void setBeat(int _beat);
     void setUImeasures(int _measure);
@@ -52,7 +53,6 @@ public:
 private:
     
     bool dropdownOpen = false;
-    ofRectangle bounds;
     ofTrueTypeFont	verdana;
 
     

@@ -6,7 +6,7 @@
 //
 //
 
-#include "timelinePanel.h"
+#include "TimelinePanel.h"
 #include "ofApp.h"
 
 #define TRACK_DIR "TRACK"
@@ -18,21 +18,24 @@ ofApp* bMainApp;        //reference to ofApp()
 
 
 //-------------------------------------------------
-void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr){
+void TimelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr){
     
     bMainApp = dynamic_cast<ofApp*>(appPtr);
+    setPanelName("BODY");
     
     _x = x;
     _y = y;
     _w = width;
     _h = height;
+    panelBoundingBox = ofRectangle(x, y, width, height);
     
     tracks.init(x,y,_w,_h);
 
-    //colors
-    setBackgroundColor(ofColor::darkGray);
-    setBorderColor(ofColor::white);
-    setBorderWidth(2);
+    //custom border colors
+    //setBackgroundColor(ofColor::darkGray);
+    //setBorderColor(ofColor::white);
+    setBorderColorHighligh(ofColor::green);
+    //setBorderWidth(2);
     
     verdana9.load("verdana.ttf", 7, true, true);
     
@@ -42,18 +45,19 @@ void timelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
     for(int i=0; i<NUMBER_OF_TRACKS; i++){
         
         //add listeners
-        ofAddListener(tracks.timelines[i]->events().trackGainedFocus, this, &timelinePanel::actOnFocus);
-        ofAddListener(tracks.timelines[i]->events().trackLostFocus, this, &timelinePanel::actOnLossFocus);
+        ofAddListener(tracks.timelines[i]->events().trackGainedFocus, this, &TimelinePanel::actOnFocus);
+        ofAddListener(tracks.timelines[i]->events().trackLostFocus, this, &TimelinePanel::actOnLossFocus);
         
         //reset/setup track metadata.
         setMeasureLoop(i);
     }
     
-
+    //initially set first track
+    setTLTrack(0);
 }
 
 //-------------------------------------------------
-void timelinePanel::update(){
+void TimelinePanel::update(){
 
     
     for(int i=0;i<NUMBER_OF_TRACKS;i++){
@@ -79,22 +83,21 @@ void timelinePanel::update(){
 }
 
 //-------------------------------------------------
-void timelinePanel::draw(){
+void TimelinePanel::draw(){
     
     tracks.draw();
     
     //draws a border around the panel.
-    drawPanel();
+    drawPanelBgAndBorder(false);
     
     if(showTrackData){
         drawTrackData();
     }
     
-    ofDrawBitmapString("timePanel - enableMouseInput: " + ofToString(getEnableMouseInput() ? "TRUE" : "FALSE"), 1090, 380*0.16+10);
 }
 
 //-------------------------------------------------
-void timelinePanel::runTimelines(int _track){
+void TimelinePanel::runTimelines(int _track){
     
     if(tracks.timelines[_track]->getIsPlaying()){//TRUE OR FALSE
         //ofLogNotice("LINKFLIP") << "getIsPlaying()" << " - track " << _track;
@@ -139,7 +142,7 @@ void timelinePanel::runTimelines(int _track){
 }
 
 //-------------------------------------------------
-void timelinePanel::keyPressed(int key){
+void TimelinePanel::keyPressed(int key){
     
     //cout << "KEY: " << ofToString(key) << endl;
     
@@ -276,7 +279,7 @@ void timelinePanel::keyPressed(int key){
 }//func
 
 //-------------------------------------------------
-void timelinePanel::keyReleased(int key){
+void TimelinePanel::keyReleased(int key){
     if(key & OF_KEY_MODIFIER){
         if(key >= OF_KEY_F1 && key <= OF_KEY_F12){
 
@@ -328,54 +331,44 @@ void timelinePanel::keyReleased(int key){
 }
 
 //-------------------------------------------------
-void timelinePanel::mousePressed(int x, int y, int button){
+void TimelinePanel::mousePressed(int x, int y, int button){
     
-    //TODO - move to Panel.h as a virtual
-    if(x > 0 && x < 1080 && y > 380*0.16 && y < 380-(380 * FOOTER_PANEL_HEIGHT)){
-            ofLogNotice("BODY") << "mousePressed() - (" << x << "," << y << ")";
-            setBorderColor(ofColor::green);
-            setBorderWidth(4);
-            setPanelFocus(true);
+    if(isWithinBounds(x, y)) {
+        ofLogVerbose("BODY") << "mousePressed() - (" << x << "," << y << ")";
+        setPanelFocus(true);                        //focus THIS panel
+    
+        //turn off mouse input everytime you click on the timeline Panel.
+        bMainApp->headerPanel.setEnableMouseInput(false);
         
-            //turn off mouse input everytime you click on the timeline Panel.
-            bMainApp->headerPanel.setEnableMouseInput(false);
-        
-        //exception only if the dropdown menu is open
+        //exception - we don't want to block mouse input if dropdown is open.
         if(bMainApp->headerPanel.getDropdownOpen()){
-            ofLogNotice("BODY") << "a drop down is open!";
+            ofLogVerbose("BODY") << "a drop down is open!";
             bMainApp->headerPanel.setEnableMouseInput(true);
         } else {
-            ofLogNotice("BODY") << "no dropdowns in sight!";
+            ofLogVerbose("BODY") << "no dropdowns in sight!";
             
         }
-        
     }
-    
 }
 
 //-------------------------------------------------
-void timelinePanel::mouseReleased(int x, int y, int button){
+void TimelinePanel::mouseReleased(int x, int y, int button){
     
-    //TODO - move to Panel.h as a virtual
-    if(x > 0 && x < 1080 && y > 380*0.16 && y < 380-(380*0.1)){
+    if(isWithinBounds(x, y)) {
         if(bMainApp->headerPanel.getPanelFocus()){
-            ofLogNotice("BODY") << "mouseReleased() - STARTING FROM HEADERPANEL";
-            bMainApp->headerPanel.setBorderColor(ofColor::white);
-            bMainApp->headerPanel.setBorderWidth(2);            
-            bMainApp->headerPanel.setPanelFocus(false);
+            ofLogVerbose("BODY") << "mouseReleased() - NOTE: mousePressed() originated from HeaderPanel";
+            bMainApp->headerPanel.setPanelFocus(false);         //unfocus HeaderPanel
         } else {
-            ofLogNotice("BODY") << "mouseReleased() - (" << x << "," << y << ")";
-            setBorderColor(ofColor::white);
-            setBorderWidth(2);
-            setPanelFocus(false);
-            bMainApp->headerPanel.setEnableMouseInput(true);
+            ofLogVerbose("BODY") << "mouseReleased() - (" << x << "," << y << ")";
+            setPanelFocus(false);                               //unfocus THIS panel
+            bMainApp->headerPanel.setEnableMouseInput(true);    //enable mouseInput HeaderPanel
         }
     }
 }
 
 #pragma mark - DEBUG/STATS
 //-------------------------------------------------
-void timelinePanel::drawTrackData(){
+void TimelinePanel::drawTrackData(){
 
     float ml = 60;
     float mt = 10;
@@ -421,7 +414,7 @@ void timelinePanel::drawTrackData(){
 }
 
 //-------------------------------------------------
-void timelinePanel::drawPageData(int _mt){
+void TimelinePanel::drawPageData(int _mt){
     
     float ml = 60;
     float mt = _mt;
@@ -481,7 +474,7 @@ void timelinePanel::drawPageData(int _mt){
 }
 
 //-------------------------------------------------
-void timelinePanel::toggleDrawTrackData(){
+void TimelinePanel::toggleDrawTrackData(){
     
     
     showTrackData = !showTrackData;
@@ -495,7 +488,7 @@ void timelinePanel::toggleDrawTrackData(){
 
 #pragma mark - SELECT CHANNELS
 //-------------------------------------------------
-void timelinePanel::actOnFocus(ofxTLTrackEventArgs & args){
+void TimelinePanel::actOnFocus(ofxTLTrackEventArgs & args){
     
     cout << "timelinePanel::actOnFocus: " << args.name << endl;
     data.setSelectedChannel(args.name);
@@ -516,7 +509,7 @@ void timelinePanel::actOnFocus(ofxTLTrackEventArgs & args){
 }
 
 //-------------------------------------------------
-void timelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
+void TimelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
     
     cout << "timelinePanel::Loss Focus: " << args.name << endl;
     //data.setSelectedChannel(-1);
@@ -529,7 +522,7 @@ void timelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
 
 #pragma mark - ADD/REMOVE
 //-------------------------------------------------
-void timelinePanel::addTLChannelToSelected(string _name, int _type, float low, float high){
+void TimelinePanel::addTLChannelToSelected(string _name, int _type, float low, float high){
     //adds the track in the data
     data.addtlTrack(data.getTrack(),data.getPage(), _name, _type);
     //adds the track to timeline
@@ -538,7 +531,7 @@ void timelinePanel::addTLChannelToSelected(string _name, int _type, float low, f
 }
 
 //-------------------------------------------------
-void timelinePanel::addTLChannelToPage(int _track, int _page, string _name, int _type, float low, float high){
+void TimelinePanel::addTLChannelToPage(int _track, int _page, string _name, int _type, float low, float high){
     string pageName = data.getPageName(_page);
     //adds the track in the data
     data.addtlTrack(_track,_page, _name, _type, low, high);
@@ -548,7 +541,7 @@ void timelinePanel::addTLChannelToPage(int _track, int _page, string _name, int 
 }
 
 //-------------------------------------------------
-void timelinePanel::remTLChannel(){
+void TimelinePanel::remTLChannel(){
     if(data.getNumOfChannelsOnPage() > 0){
         cout << "trying to remove: " << data.getSelectedChannelName() << endl;
         
@@ -566,12 +559,12 @@ void timelinePanel::remTLChannel(){
 
 #pragma mark - SAVE/LOAD
 //-------------------------------------------------
-string timelinePanel::getFilePath(int _track, int _clip){
+string TimelinePanel::getFilePath(int _track, int _clip){
     return TRACK_DIR "_" + ofToString(_track) + "/" CLIP_DIR "_" + ofToString(_clip) + "/";
 }
 
 //-------------------------------------------------
-void timelinePanel::saveTLPage(int _track, int _page, int _clip){
+void TimelinePanel::saveTLPage(int _track, int _page, int _clip){
     //save the keyframe data from each track
     //NOTE: In order to specifically target a single page
     //      You will need to add an additional function
@@ -631,7 +624,7 @@ void timelinePanel::saveTLPage(int _track, int _page, int _clip){
 }
 
 //-------------------------------------------------
-void timelinePanel::saveTLTrackPages(){
+void TimelinePanel::saveTLTrackPages(){
     //how many pages?
     
     //loop through the pages and save all the channels on each page.
@@ -642,12 +635,12 @@ void timelinePanel::saveTLTrackPages(){
 }
 
 //-------------------------------------------------
-void timelinePanel::saveTLAllTracks(){
+void TimelinePanel::saveTLAllTracks(){
     
 }
 
 //-------------------------------------------------
-void timelinePanel::loadTLPage(int _track, int _page, int _clip){
+void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
     //Loop through all the pages(_page) and add channels.
     
     //----------------------------------
@@ -703,7 +696,7 @@ void timelinePanel::loadTLPage(int _track, int _page, int _clip){
 }
 
 //-------------------------------------------------
-void timelinePanel::loadTLTrackPages(){
+void TimelinePanel::loadTLTrackPages(){
     for(int i=0; i< NUMBER_OF_TRACKS; i++){
         //load all the tracks
         loadTLPage(data.getTrack(), i, data.getPage());        
@@ -712,13 +705,13 @@ void timelinePanel::loadTLTrackPages(){
 }
 
 //-------------------------------------------------
-void timelinePanel::loadTLAllTracks(){
+void TimelinePanel::loadTLAllTracks(){
     
 }
 
 #pragma mark - PLAY FUNCTIONS
 //-------------------------------------------------
-void timelinePanel::setTLTrack(int _track){
+void TimelinePanel::setTLTrack(int _track){
     
     data.setTrack(_track);
     tracks.showSelectedTimelineTrack(_track);
@@ -726,7 +719,7 @@ void timelinePanel::setTLTrack(int _track){
 }
 
 //-------------------------------------------------
-void timelinePanel::setPage(int _page){
+void TimelinePanel::setPage(int _page){
     data.setPage(_page);
     tracks.setPage(data.getTrack(), _page);
     if(data.getSelectedChannel() > -1){
@@ -737,7 +730,7 @@ void timelinePanel::setPage(int _page){
 
 
 //-------------------------------------------------
-void timelinePanel::setClip(int _track, int _clip){
+void TimelinePanel::setClip(int _track, int _clip){
     
     //set Clip at a specific track
     data.setClip(_clip, _track);
@@ -748,7 +741,7 @@ void timelinePanel::setClip(int _track, int _clip){
 }
 
 //-------------------------------------------------
-void timelinePanel::setClip(int _clip){
+void TimelinePanel::setClip(int _clip){
     
     //set Clip on the current selected track
     data.setClip(data.getTrack(), _clip);
@@ -758,7 +751,7 @@ void timelinePanel::setClip(int _clip){
 }
 
 //-------------------------------------------------
-void timelinePanel::playTLclip(int _track, int _clip){
+void TimelinePanel::playTLclip(int _track, int _clip){
     ofLogNotice("TRACK")    << "timePanel.play("
     << _track << "," << _clip
     << ") -- nbeat:" << data.getNBeat(_track);
@@ -777,7 +770,7 @@ void timelinePanel::playTLclip(int _track, int _clip){
 }
 
 //-------------------------------------------------
-void timelinePanel::stopTLclip(int _clip){
+void TimelinePanel::stopTLclip(int _clip){
     
     for(int i=0; i<NUMBER_OF_TRACKS; i++){
         if(tracks.timelines[i]->getIsPlaying()){
@@ -801,7 +794,7 @@ void timelinePanel::stopTLclip(int _clip){
 
 
 //--------------------------------------------------------------
-void timelinePanel::setMeasureLoop(int _track){
+void TimelinePanel::setMeasureLoop(int _track){
     
     if(tracks.timelines[_track]->getIsPlaying()){
         
@@ -818,7 +811,7 @@ void timelinePanel::setMeasureLoop(int _track){
 }
 
 //--------------------------------------------------------------
-void timelinePanel::setTrackMeasures(int _track, string _measures){
+void TimelinePanel::setTrackMeasures(int _track, string _measures){
     
     //check if measures is int-able
     
@@ -835,7 +828,7 @@ void timelinePanel::setTrackMeasures(int _track, string _measures){
 
 #pragma mark - OSC
 //--------------------------------------------------------------
-void timelinePanel::sendOSCfromTimeline(int _track){
+void TimelinePanel::sendOSCfromTimeline(int _track){
 
     if(data.TL.tracks[_track].enableOscOut){
         //get all the channels on a track
@@ -859,7 +852,7 @@ void timelinePanel::sendOSCfromTimeline(int _track){
 
 #pragma mark - CHANNEL MODIFICATIONS
 //--------------------------------------------------------------
-void timelinePanel::setChannelRangeHigh(float _val){
+void TimelinePanel::setChannelRangeHigh(float _val){
     //set the ofRange of the data track
     data.TL.tracks[data.getTrack()].tlPages[data.getPage()].tlChannels[data.getSelectedChannel()].channelRange.setMax(_val);
     
@@ -869,7 +862,7 @@ void timelinePanel::setChannelRangeHigh(float _val){
 }
 
 //--------------------------------------------------------------
-void timelinePanel::setChannelRangeLow(float _val){
+void TimelinePanel::setChannelRangeLow(float _val){
     //set the ofRange of the data track
     data.TL.tracks[data.getTrack()].tlPages[data.getPage()].tlChannels[data.getSelectedChannel()].channelRange.setMin(_val);
     
@@ -883,7 +876,7 @@ void timelinePanel::setChannelRangeLow(float _val){
 //TESTS
 #pragma mark - TESTS
 //=================================================
-void timelinePanel::testKeyframeFunction(int _track, string _channelName){
+void TimelinePanel::testKeyframeFunction(int _track, string _channelName){
     //test on how to get at keyframe data in a track
     
     //auto mytrack = tracks.timelines[data.getTrack()]->getTrack("GLOBAL ROTATE X");

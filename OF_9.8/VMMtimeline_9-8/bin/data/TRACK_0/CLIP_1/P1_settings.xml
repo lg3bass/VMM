@@ -3,16 +3,16 @@
     <tlChannels>
         <tlChannels-num>2</tlChannels-num>
         <channel-0>
-            <name>setGlobalTransZ</name>
-            <type>Curves</type>
-            <rangeH>50.000000000</rangeH>
-            <rangeL>-100.000000000</rangeL>
-        </channel-0>
-        <channel-1>
             <name>setLocalTransX</name>
             <type>Curves</type>
             <rangeH>15.000000000</rangeH>
             <rangeL>-15.000000000</rangeL>
+        </channel-0>
+        <channel-1>
+            <name>setGlobalTransZ</name>
+            <type>Curves</type>
+            <rangeH>50.000000000</rangeH>
+            <rangeL>-100.000000000</rangeL>
         </channel-1>
     </tlChannels>
 </page>

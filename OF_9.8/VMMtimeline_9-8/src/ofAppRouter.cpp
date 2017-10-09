@@ -18,12 +18,10 @@ void ofApp::setControllerData(string name, int data){
         
         timePanel.setTLTrack(data);
     
-        //timePanel.data.setTrack(data);
-        //timePanel.tracks.showSelectedTimelineTrack(data);
+
         
-        
-        headerPanel.setClip(timePanel.data.getClip(data));
-        headerPanel.setPage(timePanel.data.getPage(data));
+        headerPanel.setClipUI(timePanel.data.getClip(data));
+        headerPanel.setPageUI(timePanel.data.getPage(data));
         headerPanel.setUImeasures(timePanel.data.getTrackMeasures(data));
         
         
@@ -79,8 +77,8 @@ void ofApp::loadTLTrackPages(){
     cout << "ofApp::loadTLTrackPages()" << endl;
     timePanel.loadTLTrackPages();
     
-    //TODO - When the dropdown closes how do I set the dropdownOpen var.
-    //temp, find a better place for this
+    //TODO - ??? When the dropdown closes where is the best place set the dropdownOpen var to FALSE.
+    //TEMP, Bob, Find a better place for this.  
     headerPanel.setDropdownOpen(false);
 }
 
@@ -216,7 +214,7 @@ void ofApp::playTLclip(int _track, int _clip){
         
         cout << "You are on the selected track!" << endl;
         //only if you are on the selected track, page, clip.
-        headerPanel.setClip(_clip);
+        headerPanel.setClipUI(_clip);
         
     }
     

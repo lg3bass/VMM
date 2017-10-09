@@ -38,7 +38,7 @@ void FooterPanel::update(){
 //-------------------------------------------------
 void FooterPanel::draw(){
     
-    drawPanel();
+    drawPanelBgAndBorder(false);
     
 }
 

@@ -66,7 +66,7 @@
 		BF5110F11F1AC4410087AD7E /* headerUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF5110E71F1AC4410087AD7E /* headerUI.cpp */; };
 		BF5110F21F1AC4410087AD7E /* headerUIsetup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF5110E91F1AC4410087AD7E /* headerUIsetup.cpp */; };
 		BF5110F31F1AC4410087AD7E /* timelineData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF5110EB1F1AC4410087AD7E /* timelineData.cpp */; };
-		BF5110F41F1AC4410087AD7E /* timelinePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF5110ED1F1AC4410087AD7E /* timelinePanel.cpp */; };
+		BF5110F41F1AC4410087AD7E /* TimelinePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF5110ED1F1AC4410087AD7E /* TimelinePanel.cpp */; };
 		BF5111011F1B1B540087AD7E /* abletonlink.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BF5110FF1F1B1B540087AD7E /* abletonlink.cpp */; };
 		BFD3F45E1F1F048B00557B28 /* timelineTrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFD3F45C1F1F048B00557B28 /* timelineTrack.cpp */; };
 		C3BC382653A57CE71D4513F1 /* ofxTLFlags.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB375BBFEB77C75D4A4C3040 /* ofxTLFlags.cpp */; };
@@ -283,8 +283,8 @@
 		BF5110EA1F1AC4410087AD7E /* Panel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Panel.h; path = panels/Panel.h; sourceTree = "<group>"; };
 		BF5110EB1F1AC4410087AD7E /* timelineData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = timelineData.cpp; path = panels/timelineData.cpp; sourceTree = "<group>"; };
 		BF5110EC1F1AC4410087AD7E /* timelineData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timelineData.h; path = panels/timelineData.h; sourceTree = "<group>"; };
-		BF5110ED1F1AC4410087AD7E /* timelinePanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = timelinePanel.cpp; path = panels/timelinePanel.cpp; sourceTree = "<group>"; };
-		BF5110EE1F1AC4410087AD7E /* timelinePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timelinePanel.h; path = panels/timelinePanel.h; sourceTree = "<group>"; };
+		BF5110ED1F1AC4410087AD7E /* TimelinePanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimelinePanel.cpp; path = panels/TimelinePanel.cpp; sourceTree = "<group>"; };
+		BF5110EE1F1AC4410087AD7E /* TimelinePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimelinePanel.h; path = panels/TimelinePanel.h; sourceTree = "<group>"; };
 		BF5110F51F1AC44C0087AD7E /* ofxDatGuiThemesVMM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxDatGuiThemesVMM.h; path = themes/ofxDatGuiThemesVMM.h; sourceTree = "<group>"; };
 		BF5110FF1F1B1B540087AD7E /* abletonlink.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = abletonlink.cpp; sourceTree = "<group>"; };
 		BF5111001F1B1B540087AD7E /* abletonlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = abletonlink.h; sourceTree = "<group>"; };
@@ -867,8 +867,8 @@
 				BF5110EA1F1AC4410087AD7E /* Panel.h */,
 				BF5110EB1F1AC4410087AD7E /* timelineData.cpp */,
 				BF5110EC1F1AC4410087AD7E /* timelineData.h */,
-				BF5110ED1F1AC4410087AD7E /* timelinePanel.cpp */,
-				BF5110EE1F1AC4410087AD7E /* timelinePanel.h */,
+				BF5110ED1F1AC4410087AD7E /* TimelinePanel.cpp */,
+				BF5110EE1F1AC4410087AD7E /* TimelinePanel.h */,
 				BFD3F45C1F1F048B00557B28 /* timelineTrack.cpp */,
 				BFD3F45D1F1F048B00557B28 /* timelineTrack.h */,
 			);
@@ -1131,7 +1131,7 @@
 				BF5110F31F1AC4410087AD7E /* timelineData.cpp in Sources */,
 				4DF4E3357A290E61D2FB7F8D /* ofxAbletonLink.cpp in Sources */,
 				87EB71A35D524340AE0A8C4C /* ofxAudioDecoder.cpp in Sources */,
-				BF5110F41F1AC4410087AD7E /* timelinePanel.cpp in Sources */,
+				BF5110F41F1AC4410087AD7E /* TimelinePanel.cpp in Sources */,
 				477F449F6256389CCDB36FFC /* audiodecoderbase.cpp in Sources */,
 				2761F96388F64FE596863183 /* audiodecodercoreaudio.cpp in Sources */,
 				D3C1C48E59CAA2D68C0DD477 /* ofxDatGuiComponent.cpp in Sources */,

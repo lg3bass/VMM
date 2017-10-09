@@ -6,7 +6,7 @@
 
 //panels
 #include "HeaderPanel.h"
-#include "timelinePanel.h"
+#include "TimelinePanel.h"
 #include "FooterPanel.h"
 
 
@@ -34,7 +34,8 @@ public:
     abletonLinkEngine AL;
     appData myAppData;
     
-    //ofApp.cpp
+    #pragma mark - ofApp.cpp
+
     void setup();
     void update();
     void draw();
@@ -51,7 +52,7 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    //ofAppRouter.cpp
+    #pragma mark - ofAppRouter.cpp
     //timePanel functions
 
     void enableOscOut();
@@ -76,6 +77,7 @@ public:
     
     void setTimePanelEnabled(bool _val);
     
+    
     //headerPanel functions
     void setBreadcrumb();
     void displayKeyValue(int _val);
@@ -89,10 +91,10 @@ public:
     
     //panels
     HeaderPanel headerPanel;
-    timelinePanel timePanel;
+    TimelinePanel timePanel;
     FooterPanel footerPanel;
     
-    //OSC
+    #pragma mark - OSC
     ofxOscReceiver receiver_timeline;
     ofxOscSender sender;
     oscHandler router;
