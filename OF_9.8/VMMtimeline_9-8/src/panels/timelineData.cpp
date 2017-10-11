@@ -58,6 +58,7 @@ void timelineData::setFPS(string _fps){
     
 }
 
+//TODO - Am I not using the .loop attribute anymore?
 //-------------------------------------------------
 void timelineData::setLoop(string _loop){
     TL.loop = ofToInt(_loop);

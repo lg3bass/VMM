@@ -380,6 +380,8 @@ void TimelinePanel::drawTrackData(){
     //verdana9.drawString("MM: "+ofToString(data.TL.measures), h_unit*0+ml, _y+mt+v_unit*0);
     verdana9.drawString("BPM: "+ofToString(data.TL.bpm), h_unit*1+ml, _y+mt+v_unit*0);
     verdana9.drawString("FPS: "+ofToString(data.TL.fps), h_unit*2+ml, _y+mt+v_unit*0);
+    
+    //TODO - I don't think I use the loop param anymore??
     verdana9.drawString("LOOP: "+ofToString(data.TL.loop), h_unit*3+ml, _y+mt+v_unit*0);
     verdana9.drawString("sigBeat: "+ofToString(data.TL.mBeats), h_unit*4+ml, _y+mt+v_unit*0);
     verdana9.drawString("sigUnit: "+ofToString(data.TL.mUnits), h_unit*5+ml, _y+mt+v_unit*0);
@@ -395,6 +397,7 @@ void TimelinePanel::drawTrackData(){
     verdana9.drawString("CLIP:", 0, _y+mt+v_unit*5);
     verdana9.drawString("CUED:", 0, _y+mt+v_unit*6);
     verdana9.drawString("OSC", 0, _y+mt+v_unit*7);
+    verdana9.drawString("MEASURES", 0, _y+mt+v_unit*8);
     
    
     for(int i=0; i<NUMBER_OF_TRACKS;i++){
@@ -403,8 +406,8 @@ void TimelinePanel::drawTrackData(){
         verdana9.drawString(ofToString(data.getPage(i)+1), i*h_unit+ml, _y+mt+v_unit*4);//page
         verdana9.drawString(ofToString(data.getClip(i)+1), i*h_unit+ml, _y+mt+v_unit*5);//clip
         verdana9.drawString(data.getCuedToPlay(i) ? "true" : "false", i*h_unit+ml, _y+mt+v_unit*6);//cued
-        
-        verdana9.drawString(data.TL.tracks[i].enableOscOut ? "enabled" : "disabled", i*h_unit+ml, _y+mt+v_unit*7);
+        verdana9.drawString(data.TL.tracks[i].enableOscOut ? "enabled" : "disabled", i*h_unit+ml, _y+mt+v_unit*7);//OSC
+        verdana9.drawString(ofToString(data.getTrackMeasures(i)),  i*h_unit+ml, _y+mt+v_unit*8);
     }
     
     //only draw if a channel is selected
