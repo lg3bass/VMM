@@ -14,8 +14,8 @@ void ofApp::setup(){
     ofSetLogLevel("OSC_TRIGGERED", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_PLAY", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_OUT", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("SAVE", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("LOAD", OF_LOG_ERROR);// OF_LOG_ERROR
+    ofSetLogLevel("SAVE", OF_LOG_NOTICE);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("LOAD", OF_LOG_NOTICE);// OF_LOG_ERROR
     ofSetLogLevel("KEYS", OF_LOG_ERROR);// OF_LOG_ERROR
     ofSetLogLevel("KEYBOARD", OF_LOG_NOTICE);// OF_LOG_ERROR
     ofSetLogLevel("HEADER", OF_LOG_NOTICE);

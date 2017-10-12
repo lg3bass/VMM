@@ -567,6 +567,22 @@ string TimelinePanel::getFilePath(int _track, int _clip){
 }
 
 //-------------------------------------------------
+void TimelinePanel::saveTLTrack(int _track, int _page, int _clip){
+    ofLogNotice("SAVE") << "Saving Track: " << ofToString(_track);
+    
+    string filePath = TRACK_DIR "_" + ofToString(_track) + "/";
+    string filename = filePath + "_settings.xml";
+    ofxXmlSettings savedTrackSettings;
+    savedTrackSettings.addTag("data");
+    savedTrackSettings.pushTag("data");
+    savedTrackSettings.addValue("bpm", data.TL.bpm);
+    savedTrackSettings.addValue("measures", data.getTrackMeasures(_track));
+    savedTrackSettings.popTag();
+    savedTrackSettings.saveFile(filename);
+    
+}
+
+//-------------------------------------------------
 void TimelinePanel::saveTLPage(int _track, int _page, int _clip){
     //save the keyframe data from each track
     //NOTE: In order to specifically target a single page
@@ -576,7 +592,7 @@ void TimelinePanel::saveTLPage(int _track, int _page, int _clip){
     
     
     if(data.getNumOfChannelsOnPage(_page)>0){
-        cout << "Saving channel on page " << ofToString(_page) << endl;
+        ofLogNotice("SAVE") << "Saving channel on page " << ofToString(_page);
         
         string filePath = getFilePath(_track,_clip);
         tracks.timelines[_track]->saveTracksToFolder(filePath);
@@ -620,7 +636,7 @@ void TimelinePanel::saveTLPage(int _track, int _page, int _clip){
         
         
     } else {
-        cout << "There are not enough channels on the page " << ofToString(_page) << " to save anything." << endl;
+        ofLogNotice("SAVE") << "There are not enough channels on the page " << ofToString(_page) << " to save anything.";
         
     }
 

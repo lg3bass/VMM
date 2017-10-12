@@ -17,8 +17,6 @@ void ofApp::setControllerData(string name, int data){
     if (name == "TRACK") {
         
         timePanel.setTLTrack(data);
-    
-
         
         headerPanel.setClipUI(timePanel.data.getClip(data));
         headerPanel.setPageUI(timePanel.data.getPage(data));
@@ -28,13 +26,10 @@ void ofApp::setControllerData(string name, int data){
     } else if(name == "PAGES") {
         
         timePanel.setPage(data);
-        
     } else if(name == "CLIP"){
        
         timePanel.setClip(data);
-        
     }
-    
 }
 
 
@@ -53,6 +48,7 @@ void ofApp::remChannel(){
 //--------------------------------------------------------------
 void ofApp::saveTLPage(){
     //saves the current selected page
+    timePanel.saveTLTrack(timePanel.data.getTrack(), timePanel.data.getPage(), timePanel.data.getClip());
     timePanel.saveTLPage(timePanel.data.getTrack(), timePanel.data.getPage(), timePanel.data.getClip());
 }
 
@@ -64,7 +60,7 @@ void ofApp::saveTLTrackPages(){
 
 //--------------------------------------------------------------
 void ofApp::saveTLAllTracks(){
-    cout << "ofApp::saveTLAllTracks()" << endl;
+    cout << "ofApp::saveTLAllTracks() - UNASSIGNED" << endl;
 }
 
 //--------------------------------------------------------------

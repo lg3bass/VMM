@@ -57,6 +57,7 @@ public:
     //save and load functions
     string getFilePath(int _track, int _clip);
     
+    void saveTLTrack(int _track, int _page, int _clip);
     void saveTLPage(int _track, int _page, int _clip);
     void saveTLTrackPages();
     void saveTLAllTracks();
