@@ -55,9 +55,14 @@ public:
 #pragma mark - SAVE/LOAD
     
     //save and load functions
-    string getFilePath(int _track, int _clip);
+    string getProjectPath();
+    string getProjectFile();
+    string getTrackAndClipPath(int _track, int _clip);
     
-    void saveTLTrack(int _track, int _page, int _clip);
+    void setProjectPathAndFile(ofFileDialogResult fileResult);
+
+    
+    void saveTLProject();
     void saveTLPage(int _track, int _page, int _clip);
     void saveTLTrackPages();
     void saveTLAllTracks();
@@ -95,12 +100,18 @@ public:
 #pragma mark - TESTS
     void testKeyframeFunction(int _track, string _channelName);
     
+    
+    bool projectSet = false;
+    
 private:
     
     ofTrueTypeFont	verdana9;
     ofColor bordCol;
     int bordWidth;
-
+    
+    
+    string projectSavePath;
+    string projectSaveFile;
 };
 
 

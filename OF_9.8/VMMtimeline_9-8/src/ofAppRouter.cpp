@@ -45,42 +45,182 @@ void ofApp::remChannel(){
     timePanel.remTLChannel();
 }
 
+#pragma mark - ofAppRouter.cpp save/load functions
+//--------------------------------------------------------------
+void ofApp::setTLProject(string dialogMsg){
+    
+    
+    //File Dialog
+    ofFileDialogResult saveFileResult = ofSystemSaveDialog("new_project.vmm", dialogMsg);
+    
+    if (saveFileResult.bSuccess){
+        //setup where to save the project.
+        timePanel.setProjectPathAndFile(saveFileResult);
+    }
+}
+
+
 //--------------------------------------------------------------
 void ofApp::saveTLPage(){
-    //saves the current selected page
-    timePanel.saveTLTrack(timePanel.data.getTrack(), timePanel.data.getPage(), timePanel.data.getClip());
-    timePanel.saveTLPage(timePanel.data.getTrack(), timePanel.data.getPage(), timePanel.data.getClip());
+    if(!timePanel.projectSet){
+        //File Dialog
+        ofFileDialogResult saveFileResult = ofSystemSaveDialog("new_project.vmm", "Create a project file (.vmm)");
+        
+        if (saveFileResult.bSuccess){
+            //setup where to save the project.
+            timePanel.setProjectPathAndFile(saveFileResult);
+        } else {
+            ofLogNotice("SAVE") << "User hit cancel";
+            return;
+        }
+    }
+    
+    if(timePanel.projectSet){
+        //saves the current selected page ONLY
+        timePanel.saveTLProject();
+        timePanel.saveTLPage(timePanel.data.getTrack(), timePanel.data.getPage(), timePanel.data.getClip());
+        
+    } else {
+        cout << "No project setup" << endl;
+    }
+
 }
 
 //--------------------------------------------------------------
 void ofApp::saveTLTrackPages(){
-    cout << "ofApp::saveTLTrackPages()" << endl;
-    timePanel.saveTLTrackPages();
+    if(!timePanel.projectSet){
+        //File Dialog
+        ofFileDialogResult saveFileResult = ofSystemSaveDialog("new_project.vmm", "Create a project file (.vmm)");
+        
+        if (saveFileResult.bSuccess){
+            //setup where to save the project.
+            timePanel.setProjectPathAndFile(saveFileResult);
+        } else {
+            ofLogNotice("SAVE") << "User hit cancel";
+            return;
+        }
+    }
+    
+    if(timePanel.projectSet){
+        //saves ALL the pages in the track
+        timePanel.saveTLProject();
+        timePanel.saveTLTrackPages();
+        
+    } else {
+        cout << "No project setup..." << endl;
+    }
+
 }
 
 //--------------------------------------------------------------
 void ofApp::saveTLAllTracks(){
-    cout << "ofApp::saveTLAllTracks() - UNASSIGNED" << endl;
+    if(!timePanel.projectSet){
+        //File Dialog
+        ofFileDialogResult saveFileResult = ofSystemSaveDialog("new_project.vmm", "Create a project file (.vmm)");
+        
+        if (saveFileResult.bSuccess){
+            //setup where to save the project.
+            timePanel.setProjectPathAndFile(saveFileResult);
+        } else {
+            ofLogNotice("SAVE") << "User hit cancel";
+            return;
+        }
+    }
+    
+    if(timePanel.projectSet){
+        //saves ALL the pages in the track
+        timePanel.saveTLProject();
+        timePanel.saveTLAllTracks();
+        
+    } else {
+        cout << "No project setup..." << endl;
+    }
+
 }
 
 //--------------------------------------------------------------
 void ofApp::loadTLPage(){
-    timePanel.loadTLPage(timePanel.data.getTrack(), timePanel.data.getPage(), timePanel.data.getClip());
+    if(!timePanel.projectSet){
+        //setTLProject("Select a project file (.vmm)");
+        ofFileDialogResult openFileResult= ofSystemLoadDialog("Select a project file (.vmm)");
+        
+        if (openFileResult.bSuccess){
+            timePanel.setProjectPathAndFile(openFileResult);
+        }else {
+            ofLogNotice("SAVE") << "User hit cancel";
+            return;
+        }
+        
+    }
+    
+    if(timePanel.projectSet){
+        timePanel.loadTLPage(timePanel.data.getTrack(), timePanel.data.getPage(), timePanel.data.getClip());
+        cout << "Loading Page... " << endl;
+        
+        //TODO - ??? When the dropdown closes where is the best place set the dropdownOpen var to FALSE.
+        //TEMP, Bob, Find a better place for this.
+        headerPanel.setDropdownOpen(false);
+    } else {
+        cout << "No project setup..." << endl;
+    }
+
 }
 
 //--------------------------------------------------------------
 void ofApp::loadTLTrackPages(){
-    cout << "ofApp::loadTLTrackPages()" << endl;
-    timePanel.loadTLTrackPages();
     
-    //TODO - ??? When the dropdown closes where is the best place set the dropdownOpen var to FALSE.
-    //TEMP, Bob, Find a better place for this.  
-    headerPanel.setDropdownOpen(false);
+    if(!timePanel.projectSet){
+        //setTLProject("Select a project file (.vmm)");
+        ofFileDialogResult openFileResult= ofSystemLoadDialog("Select a project file (.vmm)");
+        
+        if (openFileResult.bSuccess){
+            timePanel.setProjectPathAndFile(openFileResult);
+        }else {
+            ofLogNotice("SAVE") << "User hit cancel";
+            return;
+        }
+        
+    }
+    
+    if(timePanel.projectSet){
+        cout << "Loading Page... " << endl;
+        timePanel.loadTLTrackPages();
+        
+        //TODO - ??? When the dropdown closes where is the best place set the dropdownOpen var to FALSE.
+        //TEMP, Bob, Find a better place for this.
+        headerPanel.setDropdownOpen(false);
+        
+    } else {
+        cout << "No project setup..." << endl;
+    }
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::loadTLAllTracks(){
-    cout << "ofApp::loadTLAllTracks()" << endl;
+    if(!timePanel.projectSet){
+        ofFileDialogResult openFileResult= ofSystemLoadDialog("Select a project file (.vmm)");
+        
+        if (openFileResult.bSuccess){
+            timePanel.setProjectPathAndFile(openFileResult);
+        }else {
+            ofLogNotice("SAVE") << "User hit cancel";
+            return;
+        }
+        
+    }
+    
+    if(timePanel.projectSet){
+        cout << "Loading All Tracks and Pages... " << endl;
+        timePanel.loadTLTrackPages();
+        
+        //TODO - ??? When the dropdown closes where is the best place set the dropdownOpen var to FALSE.
+        //TEMP, Bob, Find a better place for this.
+        headerPanel.setDropdownOpen(false);
+        
+    } else {
+        cout << "No project setup..." << endl;
+    }    
 }
 
 //--------------------------------------------------------------
@@ -98,7 +238,6 @@ void ofApp::prevKey(){
 //--------------------------------------------------------------
 void ofApp::setKeyVal(int _val){
     timePanel.data.setSelectedKeyValue(_val);
-    
 }
 
 //--------------------------------------------------------------

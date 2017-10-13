@@ -62,7 +62,9 @@ public:
     void addChannel(string name, int type);
     void remChannel();
     
-    //new save/load functions
+    #pragma mark - ofAppRouter.cpp save/load functions
+    void setTLProject(string dialogMsg);
+    
     void saveTLPage();
     void saveTLTrackPages();
     void saveTLAllTracks();
