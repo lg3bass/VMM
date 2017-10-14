@@ -151,71 +151,36 @@ void TimelinePanel::keyPressed(int key){
             switch(key){
                 case 257:
                     //F1
-                    //decrement
-                    if(data.getNumOfChannelsOnPage() > 1){
-                        
-                        int selected_page = data.getSelectedChannel();                  //calculates the selected_page if using keyboard
-                        
-                        if(selected_page > 0){
-                            selected_page--;
-                        } else {
-                            selected_page = data.getNumOfChannelsOnPage()-1;
-                        }
-                        bMainApp->selectChannel(selected_page);                         //set the selected channel and gui
-                        
-                        cout << "F1 pressed - decrement track selection" << endl;
-                        
-                    } else {
-                        
-                        cout << "F1 pressed - not enough timelines on page" << endl;
-                    }
+                    cout << "F1 - play track 1, clip 1" << endl;
+                    bMainApp->playTLclip(0, 0);
                     
                     break;
                 case 258:
                     //F2
                     //increment
-                    if(data.getNumOfChannelsOnPage() > 1){
-                        
-                        int selected_page = data.getSelectedChannel();                  //calculates the selected_page if using keyboard
-                        
-                        if(selected_page < data.getNumOfChannelsOnPage()-1){
-                            selected_page++;
-                        } else {
-                            selected_page = 0;
-                        }
-                        
-                        bMainApp->selectChannel(selected_page);                         //set the selected channel and gui
-                        
-                        cout << "F2 pressed - increment track selection" << endl;
-                    } else {
-                        
-                        cout << "F2 pressed - not enough timelines on page" << endl;
-                    }
+                    cout << "F2 - play track 1, clip 2" << endl;
+                    bMainApp->playTLclip(0, 1);
                     
                     break;
                 case 259:
                     //F3
-                    cout << "F3 - play track 1, clip 1" << endl;
-                    bMainApp->playTLclip(0, 0);
+                    cout << "F3 - play track 2, clip 1" << endl;
+                    bMainApp->playTLclip(1, 0);
 
-                    
                     break;
                 case 260:
                     //F4
-                    cout << "F4 - play track 1, clip 2" << endl;
-                    bMainApp->playTLclip(0, 1);
-                    
+                    cout << "F4 pressed" << endl;
+
                     break;
                 case 261:
                     //F5
-                    cout << "F5 - play track 2, clip 1" << endl;
-                    bMainApp->playTLclip(1, 0);
+                    cout << "F5 pressed" << endl;
                     
                     break;
                 case 262:
                     //F6
                     cout << "F6 pressed" << endl;
-                    bMainApp->stopTLclip(0);//argument does nothing! stops all clips for now.
                     
                     break;
                 case 263:
@@ -231,6 +196,7 @@ void TimelinePanel::keyPressed(int key){
                 case 265:
                     //F9
                     cout << "F9 pressed" << endl;
+                    bMainApp->stopTLclip(0);//argument does nothing! stops all clips for now.
                     
                     break;
             }//end switch
@@ -620,6 +586,7 @@ void TimelinePanel::saveTLProject(){
     
     savedTrackSettings.popTag();
     
+    
     cout << "vmm file path: " << getProjectPath() + getProjectFile() << endl;
     savedTrackSettings.saveFile(getProjectPath() + getProjectFile());
     
@@ -635,9 +602,13 @@ void TimelinePanel::saveTLPage(int _track, int _page, int _clip){
     
     
     if(data.getNumOfChannelsOnPage(_page)>0){
-        ofLogNotice("SAVE") << "Saving channel on page " << ofToString(_page);
+        ofLogNotice("SAVE") << "Saving channels from tr: " << ofToString(_track) << " pg: " << ofToString(_page);
         
+        //TODO - I don't like the way the getProjectPath() is referenced here.
         string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
+        ofLogNotice("SAVE") << "TimelinePanel::saveTLPage " << filePath;
+        
+        
         tracks.timelines[_track]->saveTracksToFolder(filePath);
         
         //save the page settings.
@@ -711,12 +682,14 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
     
     //----------------------------------
     //-:Load Xml file
-    string filePath = getTrackAndClipPath(_track,_clip);
+    //TODO - I don't like the way the getProjectPath() is referenced here.
+    string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
+    ofLogNotice("LOAD") << "TimelinePanel::loadTLPage " << filePath;
     
     //string pageName = data.getPageName();
     string pageName = data.getPageName(_page);
     
-    string filenamePanel = getProjectPath() + filePath + pageName + "_settings.xml";
+    string filenamePanel = filePath + pageName + "_settings.xml";
     ofxXmlSettings xml;
     
     if( xml.loadFile(filenamePanel) ){
@@ -757,7 +730,7 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
     }
     
     //load the tracks into the created tracks
-    tracks.timelines[_track]->loadTracksFromFolder(getProjectPath()+filePath);
+    tracks.timelines[_track]->loadTracksFromFolder(filePath);
     
 
 }
@@ -778,9 +751,7 @@ void TimelinePanel::loadTLAllTracks(){
     //Load all the channels on from all tracks if they have content.
     for(int t=0;t < NUMBER_OF_TRACKS; t++){
         for(int p=0;p < NUMBER_OF_TRACKS; p++){
-            
             loadTLPage(t, p, 0);
-           
         }
     }
     setPage(0);
@@ -812,7 +783,10 @@ void TimelinePanel::setClip(int _track, int _clip){
     //set Clip at a specific track
     data.setClip(_clip, _track);
     
-    string filePath = getTrackAndClipPath(_track, _clip);
+    //TODO - I don't like the way the getProjectPath() is referenced here.
+    string filePath = getProjectPath() + getTrackAndClipPath(_track, _clip);
+    ofLogNotice("LOAD") << "TimelinePanel::setClip " << filePath;
+    
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
     
 }
@@ -823,7 +797,10 @@ void TimelinePanel::setClip(int _clip){
     //set Clip on the current selected track
     data.setClip(data.getTrack(), _clip);
     
-    string filePath = getTrackAndClipPath(data.getTrack(), _clip);
+    //TODO - I don't like the way the getProjectPath() is referenced here.
+    string filePath = getProjectPath() + getTrackAndClipPath(data.getTrack(), _clip);
+    ofLogNotice("LOAD") << "TimelinePanel::setClip " << filePath;
+    
     tracks.timelines[data.getTrack()]->loadTracksFromFolder(filePath);
 }
 

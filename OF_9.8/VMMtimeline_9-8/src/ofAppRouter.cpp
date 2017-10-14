@@ -212,7 +212,7 @@ void ofApp::loadTLAllTracks(){
     
     if(timePanel.projectSet){
         cout << "Loading All Tracks and Pages... " << endl;
-        timePanel.loadTLTrackPages();
+        timePanel.loadTLAllTracks();
         
         //TODO - ??? When the dropdown closes where is the best place set the dropdownOpen var to FALSE.
         //TEMP, Bob, Find a better place for this.
@@ -352,8 +352,6 @@ void ofApp::playTLclip(int _track, int _clip){
         headerPanel.setClipUI(_clip);
         
     }
-    
-
 }
 
 //--------------------------------------------------------------
