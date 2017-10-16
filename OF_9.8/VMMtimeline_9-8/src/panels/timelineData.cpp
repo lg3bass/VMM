@@ -224,19 +224,16 @@ void timelineData::addtlTrack(int _track, int _page, string _name, int _type, fl
     newTrack.selected_key = -1;
     newTrack.channelRange = ofRange(_low,_high);
     
-    //add dummy keys to the new track
+    //SAMPLE - add dummy keys to the new track
     for(int k=0;k<3;k++){
-        
         key ky;
         ky.frm = 15*k;
         ky.val = 100*k;
     
         newTrack.keyframes.keys.push_back(ky);
-        
     }
     
     TL.tracks[_track].tlPages[_page].tlChannels.push_back(newTrack);
-    
     
 }
 

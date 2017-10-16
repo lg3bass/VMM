@@ -47,6 +47,7 @@ void TimelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
         //add listeners
         ofAddListener(tracks.timelines[i]->events().trackGainedFocus, this, &TimelinePanel::actOnFocus);
         ofAddListener(tracks.timelines[i]->events().trackLostFocus, this, &TimelinePanel::actOnLossFocus);
+        ofAddListener(tracks.timelines[i]->events().bangFired, this, &TimelinePanel::timelineBangFired);
         
         //reset/setup track metadata.
         setMeasureLoop(i);
@@ -455,7 +456,7 @@ void TimelinePanel::toggleDrawTrackData(){
     }
 }
 
-#pragma mark - SELECT CHANNELS
+#pragma mark - EVENTS
 //-------------------------------------------------
 void TimelinePanel::actOnFocus(ofxTLTrackEventArgs & args){
     
@@ -487,6 +488,12 @@ void TimelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
     bMainApp->headerPanel.mainUI.clampH->setText("---");
     bMainApp->headerPanel.mainUI.clampL->setText("---");
 
+}
+
+//-------------------------------------------------
+void TimelinePanel::timelineBangFired(ofxTLBangEventArgs & args){
+    
+    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName() << " [" << ofToString(args.currentFrame) << "]" << endl;
 }
 
 #pragma mark - ADD/REMOVE
@@ -722,8 +729,10 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
                 addTLChannelToPage(_track, _page, trackName, 1, ofToFloat(rangeL), ofToFloat(rangeH));
                 
             }else if(trackType=="Bangs"){
+                addTLChannelToPage(_track, _page, trackName, 2);
                 //addTrack(trackName, BANGS);
-            }else if(trackType=="Switches"){
+            }else if(trackType=="Flags"){
+                addTLChannelToPage(_track, _page, trackName, 4);
                 //addTrack(trackName, SWITCHES);
             }
         }

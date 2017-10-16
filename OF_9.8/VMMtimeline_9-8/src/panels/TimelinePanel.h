@@ -39,11 +39,13 @@ public:
     void toggleDrawTrackData();
     bool showTrackData;
 
-#pragma mark - SELECT CHANNELS
+#pragma mark - EVENTS
     
     //intercept event from the timeline
     void actOnFocus(ofxTLTrackEventArgs & args);
     void actOnLossFocus(ofxTLTrackEventArgs & args);
+    
+    void timelineBangFired(ofxTLBangEventArgs & args);
 
 #pragma mark - ADD/REMOVE
     

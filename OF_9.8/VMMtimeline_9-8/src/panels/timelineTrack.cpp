@@ -156,12 +156,57 @@ void timelineTrack::addTLTrack2(int _track, int _page, string _name, int _type){
 //-------------------------------------------------
 //This is the used version.
 void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type, float _low, float _high){
+
+    /*
+    trackOptions.push_back("curves");
+    trackOptions.push_back("bangs");
+    trackOptions.push_back("MIDI");
+    trackOptions.push_back("flags");
+    trackOptions.push_back("colors");
+    */
     
     timelines[_track]->setCurrentPage(_page);
-    
-    //if the track type is curves
+
+    /*
     if(_type == 1){
+        //curves
         timelines[_track]->addCurves(_name, ofRange(_low, _high));
+    
+    }
+    if(_type == 2){
+        //bangs
+        timelines[_track]->addBangs(_name);
+        
+    }
+    */
+     
+    switch (_type) {
+        case 1:
+            //curves
+            timelines[_track]->addCurves(_name, ofRange(_low, _high));
+            break;
+
+        case 2:
+            //bangs
+            timelines[_track]->addBangs(_name);
+            break;
+            
+        case 3:
+            //MIDI
+            //timelines[_track]->MIDI
+            break;
+            
+        case 4:
+            //flags
+            timelines[_track]->addFlags(_name);
+            break;
+            
+        case 5:
+            //colors
+            timelines[_track]->addColors(_name);
+            break;
+        default:
+            break;
     }
     
     //SAMPLE CODE TO ACCESS PAGE PROPERTIES.
