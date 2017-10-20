@@ -274,7 +274,7 @@ void headerUI::setupGUI() {
     trackOptions.push_back("------");
     trackOptions.push_back("curves");
     trackOptions.push_back("bangs");
-    trackOptions.push_back("MIDI");
+    trackOptions.push_back("switches");
     trackOptions.push_back("flags");
     trackOptions.push_back("colors");
     trackDropdown = new ofxDatGuiDropdown("TIMELINE", trackOptions);

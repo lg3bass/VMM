@@ -48,6 +48,7 @@ void TimelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
         ofAddListener(tracks.timelines[i]->events().trackGainedFocus, this, &TimelinePanel::actOnFocus);
         ofAddListener(tracks.timelines[i]->events().trackLostFocus, this, &TimelinePanel::actOnLossFocus);
         ofAddListener(tracks.timelines[i]->events().bangFired, this, &TimelinePanel::timelineBangFired);
+        ofAddListener(tracks.timelines[i]->events().switched, this, &TimelinePanel::timelineSwitched);
         
         //reset/setup track metadata.
         setMeasureLoop(i);
@@ -493,7 +494,23 @@ void TimelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
 //-------------------------------------------------
 void TimelinePanel::timelineBangFired(ofxTLBangEventArgs & args){
     
-    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName() << " [" << ofToString(args.currentFrame) << "]" << endl;
+    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName()
+                                                    << " [" << ofToString(args.currentFrame) << "]"
+                                                    << " [" << ofToString(args.flag) << "]" << endl;
+    
+    
+    int outTrack = 1;
+    string outParam = "/"+args.track->getName();
+    bMainApp->OSCsendToVMM(outTrack,outParam,ofToFloat(args.flag));
+    
+}
+
+//-------------------------------------------------
+void TimelinePanel::timelineSwitched(ofxTLSwitchEventArgs & args){
+    
+    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName()
+                                                    << " [" << (args.on ? "ON" : "OFF") << "]"
+                                                    << " [" << ofToString(args.switchName) << "]" << endl;
 }
 
 #pragma mark - ADD/REMOVE
@@ -730,10 +747,13 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
                 
             }else if(trackType=="Bangs"){
                 addTLChannelToPage(_track, _page, trackName, 2);
-                //addTrack(trackName, BANGS);
+            
+            }else if(trackType=="Switches"){
+                addTLChannelToPage(_track, _page, trackName, 3);
+                
             }else if(trackType=="Flags"){
                 addTLChannelToPage(_track, _page, trackName, 4);
-                //addTrack(trackName, SWITCHES);
+                
             }
         }
     }
@@ -900,13 +920,16 @@ void TimelinePanel::sendOSCfromTimeline(int _track){
             if(data.TL.tracks[_track].tlPages[p].tlChannels.size()>0){
 
                 for (int j=0;j<data.TL.tracks[_track].tlPages[p].tlChannels.size();j++){
-                    //cout << "CH: " << data.TL.tracks[_track].tlPages[p].tlChannels[j].name << endl;
                     
-                    int outTrack = _track+1;
-                    string param = data.TL.tracks[_track].tlPages[p].tlChannels[j].name;
-                    string outParam = "/"+data.TL.tracks[_track].tlPages[p].tlChannels[j].name;
-                    
-                    bMainApp->OSCsendToVMM(outTrack,outParam,tracks.timelines[_track]->getValue(param));
+                    //output only if it's a curve.
+                    if(data.TL.tracks[_track].tlPages[p].tlChannels[j].type == 1){
+                        int outTrack = _track+1;
+                        string param = data.TL.tracks[_track].tlPages[p].tlChannels[j].name;
+                        string outParam = "/"+data.TL.tracks[_track].tlPages[p].tlChannels[j].name;
+                        
+                        bMainApp->OSCsendToVMM(outTrack,outParam,tracks.timelines[_track]->getValue(param));
+                        
+                    }
                 }
             }
         }

@@ -46,6 +46,7 @@ public:
     void actOnLossFocus(ofxTLTrackEventArgs & args);
     
     void timelineBangFired(ofxTLBangEventArgs & args);
+    void timelineSwitched(ofxTLSwitchEventArgs & args);
 
 #pragma mark - ADD/REMOVE
     

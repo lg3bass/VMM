@@ -36,7 +36,7 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
     for(int i=0; i<NUMBER_OF_TRACKS; i++){
         ofxTimeline* t = new ofxTimeline();
         
-        t->setupFont("verdana.ttf", 10);
+        t->setupFont("gui_assets/timeline_GUI/NewMedia Fett.ttf", 8);
         
         //t->removeCocoaMenusFromGlut("02_timlineLink_testDebug");
         t->setup();
@@ -48,9 +48,9 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         t->setSpacebarTogglePlay(true);
         t->setLockWidthToWindow(false);
         t->setDurationInFrames(duration);
-        t->setOffset(ofVec2f((float)_x, (float)_y));
-        //t->setMinimalHeaders(true);
-        t->setWidth((float)_w);
+        t->setOffset(ofVec2f((float)_x+88, (float)_y));
+        t->setMinimalHeaders(true);
+        t->setWidth((float)_w-104);
         t->setBPM(_bpm);
         t->setFrameRate(_frameRate);
         t->setLoopType(OF_LOOP_NORMAL);
@@ -58,7 +58,7 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         t->setFrameBased(true);
         t->setInPointAtFrame(0);
         t->setOutPointAtFrame(duration);
-        t->setShowZoomer(false);
+        t->setShowZoomer(true);
         t->setShowInoutControl(false);
         
         //set the initial page name
@@ -140,46 +140,10 @@ void timelineTrack::showSelectedTimelineTrack(int _track){
 }
 
 //-------------------------------------------------
-//this function is NOT USED.
-void timelineTrack::addTLTrack2(int _track, int _page, string _name, int _type){
-
-    //pick a page to place the track.
-    timelines[_track]->setCurrentPage(_page);
-    
-    //if the track type is curves
-    if(_type == 1){
-        timelines[_track]->addCurves(_name, ofRange(-50, 50));
-    }
-    
-}
-
-//-------------------------------------------------
-//This is the used version.
 void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type, float _low, float _high){
-
-    /*
-    trackOptions.push_back("curves");
-    trackOptions.push_back("bangs");
-    trackOptions.push_back("MIDI");
-    trackOptions.push_back("flags");
-    trackOptions.push_back("colors");
-    */
     
     timelines[_track]->setCurrentPage(_page);
-
-    /*
-    if(_type == 1){
-        //curves
-        timelines[_track]->addCurves(_name, ofRange(_low, _high));
     
-    }
-    if(_type == 2){
-        //bangs
-        timelines[_track]->addBangs(_name);
-        
-    }
-    */
-     
     switch (_type) {
         case 1:
             //curves
@@ -192,8 +156,8 @@ void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type
             break;
             
         case 3:
-            //MIDI
-            //timelines[_track]->MIDI
+            //switches
+            timelines[_track]->addSwitches(_name);
             break;
             
         case 4:

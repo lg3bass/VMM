@@ -16,7 +16,7 @@ class timelineData{
     
 public:
     
-    enum channelType {tlCurves,tlKeyframes,tlMarkers};
+    enum channelType {tlCurves,tlBangs,tlSwitches,tlFlags,tlColors};
 
     struct key {
         int frm;
