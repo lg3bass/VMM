@@ -125,6 +125,7 @@ void headerUI::onTextInputEvent(ofxDatGuiTextInputEvent e){
                e.target->getName() == "LOOP" || e.target->getName() == "METER" ||
                e.target->getName() == "BAR|BEAT|FRAME" || e.target->getName() == "LOW" ||
                e.target->getName() == "HIGH"){
+        
         uiMainApp->passTextValue(e.target->getName(),e.text);       //pass up to ofApp
         
     } 

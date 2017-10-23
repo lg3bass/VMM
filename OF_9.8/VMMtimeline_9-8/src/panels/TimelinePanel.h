@@ -75,27 +75,24 @@ public:
     void loadTLAllTracks();
     
 #pragma mark - PLAY FUNCTIONS
-    void setTLTrack(int _track);
     
-    void setPage(int _page);
-    
-    void setClip(int _track, int _clip);
-    void setClip(int _clip);
-        
     void playTLclip(int _track, int _clip);
     void stopTLclip(int _clip);                             //argument does NOTHING!
+
+#pragma mark - PANEL
+    void setTLTrack(int _track);
+    void setPage(int _page);
+    void setClip(int _track, int _clip);
+    void setClip(int _clip);
     
     void setMeasureLoop(int _track);
+    void setMeasuresInClip(int _track, string _measures);
     
-    void setTrackMeasures(int _track, string _measures);
+    void setTrackDuration(int _track);
     
 #pragma mark - OSC
     void sendOSCfromTimeline(int _track);
 
-    //setup the 2 large sections
-    timelineData data;
-    timelineTrack tracks;
-    
 #pragma mark - CHANNEL MODIFICATIONS
     void setChannelRangeLow(float _val);
     void setChannelRangeHigh(float _val);
@@ -103,6 +100,12 @@ public:
 #pragma mark - TESTS
     void testKeyframeFunction(int _track, string _channelName);
     
+
+#pragma mark - OBJECTS & VARIABLES
+    
+    //setup the 2 large sections
+    timelineData data;
+    timelineTrack tracks;
     
     bool projectSet = false;
     

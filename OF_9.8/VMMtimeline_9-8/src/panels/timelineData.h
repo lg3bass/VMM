@@ -42,8 +42,19 @@ public:
         int selected_channel;
     };
     
+    struct clip {
+        int numberOfMeasures = 4;
+        int duration = 250;
+        bool loop = true;
+        bool mute = false;
+        bool solo = false;
+        int mBeats = 4;
+        int mUnits = 4;
+    };
+    
     struct vmmTrack {
         vector<page> tlPages;
+        vector<clip> tlClips;
         int selected_clip = 0;
         int selected_page = 0;
         int measureCount = 0;
@@ -54,7 +65,7 @@ public:
         bool enableOscOut = false;
         int lbeat = -1;//last beat
         int nbeat = -1;//current beat
-        int duration = 250;
+        int duration = 250;//delete me
     };
     
     struct tlData {
@@ -63,8 +74,6 @@ public:
         float bpm = 120.0;
         int fps = 30;
         int loop = 300;
-        int mBeats = 4;
-        int mUnits = 4;
         int bar = 0;
         int beat = 0;
         int frame = 0;
@@ -85,23 +94,36 @@ public:
 
     void setBPM(string _bpm);
     void setFPS(string _fps);
-    void setLoop(string _loop);
+    
     void setMeter(string _meter);
-    void setBarsBeatsFrames(string _value);
+    string getMeter(int _track, int _clip);
+    
+    
+    void setBarsBeatsFrameData(string _value);
     
     int calculateFramesInMeasures(int m, float bpm, int fps);
 
     
     //TRACK SPECIFIC DATA
 #pragma mark - vmmTrack
-    void setTrackMeasures(int _track, int _measures);
-    int getTrackMeasures(int _track);
-    int getTrackDuration(int _track);
+    void setClipMeasures(int _track, int _measures);
+    int getClipMeasures(int _track, int _clip);
+    int getClipDuration(int _track);
     
+    //clips
     int getClip(int _track);                        //return the current selected clip for a specific track
     int getClip();                                  //return the current selected clip on current track
     void setClip(int _clip);                        //set current clip on current track
     void setClip(int _clip, int _track);            //set current clip on a specific track
+    
+    //void setNumberOfMeasures(int m);//not needed
+    
+    void setLoop(string _loop);
+
+    void setMute(bool muteStatus);
+    void setSolo(bool soloStatus);
+
+    
     
     int getPage(int _track);                        //return the current selected page for a specific track
     int getPage();                                  //return the current selected page on current track

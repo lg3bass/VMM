@@ -351,8 +351,8 @@ void TimelinePanel::drawTrackData(){
     
     //TODO - I don't think I use the loop param anymore??
     verdana9.drawString("LOOP: "+ofToString(data.TL.loop), h_unit*3+ml, _y+mt+v_unit*0);
-    verdana9.drawString("sigBeat: "+ofToString(data.TL.mBeats), h_unit*4+ml, _y+mt+v_unit*0);
-    verdana9.drawString("sigUnit: "+ofToString(data.TL.mUnits), h_unit*5+ml, _y+mt+v_unit*0);
+    verdana9.drawString("METER: "+data.getMeter(data.getTrack(), data.getClip()), h_unit*4+ml, _y+mt+v_unit*0);
+    //verdana9.drawString(" ", h_unit*5+ml, _y+mt+v_unit*0);
     verdana9.drawString("BAR: "+ofToString(data.TL.bar), h_unit*6+ml, _y+mt+v_unit*0);
     verdana9.drawString("BEAT: "+ofToString(data.TL.beat), h_unit*7+ml, _y+mt+v_unit*0);
     verdana9.drawString("FRAME: "+ofToString(data.TL.frame), h_unit*8+ml, _y+mt+v_unit*0);
@@ -375,7 +375,7 @@ void TimelinePanel::drawTrackData(){
         verdana9.drawString(ofToString(data.getClip(i)+1), i*h_unit+ml, _y+mt+v_unit*5);//clip
         verdana9.drawString(data.getCuedToPlay(i) ? "true" : "false", i*h_unit+ml, _y+mt+v_unit*6);//cued
         verdana9.drawString(data.TL.tracks[i].enableOscOut ? "enabled" : "disabled", i*h_unit+ml, _y+mt+v_unit*7);//OSC
-        verdana9.drawString(ofToString(data.getTrackMeasures(i)),  i*h_unit+ml, _y+mt+v_unit*8);
+        verdana9.drawString(ofToString(data.getClipMeasures(i,data.getClip())),  i*h_unit+ml, _y+mt+v_unit*8);
     }
     
     //only draw if a channel is selected
@@ -602,7 +602,6 @@ void TimelinePanel::saveTLProject(){
     savedTrackSettings.addTag("project");
     savedTrackSettings.pushTag("project");
     savedTrackSettings.addValue("bpm", data.TL.bpm);
-    //savedTrackSettings.addValue("measures", data.getTrackMeasures(_track));
     //TODO - ADD MORE
 
     
@@ -628,12 +627,29 @@ void TimelinePanel::saveTLPage(int _track, int _page, int _clip){
     if(data.getNumOfChannelsOnPage(_page)>0){
         ofLogNotice("SAVE") << "Saving channels from tr: " << ofToString(_track) << " pg: " << ofToString(_page);
         
+        //set where to save the file (project)
         //TODO - I don't like the way the getProjectPath() is referenced here.
         string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
         ofLogNotice("SAVE") << "TimelinePanel::saveTLPage " << filePath;
         
-        
+        //save all the channels(tracks) on the page
         tracks.timelines[_track]->saveTracksToFolder(filePath);
+        
+        //save the clip settings
+        string clipName = "clip_" + ofToString(_clip);
+        string savedClipSettingsPath = filePath + clipName + ".xml";
+        ofxXmlSettings savedClipSettings;
+        savedClipSettings.addTag(clipName);
+        savedClipSettings.pushTag(clipName);
+        savedClipSettings.addValue("numberOfMeasures", data.TL.tracks[_track].tlClips[_clip].numberOfMeasures);//TODO - get data
+        savedClipSettings.addValue("loop", 1);
+        savedClipSettings.addValue("mute", 0);
+        savedClipSettings.addValue("solo", 0);
+        savedClipSettings.addValue("mBeats", data.TL.tracks[_track].tlClips[_clip].mBeats);
+        savedClipSettings.addValue("mUnits", data.TL.tracks[_track].tlClips[_clip].mUnits);
+        savedClipSettings.saveFile(savedClipSettingsPath);
+        
+        
         
         //save the page settings.
         string pageName = data.getPageName(_page);
@@ -710,7 +726,7 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
     string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
     ofLogNotice("LOAD") << "TimelinePanel::loadTLPage " << filePath;
     
-    //string pageName = data.getPageName();
+    
     string pageName = data.getPageName(_page);
     
     string filenamePanel = filePath + pageName + "_settings.xml";
@@ -761,6 +777,24 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
     //load the tracks into the created tracks
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
     
+    //load the clip settings.
+    string clipName = "clip_" + ofToString(_clip);
+    string savedClipSettingsPath = filePath + clipName + ".xml";
+    ofxXmlSettings savedClipSettings;
+    
+    if( xml.loadFile(savedClipSettingsPath) ){
+        ofLogVerbose("LOAD") <<"timelinePanel::loadTLPage - "<< savedClipSettingsPath <<" loaded.";
+    }else{
+        ofLogError("LOAD") <<  "timelinePanel::loadTLPage - unable to load " << savedClipSettingsPath ;
+        return;
+    }
+    
+    //number of measures in the clip
+    string param1 = "clip_" + ofToString(_clip) + ":numberOfMeasures";
+    int numOfMeasures = xml.getValue(param1, 0);
+    data.setClipMeasures(_track, numOfMeasures);
+    
+    
 
 }
 
@@ -780,58 +814,19 @@ void TimelinePanel::loadTLAllTracks(){
     //Load all the channels on from all tracks if they have content.
     for(int t=0;t < NUMBER_OF_TRACKS; t++){
         for(int p=0;p < NUMBER_OF_TRACKS; p++){
-            loadTLPage(t, p, 0);
+            for(int c=0;c < NUMBER_OF_TRACKS;c++){
+                
+                //TODO - LOAD is loading too much
+                loadTLPage(t, p, c);
+            }
         }
     }
     setPage(0);
 }
 
 #pragma mark - PLAY FUNCTIONS
-//-------------------------------------------------
-void TimelinePanel::setTLTrack(int _track){
-    
-    data.setTrack(_track);
-    tracks.showSelectedTimelineTrack(_track);
-    
-}
-
-//-------------------------------------------------
-void TimelinePanel::setPage(int _page){
-    data.setPage(_page);
-    tracks.setPage(data.getTrack(), _page);
-    if(data.getSelectedChannel() > -1){
-        tracks.highlightFocuedTrack(data.getTrack(), data.getSelectedChannelName());
-    }
-    
-}
 
 
-//-------------------------------------------------
-void TimelinePanel::setClip(int _track, int _clip){
-    
-    //set Clip at a specific track
-    data.setClip(_clip, _track);
-    
-    //TODO - I don't like the way the getProjectPath() is referenced here.
-    string filePath = getProjectPath() + getTrackAndClipPath(_track, _clip);
-    ofLogNotice("LOAD") << "TimelinePanel::setClip " << filePath;
-    
-    tracks.timelines[_track]->loadTracksFromFolder(filePath);
-    
-}
-
-//-------------------------------------------------
-void TimelinePanel::setClip(int _clip){
-    
-    //set Clip on the current selected track
-    data.setClip(data.getTrack(), _clip);
-    
-    //TODO - I don't like the way the getProjectPath() is referenced here.
-    string filePath = getProjectPath() + getTrackAndClipPath(data.getTrack(), _clip);
-    ofLogNotice("LOAD") << "TimelinePanel::setClip " << filePath;
-    
-    tracks.timelines[data.getTrack()]->loadTracksFromFolder(filePath);
-}
 
 //-------------------------------------------------
 void TimelinePanel::playTLclip(int _track, int _clip){
@@ -875,7 +870,55 @@ void TimelinePanel::stopTLclip(int _clip){
 }
 
 
+#pragma mark - PANEL
 
+
+//-------------------------------------------------
+void TimelinePanel::setTLTrack(int _track){
+    
+    data.setTrack(_track);
+    tracks.showSelectedTimelineTrack(_track);
+    
+}
+
+//-------------------------------------------------
+void TimelinePanel::setPage(int _page){
+    data.setPage(_page);
+    tracks.setPage(data.getTrack(), _page);
+    if(data.getSelectedChannel() > -1){
+        tracks.highlightFocuedTrack(data.getTrack(), data.getSelectedChannelName());
+    }
+    
+}
+
+//-------------------------------------------------
+void TimelinePanel::setClip(int _track, int _clip){
+    
+    //set Clip at a specific track
+    data.setClip(_clip, _track);
+    
+    //TODO - I don't like the way the getProjectPath() is referenced here.
+    string filePath = getProjectPath() + getTrackAndClipPath(_track, _clip);
+    ofLogNotice("LOAD") << "TimelinePanel::setClip " << filePath;
+    
+    tracks.timelines[_track]->loadTracksFromFolder(filePath);
+    
+}
+
+//-------------------------------------------------
+void TimelinePanel::setClip(int _clip){
+    
+    //set Clip on the current selected track
+    data.setClip(_clip, data.getTrack());
+    
+    //TODO - I don't like the way the getProjectPath() is referenced here.
+    string filePath = getProjectPath() + getTrackAndClipPath(data.getTrack(), _clip);
+    ofLogNotice("LOAD") << "TimelinePanel::setClip " << filePath;
+    
+    tracks.timelines[data.getTrack()]->loadTracksFromFolder(filePath);
+    
+    setTrackDuration(data.getTrack());
+}
 //--------------------------------------------------------------
 void TimelinePanel::setMeasureLoop(int _track){
     
@@ -894,20 +937,27 @@ void TimelinePanel::setMeasureLoop(int _track){
 }
 
 //--------------------------------------------------------------
-void TimelinePanel::setTrackMeasures(int _track, string _measures){
-    
-    //check if measures is int-able
+void TimelinePanel::setMeasuresInClip(int _track, string _measures){
     
     //set the data portion
-    data.setTrackMeasures(_track, ofToInt(_measures));
+    data.setClipMeasures(_track, ofToInt(_measures));
     
-    int d = data.getTrackDuration(_track);
-    tracks.timelines[_track]->setOutPointAtFrame(d);
-    tracks.timelines[_track]->setDurationInFrames(d);
+    setTrackDuration(_track);
     
+//    int d = data.getClipDuration(_track);
+//    tracks.timelines[_track]->setOutPointAtFrame(d);
+//    tracks.timelines[_track]->setDurationInFrames(d);
     
 }
 
+//--------------------------------------------------------------
+void TimelinePanel::setTrackDuration(int _track){
+
+    int d = data.getClipDuration(_track);
+
+    tracks.timelines[_track]->setOutPointAtFrame(d);
+    tracks.timelines[_track]->setDurationInFrames(d);
+}
 
 #pragma mark - OSC
 //--------------------------------------------------------------

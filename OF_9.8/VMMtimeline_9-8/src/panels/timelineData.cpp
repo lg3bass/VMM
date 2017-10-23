@@ -17,14 +17,19 @@ timelineData::timelineData(){
         mytrack.cuedToPlay = false;
         mytrack.enableOscOut = false;
         
-        //add blank pages
+
+        
+        //add 10 pages and clips per track
         for(int p = 0;p<NUMBER_OF_TRACKS;p++){
             
             page myPage;                                //add pages
             myPage.name = "P"+ofToString(p+1);
             myPage.selected_channel = -1;
             
-            mytrack.tlPages.push_back(myPage);            
+            mytrack.tlPages.push_back(myPage);
+            
+            clip myClip;                                //add clips
+            mytrack.tlClips.push_back(myClip);
             
         }
         
@@ -68,22 +73,32 @@ void timelineData::setLoop(string _loop){
 //-------------------------------------------------
 void timelineData::setMeter(string _meter){
     
-    std::regex re("\\s*(\\d+)\\s*/\\s*(\\d+)\\s*\\");
-    std::smatch m;
-    bool found = std::regex_search(_meter,m,re);
+    vector<string> result = ofSplitString(_meter, "/");
     
-    cout << std::regex_search(_meter,m,re) << " - numerator:" << m[1] << " - denominator:" << m[2] << endl;
+    //std::regex re("\\s*(\\d+)\\s*\\|\\s*(\\d+)\\s*\\");
+    //std::smatch m;
+    //bool found = std::regex_search(_meter,m,re);
+    //cout << std::regex_search(_meter,m,re) << " - numerator:" << m[1] << " - denominator:" << m[2] << endl;
 
-    if(found){
+    if(result.size() > 1){                
+        //set the time signature per clip.
+        TL.tracks[getTrack()].tlClips[getClip()].mBeats = ofToInt(result[0]);
+        TL.tracks[getTrack()].tlClips[getClip()].mUnits = ofToInt(result[1]);
+    } else {
         
-        TL.mBeats = ofToInt(m[1]);
-        TL.mUnits = ofToInt(m[2]);
+        cout << "please type in this format:  4/4 " << endl;
     }
-    
 }
 
 //-------------------------------------------------
-void timelineData::setBarsBeatsFrames(string _value){
+string timelineData::getMeter(int _track, int _clip){
+    return ofToString(TL.tracks[_track].tlClips[_clip].mBeats) + "/" + ofToString(TL.tracks[_track].tlClips[_clip].mUnits);
+    
+}
+
+
+//-------------------------------------------------
+void timelineData::setBarsBeatsFrameData(string _value){
     
     std::regex re("\\s*(\\d+)\\s*\\|\\s*(\\d+)\\s*\\|*\\s*(\\d*)\\s*");
     std::smatch m;
@@ -99,6 +114,8 @@ void timelineData::setBarsBeatsFrames(string _value){
         
         //TODO - calculate frame if none in given.
         TL.frame = ofToInt(m[3]);
+        
+        
         
         
     } else {
@@ -132,19 +149,26 @@ int timelineData::calculateFramesInMeasures(int m, float bpm, int fps){
 
 #pragma mark - vmmTrack
 //-------------------------------------------------
-void timelineData::setTrackMeasures(int _track, int _measures){
+void timelineData::setClipMeasures(int _track, int _measures){
+    
+    //OLD - delete me
     TL.tracks[_track].measureLength = _measures;
-    TL.tracks[_track].duration = calculateFramesInMeasures(_measures, TL.bpm, TL.fps);
+    
+    //NEW - 
+    TL.tracks[_track].tlClips[getClip(_track)].numberOfMeasures = _measures;    
+    TL.tracks[_track].tlClips[getClip(_track)].duration = calculateFramesInMeasures(_measures, TL.bpm, TL.fps);
+    
 }
 
 //-------------------------------------------------
-int timelineData::getTrackMeasures(int _track){
-    return TL.tracks[_track].measureLength;
+int timelineData::getClipMeasures(int _track, int _clip){
+    //return TL.tracks[_track].measureLength;
+    return TL.tracks[_track].tlClips[_clip].numberOfMeasures;
 }
 
 //-------------------------------------------------
-int timelineData::getTrackDuration(int _track){
-    return TL.tracks[_track].duration;
+int timelineData::getClipDuration(int _track){
+    return TL.tracks[_track].tlClips[getClip(_track)].duration;
     
 }
 

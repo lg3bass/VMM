@@ -126,6 +126,8 @@ void HeaderPanel::checkDropdownOpen(){
     
 }
 
+
+#pragma mark - SET UI
 //--------------------------------------------------------------
 void HeaderPanel::setTrackUI(int _track){
     
@@ -152,21 +154,23 @@ void HeaderPanel::setPageUI(int _page){
 }
 
 //--------------------------------------------------------------
-void HeaderPanel::setBeat(int _beat){
+void HeaderPanel::setBeatUI(int _beat){
     mainUI.linkSlider->setValue(_beat);
 }
 
 //--------------------------------------------------------------
-void HeaderPanel::setUImeasures(int _measure){
-    
+void HeaderPanel::setMeasuresUI(int _measure){
+
     string measure = ofToString(_measure);
-    
     mainUI.measures->setText(measure);
 }
 
 //--------------------------------------------------------------
+void HeaderPanel::setMeterUI(string _meter){    
+    mainUI.meter->setText(_meter);
+}
+
+//--------------------------------------------------------------
 void HeaderPanel::toggleDrive(){
-    
     mainUI.setButtonToggle(mainUI.drive);
-    
 }

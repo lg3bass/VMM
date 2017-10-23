@@ -20,7 +20,8 @@ void ofApp::setControllerData(string name, int data){
         
         headerPanel.setClipUI(timePanel.data.getClip(data));
         headerPanel.setPageUI(timePanel.data.getPage(data));
-        headerPanel.setUImeasures(timePanel.data.getTrackMeasures(data));
+        headerPanel.setMeasuresUI(timePanel.data.getClipMeasures(data,timePanel.data.getClip()));
+        headerPanel.setMeterUI(timePanel.data.getMeter(timePanel.data.getTrack(),data));
         
         
     } else if(name == "PAGES") {
@@ -28,7 +29,14 @@ void ofApp::setControllerData(string name, int data){
         timePanel.setPage(data);
     } else if(name == "CLIP"){
        
+        //load and set the duration
         timePanel.setClip(data);
+        
+        //UI
+        int m = timePanel.data.getClipMeasures(timePanel.data.getTrack(),data);
+        headerPanel.setMeasuresUI(m);
+        headerPanel.setMeterUI(timePanel.data.getMeter(timePanel.data.getTrack(),data));
+
     }
 }
 
@@ -297,7 +305,7 @@ void ofApp::passTextValue(string _field, string _val){
     cout << "passTextValue: " << ofToString(_val) << endl;
     
     if(_field == "MEASURES"){
-        timePanel.setTrackMeasures(timePanel.data.getTrack(), _val);
+        timePanel.setMeasuresInClip(timePanel.data.getTrack(), _val);
         
     } else if (_field == "BPM") {
         timePanel.data.setBPM(_val);
@@ -313,10 +321,11 @@ void ofApp::passTextValue(string _field, string _val){
         
     } else if (_field == "METER"){
         timePanel.data.setMeter(_val);
+       
         
         
     } else if (_field == "BAR|BEAT|FRAME"){
-        timePanel.data.setBarsBeatsFrames(_val);
+        timePanel.data.setBarsBeatsFrameData(_val);
         
     } else if (_field == "LOW"){
         
@@ -336,7 +345,7 @@ void ofApp::passTextValue(string _field, string _val){
 //--------------------------------------------------------------
 void ofApp::setLinkSlider(int _beat){
     
-    headerPanel.setBeat(_beat);
+    headerPanel.setBeatUI(_beat);
 }
 
 //--------------------------------------------------------------

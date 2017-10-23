@@ -34,21 +34,24 @@ public:
     void mouseReleased(int x, int y, int button);
 
     
-    headerUI mainUI;
+    
     bool getDropdownOpen();
     void setDropdownOpen(bool dd);
     void checkDropdownOpen();
-    
+
+#pragma mark - SET UI
     void setTrackUI(int _track);
     void setClipUI(int _clip);
     void setPageUI(int _page);
     
-    void setBeat(int _beat);
-    void setUImeasures(int _measure);
+    void setBeatUI(int _beat);
+    void setMeasuresUI(int _measure);
+    void setMeterUI(string _meter);
 
     void toggleDrive();
     
-    
+#pragma mark - OBJ & VAR
+    headerUI mainUI;
     
 private:
     
