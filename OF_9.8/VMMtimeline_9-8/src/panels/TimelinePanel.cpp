@@ -462,7 +462,7 @@ void TimelinePanel::toggleDrawTrackData(){
 //-------------------------------------------------
 void TimelinePanel::actOnFocus(ofxTLTrackEventArgs & args){
     
-    cout << "timelinePanel::actOnFocus: " << args.name << endl;
+//    cout << "timelinePanel::actOnFocus: " << args.name << endl;
     data.setSelectedChannel(args.name);
     
     
@@ -471,7 +471,7 @@ void TimelinePanel::actOnFocus(ofxTLTrackEventArgs & args){
     ofRange r = mytrack->getValueRange();
     
     
-    cout << "timelinePanel::actOnFocus: range(" << ofToString(r.min) << "," << ofToString(r.max) << ")" << endl;
+//    cout << "timelinePanel::actOnFocus: range(" << ofToString(r.min) << "," << ofToString(r.max) << ")" << endl;
     
     bMainApp->headerPanel.mainUI.clampH->setText(ofToString(r.max));
     bMainApp->headerPanel.mainUI.clampL->setText(ofToString(r.min));
@@ -483,7 +483,7 @@ void TimelinePanel::actOnFocus(ofxTLTrackEventArgs & args){
 //-------------------------------------------------
 void TimelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
     
-    cout << "timelinePanel::Loss Focus: " << args.name << endl;
+//    cout << "timelinePanel::Loss Focus: " << args.name << endl;
     //data.setSelectedChannel(-1);
     
     //NO, keep the data persistent in the UI
@@ -495,9 +495,9 @@ void TimelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
 //-------------------------------------------------
 void TimelinePanel::timelineBangFired(ofxTLBangEventArgs & args){
     
-    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName()
-                                                    << " [" << ofToString(args.currentFrame) << "]"
-                                                    << " [" << ofToString(args.flag) << "]" << endl;
+//    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName()
+//                                                    << " [" << ofToString(args.currentFrame) << "]"
+//                                                    << " [" << ofToString(args.flag) << "]" << endl;
     
     
     int outTrack = 1;
@@ -509,9 +509,9 @@ void TimelinePanel::timelineBangFired(ofxTLBangEventArgs & args){
 //-------------------------------------------------
 void TimelinePanel::timelineSwitched(ofxTLSwitchEventArgs & args){
     
-    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName()
-                                                    << " [" << (args.on ? "ON" : "OFF") << "]"
-                                                    << " [" << ofToString(args.switchName) << "]" << endl;
+//    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName()
+//                                                    << " [" << (args.on ? "ON" : "OFF") << "]"
+//                                                    << " [" << ofToString(args.switchName) << "]" << endl;
 }
 
 #pragma mark - ADD/REMOVE
@@ -811,7 +811,7 @@ void TimelinePanel::loadTLClip(int _track, int _clip) {
     ofxXmlSettings savedClipSettings;
     
     if( savedClipSettings.loadFile(savedClipSettingsPath) ){
-        ofLogVerbose("LOAD") <<"timelinePanel::loadTLPage - "<< savedClipSettingsPath <<" loaded.";
+        ofLogNotice("LOAD") <<"1. load the clip.xml -- " << savedClipSettingsPath <<" loaded.";
     }else{
         ofLogError("LOAD") <<  "timelinePanel::loadTLPage - unable to load " << savedClipSettingsPath ;
         return;
@@ -826,6 +826,11 @@ void TimelinePanel::loadTLClip(int _track, int _clip) {
     
     data.TL.tracks[_track].tlClips[_clip].numberOfMeasures = numOfMeasures;
     data.TL.tracks[_track].tlClips[_clip].duration = data.calculateFramesInMeasures(numOfMeasures, data.TL.bpm, data.TL.fps);
+    
+    ofLogNotice("LOAD") << "2. set [number of measures,duration] in clip ["
+                        << data.getClipMeasures(_track, _clip) << "," << data.getClipDuration(_track)
+                        << "]";
+    
 }
 
 
@@ -899,15 +904,21 @@ void TimelinePanel::setPage(int _page){
 
 //-------------------------------------------------
 void TimelinePanel::setClip(int _track, int _clip){
+    //4. set the clip in the current track
     
     //set Clip at a specific track
     data.setClip(_clip, _track);
+    ofLogNotice("LOAD") << "4. set the clip in the current track -- " << data.getClip(_track);
     
+    //5. load the track keyframe data.
     //TODO - I don't like the way the getProjectPath() is referenced here.
     string filePath = getProjectPath() + getTrackAndClipPath(_track, _clip);
-    ofLogNotice("LOAD") << "TimelinePanel::setClip " << filePath;
-    
+
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
+    ofLogNotice("LOAD") << "5. load the track keyframes --  " << filePath;
+    
+    setTrackDuration(_track);
+    ofLogNotice("LOAD") << "6. set the duration in the timeline on the track.";
 }
 
 //-------------------------------------------------

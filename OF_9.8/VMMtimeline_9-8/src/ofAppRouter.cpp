@@ -363,7 +363,6 @@ void ofApp::playTLclip(int _track, int _clip){
     //What Track,Clip is selected on this track
     if(_track == timePanel.data.TL.selected_track){
         
-        cout << "You are on the selected track!" << endl;
         //only if you are on the selected track, page, clip.
         headerPanel.setClipUI(_clip);
         
