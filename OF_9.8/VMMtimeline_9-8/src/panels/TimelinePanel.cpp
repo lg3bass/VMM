@@ -774,25 +774,25 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
         }
     }
     
-    //load the tracks into the created tracks
-    tracks.timelines[_track]->loadTracksFromFolder(filePath);
-    
-    //load the clip settings.
-    string clipName = "clip_" + ofToString(_clip);
-    string savedClipSettingsPath = filePath + clipName + ".xml";
-    ofxXmlSettings savedClipSettings;
-    
-    if( xml.loadFile(savedClipSettingsPath) ){
-        ofLogVerbose("LOAD") <<"timelinePanel::loadTLPage - "<< savedClipSettingsPath <<" loaded.";
-    }else{
-        ofLogError("LOAD") <<  "timelinePanel::loadTLPage - unable to load " << savedClipSettingsPath ;
-        return;
-    }
-    
-    //number of measures in the clip
-    string param1 = "clip_" + ofToString(_clip) + ":numberOfMeasures";
-    int numOfMeasures = xml.getValue(param1, 0);
-    data.setClipMeasures(_track, numOfMeasures);
+//    //load the tracks into the created tracks
+//    tracks.timelines[_track]->loadTracksFromFolder(filePath);
+//    
+//    //load the clip settings.
+//    string clipName = "clip_" + ofToString(_clip);
+//    string savedClipSettingsPath = filePath + clipName + ".xml";
+//    ofxXmlSettings savedClipSettings;
+//    
+//    if( xml.loadFile(savedClipSettingsPath) ){
+//        ofLogVerbose("LOAD") <<"timelinePanel::loadTLPage - "<< savedClipSettingsPath <<" loaded.";
+//    }else{
+//        ofLogError("LOAD") <<  "timelinePanel::loadTLPage - unable to load " << savedClipSettingsPath ;
+//        return;
+//    }
+//    
+//    //number of measures in the clip
+//    string param1 = "clip_" + ofToString(_clip) + ":numberOfMeasures";
+//    int numOfMeasures = xml.getValue(param1, 0);
+//    data.setClipMeasures(_track, numOfMeasures);
     
     
 
@@ -814,15 +814,51 @@ void TimelinePanel::loadTLAllTracks(){
     //Load all the channels on from all tracks if they have content.
     for(int t=0;t < NUMBER_OF_TRACKS; t++){
         for(int p=0;p < NUMBER_OF_TRACKS; p++){
-            for(int c=0;c < NUMBER_OF_TRACKS;c++){
-                
+            
                 //TODO - LOAD is loading too much
-                loadTLPage(t, p, c);
-            }
+                loadTLPage(t, p, 0);
+
         }
     }
     setPage(0);
+    setClip(0);
+    loadTLClip(0, 0);
+    
 }
+
+
+//-------------------------------------------------
+void TimelinePanel::loadTLClip(int _track, int _clip) {
+    string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
+    
+    
+    //load the tracks into the created tracks
+    tracks.timelines[_track]->loadTracksFromFolder(filePath);
+    
+    //load the clip settings.
+    string clipName = "clip_" + ofToString(_clip);
+    string savedClipSettingsPath = filePath + clipName + ".xml";
+    ofxXmlSettings savedClipSettings;
+    
+    if( savedClipSettings.loadFile(savedClipSettingsPath) ){
+        ofLogVerbose("LOAD") <<"timelinePanel::loadTLPage - "<< savedClipSettingsPath <<" loaded.";
+    }else{
+        ofLogError("LOAD") <<  "timelinePanel::loadTLPage - unable to load " << savedClipSettingsPath ;
+        return;
+    }
+    
+    //number of measures in the clip
+    string param1 = "clip_" + ofToString(_clip) + ":numberOfMeasures";
+    int numOfMeasures = savedClipSettings.getValue(param1, 0);
+    
+    //sets the clip measures and duration
+    //data.setClipMeasures(_track, numOfMeasures);
+    
+    data.TL.tracks[_track].tlClips[_clip].numberOfMeasures = numOfMeasures;
+    data.TL.tracks[_track].tlClips[_clip].duration = data.calculateFramesInMeasures(numOfMeasures, data.TL.bpm, data.TL.fps);
+    
+}
+
 
 #pragma mark - PLAY FUNCTIONS
 

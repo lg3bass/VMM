@@ -74,6 +74,8 @@ public:
     void loadTLTrackPages();
     void loadTLAllTracks();
     
+    void loadTLClip(int _track, int _clip);
+    
 #pragma mark - PLAY FUNCTIONS
     
     void playTLclip(int _track, int _clip);

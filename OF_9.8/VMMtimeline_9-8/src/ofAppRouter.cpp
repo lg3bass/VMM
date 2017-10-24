@@ -31,6 +31,7 @@ void ofApp::setControllerData(string name, int data){
        
         //load and set the duration
         timePanel.setClip(data);
+        timePanel.loadTLClip(timePanel.data.getTrack(), data);
         
         //UI
         int m = timePanel.data.getClipMeasures(timePanel.data.getTrack(),data);
