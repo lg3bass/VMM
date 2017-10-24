@@ -87,7 +87,7 @@ public:
     void setClip(int _track, int _clip);
     void setClip(int _clip);
     
-    void setMeasureLoop(int _track);
+    void resetMeasureLoop(int _track);
     void setMeasuresInClip(int _track, string _measures);
     
     void setTrackDuration(int _track);

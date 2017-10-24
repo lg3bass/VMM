@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "src/ofAppRouter.cpp"
-            timestampString = "530404652.549298"
+            filePath = "src/panels/TimelinePanel.cpp"
+            timestampString = "530504672.088859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "ofApp::setControllerData(string name, int data)"
+            startingLineNumber = "834"
+            endingLineNumber = "834"
+            landmarkName = "TimelinePanel::loadTLClip(int _track, int _clip)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

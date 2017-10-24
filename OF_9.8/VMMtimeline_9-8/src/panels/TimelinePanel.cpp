@@ -14,9 +14,6 @@
 
 ofApp* bMainApp;        //reference to ofApp()
 
-
-
-
 //-------------------------------------------------
 void TimelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr){
     
@@ -51,7 +48,7 @@ void TimelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
         ofAddListener(tracks.timelines[i]->events().switched, this, &TimelinePanel::timelineSwitched);
         
         //reset/setup track metadata.
-        setMeasureLoop(i);
+        resetMeasureLoop(i);
     }
     
     //initially set first track
@@ -61,7 +58,6 @@ void TimelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
 //-------------------------------------------------
 void TimelinePanel::update(){
 
-    
     for(int i=0;i<NUMBER_OF_TRACKS;i++){
         
         data.setNBeat(i, bMainApp->AL.nbeat);
@@ -95,27 +91,30 @@ void TimelinePanel::draw(){
     if(showTrackData){
         drawTrackData();
     }
-    
 }
 
 //-------------------------------------------------
 void TimelinePanel::runTimelines(int _track){
     
     if(tracks.timelines[_track]->getIsPlaying()){//TRUE OR FALSE
-        //ofLogNotice("LINKFLIP") << "getIsPlaying()" << " - track " << _track;
         
         int currentBeat = data.getNBeat(_track);
         int lastBeat = data.getLBeat(_track);
         
-        if(currentBeat != lastBeat){
-            //ofLogVerbose("LINK") << "New Measure" << " - track " << _track;
-            
+        if(currentBeat != lastBeat){            
             //resets the measure counter
             if(data.isDownbeat(_track)){
                 ofLogVerbose("LINK") << "isDownbeat()" << " - track " << _track;
-                if(data.TL.tracks[_track].measureCount == data.TL.tracks[_track].measureLength){
-                    
+                //if(data.TL.tracks[_track].measureCount == data.TL.tracks[_track].measureLength){
+                int c = data.getClip(_track);
+                
+                //Have we reached the duration (numberOfMeasures) in the clip?
+                if(data.TL.tracks[_track].measureCount == data.TL.tracks[_track].tlClips[c].numberOfMeasures){
+
+                    //set the playhead to ZERO
                     tracks.timelines[_track]->setPercentComplete(0);
+                    
+                    //It's a downbeat, reset the measureCount.
                     data.TL.tracks[_track].measureCount = 1;
                     
                     ofLogNotice("LINKFLIP") << "tick - " << lastBeat << "|" << currentBeat
@@ -123,6 +122,7 @@ void TimelinePanel::runTimelines(int _track){
                                             << "(" << tracks.timelines[_track]->getCurrentFrame() << ")" << " - track " << _track;
                 } else {
                     
+                    //No, we haven't reached numberOfMeasures;
                     data.TL.tracks[_track].measureCount++;
                     
                     ofLogNotice("LINK")     << "tick - " << lastBeat << "|" << currentBeat
@@ -243,7 +243,6 @@ void TimelinePanel::keyPressed(int key){
             toggleDrawTrackData();
         }
     }
-
 }//func
 
 //-------------------------------------------------
@@ -366,6 +365,7 @@ void TimelinePanel::drawTrackData(){
     verdana9.drawString("CUED:", 0, _y+mt+v_unit*6);
     verdana9.drawString("OSC", 0, _y+mt+v_unit*7);
     verdana9.drawString("MEASURES", 0, _y+mt+v_unit*8);
+    verdana9.drawString("DURATION", 0, _y+mt+v_unit*9);
     
    
     for(int i=0; i<NUMBER_OF_TRACKS;i++){
@@ -376,11 +376,12 @@ void TimelinePanel::drawTrackData(){
         verdana9.drawString(data.getCuedToPlay(i) ? "true" : "false", i*h_unit+ml, _y+mt+v_unit*6);//cued
         verdana9.drawString(data.TL.tracks[i].enableOscOut ? "enabled" : "disabled", i*h_unit+ml, _y+mt+v_unit*7);//OSC
         verdana9.drawString(ofToString(data.getClipMeasures(i,data.getClip())),  i*h_unit+ml, _y+mt+v_unit*8);
+        verdana9.drawString(ofToString(data.getClipDuration(i)),  i*h_unit+ml, _y+mt+v_unit*9);//duration
     }
     
     //only draw if a channel is selected
     if(data.getSelectedChannel() > -1 ){
-        drawPageData(_y+mt+v_unit*5);                   //show the page tracks and keys
+        drawPageData(_y+mt+v_unit*10);                   //show the page tracks and keys
     }
 }
 
@@ -520,7 +521,6 @@ void TimelinePanel::addTLChannelToSelected(string _name, int _type, float low, f
     data.addtlTrack(data.getTrack(),data.getPage(), _name, _type);
     //adds the track to timeline
     tracks.addTLTrack(data.getTrack(),data.getPageName(),_name, _type, low, high);      //pate = string
-
 }
 
 //-------------------------------------------------
@@ -530,7 +530,6 @@ void TimelinePanel::addTLChannelToPage(int _track, int _page, string _name, int 
     data.addtlTrack(_track,_page, _name, _type, low, high);
     //adds the track to timeline
     tracks.addTLTrack(_track,pageName,_name, _type, low, high);
-    
 }
 
 //-------------------------------------------------
@@ -603,16 +602,11 @@ void TimelinePanel::saveTLProject(){
     savedTrackSettings.pushTag("project");
     savedTrackSettings.addValue("bpm", data.TL.bpm);
     //TODO - ADD MORE
-
-    
-    
     
     savedTrackSettings.popTag();
     
-    
     cout << "vmm file path: " << getProjectPath() + getProjectFile() << endl;
     savedTrackSettings.saveFile(getProjectPath() + getProjectFile());
-    
 }
 
 //-------------------------------------------------
@@ -621,8 +615,6 @@ void TimelinePanel::saveTLPage(int _track, int _page, int _clip){
     //NOTE: In order to specifically target a single page
     //      You will need to add an additional function
     //      e.g. ofxTimeline::savePageTracksToFolder(int page, string folderPath)
-    
-    
     
     if(data.getNumOfChannelsOnPage(_page)>0){
         ofLogNotice("SAVE") << "Saving channels from tr: " << ofToString(_track) << " pg: " << ofToString(_page);
@@ -648,8 +640,6 @@ void TimelinePanel::saveTLPage(int _track, int _page, int _clip){
         savedClipSettings.addValue("mBeats", data.TL.tracks[_track].tlClips[_clip].mBeats);
         savedClipSettings.addValue("mUnits", data.TL.tracks[_track].tlClips[_clip].mUnits);
         savedClipSettings.saveFile(savedClipSettingsPath);
-        
-        
         
         //save the page settings.
         string pageName = data.getPageName(_page);
@@ -773,29 +763,6 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
             }
         }
     }
-    
-//    //load the tracks into the created tracks
-//    tracks.timelines[_track]->loadTracksFromFolder(filePath);
-//    
-//    //load the clip settings.
-//    string clipName = "clip_" + ofToString(_clip);
-//    string savedClipSettingsPath = filePath + clipName + ".xml";
-//    ofxXmlSettings savedClipSettings;
-//    
-//    if( xml.loadFile(savedClipSettingsPath) ){
-//        ofLogVerbose("LOAD") <<"timelinePanel::loadTLPage - "<< savedClipSettingsPath <<" loaded.";
-//    }else{
-//        ofLogError("LOAD") <<  "timelinePanel::loadTLPage - unable to load " << savedClipSettingsPath ;
-//        return;
-//    }
-//    
-//    //number of measures in the clip
-//    string param1 = "clip_" + ofToString(_clip) + ":numberOfMeasures";
-//    int numOfMeasures = xml.getValue(param1, 0);
-//    data.setClipMeasures(_track, numOfMeasures);
-    
-    
-
 }
 
 //-------------------------------------------------
@@ -820,9 +787,13 @@ void TimelinePanel::loadTLAllTracks(){
 
         }
     }
+    setTLTrack(0);
+    
     setPage(0);
-    setClip(0);
+    
     loadTLClip(0, 0);
+    
+    setClip(0);
     
 }
 
@@ -830,7 +801,6 @@ void TimelinePanel::loadTLAllTracks(){
 //-------------------------------------------------
 void TimelinePanel::loadTLClip(int _track, int _clip) {
     string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
-    
     
     //load the tracks into the created tracks
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
@@ -856,23 +826,26 @@ void TimelinePanel::loadTLClip(int _track, int _clip) {
     
     data.TL.tracks[_track].tlClips[_clip].numberOfMeasures = numOfMeasures;
     data.TL.tracks[_track].tlClips[_clip].duration = data.calculateFramesInMeasures(numOfMeasures, data.TL.bpm, data.TL.fps);
-    
 }
 
 
 #pragma mark - PLAY FUNCTIONS
-
-
-
 //-------------------------------------------------
 void TimelinePanel::playTLclip(int _track, int _clip){
     ofLogNotice("TRACK")    << "timePanel.play("
     << _track << "," << _clip
     << ") -- nbeat:" << data.getNBeat(_track);
     
-    setMeasureLoop(_track);
+    resetMeasureLoop(_track);
 
-    //set the data, load the file
+    //1. load the clip.xml
+    //2. set number of measures in clip
+    //3. set the duration in frames of the clip.
+    loadTLClip(_track, _clip);
+    
+    //4. set the clip in the current track
+    //5. load the track keyframe data.
+    //6. set the duration in the timeline on the track.
     setClip(_track, _clip);
     
     //START IT UP
@@ -897,7 +870,7 @@ void TimelinePanel::stopTLclip(int _clip){
         
     tracks.timelines[i]->setPercentComplete(0);
         
-    setMeasureLoop(i);//resets them all.
+    resetMeasureLoop(i);//resets them all.
         
     }
     
@@ -907,24 +880,21 @@ void TimelinePanel::stopTLclip(int _clip){
 
 
 #pragma mark - PANEL
-
-
 //-------------------------------------------------
 void TimelinePanel::setTLTrack(int _track){
     
     data.setTrack(_track);
     tracks.showSelectedTimelineTrack(_track);
-    
 }
 
 //-------------------------------------------------
 void TimelinePanel::setPage(int _page){
+
     data.setPage(_page);
     tracks.setPage(data.getTrack(), _page);
     if(data.getSelectedChannel() > -1){
         tracks.highlightFocuedTrack(data.getTrack(), data.getSelectedChannelName());
     }
-    
 }
 
 //-------------------------------------------------
@@ -938,7 +908,6 @@ void TimelinePanel::setClip(int _track, int _clip){
     ofLogNotice("LOAD") << "TimelinePanel::setClip " << filePath;
     
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
-    
 }
 
 //-------------------------------------------------
@@ -955,21 +924,20 @@ void TimelinePanel::setClip(int _clip){
     
     setTrackDuration(data.getTrack());
 }
+
 //--------------------------------------------------------------
-void TimelinePanel::setMeasureLoop(int _track){
+void TimelinePanel::resetMeasureLoop(int _track){
     
     if(tracks.timelines[_track]->getIsPlaying()){
         
-        cout << "setMeasureLoop(" << ofToString(_track) << ") -- isPlaying()" << endl;
+        cout << "TimelinePanel::setMeasureLoop(" << ofToString(_track) << ") -- isPlaying()" << endl;
         
     }
-        //tracks.timelines[_track]->setPercentComplete(0);
         
         data.setNBeat(_track, -1);
         data.setLBeat(_track, -2);
         
         data.TL.tracks[_track].measureCount = 0;
-
 }
 
 //--------------------------------------------------------------
@@ -979,11 +947,6 @@ void TimelinePanel::setMeasuresInClip(int _track, string _measures){
     data.setClipMeasures(_track, ofToInt(_measures));
     
     setTrackDuration(_track);
-    
-//    int d = data.getClipDuration(_track);
-//    tracks.timelines[_track]->setOutPointAtFrame(d);
-//    tracks.timelines[_track]->setDurationInFrames(d);
-    
 }
 
 //--------------------------------------------------------------
@@ -1062,5 +1025,4 @@ void TimelinePanel::testKeyframeFunction(int _track, string _channelName){
     cout << "The value of the second keyframe is: " << ofToString(mytrack->getKeyframes()[1]->value) << endl;
     
     mytrack->getKeyframes()[0]->value = 0.5;
-    
 }

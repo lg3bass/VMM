@@ -29,9 +29,15 @@ void ofApp::setControllerData(string name, int data){
         timePanel.setPage(data);
     } else if(name == "CLIP"){
        
-        //load and set the duration
-        timePanel.setClip(data);
+        //1. load the clip.xml
+        //2. set number of measures in clip
+        //3. set the duration in frames of the clip.
         timePanel.loadTLClip(timePanel.data.getTrack(), data);
+        
+        //4. set the clip in the current track
+        //5. load the track keyframe data.
+        //6. set the duration in the timeline on the track.
+        timePanel.setClip(data);
         
         //UI
         int m = timePanel.data.getClipMeasures(timePanel.data.getTrack(),data);

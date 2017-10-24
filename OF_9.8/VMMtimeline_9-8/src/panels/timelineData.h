@@ -58,7 +58,7 @@ public:
         int selected_clip = 0;
         int selected_page = 0;
         int measureCount = 0;
-        int measureLength = 4;
+        //int measureLength = 4;
         int beatCount = 0;
         int beatLength = 16;
         bool cuedToPlay = false;

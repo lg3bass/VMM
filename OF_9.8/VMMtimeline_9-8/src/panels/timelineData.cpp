@@ -152,7 +152,7 @@ int timelineData::calculateFramesInMeasures(int m, float bpm, int fps){
 void timelineData::setClipMeasures(int _track, int _measures){
     
     //OLD - delete me
-    TL.tracks[_track].measureLength = _measures;
+    //TL.tracks[_track].measureLength = _measures;
     
     //NEW - 
     TL.tracks[_track].tlClips[getClip(_track)].numberOfMeasures = _measures;    
