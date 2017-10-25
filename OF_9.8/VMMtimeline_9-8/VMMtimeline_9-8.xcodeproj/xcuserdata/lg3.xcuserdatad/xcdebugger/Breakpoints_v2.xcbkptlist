@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/panels/TimelinePanel.cpp"
-            timestampString = "530549501.385599"
+            timestampString = "530595657.548186"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "839"
-            endingLineNumber = "839"
-            landmarkName = "TimelinePanel::loadTLClip(int _track, int _clip)"
+            startingLineNumber = "844"
+            endingLineNumber = "844"
+            landmarkName = "TimelinePanel::playTLclip(int _track, int _clip)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -498,12 +498,17 @@ void TimelinePanel::timelineBangFired(ofxTLBangEventArgs & args){
 //    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName()
 //                                                    << " [" << ofToString(args.currentFrame) << "]"
 //                                                    << " [" << ofToString(args.flag) << "]" << endl;
+
+    //convert char to int.
+    string track = args.sender->getName();
+    char t = track[track.size()-1];
     
+    int outTrack = (t-48)+1;
     
-    int outTrack = 1;
+    cout << "BANG/FLAG TRACK NO: [" << outTrack << "]" << endl;
+    
     string outParam = "/"+args.track->getName();
     bMainApp->OSCsendToVMM(outTrack,outParam,ofToFloat(args.flag));
-    
 }
 
 //-------------------------------------------------
