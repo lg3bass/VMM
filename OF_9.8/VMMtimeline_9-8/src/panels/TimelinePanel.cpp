@@ -505,7 +505,7 @@ void TimelinePanel::timelineBangFired(ofxTLBangEventArgs & args){
     
     int outTrack = (t-48)+1;
     
-    cout << "BANG/FLAG TRACK NO: [" << outTrack << "]" << endl;
+    //cout << "BANG/FLAG TRACK NO: [" << outTrack << "]" << endl;
     
     string outParam = "/"+args.track->getName();
     bMainApp->OSCsendToVMM(outTrack,outParam,ofToFloat(args.flag));
@@ -778,7 +778,16 @@ void TimelinePanel::loadTLTrackPages(){
             loadTLPage(data.getTrack(), p, data.getClip());
        
     }
+    //set the display track
+    //setTLTrack(0);
+    
     setPage(data.getPage());
+    
+    //load the clip_X.xml
+    loadTLClip(data.getTrack(), data.getClip());
+    
+    //load all the track.xml for the clip.
+    setClip(data.getClip());
 }
 
 //-------------------------------------------------
@@ -792,14 +801,17 @@ void TimelinePanel::loadTLAllTracks(){
 
         }
     }
+    //set the display track
     setTLTrack(0);
     
+    //set the display page.
     setPage(0);
     
+    //load the clip_X.xml
     loadTLClip(0, 0);
     
+    //load all the track.xml for the clip.
     setClip(0);
-    
 }
 
 
