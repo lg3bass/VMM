@@ -55,12 +55,25 @@ void timelineData::setTrack(int _track){
 void timelineData::setBPM(string _bpm){
     TL.bpm = ofToInt(_bpm);
     
+    //TODO - calculate BPM meaasures.
+    
 }
+
+//-------------------------------------------------
+float timelineData::getBPM(){
+    return (float)TL.bpm;
+}
+
 
 //-------------------------------------------------
 void timelineData::setFPS(string _fps){
     TL.fps = ofToInt(_fps);
     
+}
+
+//-------------------------------------------------
+float timelineData::getFPS(){
+    return (float)TL.fps;
 }
 
 //TODO - Am I not using the .loop attribute anymore?
@@ -138,6 +151,7 @@ int timelineData::calculateFramesInMeasures(int m, float bpm, int fps){
     float f = (m*4) * framesInMinute;
     
     //calulate how many frames in n measures and round up to the next frame.
+    //ableton link will loop on the beat so you need round up so there is enough timeline.
     frames = int(ceil(f/bpm));
     
     //raw output
@@ -151,12 +165,12 @@ int timelineData::calculateFramesInMeasures(int m, float bpm, int fps){
 //-------------------------------------------------
 void timelineData::setClipMeasures(int _track, int _measures){
     
-    //OLD - delete me
-    //TL.tracks[_track].measureLength = _measures;
+    //calculate the number of frames based on BPM
+    int f = calculateFramesInMeasures(_measures, TL.bpm, TL.fps);
     
-    //NEW - 
+    //set the data in the tracks.tlClips.
     TL.tracks[_track].tlClips[getClip(_track)].numberOfMeasures = _measures;    
-    TL.tracks[_track].tlClips[getClip(_track)].duration = calculateFramesInMeasures(_measures, TL.bpm, TL.fps);
+    TL.tracks[_track].tlClips[getClip(_track)].duration = f;
     
 }
 

@@ -26,6 +26,7 @@ public:
     int beat();
     bool isDownbeat();
     void setMeter(int _quantum);
+    void setTempo(float _bpm);
     
     void blinkingBottomBar(float _top, float _bottom);
     

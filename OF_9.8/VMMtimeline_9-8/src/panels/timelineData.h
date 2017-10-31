@@ -43,8 +43,8 @@ public:
     };
     
     struct clip {
-        int numberOfMeasures = 4;
-        int duration = 250;
+        int numberOfMeasures = 8;
+        int duration = 120;
         bool loop = true;
         bool mute = false;
         bool solo = false;
@@ -93,7 +93,10 @@ public:
     void setTrack(int _track);                      //set current track
 
     void setBPM(string _bpm);
+    float getBPM();
+    
     void setFPS(string _fps);
+    float getFPS();
     
     void setMeter(string _meter);
     string getMeter(int _track, int _clip);

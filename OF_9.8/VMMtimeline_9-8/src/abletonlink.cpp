@@ -64,6 +64,11 @@ void abletonLinkEngine::setMeter(int _quantum){
     link.setQuantum(_quantum);
 }
 
+//-------------------------------------------------
+void abletonLinkEngine::setTempo(float _bpm){
+    
+    link.setTempo(_bpm);
+}
 
 
 //-------------------------------------------------
@@ -98,12 +103,22 @@ void abletonLinkEngine::blinkingBottomBar(float _top, float _bottom){
     //draw the blinking beats
     for (int i = 0; i < quantum; i++){
         ofPushStyle();
-        ofFill();
-        ofSetColor((i <= nbeat) ? 255 : 128);
-        ofDrawRectangle(i * dw, top, dw, h);
-        ofNoFill();
-        ofSetColor(0);
-        ofDrawRectangle(i * dw, top, dw, h);
+            //BG
+            ofFill();
+            ofSetColor((i <= nbeat) ? 255 : 128);
+            ofDrawRectangle(i * dw, top, dw, h);
+        
+            //BORDER
+            ofNoFill();
+            ofSetColor(0);
+            ofDrawRectangle(i * dw, top, dw, h);
+        
+        if(i == nbeat){
+            ofNoFill();
+            ofSetColor(ofColor::red);
+            ofDrawRectangle(i * dw, top, dw, h);
+            
+        }
         ofPopStyle();
     }
     

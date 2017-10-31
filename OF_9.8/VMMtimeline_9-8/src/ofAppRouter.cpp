@@ -315,15 +315,30 @@ void ofApp::passTextValue(string _field, string _val){
         timePanel.setMeasuresInClip(timePanel.data.getTrack(), _val);
         
     } else if (_field == "BPM") {
+        
+        //TODO -
+        //just set the data.bpm
         timePanel.data.setBPM(_val);
+        
+        //set the timeline frames.
+        //timePanel.tracks.timelines[0]->setDurationInFrames(480);
+        timePanel.tracks.timelines[0]->setNewBPM(timePanel.data.getBPM());
+        
+        //set the ableton link tempo
+        AL.setTempo(timePanel.data.getBPM());
     
         
     } else if (_field == "FPS"){
         timePanel.data.setFPS(_val);
+        //TODO - 
+        timePanel.tracks.timelines[0]->setFrameRate(timePanel.data.getFPS());
         
         
     } else if (_field == "LOOP") {
-        timePanel.data.setLoop(_val);
+        //timePanel.data.setLoop(_val);
+        
+        //set duration
+        timePanel.tracks.timelines[0]->setDurationInFrames(ofToInt(_val));
         
         
     } else if (_field == "METER"){

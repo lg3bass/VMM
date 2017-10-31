@@ -772,7 +772,8 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
 
 //-------------------------------------------------
 void TimelinePanel::loadTLTrackPages(){
-    //Load all the channels on the current selected page.
+    
+    //Setup all the channels on the current selected page.
     for(int p=0; p< NUMBER_OF_TRACKS; p++){
         
             loadTLPage(data.getTrack(), p, data.getClip());
@@ -971,19 +972,25 @@ void TimelinePanel::resetMeasureLoop(int _track){
 //--------------------------------------------------------------
 void TimelinePanel::setMeasuresInClip(int _track, string _measures){
     
-    //set the data portion
+    //1. calculate the number of frames based on BPM
+    //2. set clip.numberOfMeasures and clip.duration in each tracks.tlClips. END
     data.setClipMeasures(_track, ofToInt(_measures));
     
+    //1. look up the clip duration in frames. END
+    //2. set the frames in the timelines. END
     setTrackDuration(_track);
 }
 
 //--------------------------------------------------------------
 void TimelinePanel::setTrackDuration(int _track){
 
+    //look up the clip duration in frames.
     int d = data.getClipDuration(_track);
 
+    //set the frames in the timelines.
     tracks.timelines[_track]->setOutPointAtFrame(d);
     tracks.timelines[_track]->setDurationInFrames(d);
+   
 }
 
 #pragma mark - OSC
