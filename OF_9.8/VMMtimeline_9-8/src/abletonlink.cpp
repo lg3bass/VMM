@@ -81,6 +81,7 @@ void abletonLinkEngine::runAbletonLink(ofxAbletonLink &linkObj){
     quantum = (int)ceil(link.quantum());
     nbeat = beat();
     
+   
     
 }
 
