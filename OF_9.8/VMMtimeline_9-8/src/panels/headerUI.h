@@ -66,7 +66,7 @@ public:
     ofxDatGuiTextInput* measures;
     ofxDatGuiTextInput* bpm;
     ofxDatGuiTextInput* fps;
-    ofxDatGuiTextInput* loop;
+    ofxDatGuiTextInput* frames;
     
     //ROW 2
     ofxDatGuiTextInput* clampL;

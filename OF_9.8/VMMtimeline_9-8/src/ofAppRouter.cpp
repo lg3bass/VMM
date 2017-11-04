@@ -39,10 +39,15 @@ void ofApp::setControllerData(string name, int data){
         //6. set the duration in the timeline on the track.
         timePanel.setClip(data);
         
-        //UI
+        //UI - measures
         int m = timePanel.data.getClipMeasures(timePanel.data.getTrack(),data);
         headerPanel.setMeasuresUI(m);
+        
+        //UI - meter
         headerPanel.setMeterUI(timePanel.data.getMeter(timePanel.data.getTrack(),data));
+        
+        //UI -frames
+        setFramesUI();
 
     }
 }
@@ -190,6 +195,10 @@ void ofApp::loadTLTrackPages(){
         
         if (openFileResult.bSuccess){
             timePanel.setProjectPathAndFile(openFileResult);
+            
+            //load the project file (.vmm)
+            timePanel.loadTLProject(openFileResult);
+            
         }else {
             ofLogNotice("SAVE") << "User hit cancel";
             return;
@@ -314,37 +323,41 @@ void ofApp::passTextValue(string _field, string _val){
     if(_field == "MEASURES"){
         timePanel.setMeasuresInClip(timePanel.data.getTrack(), _val);
         
+        setFramesUI();
+        
     } else if (_field == "BPM") {
         
-        //TODO -
         //just set the data.bpm
         timePanel.data.setBPM(_val);
         
-        //set the timeline frames.
-        //timePanel.tracks.timelines[0]->setDurationInFrames(480);
+        //TODO - specify a track.
         timePanel.tracks.timelines[0]->setNewBPM(timePanel.data.getBPM());
         
         //set the ableton link tempo
         AL.setTempo(timePanel.data.getBPM());
+        
+        setFramesUI();
     
         
     } else if (_field == "FPS"){
         timePanel.data.setFPS(_val);
-        //TODO - 
+        
+        //TODO - specify a track.
         timePanel.tracks.timelines[0]->setFrameRate(timePanel.data.getFPS());
         
+        setFramesUI();
         
-    } else if (_field == "LOOP") {
-        //timePanel.data.setLoop(_val);
         
-        //set duration
+    } else if (_field == "FRAMES") {
+
+        //TODO - specify a track.
         timePanel.tracks.timelines[0]->setDurationInFrames(ofToInt(_val));
         
         
     } else if (_field == "METER"){
         timePanel.data.setMeter(_val);
        
-        
+        setFramesUI();
         
     } else if (_field == "BAR|BEAT|FRAME"){
         timePanel.data.setBarsBeatsFrameData(_val);
@@ -371,17 +384,38 @@ void ofApp::setLinkSlider(int _beat){
 }
 
 //--------------------------------------------------------------
+void ofApp::setFramesUI(){
+    
+    //look up the clip duration in frames.
+    int d = timePanel.data.getClipDuration(timePanel.data.getTrack());
+    headerPanel.setFramesUI(d);
+}
+
+//--------------------------------------------------------------
 void ofApp::playTLclip(int _track, int _clip){
     
     timePanel.playTLclip(_track, _clip);
     
     //What Track,Clip is selected on this track
-    if(_track == timePanel.data.TL.selected_track){
+    //ORIG -- if(_track == timePanel.data.TL.selected_track){
+    if(_track == timePanel.data.getTrack()){
         
-        //only if you are on the selected track, page, clip.
+        //only if you are viewing the current selected track, page, clip.
         headerPanel.setClipUI(_clip);
         
+        //UI - measures
+        int m = timePanel.data.getClipMeasures(_track,_clip);
+        headerPanel.setMeasuresUI(m);
+        
+        //UI - meter
+        headerPanel.setMeterUI(timePanel.data.getMeter(_track,_clip));
+        
+        //UI -frames
+        setFramesUI();
     }
+    
+    //global indicator that the timeline is playing
+    timePanel.data.TL.playing = true;
 }
 
 //--------------------------------------------------------------
@@ -390,4 +424,5 @@ void ofApp::stopTLclip(int _clip){
     //NOTE: _clip does NOTHING!!! 
     timePanel.stopTLclip(_clip);
     
+    timePanel.data.TL.playing = false;
 }

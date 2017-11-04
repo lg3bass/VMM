@@ -69,7 +69,8 @@ public:
     void saveTLPage(int _track, int _page, int _clip);
     void saveTLTrackPages();
     void saveTLAllTracks();
-        
+    
+    void loadTLProject(ofFileDialogResult _openFileResult);
     void loadTLPage(int _track, int _page, int _clip);
     void loadTLTrackPages();
     void loadTLAllTracks();

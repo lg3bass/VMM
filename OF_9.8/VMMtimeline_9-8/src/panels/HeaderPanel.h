@@ -45,8 +45,14 @@ public:
     void setPageUI(int _page);
     
     void setBeatUI(int _beat);
+    
     void setMeasuresUI(int _measure);
+    void setBpmUI(int _bpm);
+    void setFpsUI(int _fps);
+    void setFramesUI(int _frames);
     void setMeterUI(string _meter);
+    void setBarsBeatFrame(int bars, int beat, int frame);
+    
 
     void toggleDrive();
     

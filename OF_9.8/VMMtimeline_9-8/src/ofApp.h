@@ -87,6 +87,7 @@ public:
     
     void passTextValue(string _name, string _val);
     void setLinkSlider(int _beat);
+    void setFramesUI();
     
     void playTLclip(int _track, int _clip);
     void stopTLclip(int _clip);                     //_clip does NOTHING

@@ -171,7 +171,6 @@ void timelineData::setClipMeasures(int _track, int _measures){
     //set the data in the tracks.tlClips.
     TL.tracks[_track].tlClips[getClip(_track)].numberOfMeasures = _measures;    
     TL.tracks[_track].tlClips[getClip(_track)].duration = f;
-    
 }
 
 //-------------------------------------------------

@@ -122,7 +122,7 @@ void headerUI::onTextInputEvent(ofxDatGuiTextInputEvent e){
         
     } else if (e.target->getName() == "MEASURES" || e.target->getName() == "BPM" ||
                e.target->getName() == "FPS" || e.target->getName() == "BPM" ||
-               e.target->getName() == "LOOP" || e.target->getName() == "METER" ||
+               e.target->getName() == "FRAMES" || e.target->getName() == "METER" ||
                e.target->getName() == "BAR|BEAT|FRAME" || e.target->getName() == "LOW" ||
                e.target->getName() == "HIGH"){
         

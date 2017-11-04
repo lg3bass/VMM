@@ -712,6 +712,44 @@ void TimelinePanel::saveTLAllTracks(){
 }
 
 //-------------------------------------------------
+void TimelinePanel::loadTLProject(ofFileDialogResult _openFileResult){
+    ofLogNotice("LOAD") << "...Loading Project: ";
+    
+    string filePath = _openFileResult.filePath;
+    
+    ofxXmlSettings xml;
+    if( xml.loadFile(filePath) ){
+        ofLogVerbose("LOAD") <<"TimelinePanel::loadTLProject - "<< _openFileResult.fileName <<" loaded.";
+    }else{
+        ofLogError("LOAD") <<  "TimelinePanel::loadTLProject - unable to load ";
+        return;
+    }
+    
+    int bpm = xml.getValue("project:bpm", 0);
+    
+    data.setBPM(ofToString(bpm));
+    
+    //TODO - specify a track.
+    tracks.timelines[0]->setNewBPM(data.getBPM());
+    
+    //set the ableton link tempo   
+    bMainApp->AL.setTempo(data.getBPM());
+    
+    //set ableton link
+    ofLogNotice("LOAD") << "BPM: " << ofToString(bpm);
+    
+    //set UI - bpm
+    bMainApp->headerPanel.setBpmUI(bpm);
+    
+    //set UI - frames
+    
+    
+    //set UI - fps
+    
+}
+
+
+//-------------------------------------------------
 void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
     //Loop through all the pages(_page) and add channels.
     
@@ -720,7 +758,6 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
     //TODO - I don't like the way the getProjectPath() is referenced here.
     string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
     ofLogNotice("LOAD") << "TimelinePanel::loadTLPage " << filePath;
-    
     
     string pageName = data.getPageName(_page);
     
@@ -737,8 +774,6 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
     //----------------------------------
     //-:Create tracks from loaded settings.
     int numOfChannels = xml.getValue("page:tlChannels:tlChannels-num", 0);
-    
-    //string pageNameFromXML = xml.getValue("page:name","");
     
     for (int i=0; i<numOfChannels; i++){
         string trackName = xml.getValue("page:tlChannels:channel-" + ofToString(i) +":name", "");
@@ -777,7 +812,6 @@ void TimelinePanel::loadTLTrackPages(){
     for(int p=0; p< NUMBER_OF_TRACKS; p++){
         
             loadTLPage(data.getTrack(), p, data.getClip());
-       
     }
     //set the display track
     //setTLTrack(0);
@@ -789,6 +823,14 @@ void TimelinePanel::loadTLTrackPages(){
     
     //load all the track.xml for the clip.
     setClip(data.getClip());
+    
+    //set UI - frames
+    int d = data.getClipDuration(data.getClip());
+    bMainApp->headerPanel.setFramesUI(d);
+    
+    //set
+    int m = data.getClipMeasures(data.getTrack(), data.getClip());
+    bMainApp->headerPanel.setMeasuresUI(m);
 }
 
 //-------------------------------------------------
@@ -866,7 +908,7 @@ void TimelinePanel::playTLclip(int _track, int _clip){
     //3. set the duration in frames of the clip.
     loadTLClip(_track, _clip);
     
-    //4. set the clip in the current track
+    //4. set which clip is playing in the current track
     //5. load the track keyframe data.
     //6. set the duration in the timeline on the track.
     setClip(_track, _clip);
@@ -922,18 +964,16 @@ void TimelinePanel::setPage(int _page){
 
 //-------------------------------------------------
 void TimelinePanel::setClip(int _track, int _clip){
-    //4. set the clip in the current track
     
-    //set Clip at a specific track
+    //set Clip on SPECIFIED TRACK
     data.setClip(_clip, _track);
-    ofLogNotice("LOAD") << "4. set the clip in the current track -- " << data.getClip(_track);
+    ofLogNotice("LOAD") << "4. set the clip in track -- " << data.getClip(_track);
     
-    //5. load the track keyframe data.
     //TODO - I don't like the way the getProjectPath() is referenced here.
     string filePath = getProjectPath() + getTrackAndClipPath(_track, _clip);
-
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
     ofLogNotice("LOAD") << "5. load the track keyframes --  " << filePath;
+    
     
     setTrackDuration(_track);
     ofLogNotice("LOAD") << "6. set the duration in the timeline on the track.";
@@ -942,16 +982,17 @@ void TimelinePanel::setClip(int _track, int _clip){
 //-------------------------------------------------
 void TimelinePanel::setClip(int _clip){
     
-    //set Clip on the current selected track
+    //set Clip on the CURRENT SELECTED TRACK
     data.setClip(_clip, data.getTrack());
+    ofLogNotice("LOAD") << "4. set the clip in the curren track";
     
     //TODO - I don't like the way the getProjectPath() is referenced here.
     string filePath = getProjectPath() + getTrackAndClipPath(data.getTrack(), _clip);
-    ofLogNotice("LOAD") << "TimelinePanel::setClip " << filePath;
-    
     tracks.timelines[data.getTrack()]->loadTracksFromFolder(filePath);
+    ofLogNotice("LOAD") << "5. load the track keyframes --  " << filePath;
     
     setTrackDuration(data.getTrack());
+    ofLogNotice("LOAD") << "6. set the duration in the timeline on the track.";
 }
 
 //--------------------------------------------------------------
@@ -979,6 +1020,7 @@ void TimelinePanel::setMeasuresInClip(int _track, string _measures){
     //1. look up the clip duration in frames. END
     //2. set the frames in the timelines. END
     setTrackDuration(_track);
+    
 }
 
 //--------------------------------------------------------------

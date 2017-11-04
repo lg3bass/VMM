@@ -166,8 +166,39 @@ void HeaderPanel::setMeasuresUI(int _measure){
 }
 
 //--------------------------------------------------------------
+void HeaderPanel::setBpmUI(int _bpm){
+    
+    string bpm = ofToString(_bpm);
+    mainUI.bpm->setText(bpm);
+}
+
+//--------------------------------------------------------------
+void HeaderPanel::setFpsUI(int _fps){
+    
+    string fps = ofToString(_fps);
+    mainUI.fps->setText(fps);
+}
+
+//--------------------------------------------------------------
+void HeaderPanel::setFramesUI(int _frames){
+    
+    string frames = ofToString(_frames);
+    mainUI.frames->setText(frames);
+}
+
+//--------------------------------------------------------------
 void HeaderPanel::setMeterUI(string _meter){    
     mainUI.meter->setText(_meter);
+}
+
+//--------------------------------------------------------------
+void HeaderPanel::setBarsBeatFrame(int bars, int beat, int frame){
+    
+    if(!hMainApp->timePanel.data.TL.playing){
+        
+        
+        
+    }
 }
 
 //--------------------------------------------------------------

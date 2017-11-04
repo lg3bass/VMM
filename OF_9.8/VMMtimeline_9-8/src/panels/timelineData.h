@@ -81,6 +81,7 @@ public:
         bool snap = false;
         bool drive = false;
         bool osc = false;
+        bool playing = false;
         
     } TL;                                           //change to TL
     
@@ -101,11 +102,9 @@ public:
     void setMeter(string _meter);
     string getMeter(int _track, int _clip);
     
-    
     void setBarsBeatsFrameData(string _value);
     
     int calculateFramesInMeasures(int m, float bpm, int fps);
-
     
     //TRACK SPECIFIC DATA
 #pragma mark - vmmTrack

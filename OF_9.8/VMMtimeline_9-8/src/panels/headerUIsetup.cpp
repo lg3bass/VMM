@@ -195,16 +195,16 @@ void headerUI::setupGUI() {
     fps->setBorder(ofColor::darkGrey, 1);
     fps->onTextInputEvent(this, &headerUI::onTextInputEvent);
     
-    loop = new ofxDatGuiTextInput("LOOP", "30");
-    loop->setTheme(new ofxDatGuiThemeVMM);
-    loop->setWidth(75,30.0);
-    loop->setHeight(rowH);
-    loop->setPosition(S3.x+measures->getWidth()+bpm->getWidth()+fps->getWidth(), S3.y);
-    loop->setLabelMargin(0);
-    loop->setLabelAlignment(ofxDatGuiAlignment::CENTER);
-    loop->setBorderVisible(TRUE);
-    loop->setBorder(ofColor::darkGrey, 1);
-    loop->onTextInputEvent(this, &headerUI::onTextInputEvent);
+    frames = new ofxDatGuiTextInput("FRAMES", "120");
+    frames->setTheme(new ofxDatGuiThemeVMM);
+    frames->setWidth(75,40.0);
+    frames->setHeight(rowH);
+    frames->setPosition(S3.x+measures->getWidth()+bpm->getWidth()+fps->getWidth(), S3.y);
+    frames->setLabelMargin(0);
+    frames->setLabelAlignment(ofxDatGuiAlignment::CENTER);
+    frames->setBorderVisible(TRUE);
+    frames->setBorder(ofColor::darkGrey, 1);
+    frames->onTextInputEvent(this, &headerUI::onTextInputEvent);
     
     
     //ROW2
@@ -438,7 +438,7 @@ void headerUI::updateGUI(bool acceptEvents){
     measures->update(acceptEvents);
     bpm->update(acceptEvents);
     fps->update(acceptEvents);
-    loop->update(acceptEvents);
+    frames->update(acceptEvents);
     clampH->update(acceptEvents);
     clampL->update(acceptEvents);
     setIn->update(acceptEvents);
@@ -495,7 +495,7 @@ void headerUI::drawGUI(){
     measures->draw();           //row1
     bpm->draw();
     fps->draw();
-    loop->draw();
+    frames->draw();
     clampL->draw();             //row2
     clampH->draw();
     setIn->draw();
