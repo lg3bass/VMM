@@ -730,7 +730,10 @@ void TimelinePanel::loadTLProject(ofFileDialogResult _openFileResult){
     data.setBPM(ofToString(bpm));
     
     //TODO - specify a track.
-    tracks.timelines[0]->setNewBPM(data.getBPM());
+    //bpm gets set on all tracks
+    for(int i=0;i<NUMBER_OF_TRACKS;i++){
+        tracks.timelines[i]->setNewBPM(data.getBPM());
+    }
     
     //set the ableton link tempo   
     bMainApp->AL.setTempo(data.getBPM());
@@ -742,7 +745,7 @@ void TimelinePanel::loadTLProject(ofFileDialogResult _openFileResult){
     bMainApp->headerPanel.setBpmUI(bpm);
     
     //set UI - frames
-    
+    bMainApp->setFramesUI();
     
     //set UI - fps
     
@@ -855,6 +858,9 @@ void TimelinePanel::loadTLAllTracks(){
     
     //load all the track.xml for the clip.
     setClip(0);
+    
+    
+    
 }
 
 
@@ -1000,7 +1006,7 @@ void TimelinePanel::resetMeasureLoop(int _track){
     
     if(tracks.timelines[_track]->getIsPlaying()){
         
-        cout << "TimelinePanel::setMeasureLoop(" << ofToString(_track) << ") -- isPlaying()" << endl;
+        ofLogNotice("LINKFLIP") << "TimelinePanel::setMeasureLoop(" << ofToString(_track) << ") -- isPlaying()";
         
     }
         

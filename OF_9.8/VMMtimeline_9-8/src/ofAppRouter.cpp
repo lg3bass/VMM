@@ -318,7 +318,7 @@ void ofApp::selectChannel(int _index){
 //--------------------------------------------------------------
 void ofApp::passTextValue(string _field, string _val){
     
-    cout << "passTextValue: " << ofToString(_val) << endl;
+    //cout << "passTextValue: " << ofToString(_val) << endl;
     
     if(_field == "MEASURES"){
         timePanel.setMeasuresInClip(timePanel.data.getTrack(), _val);
@@ -327,31 +327,35 @@ void ofApp::passTextValue(string _field, string _val){
         
     } else if (_field == "BPM") {
         
-        //just set the data.bpm
         timePanel.data.setBPM(_val);
         
         //TODO - specify a track.
-        timePanel.tracks.timelines[0]->setNewBPM(timePanel.data.getBPM());
+        float b = timePanel.data.getBPM();
+        for(int i=0;i<NUMBER_OF_TRACKS;i++){
+            timePanel.tracks.timelines[i]->setNewBPM(b);
+        }
         
         //set the ableton link tempo
         AL.setTempo(timePanel.data.getBPM());
         
         setFramesUI();
     
-        
     } else if (_field == "FPS"){
+        
         timePanel.data.setFPS(_val);
         
         //TODO - specify a track.
-        timePanel.tracks.timelines[0]->setFrameRate(timePanel.data.getFPS());
+        float fps = timePanel.data.getFPS();
+        for(int f=0;f<NUMBER_OF_TRACKS;f++){
+            timePanel.tracks.timelines[f]->setFrameRate(fps);
+        }
         
         setFramesUI();
-        
         
     } else if (_field == "FRAMES") {
 
         //TODO - specify a track.
-        timePanel.tracks.timelines[0]->setDurationInFrames(ofToInt(_val));
+        timePanel.tracks.timelines[timePanel.data.getTrack()]->setDurationInFrames(ofToInt(_val));
         
         
     } else if (_field == "METER"){

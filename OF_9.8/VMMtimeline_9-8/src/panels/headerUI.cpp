@@ -47,24 +47,24 @@ void headerUI::onTrackMatrixInputEvent(ofxDatGuiMatrixEvent e){
 void headerUI::onPageMatrixInputEvent(ofxDatGuiMatrixEvent e){
     
     uiMainApp->setControllerData(e.target->getName(), e.child);
-    cout << "onPageMatrixInputEvent" << endl;
+    //cout << "onPageMatrixInputEvent" << endl;
 }
 
 //--------------------------------------------------------------
 void headerUI::onClipMatrixInputEvent(ofxDatGuiMatrixEvent e){
     
     uiMainApp->setControllerData(e.target->getName(), e.child);
-    cout << "onClipMatrixInputEvent" << endl;
+    //cout << "onClipMatrixInputEvent" << endl;
 }
 
 //--------------------------------------------------------------
 void headerUI::onDDInputEvent(ofxDatGuiDropdownEvent e){
     
-    cout << "headerUI::onDDInputEvent " << e.target->getName() << endl;
+    //cout << "headerUI::onDDInputEvent " << e.target->getName() << endl;
     
     if(e.target->getName() == "TIMELINE"){
         newTrack.type = e.child;
-        cout << "TIMELINE dropdown index: " << e.child << endl;
+        //cout << "TIMELINE dropdown index: " << e.child << endl;
     }
     
     if(e.target->getName() == "SAVE"){
