@@ -194,6 +194,7 @@ void ofApp::loadTLTrackPages(){
         ofFileDialogResult openFileResult= ofSystemLoadDialog("Select a project file (.vmm)");
         
         if (openFileResult.bSuccess){
+            //set the path to where the project is
             timePanel.setProjectPathAndFile(openFileResult);
             
             //load the project file (.vmm)
@@ -226,7 +227,12 @@ void ofApp::loadTLAllTracks(){
         ofFileDialogResult openFileResult= ofSystemLoadDialog("Select a project file (.vmm)");
         
         if (openFileResult.bSuccess){
+            //set the path to where the project is
             timePanel.setProjectPathAndFile(openFileResult);
+            
+            //load the project file (.vmm)
+            timePanel.loadTLProject(openFileResult);
+            
         }else {
             ofLogNotice("SAVE") << "User hit cancel";
             return;

@@ -729,8 +729,9 @@ void TimelinePanel::loadTLProject(ofFileDialogResult _openFileResult){
     
     data.setBPM(ofToString(bpm));
     
-    //TODO - specify a track.
-    //bpm gets set on all tracks
+    
+    //Loop through all the tracks and load in the xml from the project file.
+    //this data is the same on all tracks.
     for(int i=0;i<NUMBER_OF_TRACKS;i++){
         tracks.timelines[i]->setNewBPM(data.getBPM());
     }
@@ -810,35 +811,42 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
 
 //-------------------------------------------------
 void TimelinePanel::loadTLTrackPages(){
+
+    //Load the current selected track.
+    int t = data.getTrack();
+    int p = data.getPage();
+    int c = data.getClip();
     
     //Setup all the channels on the current selected page.
-    for(int p=0; p< NUMBER_OF_TRACKS; p++){
+    for(int p2=0; p2< NUMBER_OF_TRACKS; p2++){
         
-            loadTLPage(data.getTrack(), p, data.getClip());
+            loadTLPage(t, p2, c);
     }
     //set the display track
     //setTLTrack(0);
     
-    setPage(data.getPage());
+    setPage(p);
     
     //load the clip_X.xml
-    loadTLClip(data.getTrack(), data.getClip());
+    loadTLClip(t, c);
     
     //load all the track.xml for the clip.
-    setClip(data.getClip());
+    setClip(c);
     
-    //set UI - frames
-    int d = data.getClipDuration(data.getClip());
+    //set UI - frames UI
+    int d = data.getClipDuration(c);
     bMainApp->headerPanel.setFramesUI(d);
     
-    //set
-    int m = data.getClipMeasures(data.getTrack(), data.getClip());
+    //set UI - measures UI
+    int m = data.getClipMeasures(t, c);
     bMainApp->headerPanel.setMeasuresUI(m);
 }
 
 //-------------------------------------------------
 void TimelinePanel::loadTLAllTracks(){
-    //Load all the channels on from all tracks if they have content.
+    //Load all the channels on from ALL tracks if they have content.
+    //Load up track 0, clip 0
+    
     for(int t=0;t < NUMBER_OF_TRACKS; t++){
         for(int p=0;p < NUMBER_OF_TRACKS; p++){
             
@@ -859,7 +867,13 @@ void TimelinePanel::loadTLAllTracks(){
     //load all the track.xml for the clip.
     setClip(0);
     
+    //set UI - frames UI
+    int d = data.getClipDuration(0);
+    bMainApp->headerPanel.setFramesUI(d);
     
+    //set UI - measures UI
+    int m = data.getClipMeasures(0, 0);
+    bMainApp->headerPanel.setMeasuresUI(m);
     
 }
 
