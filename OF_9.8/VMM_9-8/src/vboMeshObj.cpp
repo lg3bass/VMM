@@ -912,6 +912,18 @@ void vboMeshObj::resetBufferInstance(int _buffer, string _mode){
 }
 
 //--------------------------------------------------------------
+void vboMeshObj::resetCurrentSegment(){
+    
+    //get the segment number of the first segment
+    int s = instances[0].currentSegment;
+    
+    for(int i=0;i<12;i++){
+        instances[i].currentSegment = 0;
+    }    
+}
+
+
+//--------------------------------------------------------------
 void vboMeshObj::clear(){
     //set the frame to 0
 
@@ -922,10 +934,7 @@ void vboMeshObj::clear(){
     for(int t=0; t<params.l_copies;t++){
         resetBufferInstance(t,"one-shot");
     }
-    
-    
-    
-}
+ }
 
 
 //--------------------------------------------------------------

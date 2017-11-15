@@ -155,6 +155,7 @@ class vboMeshObj {
     void setGuiSnapUnits(string _name,float _unit);
     void setIndicator();
     void resetBufferInstance(int _buffer, string _mode);
+    void resetCurrentSegment();
     void clear();
 
     

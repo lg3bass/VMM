@@ -162,7 +162,6 @@ void ofApp::OscReciever(){
     }//end while
 }
 
-
 //--------------------------------------------------------------
 void ofApp::OSCsendToVMM(int _track, string _address, float _value){
     
@@ -175,6 +174,27 @@ void ofApp::OSCsendToVMM(int _track, string _address, float _value){
     sender.sendMessage(m);
 }
 
+//--------------------------------------------------------------
+void ofApp::OSCnoteOnAndPlay(int _track, string _address, string _value){
+    
+    //break up the _value to ints
+    int VMMnoteID = ofToInt(ofSplitString(_value, " ")[0]);
+    int buffer = ofToInt(ofSplitString(_value, " ")[1]);
+    int duration = ofToInt(ofSplitString(_value, " ")[2]);
+    
+    ofLogVerbose("OSC_OUT") << _address << " " << _value;
+    ofxOscMessage m;
+    m.setAddress(_address);
+    m.addInt32Arg(_track);
+    m.addInt32Arg(VMMnoteID);
+    m.addInt32Arg(buffer);
+    m.addInt32Arg(duration);
+    
+    //m.addStringArg(_value);
+    //m.addFloatArg(_value);
+    
+    sender.sendMessage(m);
+}
 
 
 

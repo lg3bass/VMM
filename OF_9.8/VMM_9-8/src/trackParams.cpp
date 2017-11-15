@@ -446,7 +446,8 @@ void trackParams::setOSCdial(guiParams &params, string paramName, float _value){
         int _copies = int(_value);
         params.l_copies = _copies;
         float sliceAngle = 360.0/_copies;
-        params.l_rotate = ofVec3f(0.0,0.0,sliceAngle);        
+        params.l_rotate = ofVec3f(0.0,0.0,sliceAngle);
+        
     } else if(paramName == "/localSlices"){
         params.l_slices = int(_value);
     } else if(paramName == "/mirrorDistance"){

@@ -495,20 +495,32 @@ void TimelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
 //-------------------------------------------------
 void TimelinePanel::timelineBangFired(ofxTLBangEventArgs & args){
     
-//    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName()
-//                                                    << " [" << ofToString(args.currentFrame) << "]"
-//                                                    << " [" << ofToString(args.flag) << "]" << endl;
+    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName()
+                                                    << " [" << ofToString(args.currentFrame) << "]"
+                                                    << " [" << ofToString(args.flag) << "]" << endl;
 
-    //convert char to int.
-    string track = args.sender->getName();
-    char t = track[track.size()-1];
+    //where is this coming from.
+    string trackName = args.sender->getName();                          //e.g. "timeline0"
+    string channelName = args.track->getName();                         //e.g. "noteOnAnPlay" or "localTransX"
+    string outParam = "/"+channelName;
     
+    //Identify the track number based on the name. convert char to int.
+    //string track = trackName;
+    char t = trackName[trackName.size()-1];
     int outTrack = (t-48)+1;
-    
     //cout << "BANG/FLAG TRACK NO: [" << outTrack << "]" << endl;
     
-    string outParam = "/"+args.track->getName();
-    bMainApp->OSCsendToVMM(outTrack,outParam,ofToFloat(args.flag));
+    
+    
+    if(channelName == "noteOnAndPlay"){
+        bMainApp->OSCnoteOnAndPlay(outTrack, outParam, args.flag);
+        
+    } else {
+        bMainApp->OSCsendToVMM(outTrack,outParam,ofToFloat(args.flag));
+        
+    }
+    
+    
 }
 
 //-------------------------------------------------
@@ -948,15 +960,20 @@ void TimelinePanel::stopTLclip(int _clip){
         if(tracks.timelines[i]->getIsPlaying()){
             tracks.timelines[i]->stop();
             data.setCuedToPlay(i, false);
+            
+            
         }
+        
+        //clear all the tracks
+        bMainApp->OSCsendToVMM(i, "/clear", 1);
 
-    //disable OSC OUT
-    data.TL.tracks[i].enableOscOut = false;
         
-    tracks.timelines[i]->setPercentComplete(0);
+        //disable OSC OUT
+        data.TL.tracks[i].enableOscOut = false;
+        tracks.timelines[i]->setPercentComplete(0);
+        resetMeasureLoop(i);//resets them all.
         
-    resetMeasureLoop(i);//resets them all.
-        
+
     }
     
     ofLogNotice("OSC_OUT") << "DRIVE OFF";

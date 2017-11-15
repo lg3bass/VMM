@@ -192,6 +192,9 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         //tracks[idx].setLocalCopies(m.getArgAsInt32(1));
         tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsInt32(1));
         
+        //set the current segment to all the same. NOT WORKING.
+        //tracks[idx].resetCurrentSegment();
+        
     } else if (m.getAddress() == "/localSlices"){
         tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsInt32(1));
         

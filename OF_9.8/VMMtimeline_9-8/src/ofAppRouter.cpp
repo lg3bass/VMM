@@ -380,7 +380,6 @@ void ofApp::passTextValue(string _field, string _val){
         
         timePanel.setChannelRangeHigh(ofToFloat(_val));
         
-        
     }
 
 

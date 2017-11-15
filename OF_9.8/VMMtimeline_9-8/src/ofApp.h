@@ -105,6 +105,7 @@ public:
     void OscReciever();
     void OSCsendToVMM(int _track, string _address, float _value);
     
+    void OSCnoteOnAndPlay(int _track, string _address, string _value);
 
 private:
     
