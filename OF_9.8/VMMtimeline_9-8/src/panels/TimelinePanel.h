@@ -47,6 +47,8 @@ public:
     
     void timelineBangFired(ofxTLBangEventArgs & args);
     void timelineSwitched(ofxTLSwitchEventArgs & args);
+    
+    void timelinePlaybackStarted(ofxTLPlaybackEventArgs & args);
 
 #pragma mark - ADD/REMOVE
     

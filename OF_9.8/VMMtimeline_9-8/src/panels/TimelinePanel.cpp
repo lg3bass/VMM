@@ -46,6 +46,8 @@ void TimelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
         ofAddListener(tracks.timelines[i]->events().trackLostFocus, this, &TimelinePanel::actOnLossFocus);
         ofAddListener(tracks.timelines[i]->events().bangFired, this, &TimelinePanel::timelineBangFired);
         ofAddListener(tracks.timelines[i]->events().switched, this, &TimelinePanel::timelineSwitched);
+        ofAddListener(tracks.timelines[i]->events().playbackStarted, this, &TimelinePanel::timelinePlaybackStarted);
+        
         
         //reset/setup track metadata.
         resetMeasureLoop(i);
@@ -495,9 +497,9 @@ void TimelinePanel::actOnLossFocus(ofxTLTrackEventArgs & args){
 //-------------------------------------------------
 void TimelinePanel::timelineBangFired(ofxTLBangEventArgs & args){
     
-    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName()
-                                                    << " [" << ofToString(args.currentFrame) << "]"
-                                                    << " [" << ofToString(args.flag) << "]" << endl;
+//    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName()
+//                                                    << " [" << ofToString(args.currentFrame) << "]"
+//                                                    << " [" << ofToString(args.flag) << "]" << endl;
 
     //where is this coming from.
     string trackName = args.sender->getName();                          //e.g. "timeline0"
@@ -516,6 +518,7 @@ void TimelinePanel::timelineBangFired(ofxTLBangEventArgs & args){
         bMainApp->OSCnoteOnAndPlay(outTrack, outParam, args.flag);
         
     } else {
+        //cout << args.flag << endl;
         bMainApp->OSCsendToVMM(outTrack,outParam,ofToFloat(args.flag));
         
     }
@@ -529,6 +532,12 @@ void TimelinePanel::timelineSwitched(ofxTLSwitchEventArgs & args){
 //    cout << "timelinePanel::timelineBangFired: -- " << args.sender->getName() << "/" << args.track->getName()
 //                                                    << " [" << (args.on ? "ON" : "OFF") << "]"
 //                                                    << " [" << ofToString(args.switchName) << "]" << endl;
+}
+
+//-------------------------------------------------
+void TimelinePanel::timelinePlaybackStarted(ofxTLPlaybackEventArgs &args){
+    
+    cout << "timelinePanel::timelinePlaybackStarted: -- " << args.sender->getName() << "/ frame:" << ofToString(args.currentFrame) << endl;
 }
 
 #pragma mark - ADD/REMOVE
@@ -929,7 +938,7 @@ void TimelinePanel::loadTLClip(int _track, int _clip) {
 #pragma mark - PLAY FUNCTIONS
 //-------------------------------------------------
 void TimelinePanel::playTLclip(int _track, int _clip){
-    ofLogNotice("TRACK")    << "timePanel.play("
+    ofLogNotice("TRACK")    << "TimelinePanel::playTLclip("
     << _track << "," << _clip
     << ") -- nbeat:" << data.getNBeat(_track);
     
@@ -950,6 +959,8 @@ void TimelinePanel::playTLclip(int _track, int _clip){
     
     //enable OSC OUT
     data.TL.tracks[_track].enableOscOut = true;
+    
+    ofLogNotice("TRACK") << "TimelinePanel::playTLclip() > " << "TODO - THIS IS WHERE I SEND ALL MY TRACK DATA TO VMM";
     
 }
 

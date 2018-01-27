@@ -37,7 +37,7 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         //VMMnoteID = <track>+<string>+<midiNote>+<noteid>;
         VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(0)) + ofToString(m.getArgAsInt32(2)) + ofToString(m.getArgAsInt32(4)) + ofToString(m.getArgAsInt32(3)));
         
-        //ofLogNotice("OSC") << "VMMnoteID(ON)------------------------------: " << VMMnoteID;
+        ofLogNotice("OSC") << "VMMnoteID(noteOn)------------------------------: " << VMMnoteID;
         
         //m.getNumArgs();
         
@@ -76,6 +76,8 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         ", tween:" << m.getArgAsInt32(7) <<
         "]";
         
+        ofLogNotice("OSC") << "------------------------------VMMnoteID(play): " << VMMnoteID;
+        
         //----------play(_buffer           | VMMnoteID| _duration         | _tweenType)
         tracks[idx].play(m.getArgAsInt32(1), VMMnoteID, m.getArgAsInt32(5), m.getArgAsInt32(7));
         
@@ -95,10 +97,10 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         //VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(1)) + ofToString(m.getArgAsInt32(3)));
         
         //VMMnoteID = <track>+<string>+<midiNote>+<noteid>;
-        VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(0)) + ofToString(m.getArgAsInt32(2)) + ofToString(m.getArgAsInt32(4)) + ofToString(m.getArgAsInt32(3)));
+        VMMnoteID = ofToInt(ofToString(m.getArgAsInt32(0)) + ofToString(m.getArgAsInt32(1)) + ofToString(m.getArgAsInt32(3)) + ofToString(m.getArgAsInt32(2)));
         
         
-        //ofLogNotice("OSC") << "------------------------------VMMnoteID(OFF): " << VMMnoteID;
+        ofLogNotice("OSC") << "------------------------------VMMnoteID(noteOff): " << VMMnoteID;
         
         //----------noteOff(VMMnoteId| _durration)
         tracks[idx].noteOff(VMMnoteID, m.getArgAsInt32(5));
@@ -121,29 +123,10 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
     } else if (m.getAddress() == "/clear"){
         
-        ofLogVerbose("OSC") << m.getAddress() << " track:" << m.getArgAsInt32(0) << " clip:" << m.getArgAsInt32(1) << "-" << (m.getArgAsInt32(1) ? "START" : "END");
-        
-        /*
-        if(m.getArgAsInt32(1)>0){
-            ofLogVerbose("OSC") << "CLEAR ON START";
-        } else {
-            ofLogVerbose("OSC") << "CLEAR ON END";
-        }
-        */
-        
+        ofLogVerbose("OSC") << m.getAddress() << " track:" << m.getArgAsInt32(0);
         
         tracks[idx].clear();
         
-        if(m.getArgAsInt32(1) == 0) {
-            
-            //tracks[idx].params.randGlobalPosBoolZ = false;
-            
-            //tracks[idx].trackParameters.setOSCdial(tracks[idx].params, "/setGlobalTransZ", 0.0);
-            //tracks[idx].params.g_trans = ofVec3f(0.0,0.0,0.0);
-        }
-        
-        
-    
     } else if (m.getAddress() == "/OSCsetMatCap"){
     
         ofLogVerbose("OSC") << m.getAddress() << endl << "/OSCsetMatCap " << m.getArgAsInt32(0);
@@ -160,7 +143,8 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
             ofLogNotice("OSC") << m.getAddress() << m.getArgAsInt32(0) << m.getArgAsInt32(1) << " doesn't exist";
         }
         
-    } else if (m.getAddress() == "/butter"){
+    } else if (m.getAddress() == "/butter" || m.getAddress() == "/OSCloadTrack"){
+        //load track
         tracks[idx].trackParameters.setOSCtoggle(tracks[idx].params, m.getAddress(), m.getArgAsInt32(1));
         tracks[idx].loadTrack();
         
@@ -189,7 +173,6 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
     } else if (m.getAddress() == "/localCopies"){
         //ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1);
-        //tracks[idx].setLocalCopies(m.getArgAsInt32(1));
         tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsInt32(1));
         
         //set the current segment to all the same. NOT WORKING.

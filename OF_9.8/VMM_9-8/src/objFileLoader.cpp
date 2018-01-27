@@ -24,6 +24,8 @@ void objFileLoader::loadObjFiles(string _path){
     string path = _path;
     ofDirectory dir(path);
     dir.listDir();
+    dir.sort();
+    //dir.getSorted();
     
     numberOfSequences = dir.numFiles();
     

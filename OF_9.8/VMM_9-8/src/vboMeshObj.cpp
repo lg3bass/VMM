@@ -1311,9 +1311,12 @@ void vboMeshObj::noteOff(int _noteId, int _durration){
                     ofLogNotice("OSC") << buffer << " - Frame(" << instances[buffer].frame << ")";
                     resetBufferInstance(buffer, "sequence");
                     instances[buffer].frame = instances[buffer].startFrame;
+
+                    //TODO : tween back to start frame
+
                 } else {
                     if(instances[buffer].noteID == _noteId){
-                        tweenPlayInstance(buffer, params.tweenType, instances[buffer].midFrame, instances[buffer].endFrame, instances[buffer].duration, 0);
+                        tweenPlayInstance(buffer, params.tweenType, instances[buffer].midFrame, instances[buffer].endFrame, instances[buffer].duration+300, 0);
                         ofLogNotice("OSC") << buffer << " - End(" << instances[buffer].noteID << ")";
                     }
                 }
