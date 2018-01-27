@@ -943,16 +943,16 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				BF5110F61F1AC4510087AD7E /* themes */,
-				BF5110F71F1AC46A0087AD7E /* panels */,
-				BF5110E11F1AC4320087AD7E /* ofAppRouter.cpp */,
+				BF5110FF1F1B1B540087AD7E /* abletonlink.cpp */,
+				BF5111001F1B1B540087AD7E /* abletonlink.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
-				BF5110FF1F1B1B540087AD7E /* abletonlink.cpp */,
-				BF5111001F1B1B540087AD7E /* abletonlink.h */,
+				BF5110E11F1AC4320087AD7E /* ofAppRouter.cpp */,
 				BF2153031F4F6CCF00D0D66E /* oscHandler.cpp */,
 				BF2153041F4F6CCF00D0D66E /* oscHandler.h */,
+				BF5110F71F1AC46A0087AD7E /* panels */,
+				BF5110F61F1AC4510087AD7E /* themes */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1298,7 +1298,7 @@
 					../../../addons/ofxXmlSettings/libs,
 					../../../addons/ofxXmlSettings/src,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
@@ -1388,7 +1388,7 @@
 					../../../addons/ofxXmlSettings/libs,
 					../../../addons/ofxXmlSettings/src,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-mtune=native",

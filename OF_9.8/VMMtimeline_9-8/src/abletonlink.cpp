@@ -9,26 +9,21 @@
 #include "abletonlink.h"
 #include "ofApp.h"
 
-ofApp* linkMainApp;         //reference to ofApp()
+ofApp* abletonLinkEngine2MainApp;         //reference to ofApp()
 
 //-------------------------------------------------
 abletonLinkEngine::abletonLinkEngine(){
-    lbeat = -1;
-    nbeat = -1;
+    lbeat = -1;//last beat
+    nbeat = -1;//next beat
     
-
 }
 
 //-------------------------------------------------
 void abletonLinkEngine::setup(ofBaseApp* appPtr){
     
-    linkMainApp = dynamic_cast<ofApp*>(appPtr);
-    
-    //cout << "linkModule->setup()" << endl;
-    
+    abletonLinkEngine2MainApp = dynamic_cast<ofApp*>(appPtr);
     link.setup(120.0);
 
-    
 }
 
 //-------------------------------------------------
@@ -81,8 +76,6 @@ void abletonLinkEngine::runAbletonLink(ofxAbletonLink &linkObj){
     quantum = (int)ceil(link.quantum());
     nbeat = beat();
     
-   
-    
 }
 
 //-------------------------------------------------
@@ -122,5 +115,4 @@ void abletonLinkEngine::blinkingBottomBar(float _top, float _bottom){
         }
         ofPopStyle();
     }
-    
 }
