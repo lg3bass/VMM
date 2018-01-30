@@ -467,17 +467,25 @@ void TimelinePanel::actOnFocus(ofxTLTrackEventArgs & args){
 //    cout << "timelinePanel::actOnFocus: " << args.name << endl;
     data.setSelectedChannel(args.name);
     
-    
-    //test code to display track range.
-    ofxTLKeyframes* mytrack = (ofxTLKeyframes*)tracks.timelines[data.getTrack()]->getTrack(args.name);
-    ofRange r = mytrack->getValueRange();
-    
-    
-//    cout << "timelinePanel::actOnFocus: range(" << ofToString(r.min) << "," << ofToString(r.max) << ")" << endl;
-    
-    bMainApp->headerPanel.mainUI.clampH->setText(ofToString(r.max));
-    bMainApp->headerPanel.mainUI.clampL->setText(ofToString(r.min));
-    
+    if(args.name == "VMM"){
+        
+        bMainApp->headerPanel.mainUI.clampH->setText("--");
+        bMainApp->headerPanel.mainUI.clampL->setText("--");
+        
+    } else {
+        //test code to display track range.  Only if the track has keyframes
+        ofxTLKeyframes* mytrack = (ofxTLKeyframes*)tracks.timelines[data.getTrack()]->getTrack(args.name);
+        ofRange r = mytrack->getValueRange();
+        
+        
+        //    cout << "timelinePanel::actOnFocus: range(" << ofToString(r.min) << "," << ofToString(r.max) << ")" << endl;
+        
+        bMainApp->headerPanel.mainUI.clampH->setText(ofToString(r.max));
+        bMainApp->headerPanel.mainUI.clampL->setText(ofToString(r.min));
+        
+        
+    }
+
     
     
 }
@@ -650,7 +658,11 @@ void TimelinePanel::saveTLPage(int _track, int _page, int _clip){
         string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
         ofLogNotice("SAVE") << "TimelinePanel::saveTLPage " << filePath;
         
-        //save all the channels(tracks) on the page
+        //CALL TO SAVE ALL TRACKS (assuming the track is ofxTLKeyframes)
+        //headerUI->timelinePanel->
+        //ofxTimeline::saveTracksToFolder->
+        //ofxTLPage::saveTracksToFolder->
+        //VIRTUAL<ofxTLTrack>->ofxTLKeyframes::save()->getXMLStringForKeyframes()
         tracks.timelines[_track]->saveTracksToFolder(filePath);
         
         //save the clip settings
@@ -824,6 +836,9 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
                 
             }else if(trackType=="Flags"){
                 addTLChannelToPage(_track, _page, trackName, 4);
+                
+            }else if(trackType=="Buttons"){
+                addTLChannelToPage(_track, _page, trackName, 6);
                 
             }
         }

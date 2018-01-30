@@ -4,6 +4,7 @@ ofxDatGui
 ofxMSATimer
 ofxOsc
 ofxRange
+ofxTLVMMControl
 ofxTextInputField
 ofxTimeMeasurements
 ofxTimecode
