@@ -29,9 +29,9 @@ void ofApp::setControllerData(string name, int data){
         timePanel.setPage(data);
     } else if(name == "CLIP"){
        
-        //1. load the clip.xml
-        //2. set number of measures in clip
-        //3. set the duration in frames of the clip.
+        //1. load track XML
+        //2. load the clip.xml
+        //3. set [number of measures,duration] in clip
         timePanel.loadTLClip(timePanel.data.getTrack(), data);
         
         //4. set the clip in the current track

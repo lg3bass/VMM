@@ -838,7 +838,30 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
                 addTLChannelToPage(_track, _page, trackName, 4);
                 
             }else if(trackType=="Buttons"){
+                //1. read the VMM.xml
+                string vmmXMLfile = filePath + trackName + ".xml";
+                ofxXmlSettings vmmxml;
+                if( vmmxml.loadFile(vmmXMLfile) ){
+                    ofLogVerbose("LOAD") <<"timelinePanel::loadTLPage - ofxTLVMMControl - "<< vmmXMLfile <<" loaded.";
+                }else{
+                    ofLogError("LOAD") <<  "timelinePanel::loadTLPage - ofxTLVMMControl - unable to load " << vmmXMLfile ;
+                    return;
+                }
+                
+                //2. add a ofxTLVMMControl track
                 addTLChannelToPage(_track, _page, trackName, 6);
+                
+                auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[_track]->getTrack(trackName);
+                
+                //3. update gui
+                //get the value from xml for the slider
+                float localCopiesFromXml = vmmxml.getValue("VMM:localCopies", 6.5);
+                
+                //4. set the public variables in ofxTLVMMControl
+                //set the variable in ofxTLVMMControl
+                //vmmTrack->test_localCopies = localCopiesFromXml;
+                vmmTrack->setGuiSliderValue("localCopies", localCopiesFromXml);
+                
                 
             }
         }
@@ -916,9 +939,12 @@ void TimelinePanel::loadTLAllTracks(){
 
 //-------------------------------------------------
 void TimelinePanel::loadTLClip(int _track, int _clip) {
+    //TODO - add please set a project first check
+    
     string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
     
     //load the tracks into the created tracks
+    ofLogNotice("LOAD") <<"1. load track XML from: " << filePath;
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
     
     //load the clip settings.
@@ -927,9 +953,9 @@ void TimelinePanel::loadTLClip(int _track, int _clip) {
     ofxXmlSettings savedClipSettings;
     
     if( savedClipSettings.loadFile(savedClipSettingsPath) ){
-        ofLogNotice("LOAD") <<"1. load the clip.xml -- " << savedClipSettingsPath <<" loaded.";
+        ofLogNotice("LOAD") <<"2. load the clip.xml -- " << savedClipSettingsPath <<" loaded.";
     }else{
-        ofLogError("LOAD") <<  "timelinePanel::loadTLPage - unable to load " << savedClipSettingsPath ;
+        ofLogError("LOAD") <<  "timelinePanel::loadTLClip - unable to load " << savedClipSettingsPath ;
         return;
     }
     
@@ -943,7 +969,7 @@ void TimelinePanel::loadTLClip(int _track, int _clip) {
     data.TL.tracks[_track].tlClips[_clip].numberOfMeasures = numOfMeasures;
     data.TL.tracks[_track].tlClips[_clip].duration = data.calculateFramesInMeasures(numOfMeasures, data.TL.bpm, data.TL.fps);
     
-    ofLogNotice("LOAD") << "2. set [number of measures,duration] in clip ["
+    ofLogNotice("LOAD") << "3. set [number of measures,duration] in clip ["
                         << data.getClipMeasures(_track, _clip) << "," << data.getClipDuration(_track)
                         << "]";
     
@@ -977,6 +1003,10 @@ void TimelinePanel::playTLclip(int _track, int _clip){
     
     ofLogNotice("TRACK") << "TimelinePanel::playTLclip() > " << "TODO - THIS IS WHERE I SEND ALL MY TRACK DATA TO VMM";
     
+    if(tracks.timelines[_track]->hasTrack("VMM")){
+        auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[_track]->getTrack("VMM");
+        bMainApp->OSCsendToVMM(_track, "/localCopies", vmmTrack->test_localCopies);
+    }
 }
 
 //-------------------------------------------------
@@ -1032,11 +1062,10 @@ void TimelinePanel::setClip(int _track, int _clip){
     data.setClip(_clip, _track);
     ofLogNotice("LOAD") << "4. set the clip in track -- " << data.getClip(_track);
     
-    //TODO - I don't like the way the getProjectPath() is referenced here.
-    string filePath = getProjectPath() + getTrackAndClipPath(_track, _clip);
-    tracks.timelines[_track]->loadTracksFromFolder(filePath);
-    ofLogNotice("LOAD") << "5. load the track keyframes --  " << filePath;
-    
+    //201280202 - commented out cause it's duplicate - [notice ] LOAD: 1. load track XML
+//    string filePath = getProjectPath() + getTrackAndClipPath(_track, _clip);
+//    tracks.timelines[_track]->loadTracksFromFolder(filePath);
+//    ofLogNotice("LOAD") << "5. load the track keyframes --  " << filePath;
     
     setTrackDuration(_track);
     ofLogNotice("LOAD") << "6. set the duration in the timeline on the track.";
@@ -1049,10 +1078,10 @@ void TimelinePanel::setClip(int _clip){
     data.setClip(_clip, data.getTrack());
     ofLogNotice("LOAD") << "4. set the clip in the curren track";
     
-    //TODO - I don't like the way the getProjectPath() is referenced here.
-    string filePath = getProjectPath() + getTrackAndClipPath(data.getTrack(), _clip);
-    tracks.timelines[data.getTrack()]->loadTracksFromFolder(filePath);
-    ofLogNotice("LOAD") << "5. load the track keyframes --  " << filePath;
+    //201280202 - commented out cause it's duplicate - [notice ] LOAD: 1. load track XML
+//    string filePath = getProjectPath() + getTrackAndClipPath(data.getTrack(), _clip);
+//    tracks.timelines[data.getTrack()]->loadTracksFromFolder(filePath);
+//    ofLogNotice("LOAD") << "5. load the track keyframes --  " << filePath;
     
     setTrackDuration(data.getTrack());
     ofLogNotice("LOAD") << "6. set the duration in the timeline on the track.";

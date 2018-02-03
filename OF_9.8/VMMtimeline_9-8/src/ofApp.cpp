@@ -14,9 +14,9 @@ void ofApp::setup(){
     ofSetLogLevel("OSC_TRIGGERED", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_PLAY", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_IN", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("OSC_OUT", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("OSC_OUT", OF_LOG_VERBOSE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("SAVE", OF_LOG_VERBOSE);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("LOAD", OF_LOG_ERROR);// OF_LOG_ERROR
+    ofSetLogLevel("LOAD", OF_LOG_VERBOSE);// OF_LOG_ERROR
     ofSetLogLevel("KEYS", OF_LOG_ERROR);// OF_LOG_ERROR
     ofSetLogLevel("KEYBOARD", OF_LOG_ERROR);// OF_LOG_ERROR
     ofSetLogLevel("HEADER", OF_LOG_ERROR);
@@ -46,7 +46,10 @@ void ofApp::setup(){
     
     router.setup(ofGetAppPtr());
     
-    
+    //events
+    ofAddListener(OscMsgEvent::events, this, &ofApp::oscEvent);
+    ofAddListener(anotherOscMsgEvent::events, this, &ofApp::anotherEvent);
+    ofAddListener(VMMOscMessageEvent::events, this, &ofApp::OscSendEvent);
     
 }
 
@@ -198,4 +201,21 @@ void ofApp::OSCnoteOnAndPlay(int _track, string _address, string _value){
 }
 
 
+void ofApp::oscEvent(OscMsgEvent &e) {
+   
+    cout << e.msg << endl;
+    
+}
 
+void ofApp::anotherEvent(anotherOscMsgEvent &e){
+    
+    cout << e.arg1 << endl;
+    cout << e.arg2 << endl;
+}
+
+void ofApp::OscSendEvent(VMMOscMessageEvent &e){
+    
+    //cout << e.m.getAddress() << " " << ofToString(e.m.getArgAsInt(0)) << " " << ofToString(e.m.getArgAsInt(1)) << endl;
+    sender.sendMessage(e.m);
+    
+}
