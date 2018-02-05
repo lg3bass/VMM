@@ -106,9 +106,10 @@ public:
     void OSCsendToVMM(int _track, string _address, float _value);
     
     void OSCnoteOnAndPlay(int _track, string _address, string _value);
-    
+    /*
     void oscEvent(OscMsgEvent &e);
     void anotherEvent(anotherOscMsgEvent &e);
+    */
     void OscSendEvent(VMMOscMessageEvent &e);
 
 private:

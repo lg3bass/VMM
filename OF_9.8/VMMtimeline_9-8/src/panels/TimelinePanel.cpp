@@ -517,7 +517,7 @@ void TimelinePanel::timelineBangFired(ofxTLBangEventArgs & args){
     //Identify the track number based on the name. convert char to int.
     //string track = trackName;
     char t = trackName[trackName.size()-1];
-    int outTrack = (t-48)+1;
+    int outTrack = (t-48);
     //cout << "BANG/FLAG TRACK NO: [" << outTrack << "]" << endl;
     
     
@@ -852,6 +852,7 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
                 addTLChannelToPage(_track, _page, trackName, 6);
                 
                 auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[_track]->getTrack(trackName);
+                vmmTrack->track = _track;
                 
                 //3. update gui
                 //get the value from xml for the slider
@@ -991,8 +992,7 @@ void TimelinePanel::playTLclip(int _track, int _clip){
     loadTLClip(_track, _clip);
     
     //4. set which clip is playing in the current track
-    //5. load the track keyframe data.
-    //6. set the duration in the timeline on the track.
+    //5. set the duration in the timeline on the track.
     setClip(_track, _clip);
     
     //START IT UP
@@ -1005,7 +1005,7 @@ void TimelinePanel::playTLclip(int _track, int _clip){
     
     if(tracks.timelines[_track]->hasTrack("VMM")){
         auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[_track]->getTrack("VMM");
-        bMainApp->OSCsendToVMM(_track, "/localCopies", vmmTrack->test_localCopies);
+        bMainApp->OSCsendToVMM(_track, "/localCopies", vmmTrack->test_localCopies);   //TODO:  confusion track 0 is track 1 in VMM
     }
 }
 
@@ -1068,7 +1068,7 @@ void TimelinePanel::setClip(int _track, int _clip){
 //    ofLogNotice("LOAD") << "5. load the track keyframes --  " << filePath;
     
     setTrackDuration(_track);
-    ofLogNotice("LOAD") << "6. set the duration in the timeline on the track.";
+    ofLogNotice("LOAD") << "5. set the duration in the timeline on the track.";
 }
 
 //-------------------------------------------------
@@ -1084,7 +1084,7 @@ void TimelinePanel::setClip(int _clip){
 //    ofLogNotice("LOAD") << "5. load the track keyframes --  " << filePath;
     
     setTrackDuration(data.getTrack());
-    ofLogNotice("LOAD") << "6. set the duration in the timeline on the track.";
+    ofLogNotice("LOAD") << "5. set the duration in the timeline on the track.";
 }
 
 //--------------------------------------------------------------
@@ -1141,7 +1141,7 @@ void TimelinePanel::sendOSCfromTimeline(int _track){
                     
                     //output only if it's a curve.
                     if(data.TL.tracks[_track].tlPages[p].tlChannels[j].type == 1){
-                        int outTrack = _track+1;
+                        int outTrack = _track;
                         string param = data.TL.tracks[_track].tlPages[p].tlChannels[j].name;
                         string outParam = "/"+data.TL.tracks[_track].tlPages[p].tlChannels[j].name;
                         

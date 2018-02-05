@@ -69,7 +69,9 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         }
 
         t->setShowPageTabs(false);
-        t->setName("VMM");
+        
+        string timelineName = "VMM_"+ofToString(i);
+        t->setName(timelineName);
         
         timelines.push_back(t);
         
@@ -172,9 +174,13 @@ void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type
             break;
             
         case 6:
-            ofxTLVMMControl* buttonsTrack = new ofxTLVMMControl("127.0.0.1" ,7005);
+            //ofxTLVMMControl* buttonsTrack = new ofxTLVMMControl("127.0.0.1" ,7005);
+            
+            ofxTLVMMControl* buttonsTrack = new ofxTLVMMControl();
+
             string buttonsTrackName = _name;
             buttonsTrack->setXMLFileName(buttonsTrackName+".xml");
+            buttonsTrack->track = _track;
             timelines[_track]->addTrack(_name, buttonsTrack);
             break;
     }

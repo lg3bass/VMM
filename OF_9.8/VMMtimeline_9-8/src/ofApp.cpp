@@ -47,8 +47,8 @@ void ofApp::setup(){
     router.setup(ofGetAppPtr());
     
     //events
-    ofAddListener(OscMsgEvent::events, this, &ofApp::oscEvent);
-    ofAddListener(anotherOscMsgEvent::events, this, &ofApp::anotherEvent);
+    //ofAddListener(OscMsgEvent::events, this, &ofApp::oscEvent);
+    //ofAddListener(anotherOscMsgEvent::events, this, &ofApp::anotherEvent);
     ofAddListener(VMMOscMessageEvent::events, this, &ofApp::OscSendEvent);
     
 }
@@ -169,12 +169,15 @@ void ofApp::OscReciever(){
 //--------------------------------------------------------------
 void ofApp::OSCsendToVMM(int _track, string _address, float _value){
     
-    ofLogVerbose("OSC_OUT") << _address << " " << _value;
+    
     ofxOscMessage m;
     m.setAddress(_address);
-    m.addInt32Arg(_track);
+    m.addInt32Arg(_track+1);    //VMMtimeline is 0, VMM is 1
     m.addFloatArg(_value);
     
+    ofLogVerbose("OSC_OUT") << m.getAddress() << " "
+                            << ofToString(m.getArgAsInt(0)) << " "  //_track
+                            << ofToString(m.getArgAsFloat(1));      //_value
     sender.sendMessage(m);
 }
 
@@ -186,21 +189,23 @@ void ofApp::OSCnoteOnAndPlay(int _track, string _address, string _value){
     int buffer = ofToInt(ofSplitString(_value, " ")[1]);
     int duration = ofToInt(ofSplitString(_value, " ")[2]);
     
-    ofLogVerbose("OSC_OUT") << _address << " " << _value;
+    //ofLogVerbose("OSC_OUT") << _address << " " << _value;
     ofxOscMessage m;
     m.setAddress(_address);
-    m.addInt32Arg(_track);
+    m.addInt32Arg(_track+1);    //VMMtimeline is 0, VMM is 1
     m.addInt32Arg(VMMnoteID);
     m.addInt32Arg(buffer);
     m.addInt32Arg(duration);
     
-    //m.addStringArg(_value);
-    //m.addFloatArg(_value);
-    
+    ofLogVerbose("OSC_OUT") << m.getAddress() << " "
+                            << ofToString(m.getArgAsInt(0)) << " "  //_track
+                            << ofToString(m.getArgAsInt(1)) << " "  //VMMnoteID
+                            << ofToString(m.getArgAsInt(2)) << " "  //buffer
+                            << ofToString(m.getArgAsInt(3));        //duration
     sender.sendMessage(m);
 }
 
-
+/*
 void ofApp::oscEvent(OscMsgEvent &e) {
    
     cout << e.msg << endl;
@@ -212,10 +217,14 @@ void ofApp::anotherEvent(anotherOscMsgEvent &e){
     cout << e.arg1 << endl;
     cout << e.arg2 << endl;
 }
-
+*/
+ 
 void ofApp::OscSendEvent(VMMOscMessageEvent &e){
     
-    //cout << e.m.getAddress() << " " << ofToString(e.m.getArgAsInt(0)) << " " << ofToString(e.m.getArgAsInt(1)) << endl;
+    //tis message is originating from ofxTLVMMControl.
+    ofLogVerbose("OSC_OUT") << e.m.getAddress() << " "
+                            << ofToString(e.m.getArgAsInt(0)) << " "  //_track  -- preformated base 1
+                            << ofToString(e.m.getArgAsInt(1));      //_value
     sender.sendMessage(e.m);
     
 }
