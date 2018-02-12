@@ -371,6 +371,24 @@ int timelineData::getNumOfChannelsOnPage(int _page){
     
 }
 
+//-------------------------------------------------
+bool timelineData::isChannelOnPage(string name, int _page){
+    int channels_on_page = getNumOfChannelsOnPage();
+    
+    bool isIt = false;
+    
+    for (int i=0; i< channels_on_page; i++){
+        if(name == getChannelName(i)){
+            
+            ofLog() << "Yes - " << name << " is in page " << _page;
+            isIt = true;
+        } 
+    }
+    
+    return isIt;
+}
+
+
 #pragma mark - KEYFRAMES
 
 //-------------------------------------------------

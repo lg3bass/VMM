@@ -152,7 +152,7 @@ public:
     int getNumOfChannelsOnPage();                   //return the number of channels on a page.
     int getNumOfChannelsOnPage(int _page);          //return the number of channels on a page (by index).
     
-    
+    bool isChannelOnPage(string name, int _page);    //returns TRUE if the page contains a specific channel
 #pragma mark - KEYFRAMES
     int getNumOfKeysInChannel();
     ofVec2f getSelectedKeyValue(int _selKey);       //return the selected keyframe in vec2f format

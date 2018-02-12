@@ -142,6 +142,22 @@ void timelineTrack::showSelectedTimelineTrack(int _track){
     
 }
 
+//--------------------------------------------------------------
+void timelineTrack::enableVMMControlTrack(int _track){
+    for(int i=0; i<timelines.size();i++){
+        if(timelines[i]->hasTrack("VMM")){
+            if(i == _track){
+                cout << "track " << i << " - VMM enabled()" << endl;
+                timelines[i]->getTrack("VMM")->enable();
+            } else {
+                cout << "track " << i << " - VMM disabled()" << endl;
+                timelines[i]->getTrack("VMM")->disable();
+            }
+        }
+    }
+    
+}
+
 //-------------------------------------------------
 void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type, float _low, float _high){
     
@@ -175,7 +191,6 @@ void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type
             
         case 6:
             //ofxTLVMMControl* buttonsTrack = new ofxTLVMMControl("127.0.0.1" ,7005);
-            
             ofxTLVMMControl* buttonsTrack = new ofxTLVMMControl();
 
             string buttonsTrackName = _name;

@@ -245,6 +245,8 @@ void TimelinePanel::keyPressed(int key){
             toggleDrawTrackData();
         }
     }
+    
+    
 }//func
 
 //-------------------------------------------------
@@ -1043,6 +1045,7 @@ void TimelinePanel::setTLTrack(int _track){
     
     data.setTrack(_track);
     tracks.showSelectedTimelineTrack(_track);
+    tracks.enableVMMControlTrack(_track);
 }
 
 //-------------------------------------------------
@@ -1053,6 +1056,20 @@ void TimelinePanel::setPage(int _page){
     if(data.getSelectedChannel() > -1){
         tracks.highlightFocuedTrack(data.getTrack(), data.getSelectedChannelName());
     }
+    
+    //Checks if the VMM track is on the page.
+    if(tracks.timelines[data.getTrack()]->hasTrack("VMM")){
+        if(data.isChannelOnPage("VMM", _page)){
+            
+            tracks.timelines[data.getTrack()]->getTrack("VMM")->enable();
+            
+        } else {
+            
+            ofLog() << "not on page " << _page;
+            tracks.timelines[data.getTrack()]->getTrack("VMM")->disable();
+        }
+    }
+
 }
 
 //-------------------------------------------------
