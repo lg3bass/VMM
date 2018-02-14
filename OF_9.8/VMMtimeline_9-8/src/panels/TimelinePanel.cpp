@@ -853,17 +853,17 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
                 //2. add a ofxTLVMMControl track
                 addTLChannelToPage(_track, _page, trackName, 6);
                 
-                auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[_track]->getTrack(trackName);
-                vmmTrack->track = _track;
+                //auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[_track]->getTrack(trackName);
+                //vmmTrack->track = _track;
                 
                 //3. update gui
                 //get the value from xml for the slider
-                float localCopiesFromXml = vmmxml.getValue("VMM:localCopies", 6.5);
+                //float localCopiesFromXml = vmmxml.getValue("VMM:localCopies", 6.5);
                 
                 //4. set the public variables in ofxTLVMMControl
                 //set the variable in ofxTLVMMControl
                 //vmmTrack->test_localCopies = localCopiesFromXml;
-                vmmTrack->setGuiSliderValue("localCopies", localCopiesFromXml);
+                //vmmTrack->setGuiSliderValue("localCopies", localCopiesFromXml);
                 
                 
             }
@@ -1005,10 +1005,12 @@ void TimelinePanel::playTLclip(int _track, int _clip){
     
     ofLogNotice("TRACK") << "TimelinePanel::playTLclip() > " << "TODO - THIS IS WHERE I SEND ALL MY TRACK DATA TO VMM";
     
+    /*
     if(tracks.timelines[_track]->hasTrack("VMM")){
         auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[_track]->getTrack("VMM");
         bMainApp->OSCsendToVMM(_track, "/localCopies", vmmTrack->test_localCopies);   //TODO:  confusion track 0 is track 1 in VMM
     }
+     */
 }
 
 //-------------------------------------------------
@@ -1045,7 +1047,13 @@ void TimelinePanel::setTLTrack(int _track){
     
     data.setTrack(_track);
     tracks.showSelectedTimelineTrack(_track);
+    
+    //cout << "selected chanel on track " << _track << " - " << data.getSelectedChannelOnTrackPage(_track, data.getPage(_track)) << endl;
     tracks.enableVMMControlTrack(_track);
+    
+    cout << "is VMM track showing " << data.isChannelOnPage("VMM", data.getPage(_track)) << endl;
+    //data.getSelectedChannelOnTrackPage(_track, data.getPage(_track));
+    
 }
 
 //-------------------------------------------------

@@ -344,6 +344,21 @@ string timelineData::getSelectedChannelName(){
 }
 
 //-------------------------------------------------
+string timelineData::getSelectedChannelOnTrackPage(int _track, int _page){
+    
+    string channelName = "";
+    
+    if(getSelectedChannel() == -1) {
+        channelName = "NULL";
+    } else {
+        //returns the name of a selected channel on a page.
+        channelName = TL.tracks[_track].tlPages[_page].tlChannels[getSelectedChannel()].name;
+    }
+    
+    return channelName;
+}
+
+//-------------------------------------------------
 string timelineData::getChannelName(int _channel){
     
     return TL.tracks[getTrack()].tlPages[getPage()].tlChannels[_channel].name;      //returns the name of a selected channel on the selected page.
@@ -372,8 +387,26 @@ int timelineData::getNumOfChannelsOnPage(int _page){
 }
 
 //-------------------------------------------------
-bool timelineData::isChannelOnPage(string name, int _page){
+bool timelineData::isChannelOnPage(string name){
     int channels_on_page = getNumOfChannelsOnPage();
+    
+    bool isIt = false;
+    
+    for (int i=0; i< channels_on_page; i++){
+        if(name == getChannelName(i)){
+            
+            ofLog() << "Yes - " << name << " is in page ";
+            isIt = true;
+        }
+    }
+    
+    return isIt;
+}
+
+
+//-------------------------------------------------
+bool timelineData::isChannelOnPage(string name, int _page){
+    int channels_on_page = getNumOfChannelsOnPage(_page);
     
     bool isIt = false;
     

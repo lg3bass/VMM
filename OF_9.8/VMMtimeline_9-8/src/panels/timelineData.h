@@ -147,12 +147,14 @@ public:
     void setSelectedChannel(int _channel);          //set the current selected timeline(channel) on a page (by index)
     void setSelectedChannel(string _channel);       //set the current selected timeline(channel) on a page (by index)
     string getSelectedChannelName();                //return the name of the selected timeline(channel) on a page.
+    string getSelectedChannelOnTrackPage(int _track, int _page);
     string getChannelName(int _channel);
     string getChannelNameOnPage(int _page, int _channel);
     int getNumOfChannelsOnPage();                   //return the number of channels on a page.
     int getNumOfChannelsOnPage(int _page);          //return the number of channels on a page (by index).
     
-    bool isChannelOnPage(string name, int _page);    //returns TRUE if the page contains a specific channel
+    bool isChannelOnPage(string name);              //returns TRUE if the page contains a specific channel
+    bool isChannelOnPage(string name, int _page);   //returns TRUE if the page contains a specific channel
 #pragma mark - KEYFRAMES
     int getNumOfKeysInChannel();
     ofVec2f getSelectedKeyValue(int _selKey);       //return the selected keyframe in vec2f format

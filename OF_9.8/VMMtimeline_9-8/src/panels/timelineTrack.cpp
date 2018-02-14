@@ -148,7 +148,10 @@ void timelineTrack::enableVMMControlTrack(int _track){
         if(timelines[i]->hasTrack("VMM")){
             if(i == _track){
                 cout << "track " << i << " - VMM enabled()" << endl;
+                
                 timelines[i]->getTrack("VMM")->enable();
+                
+                
             } else {
                 cout << "track " << i << " - VMM disabled()" << endl;
                 timelines[i]->getTrack("VMM")->disable();
