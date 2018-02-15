@@ -1003,9 +1003,11 @@ void TimelinePanel::playTLclip(int _track, int _clip){
     //enable OSC OUT
     data.TL.tracks[_track].enableOscOut = true;
     
+    //TODO: not needed
     ofLogNotice("TRACK") << "TimelinePanel::playTLclip() > " << "TODO - THIS IS WHERE I SEND ALL MY TRACK DATA TO VMM";
     
     /*
+    //TODO: not needed
     if(tracks.timelines[_track]->hasTrack("VMM")){
         auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[_track]->getTrack("VMM");
         bMainApp->OSCsendToVMM(_track, "/localCopies", vmmTrack->test_localCopies);   //TODO:  confusion track 0 is track 1 in VMM
@@ -1048,10 +1050,26 @@ void TimelinePanel::setTLTrack(int _track){
     data.setTrack(_track);
     tracks.showSelectedTimelineTrack(_track);
     
-    //cout << "selected chanel on track " << _track << " - " << data.getSelectedChannelOnTrackPage(_track, data.getPage(_track)) << endl;
-    tracks.enableVMMControlTrack(_track);
+    //tracks.enableVMMControlTrack(_track);
     
-    cout << "is VMM track showing " << data.isChannelOnPage("VMM", data.getPage(_track)) << endl;
+    for(int i=0; i<tracks.timelines.size();i++){
+        if(tracks.timelines[i]->hasTrack("VMM")){
+            if(i == _track){
+                
+                //only enable if the track is showing
+                if(data.isChannelOnPage("VMM", data.getPage(_track))){
+                    tracks.timelines[i]->getTrack("VMM")->enable();
+                    cout << "track " << i << " - VMM enabled()" << endl;
+                }
+                
+            } else {
+                
+                tracks.timelines[i]->getTrack("VMM")->disable();
+                cout << "track " << i << " - VMM disabled()" << endl;
+            }
+        }
+    }
+    
     //data.getSelectedChannelOnTrackPage(_track, data.getPage(_track));
     
 }

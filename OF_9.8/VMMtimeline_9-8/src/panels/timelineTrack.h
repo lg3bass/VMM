@@ -32,7 +32,7 @@ public:
     void displayTimelines(bool _showTimeline);    
     void enableTimelines(bool _enable);
     void showSelectedTimelineTrack(int _track);
-    void enableVMMControlTrack(int _track);
+    void enableVMMControlTrack(int _track);     //TODO: not used anymore
     
     void addTLTrack(int _track, string _page, string _name, int _type, float _low = -50, float _high = 50);
     void remTLTrack(int _track, int _page, string _name);

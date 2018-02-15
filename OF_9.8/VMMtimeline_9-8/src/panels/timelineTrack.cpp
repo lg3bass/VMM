@@ -142,6 +142,7 @@ void timelineTrack::showSelectedTimelineTrack(int _track){
     
 }
 
+//TODO: not used anymore moved up.
 //--------------------------------------------------------------
 void timelineTrack::enableVMMControlTrack(int _track){
     for(int i=0; i<timelines.size();i++){
