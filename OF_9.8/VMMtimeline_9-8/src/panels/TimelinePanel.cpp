@@ -853,19 +853,6 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
                 //2. add a ofxTLVMMControl track
                 addTLChannelToPage(_track, _page, trackName, 6);
                 
-                //auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[_track]->getTrack(trackName);
-                //vmmTrack->track = _track;
-                
-                //3. update gui
-                //get the value from xml for the slider
-                //float localCopiesFromXml = vmmxml.getValue("VMM:localCopies", 6.5);
-                
-                //4. set the public variables in ofxTLVMMControl
-                //set the variable in ofxTLVMMControl
-                //vmmTrack->test_localCopies = localCopiesFromXml;
-                //vmmTrack->setGuiSliderValue("localCopies", localCopiesFromXml);
-                
-                
             }
         }
     }
