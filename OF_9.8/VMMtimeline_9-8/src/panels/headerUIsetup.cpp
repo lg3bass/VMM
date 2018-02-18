@@ -418,12 +418,12 @@ void headerUI::setupGUI() {
 //--------------------------------------------------------------
 void headerUI::updateGUI(bool acceptEvents){
     
+    //NOTE: BOB, remember acceptEvent turns off unwanted triggers!!!!@!@
+    
     //S1
     tracks->update(acceptEvents);
     pages->update(acceptEvents);
     clips->update(acceptEvents);
-    
-    
     
     //S2
     breadcrumb->update(acceptEvents);
@@ -449,8 +449,6 @@ void headerUI::updateGUI(bool acceptEvents){
     trackDropdown->update(acceptEvents);
     trackName->update(acceptEvents);
     
-    
-    
     //S4
     meter->update(acceptEvents);
     barBeatFrame->update(acceptEvents);
@@ -467,8 +465,6 @@ void headerUI::updateGUI(bool acceptEvents){
     
     //S5
     linkSlider->update(acceptEvents);
-    
-    
     
 }
 
