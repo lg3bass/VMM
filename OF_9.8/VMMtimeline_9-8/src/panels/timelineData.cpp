@@ -310,7 +310,7 @@ int timelineData::getSelectedChannel(){
 void timelineData::setSelectedChannel(int _channel){
     TL.tracks[getTrack()].tlPages[getPage()].selected_channel = _channel;
     setSelectedKeyIndex(-1);                                                        //reset all the keys
-    ofLog() << "Selected - Page " << ofToString(getPage()) << " Channel " << getChannelName(_channel);
+    ofLog() << "setSelectedChannel(int _channel) - Page " << ofToString(getPage()) << " Channel " << getChannelName(_channel);
     
 }
 
@@ -321,7 +321,7 @@ void timelineData::setSelectedChannel(string _channel){
     for (int i=0; i< channels_on_page; i++){
         if(_channel == getChannelName(i)){
             TL.tracks[getTrack()].tlPages[getPage()].selected_channel = i;
-            ofLog() << "Selected - Page " << ofToString(getPage()) << " Channel " << getChannelName(i);
+            ofLog() << "setSelectedChannel(string _channel) - Page " << ofToString(getPage()) << " Channel " << getChannelName(i);
         }
     }
     setSelectedKeyIndex(-1);                                                        //reset all the keys
@@ -361,7 +361,15 @@ string timelineData::getSelectedChannelOnTrackPage(int _track, int _page){
 //-------------------------------------------------
 string timelineData::getChannelName(int _channel){
     
-    return TL.tracks[getTrack()].tlPages[getPage()].tlChannels[_channel].name;      //returns the name of a selected channel on the selected page.
+    string channelName;
+    
+    if(_channel > -1){
+        //returns the name of a selected channel on the selected page.
+        channelName = TL.tracks[getTrack()].tlPages[getPage()].tlChannels[_channel].name;
+    } else {
+        channelName = "NULL";
+    }
+    return channelName;
 }
 
 //-------------------------------------------------

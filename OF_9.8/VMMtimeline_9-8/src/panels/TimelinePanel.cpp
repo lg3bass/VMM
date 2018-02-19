@@ -794,7 +794,7 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
     
     //----------------------------------
     //-:Load Xml file
-    //TODO - I don't like the way the getProjectPath() is referenced here.
+    //TODO: I don't like the way the getProjectPath() is referenced here.
     string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
     ofLogNotice("LOAD") << "TimelinePanel::loadTLPage " << filePath;
     
@@ -841,6 +841,9 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
                 
             }else if(trackType=="Buttons"){
                 //1. read the VMM.xml
+                
+                //TODO: add ZERO to filename
+                //string vmmXMLfile = filePath + trackName + "_" + ofToString(_track) + ".xml";
                 string vmmXMLfile = filePath + trackName + ".xml";
                 ofxXmlSettings vmmxml;
                 if( vmmxml.loadFile(vmmXMLfile) ){

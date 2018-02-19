@@ -177,7 +177,7 @@ void ofApp::loadTLPage(){
         timePanel.loadTLPage(timePanel.data.getTrack(), timePanel.data.getPage(), timePanel.data.getClip());
         cout << "Loading Page... " << endl;
         
-        //TODO - ??? When the dropdown closes where is the best place set the dropdownOpen var to FALSE.
+        //TODO: ??? When the dropdown closes where is the best place set the dropdownOpen var to FALSE.
         //TEMP, Bob, Find a better place for this.
         headerPanel.setDropdownOpen(false);
     } else {

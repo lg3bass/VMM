@@ -196,7 +196,9 @@ void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type
         case 6:
             //ofxTLVMMControl* buttonsTrack = new ofxTLVMMControl("127.0.0.1" ,7005);
             ofxTLVMMControl* buttonsTrack = new ofxTLVMMControl();
-
+            
+            //TODO: add ZERO to filename (not working)
+            //string buttonsTrackName = _name + "_" + ofToString(_track);
             string buttonsTrackName = _name;
             buttonsTrack->setXMLFileName(buttonsTrackName+".xml");
             buttonsTrack->track = _track;
