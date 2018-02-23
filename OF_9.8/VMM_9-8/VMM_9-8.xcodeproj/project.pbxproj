@@ -475,6 +475,7 @@
 		480A780D8D0308AE4A368801 /* ofxGui */ = {
 			isa = PBXGroup;
 			children = (
+				2865DAEF86B1907A704CA70B /* ofxJSON */,
 				A763ED608B35AE3310251DEE /* src */,
 			);
 			name = ofxGui;
@@ -669,7 +670,6 @@
 			isa = PBXGroup;
 			children = (
 				480A780D8D0308AE4A368801 /* ofxGui */,
-				2865DAEF86B1907A704CA70B /* ofxJSON */,
 				2081A4BC018CBE6E3D670839 /* ofxObjLoader */,
 				E6053AB7FEC63D5F83825B88 /* ofxOsc */,
 				7F3C04577424427D348B1425 /* ofxSyphon */,

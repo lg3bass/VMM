@@ -23,6 +23,7 @@ class ofApp : public ofBaseApp{
 
 public:
     
+    //TODO: delete me - unused
     enum TEST_SEQENCES{
         BANDTUBE = 1,
         BASSSTAR = 2,
@@ -115,6 +116,7 @@ public:
     void mousePressed(int x, int y, int button);
     void mouseReleased(int x, int y, int button);
     void windowResized(int w, int h);
+    void setWindowSize(int w = 0, int h = 0);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     void drawLights();
@@ -123,12 +125,16 @@ public:
     
     //OSC
     void OSChandler();
-    
     oscRouter router;
     
+    //window modes
+    int windowIndex = 0;
+    vector<ofVec2f> windows;
     
     
     //TEMP VARIABLE FOR TESTING
     int playedNotes = 0;
+    
+    
 		
 };

@@ -80,6 +80,12 @@ void ofApp::setup(){
     minimized = true;
     gui.setPosition(900.0, 100.0);
     
+    
+    //Windows
+    windows.push_back(ofVec2f(1280,720));
+    windows.push_back(ofVec2f(640,360));
+    windows.push_back(ofVec2f(600,600));
+    
 }
 
 //--------------------------------------------------------------
@@ -310,7 +316,11 @@ void ofApp::keyPressed(int key){
         
     }
     
-    
+    if(key=='w'){
+        //cycle through window sizes.
+        setWindowSize();
+        
+    }
     
     
     
@@ -407,7 +417,20 @@ void ofApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-    
+
+}
+
+//--------------------------------------------------------------
+void ofApp::setWindowSize(int w, int h){
+    if(w > 0 && h > 0){
+        //use what is passed in
+        ofSetWindowShape(w, h);
+        
+    } else {
+        //cycle through the window presets.
+        windowIndex = (windowIndex < windows.size()-1) ? ++windowIndex : 0;
+        ofSetWindowShape(windows[windowIndex].x,windows[windowIndex].y);
+    }
 }
 
 //--------------------------------------------------------------
