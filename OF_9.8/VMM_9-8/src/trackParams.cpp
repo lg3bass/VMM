@@ -454,6 +454,8 @@ void trackParams::setOSCdial(guiParams &params, string paramName, float _value){
         params.mirror_distance = _value;
     } else if(paramName == "/localScale"){
         params.l_scale = float(_value);
+    } else if(paramName == "/globalScale"){
+        params.g_scale = float(_value);
     } else if(paramName == "/stillFrame"){
         params.stillFrame == int(_value);
     } else if(paramName == "/setGlobalRotX"){

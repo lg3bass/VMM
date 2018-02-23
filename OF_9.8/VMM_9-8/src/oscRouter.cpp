@@ -184,6 +184,8 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
     } else if (m.getAddress() == "/localScale"){
         tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsFloat(1));
 
+    } else if (m.getAddress() == "/globalScale"){
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsFloat(1));
         
         // GLOBAL ROTATE --------------------------------------
     } else if (m.getAddress() == "/randGlobalRotX" || m.getAddress() == "/tweenGlobalRotX"){
