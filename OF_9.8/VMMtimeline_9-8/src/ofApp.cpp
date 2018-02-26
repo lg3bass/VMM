@@ -14,7 +14,7 @@ void ofApp::setup(){
     ofSetLogLevel("OSC_TRIGGERED", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_PLAY", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_IN", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("OSC_OUT", OF_LOG_VERBOSE);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("OSC_OUT", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("SAVE", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("LOAD", OF_LOG_ERROR);// OF_LOG_ERROR
     ofSetLogLevel("KEYS", OF_LOG_ERROR);// OF_LOG_ERROR
@@ -184,9 +184,10 @@ void ofApp::OSCsendToVMM(int _track, string _address, float _value){
 //--------------------------------------------------------------
 void ofApp::OSCnoteOnAndPlay(int _track, string _address, string _value){
     
+    //sample: string _value = "200 1 200"
     //break up the _value to ints
-    int VMMnoteID = ofToInt(ofSplitString(_value, " ")[0]);
-    int buffer = ofToInt(ofSplitString(_value, " ")[1]);
+    int VMMnoteID = ofToInt(ofSplitString(_value, " ")[0]);     //could be anything
+    int buffer = ofToInt(ofSplitString(_value, " ")[1]);        //starts with 1. not base zero
     int duration = ofToInt(ofSplitString(_value, " ")[2]);
     
     //ofLogVerbose("OSC_OUT") << _address << " " << _value;
@@ -198,10 +199,10 @@ void ofApp::OSCnoteOnAndPlay(int _track, string _address, string _value){
     m.addInt32Arg(duration);
     
     ofLogVerbose("OSC_OUT") << m.getAddress() << " "
-                            << ofToString(m.getArgAsInt(0)) << " "  //_track
-                            << ofToString(m.getArgAsInt(1)) << " "  //VMMnoteID
-                            << ofToString(m.getArgAsInt(2)) << " "  //buffer
-                            << ofToString(m.getArgAsInt(3));        //duration
+                            << ofToString(m.getArgAsInt(_track+1)) << " "  //_track
+                            << ofToString(m.getArgAsInt(VMMnoteID)) << " "  //VMMnoteID
+                            << ofToString(m.getArgAsInt(buffer)) << " "  //buffer
+                            << ofToString(m.getArgAsInt(duration));        //duration
     sender.sendMessage(m);
 }
 
@@ -226,5 +227,55 @@ void ofApp::OscSendEvent(VMMOscMessageEvent &e){
                             << ofToString(e.m.getArgAsInt(0)) << " "  //_track  -- preformated base 1
                             << ofToString(e.m.getArgAsInt(1));      //_value
     sender.sendMessage(e.m);
+    
+}
+
+void ofApp::OSCsendMessage(int track, string address, string message){
+    
+    ofxOscMessage m;
+    m.setAddress(address);
+    m.addInt32Arg(track+1);
+    m.addStringArg(message);
+    
+    sender.sendMessage(m);
+    
+}
+
+void ofApp::sendOSCtestData(){
+    
+    OSCsendToVMM(0, "playNoteOff", 1.0);
+    OSCsendToVMM(0, "playAll", 1.0);
+    OSCsendToVMM(0, "mirror", 0.0);
+    OSCsendToVMM(0, "mirrorX", 0.0);
+    OSCsendToVMM(0, "mirrorY", 0.0);
+    OSCsendToVMM(0, "mirrorZ", 0.0);
+    OSCsendToVMM(0, "OSCsetMatCap", 19);
+    OSCsendToVMM(0, "localSlices", 2);
+    OSCsendToVMM(0, "localCopies", 12);
+    OSCsendToVMM(0, "globalCopies", 1);
+    
+    OSCsendToVMM(0, "mirrorDistance", 0);
+    OSCsendToVMM(0, "setGlobalRotX", 0);
+    OSCsendToVMM(0, "setGlobalRotY", 0);
+    OSCsendToVMM(0, "setGlobalRotZ", 0);
+    OSCsendToVMM(0, "setGlobalTransX", 0);
+    OSCsendToVMM(0, "setGlobalTransY", 12);
+    OSCsendToVMM(0, "setGlobalTransZ", 12);
+    
+    OSCsendToVMM(0, "setLocalRotX", 12);
+    OSCsendToVMM(0, "setLocalRotY", 12);
+    OSCsendToVMM(0, "setLocalRotZ", 12);
+    OSCsendToVMM(0, "setLocalTransX", 12);
+    OSCsendToVMM(0, "setLocalTransY", 12);
+    OSCsendToVMM(0, "setLocalTransZ", 12);
+    
+    OSCsendToVMM(0, "setObjRotX", 12);
+    OSCsendToVMM(0, "setObjRotY", 12);
+    OSCsendToVMM(0, "setObjRotZ", 12);
+    
+    OSCsendToVMM(0, "localScale", 1.0);
+    OSCsendToVMM(0, "globalScale", 20.0);
+    
+    OSCsendToVMM(0, "clear", 1);
     
 }
