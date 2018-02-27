@@ -114,7 +114,7 @@ public:
     
     void OSCsendMessage(int track, string address, string message);
 
-    void sendOSCtestData();
+    void sendOSCtestData(int track);
     
 private:
     

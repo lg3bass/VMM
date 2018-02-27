@@ -241,8 +241,10 @@ void ofApp::OSCsendMessage(int track, string address, string message){
     
 }
 
-void ofApp::sendOSCtestData(){
+void ofApp::sendOSCtestData(int track){
     
+    //TEST 1 -  send commands manually.
+    /*
     OSCsendToVMM(0, "playNoteOff", 1.0);
     OSCsendToVMM(0, "playAll", 1.0);
     OSCsendToVMM(0, "mirror", 0.0);
@@ -277,5 +279,19 @@ void ofApp::sendOSCtestData(){
     OSCsendToVMM(0, "globalScale", 20.0);
     
     OSCsendToVMM(0, "clear", 1);
+    */
+    
+    
+    //TEST 2 -
+    //1. Check if VMM track exists
+    //2. Has the VMM track been loaded?  Check flag on VMM track to see if it's been loaded.
+    //2a.   Loaded - use the data in ofParams.
+    //2b.   Not loaded - load the data.
+    
+    
+    if(timePanel.tracks.timelines[track]->hasTrack("VMM")){
+        auto vmmTrack = (ofxTLVMMControl*)timePanel.tracks.timelines[track]->getTrack("VMM");
+        OSCsendToVMM(track, "/playNoteOff", vmmTrack->playNoteOff);   //TODO:  confusion track 0 is track 1 in VMM
+    }
     
 }
