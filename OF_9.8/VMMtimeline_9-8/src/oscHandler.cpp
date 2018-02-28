@@ -88,7 +88,7 @@ void oscHandler::processOSCmessage(ofxOscMessage &m){
             
             //TODO: Here send a /clear message to VMM
             //As a test we want to send some params to set up baseline before the first note is played.
-            oscMainApp->sendOSCtestData(m.getArgAsInt32(0));
+            oscMainApp->sendOSCtestData(m.getArgAsInt32(0), m.getArgAsInt32(1));
             
         }
         

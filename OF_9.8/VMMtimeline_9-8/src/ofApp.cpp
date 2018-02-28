@@ -14,9 +14,9 @@ void ofApp::setup(){
     ofSetLogLevel("OSC_TRIGGERED", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_PLAY", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_IN", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("OSC_OUT", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("OSC_OUT", OF_LOG_VERBOSE);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("SAVE", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("LOAD", OF_LOG_ERROR);// OF_LOG_ERROR
+    ofSetLogLevel("LOAD", OF_LOG_VERBOSE);// OF_LOG_ERROR
     ofSetLogLevel("KEYS", OF_LOG_ERROR);// OF_LOG_ERROR
     ofSetLogLevel("KEYBOARD", OF_LOG_ERROR);// OF_LOG_ERROR
     ofSetLogLevel("HEADER", OF_LOG_ERROR);
@@ -241,7 +241,7 @@ void ofApp::OSCsendMessage(int track, string address, string message){
     
 }
 
-void ofApp::sendOSCtestData(int track){
+void ofApp::sendOSCtestData(int track, int clip){
     
     //TEST 1 -  send commands manually.
     /*
@@ -291,7 +291,43 @@ void ofApp::sendOSCtestData(int track){
     
     if(timePanel.tracks.timelines[track]->hasTrack("VMM")){
         auto vmmTrack = (ofxTLVMMControl*)timePanel.tracks.timelines[track]->getTrack("VMM");
-        OSCsendToVMM(track, "/playNoteOff", vmmTrack->playNoteOff);   //TODO:  confusion track 0 is track 1 in VMM
+        OSCsendToVMM(track, "/playNoteOff", vmmTrack->clips[clip].playNoteOff);   //TODO:  confusion track 0 is track 1 in VMM
+        OSCsendToVMM(track, "/playAll", vmmTrack->clips[clip].playAll);
+        OSCsendToVMM(track, "/mirror", vmmTrack->clips[clip].mirror);
+        OSCsendToVMM(track, "/mirrorX", vmmTrack->clips[clip].mirrorX);
+        OSCsendToVMM(track, "/mirrorY", vmmTrack->clips[clip].mirrorY);
+        OSCsendToVMM(track, "/mirrorZ", vmmTrack->clips[clip].mirrorZ);
+        OSCsendToVMM(track, "/OSCsetMatCap", vmmTrack->clips[clip].OSCsetMatCap);
+        
+        /*
+        OSCsendToVMM(track, "/localSlices", vmmTrack->localSlices.get());
+        OSCsendToVMM(track, "/localCopies", vmmTrack->localCopies.get());
+        OSCsendToVMM(track, "/globalCopies", vmmTrack->globalCopies.get());
+        OSCsendToVMM(track, "/mirrorDistance", vmmTrack->mirrorDistance.get());
+        
+        OSCsendToVMM(track, "/setGlobalRotX", vmmTrack->setGlobalRotX.get());
+        OSCsendToVMM(track, "/setGlobalRotY", vmmTrack->setGlobalRotY.get());
+        OSCsendToVMM(track, "/setGlobalRotZ", vmmTrack->setGlobalRotZ.get());
+        
+        OSCsendToVMM(track, "/setGlobalTransX", vmmTrack->setGlobalTransX.get());
+        OSCsendToVMM(track, "/setGlobalTransY", vmmTrack->setGlobalTransY.get());
+        OSCsendToVMM(track, "/setGlobalTransZ", vmmTrack->setGlobalTransZ.get());
+        
+        OSCsendToVMM(track, "/setGlobalRotX", vmmTrack->setGlobalRotX.get());
+        OSCsendToVMM(track, "/setGlobalRotY", vmmTrack->setGlobalRotY.get());
+        OSCsendToVMM(track, "/setGlobalRotZ", vmmTrack->setGlobalRotZ.get());
+        
+        OSCsendToVMM(track, "/setLocalTransX", vmmTrack->setLocalTransX.get());
+        OSCsendToVMM(track, "/setLocalTransY", vmmTrack->setLocalTransY.get());
+        OSCsendToVMM(track, "/setLocalTransZ", vmmTrack->setLocalTransZ.get());
+        
+        OSCsendToVMM(track, "/setObjRotX", vmmTrack->setObjRotX.get());
+        OSCsendToVMM(track, "/setObjRotY", vmmTrack->setObjRotY.get());
+        OSCsendToVMM(track, "/setObjRotZ", vmmTrack->setObjRotZ.get());
+        
+        OSCsendToVMM(track, "/localScale", vmmTrack->localScale.get());
+        OSCsendToVMM(track, "/globalScale", vmmTrack->globalScale.get());
+        */
     }
     
 }

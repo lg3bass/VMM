@@ -35,8 +35,7 @@ void ofApp::setControllerData(string name, int data){
         timePanel.loadTLClip(timePanel.data.getTrack(), data);
         
         //4. set the clip in the current track
-        //5. load the track keyframe data.
-        //6. set the duration in the timeline on the track.
+        //5. set the duration in the timeline on the track.
         timePanel.setClip(data);
         
         //UI - measures

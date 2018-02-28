@@ -202,6 +202,8 @@ void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type
             string buttonsTrackName = _name;
             buttonsTrack->setXMLFileName(buttonsTrackName+".xml");
             buttonsTrack->track = _track;
+            buttonsTrack->page = timelines[_track]->getCurrentPageIndex();
+            
             timelines[_track]->addTrack(_name, buttonsTrack);
             break;
     }

@@ -803,15 +803,16 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
     string filenamePanel = filePath + pageName + "_settings.xml";
     ofxXmlSettings xml;
     
+    
     if( xml.loadFile(filenamePanel) ){
         ofLogVerbose("LOAD") <<"timelinePanel::loadTLPage - "<< filenamePanel <<" loaded.";
     }else{
-        ofLogError("LOAD") <<  "timelinePanel::loadTLPage - unable to load " << filenamePanel ;
+        ofLogVerbose("LOAD") <<  "timelinePanel::loadTLPage - unable to load " << filenamePanel ;
         return;
     }
     
     //----------------------------------
-    //-:Create tracks from loaded settings.
+    //-:Create tracks from loaded P<page no>_setting.xml.
     int numOfChannels = xml.getValue("page:tlChannels:tlChannels-num", 0);
     
     for (int i=0; i<numOfChannels; i++){
@@ -842,8 +843,10 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
             }else if(trackType=="Buttons"){
                 //1. read the VMM.xml
                 
-                //TODO: add ZERO to filename
+                //TODO: delete (Why is this here)
                 //string vmmXMLfile = filePath + trackName + "_" + ofToString(_track) + ".xml";
+                
+                /*
                 string vmmXMLfile = filePath + trackName + ".xml";
                 ofxXmlSettings vmmxml;
                 if( vmmxml.loadFile(vmmXMLfile) ){
@@ -852,7 +855,8 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
                     ofLogError("LOAD") <<  "timelinePanel::loadTLPage - ofxTLVMMControl - unable to load " << vmmXMLfile ;
                     return;
                 }
-                
+                */
+                 
                 //2. add a ofxTLVMMControl track
                 addTLChannelToPage(_track, _page, trackName, 6);
                 
@@ -869,20 +873,21 @@ void TimelinePanel::loadTLTrackPages(){
     int p = data.getPage();
     int c = data.getClip();
     
-    //Setup all the channels on the current selected page.
-    for(int p2=0; p2< NUMBER_OF_TRACKS; p2++){
-        
+    //Create channels(tracks) as listed for each Page (P<page no>_setting.xml)
+    for(int p2=0; p2< NUMBER_OF_PAGES; p2++){
             loadTLPage(t, p2, c);
     }
-    //set the display track
-    //setTLTrack(0);
+
     
     setPage(p);
     
-    //load the clip_X.xml
+    //1.load track XML
+    //2.load the clip.xml
+    //3.set [number of measures,duration] in clip
     loadTLClip(t, c);
     
-    //load all the track.xml for the clip.
+    //4. set the clip in the curren track
+    //5. set the duration in the timeline on the track.
     setClip(c);
     
     //set UI - frames UI
@@ -932,15 +937,26 @@ void TimelinePanel::loadTLAllTracks(){
 
 //-------------------------------------------------
 void TimelinePanel::loadTLClip(int _track, int _clip) {
-    //TODO - add please set a project first check
     
+    //1.load track XML
+    //  -create the path to xml
     string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
     
-    //load the tracks into the created tracks
+    //  -load the tracks from xml.
     ofLogNotice("LOAD") <<"1. load track XML from: " << filePath;
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
     
-    //load the clip settings.
+    //  -load ofxDatGuiTracks (ofxTLVMMControl) xml
+    if(tracks.timelines[_track]->hasTrack("VMM")){
+        //switch to the correct data clips[]
+        auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[_track]->getTrack("VMM");
+        //vmmTrack->clip = _clip;
+        //do params exist for clip
+        vmmTrack->setClipParams(_clip);
+    }
+    
+    //2.load the clip_<CLIP_NO>.xml
+    //  -load the clip settings.
     string clipName = "clip_" + ofToString(_clip);
     string savedClipSettingsPath = filePath + clipName + ".xml";
     ofxXmlSettings savedClipSettings;
@@ -952,13 +968,12 @@ void TimelinePanel::loadTLClip(int _track, int _clip) {
         return;
     }
     
-    //number of measures in the clip
+    //3.set [number of measures,duration] in clip
+    //  -number of measures
     string param1 = "clip_" + ofToString(_clip) + ":numberOfMeasures";
     int numOfMeasures = savedClipSettings.getValue(param1, 0);
     
-    //sets the clip measures and duration
-    //data.setClipMeasures(_track, numOfMeasures);
-    
+    //  -duration
     data.TL.tracks[_track].tlClips[_clip].numberOfMeasures = numOfMeasures;
     data.TL.tracks[_track].tlClips[_clip].duration = data.calculateFramesInMeasures(numOfMeasures, data.TL.bpm, data.TL.fps);
     
@@ -1077,10 +1092,12 @@ void TimelinePanel::setPage(int _page){
     if(tracks.timelines[data.getTrack()]->hasTrack("VMM")){
         if(data.isChannelOnPage("VMM", _page)){
             
+            //accept events.
             tracks.timelines[data.getTrack()]->getTrack("VMM")->enable();
             
         } else {
             
+            //turn off accept events on VMM track
             ofLog() << "not on page " << _page;
             tracks.timelines[data.getTrack()]->getTrack("VMM")->disable();
         }

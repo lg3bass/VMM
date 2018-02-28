@@ -8,6 +8,7 @@
 #pragma once
 
 #define NUMBER_OF_TRACKS 10
+#define NUMBER_OF_PAGES 10
 
 #include "ofMain.h"
 #include "ofRange.h"
