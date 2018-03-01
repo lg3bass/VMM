@@ -28,10 +28,15 @@ void ofApp::setControllerData(string name, int data){
         
         timePanel.setPage(data);
     } else if(name == "CLIP"){
-       
-        //1. load track XML
-        //2. load the clip.xml
-        //3. set [number of measures,duration] in clip
+        
+        //TODO: If track has VMMControl switch params?
+        
+        
+        
+        //1.load track XML
+        //2.switch VMMControl params
+        //3.load the clip.xml
+        //4.set [number of measures,duration] in clip
         timePanel.loadTLClip(timePanel.data.getTrack(), data);
         
         //4. set the clip in the current track
@@ -189,25 +194,15 @@ void ofApp::loadTLPage(){
 void ofApp::loadTLTrackPages(){
     
     if(!timePanel.projectSet){
-        //setTLProject("Select a project file (.vmm)");
-        ofFileDialogResult openFileResult= ofSystemLoadDialog("Select a project file (.vmm)");
         
-        if (openFileResult.bSuccess){
-            //set the path to where the project is
-            timePanel.setProjectPathAndFile(openFileResult);
-            
-            //load the project file (.vmm)
-            timePanel.loadTLProject(openFileResult);
-            
-        }else {
-            ofLogNotice("SAVE") << "User hit cancel";
-            return;
-        }
-        
+        //load the project file
+        loadProject();
     }
     
     if(timePanel.projectSet){
-        cout << "Loading Page... " << endl;
+        
+        ofLogVerbose("LOAD") << "ofAppRouter::loadTLTrackPages()";
+
         timePanel.loadTLTrackPages();
         
         //TODO - ??? When the dropdown closes where is the best place set the dropdownOpen var to FALSE.
@@ -223,20 +218,9 @@ void ofApp::loadTLTrackPages(){
 //--------------------------------------------------------------
 void ofApp::loadTLAllTracks(){
     if(!timePanel.projectSet){
-        ofFileDialogResult openFileResult= ofSystemLoadDialog("Select a project file (.vmm)");
         
-        if (openFileResult.bSuccess){
-            //set the path to where the project is
-            timePanel.setProjectPathAndFile(openFileResult);
-            
-            //load the project file (.vmm)
-            timePanel.loadTLProject(openFileResult);
-            
-        }else {
-            ofLogNotice("SAVE") << "User hit cancel";
-            return;
-        }
-        
+        //load the project file
+        loadProject();
     }
     
     if(timePanel.projectSet){
@@ -250,6 +234,24 @@ void ofApp::loadTLAllTracks(){
     } else {
         cout << "No project setup..." << endl;
     }    
+}
+
+//--------------------------------------------------------------
+void ofApp::loadProject(){
+    
+    ofFileDialogResult openFileResult= ofSystemLoadDialog("Select a project file (.vmm)");
+    
+    if (openFileResult.bSuccess){
+        //set the path to where the project is
+        timePanel.setProjectPathAndFile(openFileResult);
+        
+        //load the project file (.vmm)
+        timePanel.loadTLProject(openFileResult);
+        
+    }else {
+        ofLogNotice("LOAD") << "User hit cancel";
+        return;
+    }
 }
 
 //--------------------------------------------------------------

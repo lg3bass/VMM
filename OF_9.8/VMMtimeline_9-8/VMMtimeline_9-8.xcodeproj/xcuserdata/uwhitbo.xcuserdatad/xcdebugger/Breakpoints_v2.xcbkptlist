@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "src/panels/timelineTrack.cpp"
-            timestampString = "540689217.190981"
+            filePath = "src/panels/TimelinePanel.cpp"
+            timestampString = "541543681.31811"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "timelineTrack::addTLTrack(int _track, string _page, string _name, int _type, float _low, float _high)"
+            startingLineNumber = "999"
+            endingLineNumber = "999"
+            landmarkName = "TimelinePanel::playTLclip(int _track, int _clip)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/panels/TimelinePanel.cpp"
-            timestampString = "540689217.190981"
+            timestampString = "541543746.129436"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "857"
-            endingLineNumber = "857"
-            landmarkName = "TimelinePanel::loadTLPage(int _track, int _page, int _clip)"
+            startingLineNumber = "887"
+            endingLineNumber = "887"
+            landmarkName = "TimelinePanel::loadTLTrackPages()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../addons/ofxTLVMMControl/src/ofxTLVMMControl.cpp"
-            timestampString = "541118329.660941"
+            filePath = "src/panels/TimelinePanel.cpp"
+            timestampString = "541543758.3924609"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "524"
-            endingLineNumber = "524"
-            landmarkName = "ofxTLVMMControl::update()"
+            startingLineNumber = "922"
+            endingLineNumber = "922"
+            landmarkName = "TimelinePanel::loadTLAllTracks()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofAppRouter.cpp"
+            timestampString = "541543733.394927"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "ofApp::setControllerData(string name, int data)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

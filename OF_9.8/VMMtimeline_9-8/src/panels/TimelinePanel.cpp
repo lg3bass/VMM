@@ -881,9 +881,18 @@ void TimelinePanel::loadTLTrackPages(){
     
     setPage(p);
     
+    //TODO: If track contain VMMControl, function in params from file
+    if(tracks.timelines[t]->hasTrack("VMM")){
+        //switch to the correct data clips[]
+        auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[t]->getTrack("VMM");
+        vmmTrack->loadClipXML(c);
+    
+    }
+        
     //1.load track XML
-    //2.load the clip.xml
-    //3.set [number of measures,duration] in clip
+    //2.switch VMMControl params
+    //3.load the clip.xml
+    //4.set [number of measures,duration] in clip
     loadTLClip(t, c);
     
     //4. set the clip in the curren track
@@ -904,8 +913,10 @@ void TimelinePanel::loadTLAllTracks(){
     //Load all the channels on from ALL tracks if they have content.
     //Load up track 0, clip 0
     
+    //For each track create the channels.
     for(int t=0;t < NUMBER_OF_TRACKS; t++){
-        for(int p=0;p < NUMBER_OF_TRACKS; p++){
+        //Create channels(tracks) as listed for each Page (P<page no>_setting.xml)
+        for(int p=0;p < NUMBER_OF_PAGES; p++){
             
                 //TODO - LOAD is loading too much
                 loadTLPage(t, p, 0);
@@ -918,7 +929,10 @@ void TimelinePanel::loadTLAllTracks(){
     //set the display page.
     setPage(0);
     
-    //load the clip_X.xml
+    //1.load track XML
+    //2.switch VMMControl params
+    //3.load the clip.xml
+    //4.set [number of measures,duration] in clip
     loadTLClip(0, 0);
     
     //load all the track.xml for the clip.
@@ -946,16 +960,16 @@ void TimelinePanel::loadTLClip(int _track, int _clip) {
     ofLogNotice("LOAD") <<"1. load track XML from: " << filePath;
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
     
-    //  -load ofxDatGuiTracks (ofxTLVMMControl) xml
+    //2.switch VMMControl params
     if(tracks.timelines[_track]->hasTrack("VMM")){
         //switch to the correct data clips[]
         auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[_track]->getTrack("VMM");
-        //vmmTrack->clip = _clip;
-        //do params exist for clip
+
+        //TODO: do params exist for clip?
         vmmTrack->setClipParams(_clip);
     }
     
-    //2.load the clip_<CLIP_NO>.xml
+    //3.load the clip_<CLIP_NO>.xml
     //  -load the clip settings.
     string clipName = "clip_" + ofToString(_clip);
     string savedClipSettingsPath = filePath + clipName + ".xml";
@@ -968,7 +982,7 @@ void TimelinePanel::loadTLClip(int _track, int _clip) {
         return;
     }
     
-    //3.set [number of measures,duration] in clip
+    //4.set [number of measures,duration] in clip
     //  -number of measures
     string param1 = "clip_" + ofToString(_clip) + ":numberOfMeasures";
     int numOfMeasures = savedClipSettings.getValue(param1, 0);
@@ -993,9 +1007,10 @@ void TimelinePanel::playTLclip(int _track, int _clip){
     
     resetMeasureLoop(_track);
 
-    //1. load the clip.xml
-    //2. set number of measures in clip
-    //3. set the duration in frames of the clip.
+    //1.load track XML
+    //2.switch VMMControl params
+    //3.load the clip.xml
+    //4.set [number of measures,duration] in clip
     loadTLClip(_track, _clip);
     
     //4. set which clip is playing in the current track

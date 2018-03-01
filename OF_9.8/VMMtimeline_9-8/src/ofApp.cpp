@@ -299,35 +299,35 @@ void ofApp::sendOSCtestData(int track, int clip){
         OSCsendToVMM(track, "/mirrorZ", vmmTrack->clips[clip].mirrorZ);
         OSCsendToVMM(track, "/OSCsetMatCap", vmmTrack->clips[clip].OSCsetMatCap);
         
-        /*
-        OSCsendToVMM(track, "/localSlices", vmmTrack->localSlices.get());
-        OSCsendToVMM(track, "/localCopies", vmmTrack->localCopies.get());
-        OSCsendToVMM(track, "/globalCopies", vmmTrack->globalCopies.get());
-        OSCsendToVMM(track, "/mirrorDistance", vmmTrack->mirrorDistance.get());
         
-        OSCsendToVMM(track, "/setGlobalRotX", vmmTrack->setGlobalRotX.get());
-        OSCsendToVMM(track, "/setGlobalRotY", vmmTrack->setGlobalRotY.get());
-        OSCsendToVMM(track, "/setGlobalRotZ", vmmTrack->setGlobalRotZ.get());
+        OSCsendToVMM(track, "/localSlices", vmmTrack->clips[clip].localSlices);
+        OSCsendToVMM(track, "/localCopies", vmmTrack->clips[clip].localCopies);
+        OSCsendToVMM(track, "/globalCopies", vmmTrack->clips[clip].globalCopies);
+        OSCsendToVMM(track, "/mirrorDistance", vmmTrack->clips[clip].mirrorDistance);
+
+        OSCsendToVMM(track, "/setGlobalRotX", vmmTrack->clips[clip].setGlobalRotX);
+        OSCsendToVMM(track, "/setGlobalRotY", vmmTrack->clips[clip].setGlobalRotY);
+        OSCsendToVMM(track, "/setGlobalRotZ", vmmTrack->clips[clip].setGlobalRotZ);
+
+        OSCsendToVMM(track, "/setGlobalTransX", vmmTrack->clips[clip].setGlobalTransX);
+        OSCsendToVMM(track, "/setGlobalTransY", vmmTrack->clips[clip].setGlobalTransY);
+        OSCsendToVMM(track, "/setGlobalTransZ", vmmTrack->clips[clip].setGlobalTransZ);
+
+        OSCsendToVMM(track, "/setGlobalRotX", vmmTrack->clips[clip].setGlobalRotX);
+        OSCsendToVMM(track, "/setGlobalRotY", vmmTrack->clips[clip].setGlobalRotY);
+        OSCsendToVMM(track, "/setGlobalRotZ", vmmTrack->clips[clip].setGlobalRotZ);
+
+        OSCsendToVMM(track, "/setLocalTransX", vmmTrack->clips[clip].setLocalTransX);
+        OSCsendToVMM(track, "/setLocalTransY", vmmTrack->clips[clip].setLocalTransY);
+        OSCsendToVMM(track, "/setLocalTransZ", vmmTrack->clips[clip].setLocalTransZ);
+
+        OSCsendToVMM(track, "/setObjRotX", vmmTrack->clips[clip].setObjRotX);
+        OSCsendToVMM(track, "/setObjRotY", vmmTrack->clips[clip].setObjRotY);
+        OSCsendToVMM(track, "/setObjRotZ", vmmTrack->clips[clip].setObjRotZ);
+
+        OSCsendToVMM(track, "/localScale", vmmTrack->clips[clip].localScale);
+        OSCsendToVMM(track, "/globalScale", vmmTrack->clips[clip].globalScale);
         
-        OSCsendToVMM(track, "/setGlobalTransX", vmmTrack->setGlobalTransX.get());
-        OSCsendToVMM(track, "/setGlobalTransY", vmmTrack->setGlobalTransY.get());
-        OSCsendToVMM(track, "/setGlobalTransZ", vmmTrack->setGlobalTransZ.get());
-        
-        OSCsendToVMM(track, "/setGlobalRotX", vmmTrack->setGlobalRotX.get());
-        OSCsendToVMM(track, "/setGlobalRotY", vmmTrack->setGlobalRotY.get());
-        OSCsendToVMM(track, "/setGlobalRotZ", vmmTrack->setGlobalRotZ.get());
-        
-        OSCsendToVMM(track, "/setLocalTransX", vmmTrack->setLocalTransX.get());
-        OSCsendToVMM(track, "/setLocalTransY", vmmTrack->setLocalTransY.get());
-        OSCsendToVMM(track, "/setLocalTransZ", vmmTrack->setLocalTransZ.get());
-        
-        OSCsendToVMM(track, "/setObjRotX", vmmTrack->setObjRotX.get());
-        OSCsendToVMM(track, "/setObjRotY", vmmTrack->setObjRotY.get());
-        OSCsendToVMM(track, "/setObjRotZ", vmmTrack->setObjRotZ.get());
-        
-        OSCsendToVMM(track, "/localScale", vmmTrack->localScale.get());
-        OSCsendToVMM(track, "/globalScale", vmmTrack->globalScale.get());
-        */
     }
     
 }
