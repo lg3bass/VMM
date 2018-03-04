@@ -452,7 +452,7 @@ void trackParams::setOSCdial(guiParams &params, string paramName, float _value){
     } else if(paramName == "/localSlices"){
         params.l_slices = int(_value);
     } else if(paramName == "/mirrorDistance"){
-        params.mirror_distance = _value;
+        params.mirror_distance = float(_value);
     } else if(paramName == "/localScale"){
         params.l_scale = float(_value);
     } else if(paramName == "/globalScale"){

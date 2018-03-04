@@ -176,8 +176,8 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1);
         tracks[idx].trackParameters.setOSCtoggle(tracks[idx].params, m.getAddress(), m.getArgAsInt32(1));
     } else if (m.getAddress() == "/mirrorDistance"){
-        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1);
-        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsInt32(1));
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsFloat(1);
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsFloat(1));
     } else if (m.getAddress() == "/localCopies"){
         ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1);
         tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsInt32(1));
@@ -204,8 +204,8 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsFloat(1));
 
     } else if (m.getAddress() == "/globalScale"){
-        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt(1);
-        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), float(m.getArgAsInt(1)));
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsFloat(1);
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsFloat(1));
         
         // GLOBAL ROTATE --------------------------------------
     } else if (m.getAddress() == "/randGlobalRotX" || m.getAddress() == "/tweenGlobalRotX"){
@@ -240,9 +240,9 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
     } else if (m.getAddress() == "/setGlobalRotX" || m.getAddress() == "/setGlobalRotY" || m.getAddress() == "/setGlobalRotZ"){
         
-        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt(1);
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsFloat(1);
         //tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), float(m.getArgAsInt32(1)));
-        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), float(m.getArgAsInt(1)));
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsFloat(1));
         
         
         
@@ -279,9 +279,9 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
     } else if (m.getAddress() == "/setGlobalTransX" || m.getAddress() == "/setGlobalTransY" || m.getAddress() == "/setGlobalTransZ"){
         
-        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt(1);
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsFloat(1);
         //tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), float(m.getArgAsInt32(1)));
-        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), float(m.getArgAsInt(1)));
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsFloat(1));
 
         
         
@@ -320,8 +320,8 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
     } else if (m.getAddress() == "/setLocalRotX" || m.getAddress() == "/setLocalRotY" || m.getAddress() == "/setLocalRotZ"){
         
-        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt(1);
-        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), float(m.getArgAsInt(1)));
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsFloat(1);
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsFloat(1));
     
     
         
@@ -358,8 +358,8 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
     } else if (m.getAddress() == "/setLocalTransX" || m.getAddress() == "/setLocalTransY" || m.getAddress() == "/setLocalTransZ"){
         
-        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt(1);
-        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), float(m.getArgAsInt(1)));
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsFloat(1);
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsFloat(1));
         
         
     // OBJECT ROTATE --------------------------------------
@@ -394,8 +394,8 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         tracks[idx].trackParameters.setOSCtween2(tracks[idx].params, tracks[idx].posRandomObjRotZ, m.getAddress(), tracks[idx].easingquad, float(m.getArgAsInt32(1)), float(m.getArgAsInt32(2)),m.getArgAsInt32(3),m.getArgAsInt32(4));
         
     } else if (m.getAddress() == "/setObjRotX" || m.getAddress() == "/setObjRotY" || m.getAddress() == "/setObjRotZ") {
-        ofLogNotice("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt(1);
-        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), float(m.getArgAsInt(1)));
+        ofLogNotice("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsFloat(1);
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsFloat(1));
         
     
     } else if (m.getAddress() == "/LINK" || m.getAddress() == "LINK"){

@@ -14,9 +14,9 @@ void ofApp::setup(){
     ofSetLogLevel("OSC_TRIGGERED", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_PLAY", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("OSC_IN", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("OSC_OUT", OF_LOG_VERBOSE);//DEFAULT: OF_LOG_ERROR
+    ofSetLogLevel("OSC_OUT", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("SAVE", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("LOAD", OF_LOG_VERBOSE);// OF_LOG_ERROR
+    ofSetLogLevel("LOAD", OF_LOG_ERROR);// OF_LOG_ERROR
     ofSetLogLevel("KEYS", OF_LOG_ERROR);// OF_LOG_ERROR
     ofSetLogLevel("KEYBOARD", OF_LOG_ERROR);// OF_LOG_ERROR
     ofSetLogLevel("HEADER", OF_LOG_ERROR);
@@ -169,6 +169,7 @@ void ofApp::OscReciever(){
 //--------------------------------------------------------------
 void ofApp::OSCsendToVMM(int _track, string _address, float _value){
     
+
     
     ofxOscMessage m;
     m.setAddress(_address);
@@ -179,6 +180,35 @@ void ofApp::OSCsendToVMM(int _track, string _address, float _value){
                             << ofToString(m.getArgAsInt(0)) << " "  //_track
                             << ofToString(m.getArgAsFloat(1));      //_value
     sender.sendMessage(m);
+}
+
+//--------------------------------------------------------------
+void ofApp::OSCsendIntToVMM(int t, string a, int v){
+    ofxOscMessage m;
+    m.setAddress(a);
+    m.addInt32Arg(t+1);    //VMMtimeline is 0, VMM is 1
+    m.addInt32Arg(v);
+    
+    ofLogVerbose("OSC_OUT") << m.getAddress() << " "
+                            << ofToString(m.getArgAsInt(0)) << " "  //_track
+                            << ofToString(m.getArgAsInt(1));      //_value
+    sender.sendMessage(m);
+    
+}
+
+//--------------------------------------------------------------
+void ofApp::OSCsendFloatToVMM(int t, string a, float v){
+    ofxOscMessage m;
+    m.setAddress(a);
+    m.addInt32Arg(t+1);    //VMMtimeline is 0, VMM is 1
+    m.addFloatArg(v);
+    
+    ofLogVerbose("OSC_OUT") << m.getAddress() << " "
+    << ofToString(m.getArgAsInt(0)) << " "  //_track
+    << ofToString(m.getArgAsFloat(1));      //_value
+    sender.sendMessage(m);
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -221,11 +251,12 @@ void ofApp::anotherEvent(anotherOscMsgEvent &e){
 */
  
 void ofApp::OscSendEvent(VMMOscMessageEvent &e){
-    
-    //tis message is originating from ofxTLVMMControl.
+    //message originating from ofxTLVMMControl.
+    string value = (e.m.getArgType(1)==OFXOSC_TYPE_FLOAT) ? ofToString(e.m.getArgAsFloat(1)) : ofToString(e.m.getArgAsInt(1));
     ofLogVerbose("OSC_OUT") << e.m.getAddress() << " "
-                            << ofToString(e.m.getArgAsInt(0)) << " "  //_track  -- preformated base 1
-                            << ofToString(e.m.getArgAsInt(1));      //_value
+                            << ofToString(e.m.getArgAsInt(0)) << " "    //_track  -- preformated base 1
+                            << value;                                   //_value
+    
     sender.sendMessage(e.m);
     
 }
@@ -291,42 +322,41 @@ void ofApp::sendOSCtestData(int track, int clip){
     
     if(timePanel.tracks.timelines[track]->hasTrack("VMM")){
         auto vmmTrack = (ofxTLVMMControl*)timePanel.tracks.timelines[track]->getTrack("VMM");
-        OSCsendToVMM(track, "/playNoteOff", vmmTrack->clips[clip].playNoteOff);   //TODO:  confusion track 0 is track 1 in VMM
-        OSCsendToVMM(track, "/playAll", vmmTrack->clips[clip].playAll);
-        OSCsendToVMM(track, "/mirror", vmmTrack->clips[clip].mirror);
-        OSCsendToVMM(track, "/mirrorX", vmmTrack->clips[clip].mirrorX);
-        OSCsendToVMM(track, "/mirrorY", vmmTrack->clips[clip].mirrorY);
-        OSCsendToVMM(track, "/mirrorZ", vmmTrack->clips[clip].mirrorZ);
-        OSCsendToVMM(track, "/OSCsetMatCap", vmmTrack->clips[clip].OSCsetMatCap);
+        OSCsendIntToVMM(track, "/playNoteOff", vmmTrack->clips[clip].playNoteOff);   //TODO:  confusion track 0 is track 1 in VMM
+        OSCsendIntToVMM(track, "/playAll", vmmTrack->clips[clip].playAll);
+        OSCsendIntToVMM(track, "/mirror", vmmTrack->clips[clip].mirror);
+        OSCsendIntToVMM(track, "/mirrorX", vmmTrack->clips[clip].mirrorX);
+        OSCsendIntToVMM(track, "/mirrorY", vmmTrack->clips[clip].mirrorY);
+        OSCsendIntToVMM(track, "/mirrorZ", vmmTrack->clips[clip].mirrorZ);
+        OSCsendIntToVMM(track, "/OSCsetMatCap", vmmTrack->clips[clip].OSCsetMatCap);
         
-        
-        OSCsendToVMM(track, "/localSlices", vmmTrack->clips[clip].localSlices);
-        OSCsendToVMM(track, "/localCopies", vmmTrack->clips[clip].localCopies);
-        OSCsendToVMM(track, "/globalCopies", vmmTrack->clips[clip].globalCopies);
-        OSCsendToVMM(track, "/mirrorDistance", vmmTrack->clips[clip].mirrorDistance);
+        OSCsendIntToVMM(track, "/localSlices", vmmTrack->clips[clip].localSlices);
+        OSCsendIntToVMM(track, "/localCopies", vmmTrack->clips[clip].localCopies);
+        OSCsendIntToVMM(track, "/globalCopies", vmmTrack->clips[clip].globalCopies);
+        OSCsendFloatToVMM(track, "/mirrorDistance", vmmTrack->clips[clip].mirrorDistance);
 
-        OSCsendToVMM(track, "/setGlobalRotX", vmmTrack->clips[clip].setGlobalRotX);
-        OSCsendToVMM(track, "/setGlobalRotY", vmmTrack->clips[clip].setGlobalRotY);
-        OSCsendToVMM(track, "/setGlobalRotZ", vmmTrack->clips[clip].setGlobalRotZ);
+        OSCsendFloatToVMM(track, "/setGlobalRotX", vmmTrack->clips[clip].setGlobalRotX);
+        OSCsendFloatToVMM(track, "/setGlobalRotY", vmmTrack->clips[clip].setGlobalRotY);
+        OSCsendFloatToVMM(track, "/setGlobalRotZ", vmmTrack->clips[clip].setGlobalRotZ);
 
-        OSCsendToVMM(track, "/setGlobalTransX", vmmTrack->clips[clip].setGlobalTransX);
-        OSCsendToVMM(track, "/setGlobalTransY", vmmTrack->clips[clip].setGlobalTransY);
-        OSCsendToVMM(track, "/setGlobalTransZ", vmmTrack->clips[clip].setGlobalTransZ);
+        OSCsendFloatToVMM(track, "/setGlobalTransX", vmmTrack->clips[clip].setGlobalTransX);
+        OSCsendFloatToVMM(track, "/setGlobalTransY", vmmTrack->clips[clip].setGlobalTransY);
+        OSCsendFloatToVMM(track, "/setGlobalTransZ", vmmTrack->clips[clip].setGlobalTransZ);
 
-        OSCsendToVMM(track, "/setGlobalRotX", vmmTrack->clips[clip].setGlobalRotX);
-        OSCsendToVMM(track, "/setGlobalRotY", vmmTrack->clips[clip].setGlobalRotY);
-        OSCsendToVMM(track, "/setGlobalRotZ", vmmTrack->clips[clip].setGlobalRotZ);
+        OSCsendFloatToVMM(track, "/setLocalRotX", vmmTrack->clips[clip].setLocalRotX);
+        OSCsendFloatToVMM(track, "/setLocalRotY", vmmTrack->clips[clip].setLocalRotY);
+        OSCsendFloatToVMM(track, "/setLocalRotZ", vmmTrack->clips[clip].setLocalRotZ);
 
-        OSCsendToVMM(track, "/setLocalTransX", vmmTrack->clips[clip].setLocalTransX);
-        OSCsendToVMM(track, "/setLocalTransY", vmmTrack->clips[clip].setLocalTransY);
-        OSCsendToVMM(track, "/setLocalTransZ", vmmTrack->clips[clip].setLocalTransZ);
+        OSCsendFloatToVMM(track, "/setLocalTransX", vmmTrack->clips[clip].setLocalTransX);
+        OSCsendFloatToVMM(track, "/setLocalTransY", vmmTrack->clips[clip].setLocalTransY);
+        OSCsendFloatToVMM(track, "/setLocalTransZ", vmmTrack->clips[clip].setLocalTransZ);
 
-        OSCsendToVMM(track, "/setObjRotX", vmmTrack->clips[clip].setObjRotX);
-        OSCsendToVMM(track, "/setObjRotY", vmmTrack->clips[clip].setObjRotY);
-        OSCsendToVMM(track, "/setObjRotZ", vmmTrack->clips[clip].setObjRotZ);
+        OSCsendFloatToVMM(track, "/setObjRotX", vmmTrack->clips[clip].setObjRotX);
+        OSCsendFloatToVMM(track, "/setObjRotY", vmmTrack->clips[clip].setObjRotY);
+        OSCsendFloatToVMM(track, "/setObjRotZ", vmmTrack->clips[clip].setObjRotZ);
 
-        OSCsendToVMM(track, "/localScale", vmmTrack->clips[clip].localScale);
-        OSCsendToVMM(track, "/globalScale", vmmTrack->clips[clip].globalScale);
+        OSCsendFloatToVMM(track, "/localScale", vmmTrack->clips[clip].localScale);
+        OSCsendFloatToVMM(track, "/globalScale", vmmTrack->clips[clip].globalScale);
         
     }
     

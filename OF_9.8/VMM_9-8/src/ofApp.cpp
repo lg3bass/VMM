@@ -8,11 +8,11 @@ void ofApp::setup(){
     //LOGGING
     //http://openframeworks.cc/documentation/utils/ofLog.html
     ofSetLogLevel("jsonData", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("OSC",OF_LOG_VERBOSE);//DEFAULT: OF_LOG_VERBOSE
+    ofSetLogLevel("OSC",OF_LOG_ERROR);//DEFAULT: OF_LOG_VERBOSE
     ofSetLogLevel("matcap",OF_LOG_SILENT);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("ofxUI",OF_LOG_SILENT);//DEFAULT: OF_LOG_SILENT
     ofSetLogLevel("objloader", OF_LOG_SILENT);//DEFAULT: OF_LOG_NOTICE
-    ofSetLogLevel("LINK", OF_LOG_VERBOSE);
+    ofSetLogLevel("LINK", OF_LOG_ERROR);
     
     
     //SYPHON
@@ -86,6 +86,7 @@ void ofApp::setup(){
     windows.push_back(ofVec2f(1280,720));
     windows.push_back(ofVec2f(640,360));
     windows.push_back(ofVec2f(600,600));
+    windows.push_back(ofVec2f(460,740));
     
 }
 
@@ -180,6 +181,7 @@ void ofApp::exit()
         
     }
     
+    windows.clear();
 }
 
 //--------------------------------------------------------------

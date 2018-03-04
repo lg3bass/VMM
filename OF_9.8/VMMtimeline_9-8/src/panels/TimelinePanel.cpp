@@ -796,7 +796,7 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
     //-:Load Xml file
     //TODO: I don't like the way the getProjectPath() is referenced here.
     string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
-    ofLogNotice("LOAD") << "TimelinePanel::loadTLPage " << filePath;
+    //ofLogNotice("LOAD") << "TimelinePanel::loadTLPage " << filePath;
     
     string pageName = data.getPageName(_page);
     
@@ -883,10 +883,12 @@ void TimelinePanel::loadTLTrackPages(){
     
     //TODO: If track contain VMMControl, function in params from file
     if(tracks.timelines[t]->hasTrack("VMM")){
-        //switch to the correct data clips[]
         auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[t]->getTrack("VMM");
-        vmmTrack->loadClipXML(c);
-    
+        //loop through clips and load VMM.xml
+        for(int i=0;i<10;i++){
+            string fp = getProjectPath() + getTrackAndClipPath(t, i);
+            vmmTrack->loadClipXML(fp, i);
+        }
     }
         
     //1.load track XML
@@ -957,7 +959,7 @@ void TimelinePanel::loadTLClip(int _track, int _clip) {
     string filePath = getProjectPath() + getTrackAndClipPath(_track,_clip);
     
     //  -load the tracks from xml.
-    ofLogNotice("LOAD") <<"1. load track XML from: " << filePath;
+    ofLogVerbose("LOAD") <<"1. load track XML from: " << filePath;
     tracks.timelines[_track]->loadTracksFromFolder(filePath);
     
     //2.switch VMMControl params
@@ -976,7 +978,7 @@ void TimelinePanel::loadTLClip(int _track, int _clip) {
     ofxXmlSettings savedClipSettings;
     
     if( savedClipSettings.loadFile(savedClipSettingsPath) ){
-        ofLogNotice("LOAD") <<"2. load the clip.xml -- " << savedClipSettingsPath <<" loaded.";
+        ofLogVerbose("LOAD") <<"2. load the clip.xml -- " << savedClipSettingsPath <<" loaded.";
     }else{
         ofLogError("LOAD") <<  "timelinePanel::loadTLClip - unable to load " << savedClipSettingsPath ;
         return;
@@ -991,7 +993,7 @@ void TimelinePanel::loadTLClip(int _track, int _clip) {
     data.TL.tracks[_track].tlClips[_clip].numberOfMeasures = numOfMeasures;
     data.TL.tracks[_track].tlClips[_clip].duration = data.calculateFramesInMeasures(numOfMeasures, data.TL.bpm, data.TL.fps);
     
-    ofLogNotice("LOAD") << "3. set [number of measures,duration] in clip ["
+    ofLogVerbose("LOAD") << "3. set [number of measures,duration] in clip ["
                         << data.getClipMeasures(_track, _clip) << "," << data.getClipDuration(_track)
                         << "]";
     
@@ -1125,7 +1127,7 @@ void TimelinePanel::setClip(int _track, int _clip){
     
     //set Clip on SPECIFIED TRACK
     data.setClip(_clip, _track);
-    ofLogNotice("LOAD") << "4. set the clip in track -- " << data.getClip(_track);
+    ofLogVerbose("LOAD") << "4. set the clip in track -- " << data.getClip(_track);
     
     //201280202 - commented out cause it's duplicate - [notice ] LOAD: 1. load track XML
 //    string filePath = getProjectPath() + getTrackAndClipPath(_track, _clip);
@@ -1133,7 +1135,7 @@ void TimelinePanel::setClip(int _track, int _clip){
 //    ofLogNotice("LOAD") << "5. load the track keyframes --  " << filePath;
     
     setTrackDuration(_track);
-    ofLogNotice("LOAD") << "5. set the duration in the timeline on the track.";
+    ofLogVerbose("LOAD") << "5. set the duration in the timeline on the track.";
 }
 
 //-------------------------------------------------
@@ -1141,7 +1143,7 @@ void TimelinePanel::setClip(int _clip){
     
     //set Clip on the CURRENT SELECTED TRACK
     data.setClip(_clip, data.getTrack());
-    ofLogNotice("LOAD") << "4. set the clip in the curren track";
+    ofLogVerbose("LOAD") << "4. set the clip in the curren track";
     
     //201280202 - commented out cause it's duplicate - [notice ] LOAD: 1. load track XML
 //    string filePath = getProjectPath() + getTrackAndClipPath(data.getTrack(), _clip);
@@ -1149,7 +1151,7 @@ void TimelinePanel::setClip(int _clip){
 //    ofLogNotice("LOAD") << "5. load the track keyframes --  " << filePath;
     
     setTrackDuration(data.getTrack());
-    ofLogNotice("LOAD") << "5. set the duration in the timeline on the track.";
+    ofLogVerbose("LOAD") << "5. set the duration in the timeline on the track.";
 }
 
 //--------------------------------------------------------------

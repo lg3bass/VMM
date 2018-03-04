@@ -104,7 +104,10 @@ public:
     oscHandler router;
     
     void OscReciever();
+    
     void OSCsendToVMM(int _track, string _address, float _value);
+    void OSCsendIntToVMM(int t, string a, int v);
+    void OSCsendFloatToVMM(int t, string a, float v);
     
     void OSCnoteOnAndPlay(int _track, string _address, string _value);
     /*
