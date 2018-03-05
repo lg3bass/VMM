@@ -358,6 +358,7 @@ void ofApp::sendOSCtestData(int track, int clip){
         OSCsendFloatToVMM(track, "/localScale", vmmTrack->clips[clip].localScale);
         OSCsendFloatToVMM(track, "/globalScale", vmmTrack->clips[clip].globalScale);
         
+        OSCsendIntToVMM(track, "/resetBuffers", 1);
     }
     
 }

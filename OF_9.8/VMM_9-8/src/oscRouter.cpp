@@ -125,6 +125,13 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
         ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0);
         tracks[idx].clear();
+    } else if (m.getAddress() == "/resetBuffers"){
+        
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0);
+        
+        tracks[idx].cuedToReset = true;
+        tracks[idx].resetCurrentSegment();
+        //tracks[idx].clear();
         
     } else if (m.getAddress() == "/OSCsetMatCap"){
     

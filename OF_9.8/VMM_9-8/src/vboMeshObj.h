@@ -22,6 +22,8 @@ class vboMeshObj {
     int objSeqIndex;    //What object sequence is loaded
     int matcapIndex;    //What matcap shader is selected.
     
+    bool cuedToReset;
+    
     //list of Files
     vector<string> availObjSeq;
     
@@ -157,6 +159,7 @@ class vboMeshObj {
     void resetBufferInstance(int _buffer, string _mode);
     void resetCurrentSegment();
     void clear();
+    
 
     
     //OSC

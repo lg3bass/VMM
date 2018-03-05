@@ -53,6 +53,8 @@ void vboMeshObj::setup(int _input){
     objSeqIndex = _input;   //initially tied to ofApp::setup()
     matcapIndex = 0;        //initially set the matcap to the first file (red someting)
     
+    cuedToReset = false;
+    
     //List of all matcap files avail
     matcaps = ((ofApp*)ofGetAppPtr())->appFileLoader.externalMatCapFiles;
     
@@ -915,11 +917,18 @@ void vboMeshObj::resetBufferInstance(int _buffer, string _mode){
 void vboMeshObj::resetCurrentSegment(){
     
     //get the segment number of the first segment
-    int s = instances[0].currentSegment;
+    //int s = instances[0].currentSegment;
     
+    //TODO: TEMP OUT
+    /*
     for(int i=0;i<12;i++){
-        instances[i].currentSegment = 0;
-    }    
+        instances[i].currentSegment = -1;
+    }
+    */
+    
+    
+    
+    cuedToReset = false;
 }
 
 

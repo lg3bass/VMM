@@ -275,6 +275,12 @@ void ofApp::setKeyVal(int _val){
 void ofApp::setTimePanelEnabled(bool _val){
     //timePanel.timePanelEnabled = _val;
     timePanel.tracks.enableTimelines(_val);
+    
+    if(timePanel.tracks.timelines[timePanel.data.getTrack()]->hasTrack("VMM")){
+        auto vmmTrack = (ofxTLVMMControl*)timePanel.tracks.timelines[timePanel.data.getTrack()]->getTrack("VMM");
+        vmmTrack->guiAcceptEvents = _val;
+    }
+
 }
 
 //--------------------------------------------------------------

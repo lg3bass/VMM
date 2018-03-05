@@ -87,8 +87,12 @@ void oscHandler::processOSCmessage(ofxOscMessage &m){
             currentFiredSlotIndex = m.getArgAsInt32(1);
             
             //TODO: Here send a /clear message to VMM
-            //As a test we want to send some params to set up baseline before the first note is played.
+            
+            //Send some params to set up baseline before the first note is played.
+            //Setting this here triggers this data BEFORE the first not is played in Ableton.
+            //At some point I'll put the triggering of notes in VMM timeline but for now this is coming from an Ableton M4L device.
             oscMainApp->sendOSCtestData(m.getArgAsInt32(0), m.getArgAsInt32(1));
+            
             
         }
         
@@ -173,6 +177,9 @@ void oscHandler::processOSCmessage(ofxOscMessage &m){
                 string msg = "OSC_PLAY " + ofToString(m.getAddress()) + " " + ofToString(m.getArgAsInt32(0)) + " " + ofToString(m.getArgAsInt32(1)) + " --CLIP PLAY ON (waitForClipPlaying)";
                 oscMainApp->OSCsendMessage(m.getArgAsInt32(0), "LINK", msg);
                 
+                //20180304 - tried moving sendOscdata here.  data is recieved AFTER first note still.
+                //TODO: create a object to hold next params.
+                //oscMainApp->sendOSCtestData(m.getArgAsInt32(0), m.getArgAsInt32(1));
                 oscMainApp->playTLclip(m.getArgAsInt32(0), m.getArgAsInt32(1));
                 
             } else {
@@ -186,6 +193,9 @@ void oscHandler::processOSCmessage(ofxOscMessage &m){
                 string msg = "OSC_PLAY " + ofToString(m.getAddress()) + " " + ofToString(m.getArgAsInt32(0)) + " " + ofToString(m.getArgAsInt32(1)) + " --CLIP PLAY ON (start timeline)";
                 oscMainApp->OSCsendMessage(m.getArgAsInt32(0), "LINK", msg);
                 
+                //TODO: create a object to hold next params.
+                //20180304 - tried moving sendOscdata here.  data is recieved AFTER first note still.
+                //oscMainApp->sendOSCtestData(m.getArgAsInt32(0), m.getArgAsInt32(1));
                 oscMainApp->playTLclip(m.getArgAsInt32(0), m.getArgAsInt32(1));
                 
             }
