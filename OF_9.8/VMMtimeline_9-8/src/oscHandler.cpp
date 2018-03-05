@@ -180,6 +180,8 @@ void oscHandler::processOSCmessage(ofxOscMessage &m){
                 //20180304 - tried moving sendOscdata here.  data is recieved AFTER first note still.
                 //TODO: create a object to hold next params.
                 //oscMainApp->sendOSCtestData(m.getArgAsInt32(0), m.getArgAsInt32(1));
+                
+                
                 oscMainApp->playTLclip(m.getArgAsInt32(0), m.getArgAsInt32(1));
                 
             } else {
