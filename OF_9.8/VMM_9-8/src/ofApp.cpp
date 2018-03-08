@@ -8,11 +8,11 @@ void ofApp::setup(){
     //LOGGING
     //http://openframeworks.cc/documentation/utils/ofLog.html
     ofSetLogLevel("jsonData", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("OSC",OF_LOG_VERBOSE);//DEFAULT: OF_LOG_VERBOSE
+    ofSetLogLevel("OSC",OF_LOG_ERROR);//DEFAULT: OF_LOG_VERBOSE
     ofSetLogLevel("matcap",OF_LOG_SILENT);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("ofxUI",OF_LOG_SILENT);//DEFAULT: OF_LOG_SILENT
     ofSetLogLevel("objloader", OF_LOG_SILENT);//DEFAULT: OF_LOG_NOTICE
-    ofSetLogLevel("LINK", OF_LOG_VERBOSE);
+    ofSetLogLevel("LINK", OF_LOG_SILENT);
     
     
     //SYPHON
