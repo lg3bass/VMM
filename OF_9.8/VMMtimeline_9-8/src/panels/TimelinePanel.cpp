@@ -924,6 +924,16 @@ void TimelinePanel::loadTLAllTracks(){
                 loadTLPage(t, p, 0);
 
         }
+        
+        if(tracks.timelines[t]->hasTrack("VMM")){
+            auto vmmTrack = (ofxTLVMMControl*)tracks.timelines[t]->getTrack("VMM");
+            //loop through clips and load VMM.xml
+            for(int i=0;i<10;i++){
+                string fp = getProjectPath() + getTrackAndClipPath(t, i);
+                vmmTrack->loadClipXML(fp, i);
+            }
+        }
+        
     }
     //set the display track
     setTLTrack(0);
