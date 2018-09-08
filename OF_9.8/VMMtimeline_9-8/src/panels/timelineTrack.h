@@ -53,7 +53,8 @@ public:
     
     bool showHideFlag;
     
-
+    void playbackLoopedEvent(ofxTLPlaybackEventArgs &e);
+    
 private:
     
 

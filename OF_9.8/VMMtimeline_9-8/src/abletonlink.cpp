@@ -94,12 +94,22 @@ void abletonLinkEngine::blinkingBottomBar(float _top, float _bottom){
     int bottom = (int)(ofGetHeight() * _bottom);
     int h = bottom - top + 1;
     
+    ofColor barBG = ofColor(255);
+    
     //draw the blinking beats
     for (int i = 0; i < quantum; i++){
         ofPushStyle();
+        
+            //turn the bar red if recording
+            if(abletonLinkEngine2MainApp->timePanel.isRendering) {
+                barBG = ofColor::red;
+            } else {
+                barBG = ofColor(255);
+            }
+        
             //BG
             ofFill();
-            ofSetColor((i <= nbeat) ? 255 : 128);
+            ofSetColor((i <= nbeat) ? barBG : 128);
             ofDrawRectangle(i * dw, top, dw, h);
         
             //BORDER

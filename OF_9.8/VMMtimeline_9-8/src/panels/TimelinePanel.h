@@ -48,7 +48,8 @@ public:
     void timelineBangFired(ofxTLBangEventArgs & args);
     void timelineSwitched(ofxTLSwitchEventArgs & args);
     
-    void timelinePlaybackStarted(ofxTLPlaybackEventArgs & args);
+    void timelinePlaybackStarted(ofxTLPlaybackEventArgs & args);    
+    void timelinePlaybackLooped(ofxTLPlaybackEventArgs & args);
 
 #pragma mark - ADD/REMOVE
     
@@ -98,6 +99,10 @@ public:
 #pragma mark - OSC
     void sendOSCfromTimeline(int _track);
 
+#pragma mark - RENDER
+    bool render = false;
+    bool isRendering = false;
+    
 #pragma mark - CHANNEL MODIFICATIONS
     void setChannelRangeLow(float _val);
     void setChannelRangeHigh(float _val);

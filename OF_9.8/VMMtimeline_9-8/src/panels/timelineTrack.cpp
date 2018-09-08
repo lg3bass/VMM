@@ -208,6 +208,10 @@ void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type
             break;
     }
     
+    
+    
+    //timelines[_track]->setCurrentPage(_page);
+    
     //SAMPLE CODE TO ACCESS PAGE PROPERTIES.
     //ofxTLPage* test = timelines[_track]->getPage(_page);
     //test->setMinimalHeaders(true);
@@ -241,5 +245,11 @@ void timelineTrack::highlightFocuedTrack(int _track, string _name){
     ofxTLTrack* newFocus = NULL;
     newFocus = timelines[_track]->getTrack(_name);
     timelines[_track]->setFocusedTrack(newFocus);
+    
+}
+
+//-------------------------------------------------
+void timelineTrack::playbackLoopedEvent(ofxTLPlaybackEventArgs &e){
+    
     
 }

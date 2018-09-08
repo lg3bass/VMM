@@ -395,14 +395,15 @@ void headerUI::setupGUI() {
     port->setBorderVisible(TRUE);
     port->setBorder(ofColor::darkGrey, 1);
     
-    osc = new ofxDatGuiButton("OSC");
-    osc->setTheme(new ofxDatGuiThemeVMM);
-    osc->setWidth(50);
-    osc->setHeight(rowH);
-    osc->setPosition(S4.x+host->getWidth()+port->getWidth(), rowH*2);
-    osc->setLabelAlignment(ofxDatGuiAlignment::CENTER);
-    osc->setBorderVisible(TRUE);
-    osc->setBorder(ofColor::darkGrey, 1);
+    render = new ofxDatGuiButton("RENDER");
+    render->setTheme(new ofxDatGuiThemeVMM);
+    render->setWidth(50);
+    render->setHeight(rowH);
+    render->setPosition(S4.x+host->getWidth()+port->getWidth(), rowH*2);
+    render->setLabelAlignment(ofxDatGuiAlignment::CENTER);
+    render->setBorderVisible(TRUE);
+    render->setBorder(ofColor::darkGrey, 1);
+    render->onButtonEvent(this, &headerUI::onButtonEvent);
     
     //section S5 - width 80 (1000-1080)
     
@@ -461,7 +462,7 @@ void headerUI::updateGUI(bool acceptEvents){
     
     host->update(acceptEvents);
     port->update(acceptEvents);
-    osc->update(acceptEvents);
+    render->update(acceptEvents);
     
     //S5
     linkSlider->update(acceptEvents);
@@ -512,7 +513,7 @@ void headerUI::drawGUI(){
     drive->draw();
     host->draw();               //row3
     port->draw();
-    osc->draw();
+    render->draw();
     
     //S5
     linkSlider->draw();

@@ -56,6 +56,7 @@ public:
     //timePanel functions
 
     void enableOscOut();
+    void renderAnimation();
     
     void setControllerData(string name, int data);
     

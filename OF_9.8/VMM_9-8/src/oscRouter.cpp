@@ -158,9 +158,12 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
     } else if (m.getAddress() == "/still"){
         ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1);
         tracks[idx].trackParameters.setOSCtoggle(tracks[idx].params, m.getAddress(), m.getArgAsInt32(1));
-    } else if (m.getAddress() == "/stillframe"){
+    } else if (m.getAddress() == "/stillFrame"){
         ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1);
-        tracks[idx].trackParameters.setOSCtoggle(tracks[idx].params, m.getAddress(), m.getArgAsInt32(1));
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, m.getAddress(), m.getArgAsInt32(1));
+    } else if (m.getAddress() == "/vmmNotes"){
+        ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1) << " " << m.getArgAsInt32(2);
+        tracks[idx].instances[m.getArgAsInt32(1)].frame = m.getArgAsInt32(2);
     } else if (m.getAddress() == "/playNoteOff"){
         ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsInt32(1);
         tracks[idx].trackParameters.setOSCtoggle(tracks[idx].params, m.getAddress(), m.getArgAsInt32(1));

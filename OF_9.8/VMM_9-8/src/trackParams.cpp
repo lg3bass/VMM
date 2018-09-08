@@ -45,9 +45,6 @@ void trackParams::setDefault(guiParams &params){
     params.mirror_distance = 10.0;
     //params.currentSegment = 0;//moved to instances
     
-    
-    
-    
     params.stillFrame = 0;
     params.totalFrames = 0;
     params.testSpeed = 500;
@@ -458,7 +455,8 @@ void trackParams::setOSCdial(guiParams &params, string paramName, float _value){
     } else if(paramName == "/globalScale"){
         params.g_scale = float(_value);
     } else if(paramName == "/stillFrame"){
-        params.stillFrame == int(_value);
+        params.stillFrame = int(_value);
+        //ofLogNotice("OSC") << "params.stillFrame: " << params.stillFrame;
     } else if(paramName == "/setGlobalRotX"){
         params.g_rotate.x = _value;
     } else if(paramName == "/setGlobalRotY"){

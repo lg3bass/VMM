@@ -163,6 +163,10 @@ void headerUI::onButtonEvent(ofxDatGuiButtonEvent e){
     } else if (e.target->getName() == "DRIVE"){
         
         uiMainApp->enableOscOut();
+    } else if (e.target->getName() == "RENDER"){
+        
+        uiMainApp->renderAnimation();
+        
     }
     
 }

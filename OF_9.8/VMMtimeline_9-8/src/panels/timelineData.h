@@ -81,7 +81,7 @@ public:
         
         bool snap = false;
         bool drive = false;
-        bool osc = false;
+        bool render = false;
         bool playing = false;
         
     } TL;                                           //change to TL

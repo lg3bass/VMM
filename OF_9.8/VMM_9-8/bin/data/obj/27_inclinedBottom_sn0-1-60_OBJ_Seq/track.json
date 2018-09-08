@@ -1,0 +1,38 @@
+{
+	"index" : 27,
+	"objSeq-basefilename" : "27_inclinedBottom_sn0-1-60_OBJ_Seq",
+	"objSeq-type" : "sequence",
+	"objSeq-playRandom" : false,
+	"objSeq-noteEvents" : "noteOn",
+	"objSeq-cues" : [ 10,20,30,40,50,60 ],
+	"objSeq-segmentLengths" : [ 10,10,10,10,10,10 ],
+	"objSeq-midpoint-cues" : [ 5,15,25,35,45,55 ],
+	"objSeq-durations" : [ 500,500,500,500,500,500 ],
+	"objSeq-files" : 60,
+	"objSeq-segLen" : 10,
+	"objSeq-numOfSeg" : 6,
+	"objSeq-still" : 30,
+	"matCap-img" : "silver.jpg",
+	"matCap-shader" : "sem",
+	"scene" : {
+		"global" : {
+			"g-copies" : 1,
+			"g-scale" : [ 1.0, 1.0, 1.0],
+			"g-rotate" : [0.0, 0.0, 0.0],
+			"g-trans" : [0.0, 0.0, 0.0]
+		},
+		"local" : {
+			"l-copies" : 1,
+			"l-scale" : [ 1.0, 1.0, 1.0],
+			"l-rotate" : [0.0, 0.0, 0.0],
+			"l-trans" : [0.0, 0.0, 0.0]
+		},
+		"animation" : {
+			"spin" : [0.0, 0.0, 0.0],
+			"spin-rate" : 10.0,
+			"fft" : false
+		}
+	},
+	"obj-export-scale" : 1,
+	"obj-export-filename" : "inclined_2-0.mb"
+}

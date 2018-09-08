@@ -98,7 +98,7 @@ public:
     //ROW 3
     ofxDatGuiTextInput* host;
     ofxDatGuiTextInput* port;
-    ofxDatGuiButton* osc;
+    ofxDatGuiButton* render;   //render
     
     //S5
     ofxDatGuiSlider* linkSlider;

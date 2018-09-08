@@ -47,7 +47,7 @@ void TimelinePanel::setup(int x, int y, int width, int height, ofBaseApp* appPtr
         ofAddListener(tracks.timelines[i]->events().bangFired, this, &TimelinePanel::timelineBangFired);
         ofAddListener(tracks.timelines[i]->events().switched, this, &TimelinePanel::timelineSwitched);
         ofAddListener(tracks.timelines[i]->events().playbackStarted, this, &TimelinePanel::timelinePlaybackStarted);
-        
+        ofAddListener(tracks.timelines[i]->events().playbackLooped, this, &TimelinePanel::timelinePlaybackLooped);
         
         //reset/setup track metadata.
         resetMeasureLoop(i);
@@ -122,6 +122,21 @@ void TimelinePanel::runTimelines(int _track){
                     ofLogNotice("LINKFLIP") << "tick - " << lastBeat << "|" << currentBeat
                                             << " >>>>  measureCount(FLIP): " << data.TL.tracks[_track].measureCount
                                             << "(" << tracks.timelines[_track]->getCurrentFrame() << ")" << " - track " << _track;
+                    //RENDER
+                    if(isRendering){
+                        isRendering = false;
+                        ofLogNotice("RENDER") << "isRendering:" << isRendering;
+                        bMainApp->OSCsendIntToVMM(_track,"/render",0);
+                    };
+                    
+                    if(render){
+                        ofLogNotice("RENDER") << "/render " << data.getClipDuration(_track);
+                        bMainApp->OSCsendIntToVMM(_track,"/render",data.getClipDuration(_track));
+                        render = false;
+                        isRendering = true;
+                        ofLogNotice("RENDER") << "isRendering:" << isRendering;
+                    }
+                
                 } else {
                     
                     //No, we haven't reached numberOfMeasures;
@@ -550,22 +565,41 @@ void TimelinePanel::timelinePlaybackStarted(ofxTLPlaybackEventArgs &args){
     cout << "timelinePanel::timelinePlaybackStarted: -- " << args.sender->getName() << "/ frame:" << ofToString(args.currentFrame) << endl;
 }
 
+//-------------------------------------------------
+void TimelinePanel::timelinePlaybackLooped(ofxTLPlaybackEventArgs &args){
+    
+    cout << "timelinePanel::timelinePlaybackLooped: -- frame:" << ofToString(args.currentFrame) << endl;
+}
+
 #pragma mark - ADD/REMOVE
 //-------------------------------------------------
+//Adds a channel to the current page
+//call from when you create a track
 void TimelinePanel::addTLChannelToSelected(string _name, int _type, float low, float high){
     //adds the track in the data
     data.addtlTrack(data.getTrack(),data.getPage(), _name, _type);
     //adds the track to timeline
     tracks.addTLTrack(data.getTrack(),data.getPageName(),_name, _type, low, high);      //pate = string
+    
+    //20180607 - needed to re-set the page after you create the track
+    setPage(data.getPage());
+    //cout << "TimelinePanel::addTLChannelToSelected - Page set to " << data.getPage() << endl;
+    
 }
 
 //-------------------------------------------------
+//Adds a channel to a specific page.
+//called when the xml loads.
 void TimelinePanel::addTLChannelToPage(int _track, int _page, string _name, int _type, float low, float high){
     string pageName = data.getPageName(_page);
     //adds the track in the data
     data.addtlTrack(_track,_page, _name, _type, low, high);
     //adds the track to timeline
     tracks.addTLTrack(_track,pageName,_name, _type, low, high);
+    
+    //20180607 - dont re-set the page if you are loading from XML.
+    //setPage(_page);
+    //cout << "TimelinePanel::addTLChannelToPage - Page set" << endl;
 }
 
 //-------------------------------------------------
@@ -861,6 +895,8 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
                 addTLChannelToPage(_track, _page, trackName, 6);
                 
             }
+            
+            
         }
     }
 }

@@ -12,6 +12,14 @@ void ofApp::enableOscOut(){
 }
 
 //--------------------------------------------------------------
+void ofApp::renderAnimation(){
+    cout << "immediately send commands to VMM to prepare for rendering" << endl;
+    OSCsendFloatToVMM(0,"/renderAnimation",0.01);
+    timePanel.render = true;
+    
+}
+
+//--------------------------------------------------------------
 void ofApp::setControllerData(string name, int data){
     
     if (name == "TRACK") {

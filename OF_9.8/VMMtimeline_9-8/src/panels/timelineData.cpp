@@ -321,7 +321,7 @@ void timelineData::setSelectedChannel(string _channel){
     for (int i=0; i< channels_on_page; i++){
         if(_channel == getChannelName(i)){
             TL.tracks[getTrack()].tlPages[getPage()].selected_channel = i;
-            ofLog() << "setSelectedChannel(string _channel) - Page " << ofToString(getPage()) << " Channel " << getChannelName(i);
+            //ofLog() << "setSelectedChannel(string _channel) - Page " << ofToString(getPage()) << " Channel " << getChannelName(i);
         }
     }
     setSelectedKeyIndex(-1);                                                        //reset all the keys
