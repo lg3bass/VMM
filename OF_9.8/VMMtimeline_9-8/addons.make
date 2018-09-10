@@ -5,6 +5,7 @@ ofxMSATimer
 ofxOsc
 ofxRange
 ofxTLVMMControl
+ofxTLVMMNotes
 ofxTextInputField
 ofxTimeMeasurements
 ofxTimecode

@@ -13,6 +13,7 @@
 #include "ofMain.h"
 #include "ofxTimeline.h"
 #include "ofxTLVMMControl.h"
+#include "ofxTLVMMNotes.h"
 
 #endif /* timelineTrack_h */
 

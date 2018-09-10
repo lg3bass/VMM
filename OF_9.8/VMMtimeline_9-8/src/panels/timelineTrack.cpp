@@ -192,8 +192,9 @@ void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type
             //colors
             timelines[_track]->addColors(_name);
             break;
+        
             
-        case 6:
+        case 6: {
             //ofxTLVMMControl* buttonsTrack = new ofxTLVMMControl("127.0.0.1" ,7005);
             ofxTLVMMControl* buttonsTrack = new ofxTLVMMControl();
             
@@ -206,8 +207,23 @@ void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type
             
             timelines[_track]->addTrack(_name, buttonsTrack);
             break;
+        }
+
+        case 7: {
+            //ofxTLVMMNotes
+            cout << "add ofxTLVMMNotes" << endl;
+            ofxTLVMMNotes* notesTrack = new ofxTLVMMNotes();
+            
+            string notesTrackName = _name;
+            notesTrack->setXMLFileName(notesTrackName+".xml");
+            notesTrack->track = _track;
+            notesTrack->page = timelines[_track]->getCurrentPageIndex();
+            
+            timelines[_track]->addTrack(_name, notesTrack);
+            break;
+        }
+            
     }
-    
     
     
     //timelines[_track]->setCurrentPage(_page);

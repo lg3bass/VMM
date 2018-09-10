@@ -894,6 +894,9 @@ void TimelinePanel::loadTLPage(int _track, int _page, int _clip){
                 //2. add a ofxTLVMMControl track
                 addTLChannelToPage(_track, _page, trackName, 6);
                 
+            }else if(trackType=="Notes"){
+                
+                addTLChannelToPage(_track, _page, trackName, 7);
             }
             
             

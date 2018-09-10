@@ -278,6 +278,7 @@ void headerUI::setupGUI() {
     trackOptions.push_back("flags");
     trackOptions.push_back("colors");
     trackOptions.push_back("VMM");
+    trackOptions.push_back("VMMNotes");
     trackDropdown = new ofxDatGuiDropdown("TIMELINE", trackOptions);
     trackDropdown->setTheme(new ofxDatGuiThemeVMM);
     trackDropdown->setWidth(100.0,60.0);
