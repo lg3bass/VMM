@@ -1283,10 +1283,11 @@ void TimelinePanel::sendOSCfromTimeline(int _track){
                         string outParam = "/notes";
                         
                         ofxTLVMMNotes* notesTrack  = (ofxTLVMMNotes*)tracks.timelines[_track]->getTrack(param);
-                        int n = notesTrack->getNoteAtMillis(tracks.timelines[_track]->getCurrentTime());
+                        //int n = notesTrack->getNoteAtMillis(tracks.timelines[_track]->getCurrentTime());
                         
+                        notesTrack->playNote(tracks.timelines[_track]->getCurrentTimeMillis());
                         
-                        cout << "TimelinePanel::sendOSCfromTimeline > note: " << n << " - " << tracks.timelines[_track]->getCurrentTimecode() << endl;
+                        //cout << "TimelinePanel::sendOSCfromTimeline > note: " << n << " - " << tracks.timelines[_track]->getCurrentTimecode() << endl;
                         
                         
                         
