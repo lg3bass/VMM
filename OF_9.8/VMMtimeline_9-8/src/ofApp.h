@@ -116,6 +116,7 @@ public:
     void anotherEvent(anotherOscMsgEvent &e);
     */
     void OscSendEvent(VMMOscMessageEvent &e);
+    void OscSendNoteEvent(NoteOscMessageEvent &e);
     
     void OSCsendMessage(int track, string address, string message);
 

@@ -177,29 +177,32 @@ void TimelinePanel::keyPressed(int key){
                 case 258:
                     //F2
                     //increment
-                    cout << "F2 - play track 1, clip 2" << endl;
-                    bMainApp->playTLclip(0, 1);
+                    cout << "F2 - play track 2, clip 1" << endl;
+                    bMainApp->playTLclip(1, 0);
                     
                     break;
                 case 259:
                     //F3
-                    cout << "F3 - play track 2, clip 1" << endl;
-                    bMainApp->playTLclip(1, 0);
+                    cout << "F3 - play track 3, clip 1" << endl;
+                    bMainApp->playTLclip(2, 0);
 
                     break;
                 case 260:
                     //F4
-                    cout << "F4 pressed" << endl;
+                    cout << "F4 - play track 4, clip 1" << endl;
+                    bMainApp->playTLclip(3, 0);
 
                     break;
                 case 261:
                     //F5
-                    cout << "F5 pressed" << endl;
+                    cout << "F5 - play track 5, clip 1" << endl;
+                    bMainApp->playTLclip(4, 0);
                     
                     break;
                 case 262:
                     //F6
-                    cout << "F6 pressed" << endl;
+                    cout << "F6 - play track 6, clip 1" << endl;
+                    bMainApp->playTLclip(5, 0);
                     
                     break;
                 case 263:
@@ -216,6 +219,13 @@ void TimelinePanel::keyPressed(int key){
                     //F9
                     cout << "F9 pressed" << endl;
                     bMainApp->stopTLclip(0);//argument does nothing! stops all clips for now.
+                    
+                    break;
+                case 266:
+                    //F10
+                    cout << "F10 pressed" << endl;
+                    bMainApp->playTLclip(0, 0);
+                    bMainApp->playTLclip(1, 0);
                     
                     break;
             }//end switch
@@ -1262,6 +1272,23 @@ void TimelinePanel::sendOSCfromTimeline(int _track){
                         string outParam = "/"+data.TL.tracks[_track].tlPages[p].tlChannels[j].name;
                         
                         bMainApp->OSCsendToVMM(outTrack,outParam,tracks.timelines[_track]->getValue(param));
+                        
+                    }
+                    
+                    //output only if it's a notes track
+                    if(data.TL.tracks[_track].tlPages[p].tlChannels[j].type == 7){
+                        int outTrack = _track;
+                        string param = data.TL.tracks[_track].tlPages[p].tlChannels[j].name;
+                        //string param = "fart";
+                        string outParam = "/notes";
+                        
+                        ofxTLVMMNotes* notesTrack  = (ofxTLVMMNotes*)tracks.timelines[_track]->getTrack(param);
+                        int n = notesTrack->getNoteAtMillis(tracks.timelines[_track]->getCurrentTime());
+                        
+                        
+                        cout << "TimelinePanel::sendOSCfromTimeline > note: " << n << " - " << tracks.timelines[_track]->getCurrentTimecode() << endl;
+                        
+                        
                         
                     }
                 }

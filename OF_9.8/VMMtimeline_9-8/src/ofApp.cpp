@@ -51,6 +51,7 @@ void ofApp::setup(){
     //ofAddListener(OscMsgEvent::events, this, &ofApp::oscEvent);
     //ofAddListener(anotherOscMsgEvent::events, this, &ofApp::anotherEvent);
     ofAddListener(VMMOscMessageEvent::events, this, &ofApp::OscSendEvent);
+    ofAddListener(NoteOscMessageEvent::events, this, &ofApp::OscSendNoteEvent);
     
 }
 
@@ -250,7 +251,9 @@ void ofApp::anotherEvent(anotherOscMsgEvent &e){
     cout << e.arg2 << endl;
 }
 */
- 
+
+//THESE TWO fuctions are to recieve events from custom tracks at ofAddons.
+//recieve event from ofxTLVMMControl
 void ofApp::OscSendEvent(VMMOscMessageEvent &e){
     //message originating from ofxTLVMMControl.
     string value = (e.m.getArgType(1)==OFXOSC_TYPE_FLOAT) ? ofToString(e.m.getArgAsFloat(1)) : ofToString(e.m.getArgAsInt(1));
@@ -260,6 +263,14 @@ void ofApp::OscSendEvent(VMMOscMessageEvent &e){
     
     sender.sendMessage(e.m);
     
+}
+
+//recieve event from ofxTLVMMNotes.
+void ofApp::OscSendNoteEvent(NoteOscMessageEvent &e){
+    
+    string value = (e.m.getArgType(1)==OFXOSC_TYPE_FLOAT) ? ofToString(e.m.getArgAsFloat(1)) : ofToString(e.m.getArgAsInt(1));
+    ofLogVerbose("OSC_OUT") << e.m.getAddress() << " " << ofToString(e.m.getArgAsInt(0)) << " " << value;
+    sender.sendMessage(e.m);
 }
 
 void ofApp::OSCsendMessage(int track, string address, string message){
