@@ -93,6 +93,7 @@ void TimelinePanel::draw(){
     if(showTrackData){
         drawTrackData();
     }
+    
 }
 
 //-------------------------------------------------
@@ -1286,6 +1287,7 @@ void TimelinePanel::sendOSCfromTimeline(int _track){
                         //int n = notesTrack->getNoteAtMillis(tracks.timelines[_track]->getCurrentTime());
                         
                         notesTrack->playNote(tracks.timelines[_track]->getCurrentTimeMillis());
+                        //notesTrack->playNote2(tracks.timelines[_track]->getCurrentTimeMillis());
                         
                         //cout << "TimelinePanel::sendOSCfromTimeline > note: " << n << " - " << tracks.timelines[_track]->getCurrentTimecode() << endl;
                         
