@@ -268,8 +268,9 @@ void ofApp::OscSendEvent(VMMOscMessageEvent &e){
 //recieve event from ofxTLVMMNotes.
 void ofApp::OscSendNoteEvent(NoteOscMessageEvent &e){
     
-    string value = (e.m.getArgType(1)==OFXOSC_TYPE_FLOAT) ? ofToString(e.m.getArgAsFloat(1)) : ofToString(e.m.getArgAsInt(1));
-    ofLogVerbose("OSC_OUT") << e.m.getAddress() << " " << ofToString(e.m.getArgAsInt(0)) << " " << value;
+    string noteTrack = (e.m.getArgType(1)==OFXOSC_TYPE_FLOAT) ? ofToString(e.m.getArgAsFloat(1)) : ofToString(e.m.getArgAsInt(1));
+    string frameVal = (e.m.getArgType(1)==OFXOSC_TYPE_FLOAT) ? ofToString(e.m.getArgAsFloat(2)) : ofToString(e.m.getArgAsInt(2));
+    ofLogVerbose("OSC_OUT") << e.m.getAddress() << " " << ofToString(e.m.getArgAsInt(0)) << " " << noteTrack << " " << frameVal;
     sender.sendMessage(e.m);
 }
 
