@@ -2,52 +2,7 @@ VMM Timeline Production Notes
 //======================================================
 https://docs.google.com/document/d/1kHLtJ3yWMs0glJoA4j5C4YxmSt_KusxjogzfFTDWlv0/edit#heading=h.nrnw03t7conb
 
--F save/load (selected page, selected track)
-	-- save page will save only current selected page.  zoomer and in-out will NOT be saved
-	-- save all  will save all the tracks and the in-out and zoomer overwriting everything.
-	-- when load track is done it doesn't show the current selected track.
-	-- sometimes after loading the timelines need to be refreshed to show the data.
--F save EVERYTHING
 
--E deselect track sets selection to null
-
--F add tracks other than curves
-
--E mouse down on timeline shouldn't affect drop down menus in other panels.
-
--E indicate blank/used matrix buttons
-
--F Launch clips
-	-- turn "debug screen(drawTrackData())" data renderer into dashboard to see which tracks 
-		are actively playing.
-	-- stop clip doesn't reliably turn off direct drive.
-	
--F mesures and duration
-	-- update LOOP UI when change the measures
-	
--E capture track metadata in xml. Perhaps create a project XML
-	-- Project Data (bpm, meter, fps, host, port, quant, snap)
-	-- Track Data (measures, loop, 
-	
--F drag in waveform on background.
-	
--F OSC OUT
-	-- get a list of all the channnels on all tracks
-		- add attr to tracks ".numOfChannels"
-		- add attr to channels ".enableOscOut"
-	-- wire up OSC button to turn on/off OSC
-	-- timelinePanel::sendOSCfromTimeline(int _track, string _param);
-	-- timelinePanel::draw()
-		- create function to loop through tracks with data.
-		- timelinePanel::
-		
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
