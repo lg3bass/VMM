@@ -1,3 +1,4 @@
+ofxExportImageSequence
 ofxGui
 ofxJSON
 ofxObjLoader

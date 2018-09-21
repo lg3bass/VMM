@@ -6,6 +6,7 @@
 //
 //
 
+#include "ofApp.h"
 #include "oscRouter.h"
 
 //--------------------------------------------------------------
@@ -25,7 +26,7 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
     
     //what channel/track
     idx = m.getArgAsInt32(0);
-    
+    //idx = 1;
     
     if (m.getAddress() == "/noteOn"){
         //cout << "----------------------------------------------------------------" << endl;
@@ -447,6 +448,60 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         for(int t=1; t<num_tracks;t++){
             if(tracks[t].params.isLoaded){tracks[t].bassControl(amplitude, noteLength);}
         }
+
+    } else if (m.getAddress() == "/render"){
+        
+        if(m.getArgAsInt32(1) > 0){
+            ((ofApp*)ofGetAppPtr())->exp.setFrameRange(0, m.getArgAsInt(1));
+            ofLogVerbose("RENDER") << "Rendering frames 0-"<<m.getArgAsInt(1);
+            ((ofApp*)ofGetAppPtr())->saveImgFrame = true;            
+            ((ofApp*)ofGetAppPtr())->exp.startExport();
+            
+        } else {
+            
+            ((ofApp*)ofGetAppPtr())->saveImgFrame = false;
+            ((ofApp*)ofGetAppPtr())->renderFrameCounter = 0;
+            
+        }
+        
+        ofLogVerbose("RENDER") << m.getAddress() << " track:" << m.getArgAsInt32(0) << " clip:" << m.getArgAsInt32(1) << "-" << (((ofApp*)ofGetAppPtr())->saveImgFrame ? "Render START" : "Render END");
+        
+    } else if (m.getAddress() == "/wek/outputs"){
+        //cout << "wekenator: " << m.getAddress() << " " << ofToString(m.getArgAsFloat(0)) << endl;
+
+    } else if (m.getAddress() == "/wek/setLocalTransY"){
+        
+        //cout << ofToString(m.getArgAsFloat(0)) << endl;
+        
+        float remappedVal = ofMap(m.getArgAsFloat(0), 0.0, 1.0, -50.0, 50.0);
+        //cout << remappedVal << endl;
+        ofLogVerbose("OSC") << "/setLocalTransY" << " " << "1" << " " << ofToString(remappedVal);
+        
+        
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, "/setLocalTransY", (float)remappedVal);
+    
+    } else if (m.getAddress() == "/wek/setLocalTrans"){
+        
+        
+        
+        float transX = ofMap(m.getArgAsFloat(0), 0.0, 1.0, -50.0, 50.0);
+        float transY = ofMap(m.getArgAsFloat(1), 0.0, 1.0, -50.0, 50.0);
+        float transZ = ofMap(m.getArgAsFloat(2), 0.0, 1.0, -50.0, 50.0);
+        
+        ofLogVerbose("OSC") << m.getAddress() << " " << transX << " " << transY << " " << transZ;
+        
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, "/setLocalTransX", transX);
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, "/setLocalTransY", transY);
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, "/setLocalTransZ", transZ);
+    
+    } else if (m.getAddress() == "/wek/setGlobalTrans"){
+        
+        //ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsFloat(0) << " " << m.getArgAsFloat(1) << " " << m.getArgAsFloat(2);
+        
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, "/setGlobalTransX", ofMap(m.getArgAsFloat(0),0,1,-50,50));
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, "/setGlobalTransY", ofMap(m.getArgAsFloat(1),0,1,-50,50));
+        tracks[idx].trackParameters.setOSCdial(tracks[idx].params, "/setGlobalTransZ", ofMap(m.getArgAsFloat(2),0,1,-50,50));
+        
         
     } else {
         

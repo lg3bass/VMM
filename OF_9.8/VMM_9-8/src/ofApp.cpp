@@ -3,7 +3,13 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    //ofSetFrameRate(60);//experiment
+    //set to 30 for export. 60 for play
+    ofSetFrameRate(frmRate);
+    
+    //ofExportImageSequence
+    exp.setup(600, 600, 30, GL_RGBA, 4);//could be GL_RGB (non alpha).  4=antialiasing:)
+    exp.setFrameRange(0, 360);
+    exp.setOutputDir("out");
     
     //LOGGING
     //http://openframeworks.cc/documentation/utils/ofLog.html
@@ -13,7 +19,7 @@ void ofApp::setup(){
     ofSetLogLevel("ofxUI",OF_LOG_SILENT);//DEFAULT: OF_LOG_SILENT
     ofSetLogLevel("objloader", OF_LOG_ERROR);//DEFAULT: OF_LOG_NOTICE
     ofSetLogLevel("LINK", OF_LOG_SILENT);
-    
+    ofSetLogLevel("RENDER",OF_LOG_VERBOSE);//DEFAULT: OF_LOG_VERBOSE
     
     //SYPHON
     //----------------------------------------------------------
@@ -88,6 +94,9 @@ void ofApp::setup(){
     windows.push_back(ofVec2f(600,600));
     windows.push_back(ofVec2f(460,740));
     
+    //save frames
+    renderFrameCounter = 0;
+    
 }
 
 //--------------------------------------------------------------
@@ -108,8 +117,19 @@ void ofApp::update(){
     //process ALL incoming OSC
     OSChandler();
     
-    
-    
+    //save frames.
+    if(saveImgFrame){
+        
+        //render.grabScreen(0,0,ofGetWidth(),ofGetHeight());
+        
+        //string fileName = "render_"+ofToString(10000+renderFrameCounter)+".png";
+        //render.saveImage(fileName);
+        
+        //method one peg to frame rate
+        ++renderFrameCounter;
+        //cout << "render fr: " << ofToString(renderFrameCounter) << endl;
+        
+    }
 }
 
 //--------------------------------------------------------------
@@ -118,41 +138,48 @@ void ofApp::draw(){
     
     ofDrawBitmapString("SELECTED TRACK: "+ofToString(selectedTrack), 1200,10);
     
-    
-    
-    
-    //SYPHON
-    // Clear with alpha, so we can capture via syphon and composite elsewhere should we want.
-    glClearColor(0.0, 0.0, 0.0, 0.0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //=================================================
-    
-    //NO SYPHON (turned off to test Syphon)
-    //ofBackgroundGradient(ofColor::white, ofColor::gray);
-    ofEnableDepthTest();
-    
-    cam.begin();
-    
-    for(int t=1; t<NUM_TRACKS;t++){
-        //draw all the tracks
-        tracks[t].draw();
+    if(saveImgFrame){
+        //render version
+        
+        exp.begin(cam);
+            ofClear(0,0,0,0);
+            for(int t=1; t<NUM_TRACKS;t++){
+                //draw all the tracks
+                ofEnableDepthTest();
+                tracks[t].draw();
+                ofDisableDepthTest();
+            }
+        exp.end();
+        exp.draw(0,0);
+        
+    } else {
+        
+        //SYPHON
+        // Clear with alpha, so we can capture via syphon and composite elsewhere should we want.
+        glClearColor(0.0, 0.0, 0.0, 0.0);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //=================================================
+        
+        //NO SYPHON (turned off to test Syphon)
+        //ofBackgroundGradient(ofColor::white, ofColor::gray);
+        ofEnableDepthTest();
+        
+        cam.begin();
+        for(int t=1; t<NUM_TRACKS;t++){
+            //draw all the tracks
+            tracks[t].draw();
+        }
+        cam.end();
+        
+        //SYPHON
+        mClient.draw(50, 50);
+        mainOutputSyphonServer.publishScreen();
+        //=======================================
+        
+        //Need this.
+        ofDisableDepthTest();
         
     }
-    
-    cam.end();
-    
-    
-    //SYPHON
-    mClient.draw(50, 50);
-    mainOutputSyphonServer.publishScreen();
-    //=======================================
-    
-    
-    
-    //drawLights();// <-- NOT SURE I NEED THIS WITH MATCAP, disabled 10/22/15
-    
-    //Need this.
-    ofDisableDepthTest();
     
     //draw the native ofGui (floating menu)
     //----------------------------------------
@@ -325,7 +352,23 @@ void ofApp::keyPressed(int key){
         
     }
     
-    
+    if(key=='f'){
+        
+        switch (frmRate) {
+            case 60:
+                frmRate = 30;
+                break;
+            case 30:
+                frmRate = 60;
+                break;
+                
+            default:
+                break;
+        }
+        
+        cout << "frame rate: " << frmRate << endl;
+        ofSetFrameRate(frmRate);
+    }
     
     
 }
@@ -394,7 +437,12 @@ void ofApp::keyReleased(int key){
         
     }//end if
     
-    
+    //stop image export manually
+    if(key == 'x'){
+        
+        saveImgFrame = false;
+        renderFrameCounter = 0;
+    }
     
 }
 

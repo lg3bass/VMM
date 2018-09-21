@@ -14,6 +14,8 @@
 #include "ofxTween.h"
 #include "ofxJSON.h"
 
+#include "ofxExportImageSequence.h"
+
 
 //default 21
 #define NUM_TRACKS 11
@@ -131,10 +133,18 @@ public:
     int windowIndex = 0;
     vector<ofVec2f> windows;
     
+    //frame rate
+    int frmRate = 60;
+    
     
     //TEMP VARIABLE FOR TESTING
     int playedNotes = 0;
     
+    //save frames
+    bool saveImgFrame;
+    ofImage render;
+    int renderFrameCounter;
     
+    ofxExportImageSequence exp;
 		
 };
