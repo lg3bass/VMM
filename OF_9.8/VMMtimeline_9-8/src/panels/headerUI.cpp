@@ -164,7 +164,7 @@ void headerUI::onButtonEvent(ofxDatGuiButtonEvent e){
         
         uiMainApp->enableOscOut();
     } else if (e.target->getName() == "RENDER"){
-        
+        cout << "render clicked" << endl;
         uiMainApp->renderAnimation();
         
     }

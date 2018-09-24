@@ -297,17 +297,10 @@ void vboMeshObj::draw(){
                             if(params.still){
                                 vboMesh1[params.stillFrame].draw();
                             } else {
-                                //Which timeline do I draw?
-                                //timeline 1
-                                vboMesh1[instances[i].frame].draw();
-                                
-                                //timeline 2
-                                //vboMesh1[instance[1].frame].draw();
-                                
-                                //timeline 3
-                                //vboMesh1[instance[2].frame].draw();
-                                
-                                //.....
+                                //do not draw if out of bounds
+                                if(instances[i].frame <= params.totalFrames && instances[i].frame >= 0){
+                                    vboMesh1[instances[i].frame].draw();
+                                }
                             }
                         glPopMatrix();
                     
@@ -342,7 +335,10 @@ void vboMeshObj::draw(){
                             if(params.still){
                                 vboMesh1[params.stillFrame].draw();
                             } else {
-                                vboMesh1[instances[i].frame].draw();
+                                //do not draw if out of bounds
+                                if(instances[i].frame <= params.totalFrames && instances[i].frame >= 0){
+                                    vboMesh1[instances[i].frame].draw();
+                                }
                             }
                             glPopMatrix();
                         
