@@ -19,7 +19,7 @@ void ofApp::setup(){
     ofSetLogLevel("ofxUI",OF_LOG_SILENT);//DEFAULT: OF_LOG_SILENT
     ofSetLogLevel("objloader", OF_LOG_ERROR);//DEFAULT: OF_LOG_NOTICE
     ofSetLogLevel("LINK", OF_LOG_SILENT);
-    ofSetLogLevel("RENDER",OF_LOG_VERBOSE);//DEFAULT: OF_LOG_VERBOSE
+    ofSetLogLevel("RENDER",OF_LOG_ERROR);//DEFAULT: OF_LOG_VERBOSE
     
     //SYPHON
     //----------------------------------------------------------
