@@ -7,7 +7,7 @@ void ofApp::setup(){
     ofSetFrameRate(frmRate);
     
     //ofExportImageSequence
-    exp.setup(600, 600, 30, GL_RGBA, 4);//could be GL_RGB (non alpha).  4=antialiasing:)
+    exp.setup(1280, 720, 30, GL_RGBA, 4);//could be GL_RGB (non alpha).  4=antialiasing:)
     exp.setFrameRange(0, 360);
     exp.setOutputDir("out");
     

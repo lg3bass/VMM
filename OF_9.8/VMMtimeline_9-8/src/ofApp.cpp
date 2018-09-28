@@ -22,7 +22,7 @@ void ofApp::setup(){
     ofSetLogLevel("HEADER", OF_LOG_ERROR);
     ofSetLogLevel("BODY", OF_LOG_ERROR);
     ofSetLogLevel("FOOTER", OF_LOG_ERROR);
-    ofSetLogLevel("RENDER", OF_LOG_VERBOSE);
+    ofSetLogLevel("RENDER", OF_LOG_ERROR);
     
     ofSetLogLevel("timelineData", OF_LOG_ERROR);
     
