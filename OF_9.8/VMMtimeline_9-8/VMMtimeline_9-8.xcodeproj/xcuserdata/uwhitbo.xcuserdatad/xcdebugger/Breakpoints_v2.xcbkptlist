@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/panels/TimelinePanel.cpp"
-            timestampString = "559532775.510231"
+            timestampString = "559879460.768306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1286"
-            endingLineNumber = "1286"
+            startingLineNumber = "1289"
+            endingLineNumber = "1289"
             landmarkName = "TimelinePanel::sendOSCfromTimeline(int _track)"
             landmarkType = "7">
          </BreakpointContent>

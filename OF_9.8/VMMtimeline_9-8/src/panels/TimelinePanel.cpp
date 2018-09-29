@@ -1276,28 +1276,22 @@ void TimelinePanel::sendOSCfromTimeline(int _track){
                         
                     }
                     
-                    //output only if it's a notes track
+                    //output only if it's a ofxTLNotes track
                     if(data.TL.tracks[_track].tlPages[p].tlChannels[j].type == 7){
                         int outTrack = _track;
                         string param = data.TL.tracks[_track].tlPages[p].tlChannels[j].name;
-                        //string param = "fart";
-                        string outParam = "/notes";
+                        //string outParam = "/notes";
                         
+                        //we can cast becasue ofxTLVMMNotes is subclass of ofxTLTrack
                         ofxTLVMMNotes* notesTrack  = (ofxTLVMMNotes*)tracks.timelines[_track]->getTrack(param);
-                        //int n = notesTrack->getNoteAtMillis(tracks.timelines[_track]->getCurrentTime());
-                        
-                        notesTrack->playTLVMMnotesTrack(tracks.timelines[_track]->getCurrentTimeMillis());
-                        //notesTrack->playNote2(tracks.timelines[_track]->getCurrentTimeMillis());
-                        
 
-                        
-                        
-                        
+                        // #11 - pass in the time in ms to the track.
+                        notesTrack->playTLVMMnotesTrack(tracks.timelines[_track]->getCurrentTimeMillis());
                     }
-                }
-            }
-        }
-    }
+                }//for
+            }//if
+        }//for
+    }//if
 }
 
 #pragma mark - CHANNEL MODIFICATIONS

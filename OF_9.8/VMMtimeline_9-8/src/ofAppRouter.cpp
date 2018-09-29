@@ -7,6 +7,8 @@
 void ofApp::enableOscOut(){
     //cout << "ofApp::enableOscOut()" << endl;
     headerPanel.toggleDrive();
+    
+    //TODO: #11 - the polarity of this boolean gets switched around
     timePanel.data.TL.tracks[timePanel.data.getTrack()].enableOscOut = !timePanel.data.TL.tracks[timePanel.data.getTrack()].enableOscOut;
     
 }
