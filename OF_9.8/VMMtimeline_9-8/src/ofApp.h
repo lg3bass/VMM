@@ -8,7 +8,7 @@
 #include "HeaderPanel.h"
 #include "TimelinePanel.h"
 #include "FooterPanel.h"
-
+#include "LeftPanel.h"
 
 
 #define HEADER_PANEL_HEIGHT 0.17
@@ -98,6 +98,7 @@ public:
     HeaderPanel headerPanel;
     TimelinePanel timePanel;
     FooterPanel footerPanel;
+    LeftPanel leftPanel;
     
     #pragma mark - OSC
     ofxOscReceiver receiver_timeline;

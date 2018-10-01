@@ -10,12 +10,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/panels/TimelinePanel.cpp"
-            timestampString = "559879460.768306"
+            timestampString = "560102351.255422"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1289"
             endingLineNumber = "1289"
             landmarkName = "TimelinePanel::sendOSCfromTimeline(int _track)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/panels/timelineTrack.cpp"
+            timestampString = "560102351.255506"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "timelineTrack::init(int _x, int _y, int _w, int _h)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

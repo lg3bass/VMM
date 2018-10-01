@@ -48,7 +48,7 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         t->setSpacebarTogglePlay(false);
         t->setLockWidthToWindow(false);
         t->setDurationInFrames(duration);
-        t->setOffset(ofVec2f((float)_x+88, (float)_y));
+        t->setOffset(ofVec2f((float)_x, (float)_y));//moved offset out 88
         t->setMinimalHeaders(true);
         t->setWidth((float)_w-104);
         t->setBPM(_bpm);
@@ -87,7 +87,6 @@ void timelineTrack::draw(){
     //loop through and draw all the timelines
     for(int i = 0; i < timelines.size(); i++){
         timelines[i]->draw();
-
     }
 }
 

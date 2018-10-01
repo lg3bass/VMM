@@ -23,6 +23,7 @@ void ofApp::setup(){
     ofSetLogLevel("BODY", OF_LOG_ERROR);
     ofSetLogLevel("FOOTER", OF_LOG_ERROR);
     ofSetLogLevel("RENDER", OF_LOG_ERROR);
+    ofSetLogLevel("LEFT", OF_LOG_VERBOSE);
     
     ofSetLogLevel("timelineData", OF_LOG_ERROR);
     
@@ -35,8 +36,9 @@ void ofApp::setup(){
     int footerH =   FOOTER_PANEL_HEIGHT * ofGetHeight();
     
     headerPanel.setup(0, 0, ofGetWidth(), headerH, ofGetAppPtr());              //0,    0,         1080,    380*0.17
-    timePanel.setup(0, headerH, ofGetWidth(), bodyH, ofGetAppPtr());            //0,    380*0.17,  1080,    380*0.73
+    timePanel.setup(88, headerH, ofGetWidth(), bodyH, ofGetAppPtr());            //0,    380*0.17,  1080,    380*0.73
     footerPanel.setup(0,headerH+bodyH,ofGetWidth(), footerH, ofGetAppPtr());
+    leftPanel.setup(0, headerH, 88, bodyH, ofGetAppPtr());
     
     myAppData.selected_panel_name = "NONE";
     myAppData.txt_color = ofColor::brown;
@@ -64,6 +66,7 @@ void ofApp::update(){
     headerPanel.update();
     timePanel.update();
     footerPanel.update();
+    leftPanel.update();
     
     //listen for OSC
     OscReciever(); 
@@ -79,6 +82,7 @@ void ofApp::draw(){
     timePanel.draw();
     headerPanel.draw();//intentionally second.
     footerPanel.draw();
+    leftPanel.draw();
     
     setBreadcrumb();
 }
@@ -89,12 +93,14 @@ void ofApp::keyPressed(int key){
     headerPanel.keyPressed(key);
     timePanel.keyPressed(key);
     footerPanel.keyPressed(key);
+    leftPanel.keyPressed(key);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
     
     timePanel.keyReleased(key);
+    leftPanel.keyPressed(key);
 }
 
 //--------------------------------------------------------------
@@ -113,6 +119,7 @@ void ofApp::mousePressed(int x, int y, int button){
     headerPanel.mousePressed(x, y, button);
     timePanel.mousePressed(x, y, button);
     footerPanel.mousePressed(x, y, button);
+    leftPanel.mousePressed(x, y, button);
     
     
     
@@ -124,6 +131,7 @@ void ofApp::mouseReleased(int x, int y, int button){
     headerPanel.mouseReleased(x, y, button);
     timePanel.mouseReleased(x, y, button);
     footerPanel.mouseReleased(x, y, button);
+    leftPanel.mouseReleased(x, y, button);
     
     if(headerPanel.getPanelFocus()){
         
