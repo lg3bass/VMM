@@ -279,6 +279,16 @@ void ofApp::prevKey(){
 //--------------------------------------------------------------
 void ofApp::setKeyVal(int _val){
     timePanel.data.setSelectedKeyValue(_val);
+    
+    string outParam = "/notes";
+    
+    //we can cast becasue ofxTLVMMNotes is subclass of ofxTLTrack
+    ofxTLVMMNotes* notesTrack  = (ofxTLVMMNotes*)timePanel.tracks.timelines[timePanel.data.getTrack()]->getTrack("notes");
+    
+    ofxTLVMMNote* test = notesTrack->getSelectedNoteKeyframe();
+    
+    test->value = 0.50;
+    
 }
 
 //--------------------------------------------------------------
@@ -451,4 +461,17 @@ void ofApp::stopTLclip(int _clip){
     timePanel.stopTLclip(_clip);
     
     timePanel.data.TL.playing = false;
+}
+
+//--------------------------------------------------------------
+void ofApp::routerFrameADSR(int f, int m){
+    
+    //we can cast becasue ofxTLVMMNotes is subclass of ofxTLTrack
+    ofxTLVMMNotes* notesTrack  = (ofxTLVMMNotes*)timePanel.tracks.timelines[timePanel.data.getTrack()]->getTrack("notes");
+    
+    notesTrack->setFramesADSR(f, m);
+    
+    //ofxTLVMMNote* test = notesTrack->getSelectedNoteKeyframe();
+    
+    
 }

@@ -20,6 +20,25 @@
 class LeftPanel : public Panel{
     
 public:
+    
+    bool drumRack = false;
+    
+    int leftMargin = 15;
+    int margin1 = 6;
+    int rightMargin = 6;
+    
+    int clip = 68;
+    int launch = 69;
+    int notes = 145;
+    int envelopes = 137;
+    int midiKeyboard = 47;
+    int drumKeyboard = 102;
+    int sample = 231;
+    
+    int leftWidth;
+    int currentTrack;
+    ofVec2f offset;
+
     void setup(int x, int y, int width, int height, ofBaseApp* appPtr);
     void update();
     void draw();
@@ -34,7 +53,18 @@ public:
     ofxDatGuiButton* small;
     ofxDatGuiButton* large;
     
+    //TEST ADSR 
+    ofxDatGuiMatrix* subButtons;
+    ofxDatGuiTextInput* aText;
+    ofxDatGuiTextInput* dText;
+    ofxDatGuiTextInput* sText;
+    ofxDatGuiTextInput* rText;
+    
+    
     void onButtonEvent(ofxDatGuiButtonEvent e);
+    void onMatrixInputEvent(ofxDatGuiMatrixEvent e);
+    void onTextInputEvent(ofxDatGuiTextInputEvent e);
+    
 
 private:
     

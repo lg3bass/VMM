@@ -57,9 +57,12 @@ class ofxDatGuiThemeVMM : public ofxDatGuiTheme{
             font.file = "ofxbraitsch/fonts/Verdana.ttf";
             
             
+            
             //text input boxes. make em slim
             layout.height = 20;
             layout.textInput.forceUpperCase = false;
+            
+            
             
             init();
         }

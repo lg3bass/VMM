@@ -123,6 +123,8 @@ public:
 
     void sendOSCtestData(int track, int clip);
     
+    void routerFrameADSR(int f, int m);
+    
 private:
     
 
