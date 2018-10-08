@@ -463,6 +463,8 @@ void ofApp::stopTLclip(int _clip){
     timePanel.data.TL.playing = false;
 }
 
+#pragma mark - leftPanel functions
+
 //--------------------------------------------------------------
 void ofApp::routerFrameADSR(int f, int m){
     
@@ -471,7 +473,38 @@ void ofApp::routerFrameADSR(int f, int m){
     
     notesTrack->setFramesADSR(f, m);
     
-    //ofxTLVMMNote* test = notesTrack->getSelectedNoteKeyframe();
+}
+
+//--------------------------------------------------------------
+void ofApp::setNoteData(){
     
+    //ofxTLVMMNotes* notesTrack  = (ofxTLVMMNotes*)timePanel.tracks.timelines[timePanel.data.getTrack()]->getTrack("notes");
+    //leftPanel.setADSR(notesTrack->getFrameADSR());
+    
+    int selectedTrack = timePanel.data.getTrack();
+    string selectedName = timePanel.data.getSelectedChannelName();
+    
+    if(selectedName == "notes"){
+        if(timePanel.data.getNumOfChannelsOnPage() > 0) {
+            if(timePanel.data.getSelectedChannel() > -1){
+                ofxTLVMMNotes* notesTrack  = (ofxTLVMMNotes*)timePanel.tracks.timelines[selectedTrack]->getTrack(selectedName);
+                leftPanel.setADSR(notesTrack->getFrameADSR());
+            }
+        } else {
+            leftPanel.aText->setText("-");
+            leftPanel.dText->setText("-");
+            leftPanel.sText->setText("-");
+            leftPanel.rText->setText("-");
+        }
+    }
+    
+
+}
+
+//--------------------------------------------------------------
+void ofApp::getNoteData(){
+    
+    //ofxTLVMMNotes* notesTrack  = (ofxTLVMMNotes*)timePanel.tracks.timelines[timePanel.data.getTrack()]->getTrack("notes");
+
     
 }

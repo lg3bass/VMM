@@ -175,7 +175,6 @@ void LeftPanel::mousePressed(int x, int y, int button){
     }
 }
 
-//-------------------------------------------------
 void LeftPanel::mouseReleased(int x, int y, int button){
     
     if(isWithinBounds(x, y)) {
@@ -191,6 +190,14 @@ void LeftPanel::mouseReleased(int x, int y, int button){
     }
 }
 
+# pragma mark - ADSR UI //ADSR UI
+//--------------------------------------------------------------
+void LeftPanel::setADSR(ofVec4f ADSR){
+    aText->setText(ofToString(ADSR[0]));
+    dText->setText(ofToString(ADSR[1]));
+    sText->setText(ofToString(ADSR[2]));
+    rText->setText(ofToString(ADSR[3]));
+}
 
 
 //--------------------------------------------------------------

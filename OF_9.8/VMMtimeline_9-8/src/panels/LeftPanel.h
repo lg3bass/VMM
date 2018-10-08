@@ -53,13 +53,14 @@ public:
     ofxDatGuiButton* small;
     ofxDatGuiButton* large;
     
-    //TEST ADSR 
+    # pragma mark - ADSR UI //ADSR UI
     ofxDatGuiMatrix* subButtons;
     ofxDatGuiTextInput* aText;
     ofxDatGuiTextInput* dText;
     ofxDatGuiTextInput* sText;
     ofxDatGuiTextInput* rText;
     
+    void setADSR(ofVec4f ADSR);
     
     void onButtonEvent(ofxDatGuiButtonEvent e);
     void onMatrixInputEvent(ofxDatGuiMatrixEvent e);

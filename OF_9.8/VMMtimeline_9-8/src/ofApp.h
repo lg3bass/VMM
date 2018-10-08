@@ -94,11 +94,20 @@ public:
     void playTLclip(int _track, int _clip);
     void stopTLclip(int _clip);                     //_clip does NOTHING
     
+    //leftPanel
+    #pragma mark - leftPanel functions
+    void routerFrameADSR(int f, int m);
+    void setNoteData();
+    void getNoteData();
+    
+    
     //panels
     HeaderPanel headerPanel;
     TimelinePanel timePanel;
     FooterPanel footerPanel;
     LeftPanel leftPanel;
+    
+
     
     #pragma mark - OSC
     ofxOscReceiver receiver_timeline;
@@ -123,7 +132,7 @@ public:
 
     void sendOSCtestData(int track, int clip);
     
-    void routerFrameADSR(int f, int m);
+
     
 private:
     
