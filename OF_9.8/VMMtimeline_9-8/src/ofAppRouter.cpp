@@ -473,14 +473,23 @@ void ofApp::routerFrameADSR(int f, int m){
     
     notesTrack->setFramesADSR(f, m);
     
+    //don't want to do this every frame.
+    //setNoteData();
+    
 }
 
 //--------------------------------------------------------------
-void ofApp::setNoteData(){
+void ofApp::setNoteData(ofVec4f & e){
+
+    cout << ofToString(e) << endl;
     
-    //ofxTLVMMNotes* notesTrack  = (ofxTLVMMNotes*)timePanel.tracks.timelines[timePanel.data.getTrack()]->getTrack("notes");
-    //leftPanel.setADSR(notesTrack->getFrameADSR());
+    leftPanel.aText->setText(ofToString(e[0]));
+    leftPanel.dText->setText(ofToString(e[1]));
+    leftPanel.sText->setText(ofToString(e[2]));
+    leftPanel.rText->setText(ofToString(e[3]));
     
+    
+    /*
     int selectedTrack = timePanel.data.getTrack();
     string selectedName = timePanel.data.getSelectedChannelName();
     
@@ -488,6 +497,9 @@ void ofApp::setNoteData(){
         if(timePanel.data.getNumOfChannelsOnPage() > 0) {
             if(timePanel.data.getSelectedChannel() > -1){
                 ofxTLVMMNotes* notesTrack  = (ofxTLVMMNotes*)timePanel.tracks.timelines[selectedTrack]->getTrack(selectedName);
+                
+                
+                
                 leftPanel.setADSR(notesTrack->getFrameADSR());
             }
         } else {
@@ -497,7 +509,7 @@ void ofApp::setNoteData(){
             leftPanel.rText->setText("-");
         }
     }
-    
+    */
 
 }
 

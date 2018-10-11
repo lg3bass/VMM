@@ -49,7 +49,6 @@ void LeftPanel::setup(int x, int y, int width, int height, ofBaseApp *appPtr){
     large->setBorder(ofColor::darkGrey, 1);
     large->onButtonEvent(this, &LeftPanel::onButtonEvent);
     
-    
     // instantiate a matrix with a button for each box in our grid //
     subButtons = new ofxDatGuiMatrix("", 3, false);
     subButtons->setTheme(new ofxDatGuiThemeVMM());
@@ -60,7 +59,6 @@ void LeftPanel::setup(int x, int y, int width, int height, ofBaseApp *appPtr){
     subButtons->setPosition(x+10, y+10);
     subButtons->setLabelAlignment(ofxDatGuiAlignment::CENTER);
     subButtons->onMatrixEvent(this, &LeftPanel::onMatrixInputEvent);
-    
     
     aText = new ofxDatGuiTextInput("attack", "10");
     aText->setTheme(new ofxDatGuiThemeVMM);
@@ -95,8 +93,6 @@ void LeftPanel::setup(int x, int y, int width, int height, ofBaseApp *appPtr){
     sText->setBorder(ofColor::darkGrey, 1);
     sText->onTextInputEvent(this, &LeftPanel::onTextInputEvent);
     
-    
-    
     rText = new ofxDatGuiTextInput("release", "10");
     rText->setTheme(new ofxDatGuiThemeVMM);
     rText->setWidth(40,0.0);
@@ -110,7 +106,6 @@ void LeftPanel::setup(int x, int y, int width, int height, ofBaseApp *appPtr){
     
     int leftWidth = leftMargin + clip + margin1;
     int currentTrack = lMainApp->timePanel.data.getTrack();
-    
     
 }
 
@@ -170,15 +165,12 @@ void LeftPanel::mousePressed(int x, int y, int button){
         ofLogVerbose("LEFT") << "mousePressed() - (" << x << "," << y << ")";
         setPanelFocus(true);                        //focus THIS panel
         
-        
-        
     }
 }
 
 void LeftPanel::mouseReleased(int x, int y, int button){
     
     if(isWithinBounds(x, y)) {
-        
         if(lMainApp->timePanel.getPanelFocus()){
             ofLogVerbose("LEFT") << "mouseReleased() - NOTE: mousePressed() originated from LeftPanel";
             lMainApp->timePanel.setPanelFocus(false);       //unfocus TimelinePanel
@@ -208,7 +200,6 @@ void LeftPanel::onButtonEvent(ofxDatGuiButtonEvent e){
     
     //w = 288 (clip + notes panels in Ableton)
     ofVec2f largeOffset = ofVec2f(offset[0]+152,offset[1]);
-    
     
     if(e.target->getName() == "small"){
         ofLogVerbose("LEFT") << "small button pressed!";
@@ -272,38 +263,10 @@ void LeftPanel::onMatrixInputEvent(ofxDatGuiMatrixEvent e){
         }
     }
     
-    
-    
     lMainApp->timePanel.tracks.timelines[currentTrack]->setOffset(ofVec2f(offset[0]+leftWidth,offset[1]));
     
     int TL_WIDTH = 1080 - (rightMargin + leftWidth + 88);
     lMainApp->timePanel.tracks.timelines[currentTrack]->setWidth(TL_WIDTH);
-    
-    /*
-    if(LAUNCH){
-        leftWidth += launch + margin1;
-    }
-    
-    if(NOTES){
-        leftWidth += notes + margin1;
-    }
-    
-    if(SAMPLE){
-        leftWidth += sample + margin1;
-    }
-    
-    if(ENVELOPES){
-        leftWidth += envelopes + margin1;
-    }
-    
-    if(drumRack) {
-        leftWidth += drumKeyboard;
-    } else {
-        leftWidth += midiKeyboard;
-    }
-     
-    int TL_WIDTH = ofGetWidth() - rightMargin - leftWidth;
-    */
     
 }
 
@@ -322,5 +285,7 @@ void LeftPanel::onTextInputEvent(ofxDatGuiTextInputEvent e){
         ofLogVerbose("LEFT") << "release input: " << e.text;
         lMainApp->routerFrameADSR(ofToInt(e.text), 3);
     }
+    
+    
     
 }

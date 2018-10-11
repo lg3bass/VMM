@@ -55,6 +55,11 @@ void ofApp::setup(){
     ofAddListener(VMMOscMessageEvent::events, this, &ofApp::OscSendEvent);
     ofAddListener(NoteOscMessageEvent::events, this, &ofApp::OscSendNoteEvent);
     
+    //test listener from the notes track
+    ofAddListener(ofxTLVMMNotes::noteUIdata, this, &ofApp::setNoteData);
+    
+    //ofAddListener(ofxTLVMMNotes::noteUIdata, this, &ofApp::setNoteData);
+    
 }
 
 //--------------------------------------------------------------
@@ -72,7 +77,7 @@ void ofApp::update(){
     OscReciever();
     
     
-    setNoteData();
+    //setNoteData();
 }
 
 //--------------------------------------------------------------
@@ -125,8 +130,6 @@ void ofApp::mousePressed(int x, int y, int button){
     footerPanel.mousePressed(x, y, button);
     leftPanel.mousePressed(x, y, button);
     
-    
-    
 }
 
 //--------------------------------------------------------------
@@ -138,7 +141,6 @@ void ofApp::mouseReleased(int x, int y, int button){
     leftPanel.mouseReleased(x, y, button);
     
     if(headerPanel.getPanelFocus()){
-        
         
     }
 }

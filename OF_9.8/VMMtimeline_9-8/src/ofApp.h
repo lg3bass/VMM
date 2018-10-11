@@ -97,7 +97,7 @@ public:
     //leftPanel
     #pragma mark - leftPanel functions
     void routerFrameADSR(int f, int m);
-    void setNoteData();
+    void setNoteData(ofVec4f & e);
     void getNoteData();
     
     

@@ -79,6 +79,8 @@ void timelineTrack::init(int _x, int _y, int _w, int _h){
         
     }
     
+    timelines[0]->getPage("P1")->setHeaderHeight(48);
+    
 }
 
 //-------------------------------------------------
@@ -217,7 +219,6 @@ void timelineTrack::addTLTrack(int _track, string _page, string _name, int _type
             notesTrack->setXMLFileName(notesTrackName+".xml");
             notesTrack->track = _track;
             notesTrack->page = timelines[_track]->getCurrentPageIndex();
-            
             timelines[_track]->addTrack(_name, notesTrack);
             break;
         }
