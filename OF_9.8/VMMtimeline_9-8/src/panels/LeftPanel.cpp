@@ -56,16 +56,16 @@ void LeftPanel::setup(int x, int y, int width, int height, ofBaseApp *appPtr){
     subButtons->setOpacity(.75);
     subButtons->setHeight(10.0);
     subButtons->setWidth(70.0,5.0);
-    subButtons->setPosition(x+10, y+10);
+    subButtons->setPosition(x, y);
     subButtons->setLabelAlignment(ofxDatGuiAlignment::CENTER);
     subButtons->onMatrixEvent(this, &LeftPanel::onMatrixInputEvent);
     
     aText = new ofxDatGuiTextInput("attack", "10");
     aText->setTheme(new ofxDatGuiThemeVMM);
-    aText->setWidth(40,0.0);
+    aText->setWidth(80,40.0);
     aText->setHeight(20);
-    aText->setPosition(x+10, y+50);
-    aText->setLabelMargin(0);
+    aText->setPosition(x, y+50);
+    aText->setLabelMargin(5);
     aText->setLabelAlignment(ofxDatGuiAlignment::LEFT);
     aText->setBorderVisible(TRUE);
     aText->setBorder(ofColor::darkGrey, 1);
@@ -73,10 +73,10 @@ void LeftPanel::setup(int x, int y, int width, int height, ofBaseApp *appPtr){
     
     dText = new ofxDatGuiTextInput("decay", "10");
     dText->setTheme(new ofxDatGuiThemeVMM);
-    dText->setWidth(40,0.0);
+    dText->setWidth(80,40.0);
     dText->setHeight(20);
-    dText->setPosition(x+10, y+70);
-    dText->setLabelMargin(0);
+    dText->setPosition(x, y+70);
+    dText->setLabelMargin(5);
     dText->setLabelAlignment(ofxDatGuiAlignment::LEFT);
     dText->setBorderVisible(TRUE);
     dText->setBorder(ofColor::darkGrey, 1);
@@ -84,10 +84,10 @@ void LeftPanel::setup(int x, int y, int width, int height, ofBaseApp *appPtr){
     
     sText = new ofxDatGuiTextInput("sustain", "10");
     sText->setTheme(new ofxDatGuiThemeVMM);
-    sText->setWidth(40,0.0);
+    sText->setWidth(80,40.0);
     sText->setHeight(20);
-    sText->setPosition(x+10, y+90);
-    sText->setLabelMargin(0);
+    sText->setPosition(x, y+90);
+    sText->setLabelMargin(5);
     sText->setLabelAlignment(ofxDatGuiAlignment::LEFT);
     sText->setBorderVisible(TRUE);
     sText->setBorder(ofColor::darkGrey, 1);
@@ -95,10 +95,10 @@ void LeftPanel::setup(int x, int y, int width, int height, ofBaseApp *appPtr){
     
     rText = new ofxDatGuiTextInput("release", "10");
     rText->setTheme(new ofxDatGuiThemeVMM);
-    rText->setWidth(40,0.0);
+    rText->setWidth(80,40.0);
     rText->setHeight(20);
-    rText->setPosition(x+10, y+110);
-    rText->setLabelMargin(0);
+    rText->setPosition(x, y+110);
+    rText->setLabelMargin(5);
     rText->setLabelAlignment(ofxDatGuiAlignment::LEFT);
     rText->setBorderVisible(TRUE);
     rText->setBorder(ofColor::darkGrey, 1);

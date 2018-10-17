@@ -481,7 +481,7 @@ void ofApp::routerFrameADSR(int f, int m){
 //--------------------------------------------------------------
 void ofApp::setNoteData(ofVec4f & e){
 
-    cout << ofToString(e) << endl;
+    cout << "ofApp::setNoteData(" << ofToString(e) << ")" << endl;
     
     leftPanel.aText->setText(ofToString(e[0]));
     leftPanel.dText->setText(ofToString(e[1]));
