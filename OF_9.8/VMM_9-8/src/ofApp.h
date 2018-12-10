@@ -145,6 +145,10 @@ public:
     ofImage render;
     int renderFrameCounter;
     
+    //channel frames
+    bool saveChannelFrame;
+    int channelFrameCounter;
+    
     ofxExportImageSequence exp;
 		
 };

@@ -117,10 +117,10 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
         
         //----------noteOn(_buffer           |VMMnoteID         |_midiNote  |_velocity |_delta )
-        tracks[idx].noteOn(m.getArgAsInt32(2)-1,m.getArgAsInt32(1),60         ,100       ,500);
+        tracks[idx].noteOn(m.getArgAsInt32(2),m.getArgAsInt32(1),60         ,100       ,500);
         
         //----------play(_buffer           | VMMnoteID        | _duration         | _tweenType)
-        tracks[idx].play(m.getArgAsInt32(2)-1,m.getArgAsInt32(1), m.getArgAsInt32(3), 11);
+        tracks[idx].play(m.getArgAsInt32(2),m.getArgAsInt32(1), m.getArgAsInt32(3), 11);
         
     } else if (m.getAddress() == "/clear"){
         
@@ -465,6 +465,21 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         }
         
         ofLogVerbose("RENDER") << m.getAddress() << " track:" << m.getArgAsInt32(0) << " clip:" << m.getArgAsInt32(1) << "-" << (((ofApp*)ofGetAppPtr())->saveImgFrame ? "Render START" : "Render END");
+    
+    } else if (m.getAddress() == "/channel"){
+        
+        if(m.getArgAsInt32(1) > 0){
+            
+            ofLogVerbose("RENDER") << "Output Channel frames 0-"<<m.getArgAsInt(1);
+            ((ofApp*)ofGetAppPtr())->saveChannelFrame = true;
+            
+            
+        } else {
+            
+            ((ofApp*)ofGetAppPtr())->saveChannelFrame = false;
+            ((ofApp*)ofGetAppPtr())->channelFrameCounter = 0;
+            
+        }
         
     } else if (m.getAddress() == "/wek/outputs"){
         //cout << "wekenator: " << m.getAddress() << " " << ofToString(m.getArgAsFloat(0)) << endl;

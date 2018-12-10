@@ -14,12 +14,12 @@ void ofApp::setup(){
     //LOGGING
     //http://openframeworks.cc/documentation/utils/ofLog.html
     ofSetLogLevel("jsonData", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("OSC",OF_LOG_ERROR);//DEFAULT: OF_LOG_VERBOSE
+    ofSetLogLevel("OSC",OF_LOG_VERBOSE);//DEFAULT: OF_LOG_VERBOSE
     ofSetLogLevel("matcap",OF_LOG_SILENT);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("ofxUI",OF_LOG_SILENT);//DEFAULT: OF_LOG_SILENT
     ofSetLogLevel("objloader", OF_LOG_ERROR);//DEFAULT: OF_LOG_NOTICE
     ofSetLogLevel("LINK", OF_LOG_SILENT);
-    ofSetLogLevel("RENDER",OF_LOG_ERROR);//DEFAULT: OF_LOG_VERBOSE
+    ofSetLogLevel("RENDER",OF_LOG_VERBOSE);//DEFAULT: OF_LOG_VERBOSE
     
     //SYPHON
     //----------------------------------------------------------
@@ -97,6 +97,9 @@ void ofApp::setup(){
     //save frames
     renderFrameCounter = 0;
     
+    //save channel file for Houdini
+    channelFrameCounter = 0;
+    
 }
 
 //--------------------------------------------------------------
@@ -129,6 +132,13 @@ void ofApp::update(){
         ++renderFrameCounter;
         //cout << "render fr: " << ofToString(renderFrameCounter) << endl;
         
+    }
+    
+    //channel frames
+    if(saveChannelFrame){
+        
+        ++channelFrameCounter;
+        cout << "channel fr: " << ofToString(channelFrameCounter) << endl;
     }
 }
 
@@ -437,11 +447,14 @@ void ofApp::keyReleased(int key){
         
     }//end if
     
-    //stop image export manually
+    //stop image and channel export manually
     if(key == 'x'){
         
         saveImgFrame = false;
         renderFrameCounter = 0;
+        
+        saveChannelFrame = false;
+        channelFrameCounter = 0;
     }
     
 }
