@@ -167,6 +167,9 @@ void headerUI::onButtonEvent(ofxDatGuiButtonEvent e){
         cout << "render clicked" << endl;
         uiMainApp->renderAnimation();
         
+    } else if (e.target->getName() == "CHAN"){
+        cout << "render chan file clicked" << endl;
+        uiMainApp->renderChanFile();
     }
     
 }

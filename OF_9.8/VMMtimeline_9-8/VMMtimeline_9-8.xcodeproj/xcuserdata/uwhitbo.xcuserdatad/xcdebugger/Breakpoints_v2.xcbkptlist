@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/panels/TimelinePanel.cpp"
-            timestampString = "560102351.255422"
+            timestampString = "566170991.864288"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1289"
-            endingLineNumber = "1289"
+            startingLineNumber = "1304"
+            endingLineNumber = "1304"
             landmarkName = "TimelinePanel::sendOSCfromTimeline(int _track)"
             landmarkType = "7">
          </BreakpointContent>
@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "395"
             endingLineNumber = "395"
-            landmarkName = "ofxTLVMMNotes::setFramesADSR(int f, int s)"
+            landmarkName = "ofxTLVMMNotes::getFrameADSR()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -79,8 +79,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "885"
             endingLineNumber = "885"
-            landmarkName = "ofxTLVMMNotes::regionSelected(ofLongRange timeRange, ofRange valueRange)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

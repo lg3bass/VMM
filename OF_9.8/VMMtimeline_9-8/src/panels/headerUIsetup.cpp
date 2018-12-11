@@ -327,8 +327,8 @@ void headerUI::setupGUI() {
     barBeatFrame->setBorder(ofColor::darkGrey, 1);
     barBeatFrame->onTextInputEvent(this, &headerUI::onTextInputEvent);
     
-    //ROW2
-    quantize = new ofxDatGuiButton("QUANTIZE");
+    //ROW2 (repurposed for "CHAN" but keep the object "quantize")
+    quantize = new ofxDatGuiButton("CHAN");
     quantize->setTheme(new ofxDatGuiThemeVMM);
     quantize->setWidth(50);
     quantize->setHeight(rowH);
@@ -336,6 +336,7 @@ void headerUI::setupGUI() {
     quantize->setLabelAlignment(ofxDatGuiAlignment::CENTER);
     quantize->setBorderVisible(TRUE);
     quantize->setBorder(ofColor::darkGrey, 1);
+    quantize->onButtonEvent(this, &headerUI::onButtonEvent);
     
     snap = new ofxDatGuiButton("SNAP");
     snap->setTheme(new ofxDatGuiThemeVMM);
@@ -455,7 +456,7 @@ void headerUI::updateGUI(bool acceptEvents){
     meter->update(acceptEvents);
     barBeatFrame->update(acceptEvents);
     
-    quantize->update(acceptEvents);
+    quantize->update(acceptEvents);//repurposed for "CHAN"
     snap->update(acceptEvents);
     focus->update(acceptEvents);
     showAll->update(acceptEvents);
@@ -507,7 +508,7 @@ void headerUI::drawGUI(){
     //S4
     meter->draw();              //row1
     barBeatFrame->draw();
-    quantize->draw();           //row2
+    quantize->draw();           //row2 - repurposed for "CHAN"
     snap->draw();
     focus->draw();
     showAll->draw();

@@ -14,7 +14,7 @@ void ofApp::setup(){
     //LOGGING
     //http://openframeworks.cc/documentation/utils/ofLog.html
     ofSetLogLevel("jsonData", OF_LOG_ERROR);//DEFAULT: OF_LOG_ERROR
-    ofSetLogLevel("OSC",OF_LOG_VERBOSE);//DEFAULT: OF_LOG_VERBOSE
+    ofSetLogLevel("OSC",OF_LOG_ERROR);//DEFAULT: OF_LOG_VERBOSE
     ofSetLogLevel("matcap",OF_LOG_SILENT);//DEFAULT: OF_LOG_ERROR
     ofSetLogLevel("ofxUI",OF_LOG_SILENT);//DEFAULT: OF_LOG_SILENT
     ofSetLogLevel("objloader", OF_LOG_ERROR);//DEFAULT: OF_LOG_NOTICE
@@ -139,6 +139,13 @@ void ofApp::update(){
         
         ++channelFrameCounter;
         cout << "channel fr: " << ofToString(channelFrameCounter) << endl;
+        //TODO: Write out my chan file data by looping through the Tracks and Buffers.
+        
+        for(int t=1; t<NUM_TRACKS;t++){
+
+            cout << ofToString(tracks[t].instances[0].frame) << endl;;
+
+        }
     }
 }
 

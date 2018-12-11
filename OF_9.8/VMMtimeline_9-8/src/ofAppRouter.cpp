@@ -22,6 +22,14 @@ void ofApp::renderAnimation(){
 }
 
 //--------------------------------------------------------------
+void ofApp::renderChanFile(){
+    cout << "CREATING A CHAN FILE FOR HOUDINI" << endl;
+    OSCsendFloatToVMM(0, "/renderChanFile", 0.01);
+    timePanel.renderChan = true;
+    
+}
+
+//--------------------------------------------------------------
 void ofApp::setControllerData(string name, int data){
     
     if (name == "TRACK") {

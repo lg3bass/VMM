@@ -89,7 +89,10 @@ public:
     ofxDatGuiTextInput* barBeatFrame;
     
     //ROW 2
-    ofxDatGuiButton* quantize;
+    ofxDatGuiButton* quantize;//repurpose this for my "CHAN" button
+    ofxDatGuiButton* chan;
+    
+    
     ofxDatGuiButton* snap;
     ofxDatGuiButton* focus;
     ofxDatGuiButton* showAll;

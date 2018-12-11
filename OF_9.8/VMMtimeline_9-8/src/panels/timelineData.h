@@ -82,6 +82,7 @@ public:
         bool snap = false;
         bool drive = false;
         bool render = false;
+        bool chan = false; //"CHAN"
         bool playing = false;
         
     } TL;                                           //change to TL

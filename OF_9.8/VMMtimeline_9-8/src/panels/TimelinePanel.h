@@ -103,6 +103,10 @@ public:
     bool render = false;
     bool isRendering = false;
     
+#pragma mark - CHAN
+    bool renderChan = false;
+    bool isRenderingChan = false;
+    
 #pragma mark - CHANNEL MODIFICATIONS
     void setChannelRangeLow(float _val);
     void setChannelRangeHigh(float _val);

@@ -466,7 +466,7 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
         ofLogVerbose("RENDER") << m.getAddress() << " track:" << m.getArgAsInt32(0) << " clip:" << m.getArgAsInt32(1) << "-" << (((ofApp*)ofGetAppPtr())->saveImgFrame ? "Render START" : "Render END");
     
-    } else if (m.getAddress() == "/channel"){
+    } else if (m.getAddress() == "/renderChan"){
         
         if(m.getArgAsInt32(1) > 0){
             

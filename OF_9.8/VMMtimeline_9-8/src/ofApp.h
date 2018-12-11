@@ -57,6 +57,7 @@ public:
 
     void enableOscOut();
     void renderAnimation();
+    void renderChanFile();
     
     void setControllerData(string name, int data);
     

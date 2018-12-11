@@ -137,6 +137,21 @@ void TimelinePanel::runTimelines(int _track){
                         isRendering = true;
                         ofLogNotice("RENDER") << "isRendering:" << isRendering;
                     }
+                    
+                    //"CHAN"
+                    if(isRenderingChan){
+                        isRenderingChan = false;
+                        ofLogNotice("CHAN") << "isRenderingChan:" << isRenderingChan;
+                        bMainApp->OSCsendIntToVMM(_track,"/renderChan",0);
+                    }
+                    
+                    if(renderChan){
+                        ofLogNotice("CHAN") << "/renderChan " << data.getClipDuration(_track);
+                        bMainApp->OSCsendIntToVMM(_track,"/renderChan",data.getClipDuration(_track));
+                        renderChan = false;
+                        isRenderingChan = true;
+                        ofLogNotice("CHAN") << "isRenderingChan:" << isRendering;
+                    }
                 
                 } else {
                     

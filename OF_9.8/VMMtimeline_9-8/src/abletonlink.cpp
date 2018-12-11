@@ -107,6 +107,13 @@ void abletonLinkEngine::blinkingBottomBar(float _top, float _bottom){
                 barBG = ofColor(255);
             }
         
+            //turn the bar blue if recording chan file.
+            if(abletonLinkEngine2MainApp->timePanel.isRenderingChan) {
+                barBG = ofColor::blue;
+            } else {
+                barBG = ofColor(255);
+            }
+        
             //BG
             ofFill();
             ofSetColor((i <= nbeat) ? barBG : 128);
