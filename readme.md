@@ -1,5 +1,8 @@
 # VMM
 
+## LATEST
+[20211124 - commit old code](https://github.com/lg3bass/VMM/commit/0253084b35bd25025af850689c01ee10f73fcf68)
+
 This project is a set of tools to animate .obj sequence files.  The idea behind this project is to use M4L to send note data to VMM (OF application) to make .obj sequences dance. 
 
 The last song I used this on was [https://github.com/lg3bass/20190416_improv-001](https://github.com/lg3bass/20190416_improv-001). This song was published 5/23/2019.  The general feeling was while I got the entire workflow working it was still a lot of clean up work.  After this project I shifted my efforts to a MAX/M4L (only) solution using GLSL shaders. 

@@ -9,8 +9,8 @@
 
 | STATUS | FILE | CHANGELOG |
 | --- | :--- | :--- |
-| Current | vmm\_adsr\_trigger\_1.0.amxd | 20190127 - Create a new device 1.0. Buffers set /localCopies. |
-
+| OLD | vmm\_adsr\_trigger\_1.0.amxd | 20190127 - Create a new device 1.0. Buffers set /localCopies. |
+| CURRENT | vmm\_adsr\_trigger\_1.1.amxd | 20190127 - v1.1 |
 
 #### M4L\_VMM\_clip\_launch\_timeline
 
@@ -51,8 +51,8 @@ _**NOTE**: Always place the clip\_launch\_timeline device AFTER all the other M4
 	*  //here I started to work with ADSR param
 		*  M4L_vmm_string.amxd
 		*  M4L_vmm_string_1.2.amxd, M4L_vmm_string_1.2a.amxd, M4L_vmm_string_1.2b.amxd, M4L_vmm_string_1.2c.amxd, M4L_vmm_string_1.3.amxd
-		*  M4L_vmm_string_1.3.1.amxd (BREAK OFF to 
-
+		*  M4L_vmm_string_1.3.1.amxd (CURRENT)
+		
 #### M4L\_VMM\_track
 * vmm\_track\_1.3
 * vmm\_track\_2.0
