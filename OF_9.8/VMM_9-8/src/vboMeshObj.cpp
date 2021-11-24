@@ -39,6 +39,13 @@ void vboMeshObj::setup(int _input){
         instances[t].direction = 1;
         instances[t].duration = 0;
         instances[t].clockedDurration = 700;
+        
+        instances[t].ADSRtween = false;
+        instances[t].ADSRstate = 0; //set to off
+        instances[t].durAttack = 250;
+        instances[t].durDecay = 250;
+        instances[t].durSustain = 250;
+        instances[t].durRelease = 250;
     }
     
     linearTweens.reserve(12);
@@ -109,6 +116,7 @@ void vboMeshObj::loadTrackData(int _index){
     params.durrationPoints = parseJSON("objSeq-durations");
     params.midpointCues = parseJSON("objSeq-midpoint-cues");
     params.segmentLengths = parseJSON("objSeq-segmentLengths");
+    params.ADSR = parseJSON("objSeq-ADSR");
     
     params.stillFrame = jsonTrackData["objSeq-still"].asInt();
     params.totalFrames = jsonTrackData["objSeq-files"].asInt();
@@ -245,7 +253,10 @@ void vboMeshObj::draw(){
     if(params.trackAssigned){
          if(params.isLoaded){
             //accumulate transform stacks.
-            for(int j=1;j<params.g_copies+1;j++){
+            
+             
+             
+             for(int j=1;j<params.g_copies+1;j++){
                 glPushMatrix();
                 //global scale
                 glScalef(params.g_scale+params.gScaleModVal, params.g_scale+params.gScaleModVal, params.g_scale+params.gScaleModVal);//scale of this layer
@@ -269,20 +280,13 @@ void vboMeshObj::draw(){
                     glRotatef(params.g_rotate.z,0,0,1);
                 }
 
-                //glRotatef(params.g_rotate.z,0,0,1);
                 
                 for(int i=0;i<params.l_copies;i++){
                     glPushMatrix();
                     glRotatef(i*params.l_rotate.x+params.lRotateModVal.x,1,0,0);
                     glRotatef(i*params.l_rotate.y+params.lRotateModVal.y,0,1,0);
                     glRotatef(i*params.l_rotate.z+params.lRotateModVal.z,0,0,1);
-                    
-                    //float z = params.l_rotate.z;
-                    float temp = i*params.l_rotate.z+params.lRotateModVal.z;
-                    
-                    //cout << ofToString(temp) << endl;
-                    //glRotatef(temp,0,0,1);
-
+                
                     glTranslatef(params.l_trans.x+params.lTransModVal.x, params.l_trans.y+params.lTransModVal.y, params.l_trans.z+params.lTransModVal.z);
                 
                     glScalef(params.l_scale+params.lScaleModVal,params.l_scale+params.lScaleModVal,params.l_scale+params.lScaleModVal);
@@ -307,8 +311,8 @@ void vboMeshObj::draw(){
                     shader.end();
                     
                     glPopMatrix();
-                    
                 }
+              
                 
                 if(params.mirrored){
                     for(int i=params.l_copies-1;i>-1;i--){
@@ -319,12 +323,20 @@ void vboMeshObj::draw(){
                         
                         glTranslatef(params.l_trans.x+params.lTransModVal.x, params.l_trans.y+params.lTransModVal.y, params.l_trans.z+params.lTransModVal.z+params.mirror_distance);
                         
-                        
+                        /*
                         glScalef(params.mirrorX ? params.l_scale+params.lScaleModVal : -(params.l_scale+params.lScaleModVal),
                                  params.mirrorY ? params.l_scale+params.lScaleModVal : -(params.l_scale+params.lScaleModVal),
                                  params.mirrorZ ? params.l_scale+params.lScaleModVal : -(params.l_scale+params.lScaleModVal)
                                  );
+                        */
                         
+                        float LSX = params.mirrorX ? params.l_scale : -(params.l_scale);
+                        float LSY = params.mirrorY ? params.l_scale : -(params.l_scale);
+                        float LSZ = params.mirrorZ ? params.l_scale : -(params.l_scale);
+                        
+                        glScalef(LSX,LSY,LSZ);
+                        
+                         
                         shader.begin();
                         shader.setUniformTexture("tMatCap", matCap, 1);
                         
@@ -368,17 +380,93 @@ void vboMeshObj::update(){
                             //update the frame on the instance
                             instances[i].frame = linearTweens[i].update();
                             
+                            //WHEN THE TWEEN IS DONE, DO...
                             if(linearTweens[i].isCompleted()){
-                            
-                                instances[i].isTweening = false;
-                                if(params.playNoteOff){
-                                    //If playing noteOn AND noteOff continue.
-                                    ofLogNotice("OSC") << i << " - PauseAt(" << instances[i].frame << ")";
+                                
+                                //20190126 -- temporarily setup to test
+                                if(instances[i].ADSRtween){
                                     
-                                    //only play if it's the noteOff side of the message.
-                                    if(instances[i].midiState == 0){//<--set in noteOff
+                                    switch (instances[i].ADSRstate) {
+                                        case 0:
+                                            //cout << "buffer ADSR state: OFF" << endl;
+                                            
+                                            break;
+                                        
+                                        case 1:
+                                            //cout << "buffer ADSR state: ATTACK" << endl;
+                                            instances[i].frame = params.ADSR[1];
+                                            
+                                            //kick off the DECAY
+                                            linearTweens[i].setParameters(11+i,easinglinear, ofxTween::easeOut,params.ADSR[1],params.ADSR[2],instances[i].durDecay,0);
+                                            
+                                            //start up the tween again
+                                            instances[i].isTweening = true;
+                                            instances[i].ADSRstate = 2;
+                                            break;
+                                        
+                                        case 2:
+                                            //cout << "buffer ADSR state: DECAY" << endl;
+                                            instances[i].frame = params.ADSR[2];
+                                            instances[i].isTweening = false;
+                                            instances[i].ADSRstate = 3;
+                                            
+                                            break;
+                                        
+                                        case 3:
+                                            //cout << "buffer ADSR state: SUSTAIN" << endl;
+                                            
+                                            break;
+                                        
+                                        case 4:
+                                            //cout << "buffer ADSR state: RELEASE" << endl;
+                                            instances[i].frame = params.ADSR[0];
+                                            instances[i].isTweening = false;
+                                            instances[i].ADSRstate = 0;
+                                            break;
+                                            
+                                        default:
+                                            break;
+                                    }
+                                    
+                                    
+                                    /*
+                                    if(instances[i].midiState == 1){
+                                        instances[i].frame = 60;
+                                    } else if (instances[i].midiState == 0){
+                                        instances[i].frame = 0;
+                                    }
+                                    
+                                    instances[i].isTweening = false;
+                                    */
+                                    
+                                } else {
 
-                                        //at what level do you want to reset?
+                                    instances[i].isTweening = false;
+                                
+                                    if(params.playNoteOff == 1){
+                                        //If playing noteOn AND noteOff continue.
+                                        ofLogNotice("OSC") << i << " - PauseAt(" << instances[i].frame << ")";
+                                        
+                                        //only play if it's the noteOff side of the message.
+                                        if(instances[i].midiState == 0){//<--set in noteOff
+
+                                            //at what level do you want to reset?
+                                            if(params.type == "one-shot"){
+                                                resetBufferInstance(i,"one-shot");
+                                            } else if (params.type == "sequence"){
+                                                if(instances[i].currentSegment == params.numOfSeg-1){
+                                                    resetBufferInstance(i,"one-shot");
+                                                } else {
+                                                    resetBufferInstance(i,"sequence");
+                                                }
+                                            } else {
+                                                //nothing in here for now
+                                            }
+                                        }//end if .midiState
+                                    
+                                    } else if (params.playNoteOff == 0){
+                                        //ONLY noteOn was triggered.
+                                         //at what level do you want to reset?
                                         if(params.type == "one-shot"){
                                             resetBufferInstance(i,"one-shot");
                                         } else if (params.type == "sequence"){
@@ -390,28 +478,9 @@ void vboMeshObj::update(){
                                         } else {
                                             //nothing in here for now
                                         }
-                                    }//end if .midiState
-                                
-                                } else {
-                                    //ONLY noteOn was triggered.
-                                     //at what level do you want to reset?
-                                    if(params.type == "one-shot"){
-                                        resetBufferInstance(i,"one-shot");
-                                    } else if (params.type == "sequence"){
-                                        if(instances[i].currentSegment == params.numOfSeg-1){
-                                            resetBufferInstance(i,"one-shot");
-                                        } else {
-                                            resetBufferInstance(i,"sequence");
-                                        }
-                                    } else {
-                                        //nothing in here for now
-                                    }
-                                    
-                                }//if .playNoteOff
-                                
-                                
-                                
-                                
+                                        
+                                    }//if .playNoteOff
+                                }//if .ADSRtween
                             }//if linearTweens[i].isCompleted()
                             break;
                     }
@@ -556,7 +625,12 @@ void vboMeshObj::update(){
     //sets the button a color when a osc message is recieved.
     setIndicator();
 
-
+    if(params.saveChannel){
+        channelFrameCounter ++;
+    } else {
+        channelFrameCounter = 0;
+    }
+    
 }
 
 //--------------------------------------------------------------
@@ -1019,6 +1093,15 @@ void vboMeshObj::guiEvent(ofxUIEventArgs &e)
         } else {
             params.still = false;
         }
+    
+    } else if(name == "MIRROR"){
+        cout << "mirrorX,Y,Z [" << params.mirrorX <<"," << params.mirrorY << "," << params.mirrorZ << "]" << endl;
+    } else if(name == "mirror x"){
+        cout << "mirrorX:" << params.mirrorX << endl;
+    } else if(name == "mirror y"){
+        cout << "mirrorY:" << params.mirrorY << endl;
+    } else if(name == "mirror z"){
+        cout << "mirrorZ:" << params.mirrorZ << endl;
     } else if(name == "TEST"){
         ofxUIButton *testbut = (ofxUIButton *) e.widget;
         if(testbut->getValue()){
@@ -1363,6 +1446,69 @@ void vboMeshObj::tweenPlayInstance(int _buffer, int _tweenType, int _start, int 
     
 }
 
+
+//--------------------------------------------------------------
+void vboMeshObj::setupChannelRender(int track){
+    
+    //no time to figure this out.
+    /*
+    string filename = "";
+    switch(track){
+        case 1:
+            filename = "out/output_channel"+ofToString(track)+".txt";
+            ch1.open(filename,ofFile::WriteOnly);
+            break;
+        case 2:
+            filename = "out/output_channel"+ofToString(track)+".txt";
+            ch2.open(filename,ofFile::WriteOnly);
+            break;
+        case 3:
+            filename = "out/output_channel"+ofToString(track)+".txt";
+            ch3.open(filename,ofFile::WriteOnly);
+            break;
+        case 4:
+            filename = "out/output_channel"+ofToString(track)+".txt";
+            ch4.open(filename,ofFile::WriteOnly);
+            break;
+        
+    }
+    */
+    
+    //right now i'm just appending to the file. You need to clear this every time.
+    string filename = "out/output_channels.txt";
+    channelRenderFile.open(filename,ofFile::Append);
+    
+}
+
+
+//--------------------------------------------------------------
+void vboMeshObj::logChannelData(){
+    //log all the frames for track to the channelData vector
+    string data = ofToString(channelFrameCounter) + " ";
+    for(int i=0;i<(params.l_copies);i++){
+        data += ofToString(instances[i].frame)+" ";
+    }
+    channelData.push_back(data);
+}
+
+
+//--------------------------------------------------------------
+void vboMeshObj::writeChannelData(int track){
+    //output the frames to the console window.
+    
+    cout << "//" << ofGetTimestampString() << "--------------------------------------------------------------" << endl;
+    cout << "//Channel Data Track: " << track << endl;
+    
+    channelRenderFile << "//" << ofGetTimestampString() << "--------------------------------------------------------------" << endl;
+    channelRenderFile << "//Channel Data Track: " << track << endl;
+    
+    params.saveChannel = false;
+    for(auto &line : channelData){
+        //spit out line by line in console.
+        cout << line << endl;
+        channelRenderFile << line << endl;
+    }
+}
 
 
 //--------------------------------------------------------------

@@ -67,6 +67,9 @@ public:
         int lbeat = -1;//last beat
         int nbeat = -1;//current beat
         int duration = 250;//delete me
+        
+        bool renderTrackChan = false;
+        bool isRenderingChan = false;
     };
     
     struct tlData {
@@ -83,6 +86,7 @@ public:
         bool drive = false;
         bool render = false;
         bool chan = false; //"CHAN"
+        
         bool playing = false;
         
     } TL;                                           //change to TL

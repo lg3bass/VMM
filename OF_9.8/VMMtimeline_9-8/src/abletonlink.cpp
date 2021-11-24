@@ -100,16 +100,13 @@ void abletonLinkEngine::blinkingBottomBar(float _top, float _bottom){
     for (int i = 0; i < quantum; i++){
         ofPushStyle();
         
-            //turn the bar red if recording
-            if(abletonLinkEngine2MainApp->timePanel.isRendering) {
-                barBG = ofColor::red;
-            } else {
-                barBG = ofColor(255);
-            }
         
+            if(abletonLinkEngine2MainApp->timePanel.isRendering) {
+            //turn the bar red if recording
+                barBG = ofColor(255,0,0);
+            } else if (abletonLinkEngine2MainApp->timePanel.data.TL.tracks[0].isRenderingChan){
             //turn the bar blue if recording chan file.
-            if(abletonLinkEngine2MainApp->timePanel.isRenderingChan) {
-                barBG = ofColor::blue;
+                barBG = ofColor(0,0,255);
             } else {
                 barBG = ofColor(255);
             }

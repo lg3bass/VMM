@@ -466,18 +466,32 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         
         ofLogVerbose("RENDER") << m.getAddress() << " track:" << m.getArgAsInt32(0) << " clip:" << m.getArgAsInt32(1) << "-" << (((ofApp*)ofGetAppPtr())->saveImgFrame ? "Render START" : "Render END");
     
+    } else if (m.getAddress() == "/renderChanFile"){
+        
+        ofLogVerbose("CHANNEL") << "/renderChanFile " << m.getArgAsInt(0) << " " << m.getArgAsInt(1);
+        tracks[idx].setupChannelRender(idx);
+        
+    
     } else if (m.getAddress() == "/renderChan"){
+        
+        //ofLogVerbose("CHANNEL") << "/renderChan " << m.getArgAsInt(0) << " " << m.getArgAsInt(1);
         
         if(m.getArgAsInt32(1) > 0){
             
-            ofLogVerbose("RENDER") << "Output Channel frames 0-"<<m.getArgAsInt(1);
-            ((ofApp*)ofGetAppPtr())->saveChannelFrame = true;
+            ofLogVerbose("CHANNEL") << "LOG FRAMES ON TRACK: " << idx << " - RANGE[0-" << m.getArgAsInt(1) << "]";
+            //((ofApp*)ofGetAppPtr())->saveChannelFrame = true;
+            tracks[idx].params.saveChannel = true;
             
+        } else if (m.getArgAsInt32(1) == 0){
             
-        } else {
+            ofLogVerbose("CHANNEL") << "STOP LOGGING FRAMES ON TRACK: " << idx;
+            //((ofApp*)ofGetAppPtr())->saveChannelFrame = false;
+            //((ofApp*)ofGetAppPtr())->channelFrameCounter = 0;
+            tracks[idx].params.saveChannel = false;
+            tracks[idx].writeChannelData(idx);
             
-            ((ofApp*)ofGetAppPtr())->saveChannelFrame = false;
-            ((ofApp*)ofGetAppPtr())->channelFrameCounter = 0;
+            //close the channel_output.txt
+            tracks[idx].channelRenderFile.close();
             
         }
         
@@ -516,12 +530,66 @@ void oscRouter::processOSCmessage(ofxOscMessage &m, vector<vboMeshObj> &tracks, 
         tracks[idx].trackParameters.setOSCdial(tracks[idx].params, "/setGlobalTransX", ofMap(m.getArgAsFloat(0),0,1,-50,50));
         tracks[idx].trackParameters.setOSCdial(tracks[idx].params, "/setGlobalTransY", ofMap(m.getArgAsFloat(1),0,1,-50,50));
         tracks[idx].trackParameters.setOSCdial(tracks[idx].params, "/setGlobalTransZ", ofMap(m.getArgAsFloat(2),0,1,-50,50));
+    
+    } else if (m.getAddress() == "/vmmNotesTrigger"){
+        //POC for the future state of VMM.  
         
         
+        int buffer = m.getArgAsInt32(1);
+        int nID = buffer+1;
+        
+        tracks[idx].instances[buffer].ADSRtween = true;
+        tracks[idx].instances[buffer].isTweening = false;  //** might need this one.
+        tracks[idx].instances[buffer].noteID = nID;
+        
+        if(m.getArgAsInt32(2) == 1){
+            //noteOn
+            tracks[idx].instances[buffer].midiState = 1;
+            tracks[idx].instances[buffer].ADSRstate = 1; //set to ATTACK
+            tracks[idx].instances[buffer].durAttack = m.getArgAsFloat(3);
+            tracks[idx].instances[buffer].durDecay = m.getArgAsFloat(4);
+            
+            float attackDuration = m.getArgAsFloat(3);
+            int attack = tracks[idx].params.ADSR[1];
+            
+            tracks[idx].linearTweens[buffer].setParameters(11+buffer,tracks[idx].easinglinear, ofxTween::easeOut,0,attack,attackDuration,0);
+            tracks[idx].instances[buffer].isTweening = true;
+            
+            ofLogVerbose("OSC") << m.getAddress() <<
+            "ON - isTweening: " << tracks[idx].instances[m.getArgAsInt32(1)].isTweening <<
+            " [track:" << m.getArgAsInt32(0) <<
+            ", buffer:" << m.getArgAsInt32(1) <<
+            ", noteON/OFF:" << m.getArgAsInt32(2) <<
+            ", attack:" << m.getArgAsFloat(3) <<
+            ", decay:" << m.getArgAsFloat(4) <<
+            "]";
+            
+        } else if (m.getArgAsInt32(2) == 0){
+            //noteOff
+            tracks[idx].instances[buffer].midiState = 0;
+            tracks[idx].instances[buffer].ADSRstate = 4;  //SET TO RELEASE
+            tracks[idx].instances[buffer].durRelease = m.getArgAsFloat(3);
+            
+            float releaseDuration = m.getArgAsFloat(3);
+            int sustain = tracks[idx].params.ADSR[2];
+            int release = tracks[idx].params.ADSR[3];
+            
+            tracks[idx].linearTweens[buffer].setParameters(11+buffer,tracks[idx].easinglinear, ofxTween::easeOut,sustain,release,releaseDuration,0);
+            tracks[idx].instances[buffer].isTweening = true;
+            
+            ofLogVerbose("OSC") << m.getAddress() <<
+            "OFF - isTweening: " << tracks[idx].instances[m.getArgAsInt32(1)].isTweening <<
+            " [track:" << m.getArgAsInt32(0) <<
+            ", buffer:" << m.getArgAsInt32(1) <<
+            ", noteON/OFF:" << m.getArgAsInt32(2) <<
+            ", release:" << m.getArgAsFloat(3) <<
+            "]";
+
+        }
+       
     } else {
         
         ofLogVerbose("OSC") << m.getAddress() << " " << m.getArgAsInt32(0) << " " << m.getArgAsFloat(1);
-        
     }
     
     

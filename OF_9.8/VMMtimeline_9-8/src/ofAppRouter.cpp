@@ -24,8 +24,16 @@ void ofApp::renderAnimation(){
 //--------------------------------------------------------------
 void ofApp::renderChanFile(){
     cout << "CREATING A CHAN FILE FOR HOUDINI" << endl;
-    OSCsendFloatToVMM(0, "/renderChanFile", 0.01);
-    timePanel.renderChan = true;
+    
+    for(int t=0;t<NUMBER_OF_TRACKS;t++){
+        if(timePanel.tracks.timelines[t]->getIsPlaying()){
+            OSCsendFloatToVMM(t, "/renderChanFile", 0.01);
+            timePanel.data.TL.tracks[t].renderTrackChan = true;
+        }
+    }
+
+    //global renderChan
+    //timePanel.renderChan = true;
     
 }
 

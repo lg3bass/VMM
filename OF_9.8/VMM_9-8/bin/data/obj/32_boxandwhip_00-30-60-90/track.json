@@ -12,6 +12,7 @@
 	"objSeq-segLen" : 90,
 	"objSeq-numOfSeg" : 1,
 	"objSeq-still" : 30,
+	"objSeq-ADSR" : [0, 30, 60, 90],
 	"matCap-img" : "silver.jpg",
 	"matCap-shader" : "sem",
 	"scene" : {

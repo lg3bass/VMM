@@ -68,6 +68,7 @@ struct guiParams {
     vector<int> durrationPoints;
     vector<int> midpointCues;
     vector<int> segmentLengths;
+    vector<int> ADSR;
     int stillFrame;
     int totalFrames;
     int testSpeed;//speed
@@ -136,6 +137,11 @@ struct guiParams {
     ofVec3f oRotateMod;
     ofVec3f oRotateModVal;
     ofVec3f lastObjRot;
+    
+    //save channels
+    bool saveChannel;
+
+    
     
 };
 

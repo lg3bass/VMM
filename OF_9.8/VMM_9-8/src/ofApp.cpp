@@ -20,6 +20,7 @@ void ofApp::setup(){
     ofSetLogLevel("objloader", OF_LOG_ERROR);//DEFAULT: OF_LOG_NOTICE
     ofSetLogLevel("LINK", OF_LOG_SILENT);
     ofSetLogLevel("RENDER",OF_LOG_VERBOSE);//DEFAULT: OF_LOG_VERBOSE
+    ofSetLogLevel("CHANNEL",OF_LOG_VERBOSE);//DEFAULT: OF_LOG_VERBOSE
     
     //SYPHON
     //----------------------------------------------------------
@@ -100,6 +101,8 @@ void ofApp::setup(){
     //save channel file for Houdini
     channelFrameCounter = 0;
     
+
+    
 }
 
 //--------------------------------------------------------------
@@ -114,44 +117,50 @@ void ofApp::update(){
     for(int t=1; t<NUM_TRACKS;t++){
         //update all the tracks
         tracks[t].update();
-        
     }
+    
+    
     
     //process ALL incoming OSC
     OSChandler();
     
     //save frames.
     if(saveImgFrame){
-        
-        //render.grabScreen(0,0,ofGetWidth(),ofGetHeight());
-        
-        //string fileName = "render_"+ofToString(10000+renderFrameCounter)+".png";
-        //render.saveImage(fileName);
-        
         //method one peg to frame rate
         ++renderFrameCounter;
-        //cout << "render fr: " << ofToString(renderFrameCounter) << endl;
-        
     }
     
-    //channel frames
+
+    
+    //save channels
+    for(int s=1; s<NUM_TRACKS;s++){
+        if(tracks[s].params.saveChannel){
+            //write the channel data.
+            tracks[s].logChannelData();
+        }
+    }
+    
+    /*
+    //save channels
     if(saveChannelFrame){
         
         ++channelFrameCounter;
-        cout << "channel fr: " << ofToString(channelFrameCounter) << endl;
+        cout << "channel fr: " << ofToString(channelFrameCounter);
         //TODO: Write out my chan file data by looping through the Tracks and Buffers.
         
-        for(int t=1; t<NUM_TRACKS;t++){
-
-            cout << ofToString(tracks[t].instances[0].frame) << endl;;
-
+        for(int i=0;i<13;i++){
+            
+            cout << " " << tracks[1].instances[i].frame;
         }
+        cout << endl;
+
     }
+    */
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofSetWindowTitle("fps: "+ofToString(ofGetFrameRate())+" - "+ofToString(ofGetWidth())+","+ofToString(ofGetHeight())+"easyCam:"+ofToString(modkey));
+    ofSetWindowTitle("fps: "+ofToString(ofGetFrameRate())+" - "+ofToString(ofGetWidth())+","+ofToString(ofGetHeight())+" easyCam: "+ofToString(cam.getDistance()));
     
     ofDrawBitmapString("SELECTED TRACK: "+ofToString(selectedTrack), 1200,10);
     
@@ -334,6 +343,8 @@ void ofApp::keyPressed(int key){
     if(key == ' '){
         //example: go to the center of the boxes.
         //cam.setPosition(myObjSeq.vboMeshSequence1[14].getCentroid());
+        cam.setDistance(1000);
+        //cam.setFov(0.0);
         
     }
     
@@ -385,6 +396,18 @@ void ofApp::keyPressed(int key){
         
         cout << "frame rate: " << frmRate << endl;
         ofSetFrameRate(frmRate);
+    }
+    
+    if(key=='r'){
+        //reset parameters
+        for(auto & track : tracks){
+            
+            track.params.mirror_distance = 0;
+            track.params.l_trans = ofVec3f(0.0,0.0,0.0);
+            track.params.o_rotate = ofVec3f(0.0,0.0,0.0);
+            
+        }
+        
     }
     
     
@@ -462,6 +485,11 @@ void ofApp::keyReleased(int key){
         
         saveChannelFrame = false;
         channelFrameCounter = 0;
+        
+        for(auto & track : tracks){
+            track.params.saveChannel = false;
+            track.channelFrameCounter = 0;
+        }
     }
     
 }

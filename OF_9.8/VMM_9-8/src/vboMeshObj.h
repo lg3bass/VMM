@@ -34,6 +34,8 @@ class vboMeshObj {
     //------------------------------------
     //ALL OF THE INSTANCES (move to class)
     struct instance {
+        
+        
         bool cued2play;
         bool isPlaying;
         bool isTweening;
@@ -52,6 +54,14 @@ class vboMeshObj {
         int direction; //forward=1, reverse=2;
         int duration;
         int clockedDurration;
+        
+        //20190126 temporary differentiation
+        bool ADSRtween;
+        int ADSRstate; //0-4 (off,A,D,S,R)
+        float durAttack;
+        float durDecay;
+        float durSustain;
+        float durRelease;
         
         
     };
@@ -139,6 +149,8 @@ class vboMeshObj {
     ofxUICanvas* gui;
     //ofxUICanvas* gui2;
 
+    //saveChannels
+    vector<string> channelData;
     
     void setup(int _input);
     void loadTrackData(int _index);
@@ -179,6 +191,17 @@ class vboMeshObj {
     void play(int _buffer, int _noteID, int _duration, int _tweenType);
     void noteOff(int _noteId, int _durration);
     void tweenPlayInstance(int _buffer, int _tweenType, int _start, int _end, int _duration, int _delay);
+    
+    //channel data
+    //not used yet.
+    //ofFile ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8,ch9,ch10;
+    
+    ofFile channelRenderFile;
+    string channelRenderFilename;
+    void setupChannelRender(int track);
+    int channelFrameCounter = 0;
+    void logChannelData();
+    void writeChannelData(int track);
     
     void exit();
     

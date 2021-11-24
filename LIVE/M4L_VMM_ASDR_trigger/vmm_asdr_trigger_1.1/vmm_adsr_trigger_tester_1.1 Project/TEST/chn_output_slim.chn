@@ -1,0 +1,85 @@
+ACHN 2
+start = 0
+end = 20.0
+/obj/null {
+	channel null {
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 1.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 1.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 2
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 3.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 1
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 3
+			value = 0 0
+			expr = linear()
+		}
+	}
+}

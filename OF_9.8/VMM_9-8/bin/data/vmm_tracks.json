@@ -1,4 +1,40 @@
 {
+	"track0" : {
+		"index" : 0,
+		"objSeq-basefilename" : "00_axes_framecount_100",
+		"objSeq-type" : "one-shot",
+		"objSeq-playRandom" : false,
+		"objSeq-noteEvents" : "both",
+		"objSeq-cues" : [ 30 ],
+		"objSeq-segmentLengths" : [ 30 ],
+		"objSeq-midpoint-cues" : [ 15 ],
+		"objSeq-durations" : [ 600 ],
+		"objSeq-files" : 100,
+		"objSeq-segLen" : 30,
+		"objSeq-numOfSeg" : 1,
+		"objSeq-still" : 10,
+		"matCap-img" : "red_bob.jpg",
+		"matCap-shader" : "sem",
+		"scene" : {
+			"global" : {
+				"g-copies" : 1,
+				"g-scale" : [ 1.0, 1.0, 1.0],
+				"g-rotate" : [0.0, 0.0, 0.0],
+				"g-trans" : [0.0, 0.0, 0.0]
+			},
+			"local" : {
+				"l-copies" : 1,
+				"l-scale" : [ 1.0, 1.0, 1.0],
+				"l-rotate" : [0.0, 0.0, 0.0],
+				"l-trans" : [0.0, 0.0, 0.0]
+			},
+			"animation" : {
+				"spin" : [0.0, 0.0, 0.0],
+				"spin-rate" : 10.0,
+				"fft" : false
+			}
+		}
+	},
 	"track1" : {
 		"index" : 1,
 		"objSeq-basefilename" : "01_bandTube01_OBJ_Seq",

@@ -59,7 +59,7 @@ void trackParams::setDefault(guiParams &params){
     //global
     params.g_copies = 1;
     params.gScale = false;
-    params.g_scale = 10.0;
+    params.g_scale = 20.0;
     params.gScaleMod = 0.0;
     params.gScaleModVal = 0.0;
     params.gTransX = false;
@@ -82,7 +82,7 @@ void trackParams::setDefault(guiParams &params){
     params.l_copies = 12;
     params.l_slices = 2;
     params.lScale = false;
-    params.l_scale = 1.0;
+    params.l_scale = 10.0;
     params.lScaleMod = 0.0;
     params.lScaleModVal = 0.0;
 
@@ -112,7 +112,8 @@ void trackParams::setDefault(guiParams &params){
     params.oRotateModVal = ofVec3f(0.0,0.0,0.0);
     params.lastObjRot = ofVec3f(0.0,0.0,0.0);
     
-    
+    //save channels
+    params.saveChannel = false;
     
 }
 

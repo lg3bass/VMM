@@ -1,0 +1,277 @@
+ACHN 2
+start = 0
+end = 20.0
+/obj/null {
+	channel null {
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 0 30
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 30 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.2
+			value = 60 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.09
+			value = 60 90
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.01
+			value = 90 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 1.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 0 30
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 30 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.2
+			value = 60 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.09
+			value = 60 90
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.01
+			value = 90 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 1.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 0 30
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 30 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.2
+			value = 60 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.09
+			value = 60 90
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.01
+			value = 90 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 0 30
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 30 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.2
+			value = 60 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.09
+			value = 60 90
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.01
+			value = 90 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 0 30
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 30 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.2
+			value = 60 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.09
+			value = 60 90
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.01
+			value = 90 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 0 30
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 30 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.2
+			value = 60 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.09
+			value = 60 90
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.01
+			value = 90 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 2
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 0 30
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 30 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 3.2
+			value = 60 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.09
+			value = 60 90
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.01
+			value = 90 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.5
+			value = 0 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 0 30
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.1
+			value = 30 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.7
+			value = 60 60
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.09
+			value = 60 90
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 0.01
+			value = 90 0
+			expr = linear()
+		}
+		segment {
+			options = {	 untie  is os ia oa }
+			length = 3
+			value = 0 0
+			expr = linear()
+		}
+	}
+}

@@ -123,34 +123,53 @@ void TimelinePanel::runTimelines(int _track){
                     ofLogNotice("LINKFLIP") << "tick - " << lastBeat << "|" << currentBeat
                                             << " >>>>  measureCount(FLIP): " << data.TL.tracks[_track].measureCount
                                             << "(" << tracks.timelines[_track]->getCurrentFrame() << ")" << " - track " << _track;
+
+
                     //RENDER
+                    //NOTE: the rendering duration is only determined by the first track.
+                    //NOTE: Rendering only runs if the first track is playing.
                     if(isRendering){
-                        isRendering = false;
-                        ofLogNotice("RENDER") << "isRendering:" << isRendering;
-                        bMainApp->OSCsendIntToVMM(_track,"/render",0);
-                    };
+                        if(_track == 0){
+                            render = false;
+                            isRendering = false;
+                            bMainApp->OSCsendIntToVMM(0,"/render",0);
+                            ofLogNotice("RENDER") << "isRendering: " << isRendering << ", render: " << render;
+                        }
+                    }
                     
                     if(render){
-                        ofLogNotice("RENDER") << "/render " << data.getClipDuration(_track);
-                        bMainApp->OSCsendIntToVMM(_track,"/render",data.getClipDuration(_track));
-                        render = false;
-                        isRendering = true;
-                        ofLogNotice("RENDER") << "isRendering:" << isRendering;
+                        //only do this on the first track
+                        if(_track == 0){
+                            
+                            bMainApp->OSCsendIntToVMM(_track,"/render",data.getClipDuration(_track));
+                            ofLogNotice("RENDER") << "/render " << data.getClipDuration(_track);
+                            isRendering = true;
+                            ofLogNotice("RENDER") << "isRendering:" << isRendering;
+                        }
                     }
                     
                     //"CHAN"
-                    if(isRenderingChan){
-                        isRenderingChan = false;
-                        ofLogNotice("CHAN") << "isRenderingChan:" << isRenderingChan;
+                    
+                    if(data.TL.tracks[_track].isRenderingChan){
+                        data.TL.tracks[_track].renderTrackChan = false;
+                        data.TL.tracks[_track].isRenderingChan = false;
+                        ofLogNotice("CHAN") << "Track " << _track << " - isRenderingChan:" << data.TL.tracks[_track].isRenderingChan;
                         bMainApp->OSCsendIntToVMM(_track,"/renderChan",0);
+                        
                     }
                     
-                    if(renderChan){
-                        ofLogNotice("CHAN") << "/renderChan " << data.getClipDuration(_track);
+                    //data.TL.tracks[_track].renderTrackChan;
+                    
+                    if(data.TL.tracks[_track].renderTrackChan){
+                        ofLogNotice("CHAN") << "Track " << _track << " - /renderChan " << data.getClipDuration(_track);
                         bMainApp->OSCsendIntToVMM(_track,"/renderChan",data.getClipDuration(_track));
-                        renderChan = false;
-                        isRenderingChan = true;
-                        ofLogNotice("CHAN") << "isRenderingChan:" << isRendering;
+                        data.TL.tracks[_track].isRenderingChan = true;
+                        
+                        
+                        //renderChan = false;
+                        //isRenderingChan = false;
+                        //ofLogNotice("CHAN") << "renderTrackChan:" << data.TL.tracks[_track].renderTrackChan;
+                        //ofLogNotice("CHAN") << "isRenderingChan:" << isRendering;
                     }
                 
                 } else {
